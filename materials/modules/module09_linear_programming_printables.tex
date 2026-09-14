@@ -1,0 +1,220 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=0.68in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\usepackage{tabularx,array,booktabs}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+
+\definecolor{olive}{HTML}{4D5430}
+\definecolor{gold}{HTML}{9A7B22}
+\definecolor{pale}{HTML}{F5F1DC}
+\definecolor{softgreen}{HTML}{EDF0E2}
+\definecolor{softgray}{HTML}{F5F5F2}
+\definecolor{ink}{HTML}{292D20}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textcolor{olive}{MATH\& 107: Math in Society}}
+\rhead{\textcolor{gold}{Fall 2026}}
+\cfoot{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlist[enumerate]{leftmargin=*,itemsep=7pt,topsep=5pt}
+\setlist[itemize]{leftmargin=1.35em,itemsep=3pt,topsep=3pt}
+
+\newtcolorbox{keybox}[1]{colback=pale,colframe=olive,boxrule=0.8pt,arc=2mm,title=\textbf{#1},fonttitle=\color{olive},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+\newtcolorbox{examplebox}[1]{colback=softgreen,colframe=gold,boxrule=0.8pt,arc=2mm,title=\textbf{#1},fonttitle=\color{ink},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+\newtcolorbox{refbox}[1]{colback=softgray,colframe=gold,boxrule=0.7pt,arc=2mm,title=\textbf{#1},fonttitle=\color{ink},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+
+\newcommand{\summaryhead}[2]{%
+  \clearpage
+  {\Large\bfseries\textcolor{olive}{Module #1: #2 — Summary}}\par
+  \vspace{2pt}\textcolor{gold}{\rule{\linewidth}{1.2pt}}\par\smallskip
+}
+\newcommand{\prequizhead}[2]{%
+  \clearpage
+  {\Large\bfseries\textcolor{olive}{Module #1: #2 — Prequiz}}\par
+  \textit{Open-note. Show your mathematical work. A calculation and a clearly stated final answer are enough unless a sentence is specifically requested.}\par
+  Name: \hspace{2.6in} Date: \hspace{1.1in}\par
+  \vspace{2pt}\textcolor{gold}{\rule{\linewidth}{1.2pt}}\par\smallskip
+}
+\newcommand{\quizhead}[2]{%
+  \clearpage
+  {\Large\bfseries\textcolor{olive}{Module #1: #2 — Matching Quiz}}\par
+  \textit{These problems use the same skills as the prequiz, with new values and contexts. Show enough work to make your reasoning visible.}\par
+  Name: \hspace{2.6in} Date: \hspace{1.1in}\par
+  \vspace{2pt}\textcolor{gold}{\rule{\linewidth}{1.2pt}}\par\smallskip
+}
+\newcommand{\worksmall}{\par\vspace{0.38in}}
+\newcommand{\workmed}{\par\vspace{0.62in}}
+\newcommand{\worklarge}{\par\vspace{0.92in}}
+\newcommand{\workxl}{\par\vspace{1.22in}}
+\newcommand{\choice}[1]{\(\square\)~#1\qquad}
+
+\begin{document}
+\summaryhead{9}{Linear Programming}
+
+\textbf{What this module is about.} Linear programming turns a real decision problem into a mathematical model. The variables describe the choices we control. Constraints describe what is allowed. The objective function describes what we want to make as large or as small as possible. Convex geometry from Module 8 supplies the method: find the feasible vertices, evaluate the objective at them, and compare.
+
+\begin{keybox}{The four parts of a linear program}
+A two-variable linear program contains:
+\begin{enumerate}[label=\arabic*.]
+\item \textbf{Decision variables}: quantities being chosen, such as acres of two crops.
+\item \textbf{Constraints}: linear inequalities representing limited resources or minimum requirements.
+\item \textbf{Objective}: a linear expression such as profit or cost.
+\item \textbf{Direction}: maximize or minimize the objective.
+\end{enumerate}
+Unless negative quantities make sense in context, include \(x\ge0\) and \(y\ge0\).
+\end{keybox}
+
+\begin{examplebox}{Example 1: Translate a farming problem}
+A farmer plants corn \((x\) acres\()\) and soybeans \((y\) acres\()\). Corn uses \(3\) labor-hours per acre and earns \(\$200\) profit per acre. Soybeans use \(2\) labor-hours per acre and earn \(\$150\) profit per acre. At most \(120\) labor-hours and \(50\) acres of land are available.
+
+The model is
+\[
+3x+2y\le120\qquad\text{(labor)},
+\]
+\[
+x+y\le50\qquad\text{(land)},
+\]
+\[
+x\ge0,\quad y\ge0,
+\]
+with objective
+\[
+\text{maximize }P=200x+150y.
+\]
+Words such as \emph{at most} produce \(\le\) constraints. Minimum requirements often produce \(\ge\) constraints.
+\end{examplebox}
+
+\begin{keybox}{Solving a linear program}
+\begin{enumerate}[label=\arabic*.]
+\item Write the variables, constraints, objective, and direction.
+\item Determine the feasible region.
+\item Find all feasible vertices.
+\item Evaluate the objective at every vertex.
+\item Choose the largest value for maximization or smallest value for minimization.
+\item State the answer in the original context.
+\end{enumerate}
+\end{keybox}
+
+\begin{examplebox}{Example 2: Maximization at the vertices}
+Maximize
+\[
+f=5x+8y
+\]
+subject to
+\[
+x+2y\le16,
+\qquad
+3x+2y\le24,
+\qquad x,y\ge0.
+\]
+The feasible vertices are
+\[
+(0,0),\ (8,0),\ (4,6),\ (0,8).
+\]
+Evaluate:
+\[
+0,\quad40,\quad68,\quad64.
+\]
+The maximum is \(68\) at \((4,6)\).
+\end{examplebox}
+
+\begin{examplebox}{Example 3: Minimization with minimum requirements}
+Minimize \(C=3x+5y\) subject to
+\[
+x+y\ge8,
+\qquad
+2x+y\ge10,
+\qquad x,y\ge0.
+\]
+The feasible region extends away from the origin because the requirements say the variables must be large enough. Relevant boundary vertices are \((8,0),(2,6),(0,10)\). Their costs are
+\[
+24,\quad36,\quad50.
+\]
+The minimum is \(24\) at \((8,0)\).
+\end{examplebox}
+
+\textbf{Important modeling point.} A continuous linear program may produce a fractional solution. If the variables must represent whole objects or whole servings, the continuous optimum is a guide; nearby feasible integer points must then be checked separately.
+
+\prequizhead{9}{Linear Programming}
+\begin{refbox}{Workflow}
+Define variables \(\to\) write constraints \(\to\) write objective and direction \(\to\) find feasible vertices \(\to\) evaluate objective \(\to\) interpret the optimum.
+\end{refbox}
+
+\begin{enumerate}
+\item A farmer plants corn \((x\) acres\()\) and soybeans \((y\) acres\()\). Corn requires \(3\) labor-hours per acre and earns \(\$200\) profit per acre. Soybeans require \(2\) labor-hours per acre and earn \(\$150\) profit per acre. The farmer has at most \(120\) labor-hours and \(50\) acres of land.
+\begin{enumerate}[label=(\alph*),itemsep=4pt]
+\item Write the labor constraint.
+\item Write the land constraint.
+\item Write the nonnegativity constraints.
+\item Write the profit objective and state whether it should be maximized or minimized.
+\end{enumerate}
+\workxl
+
+\item Maximize
+\[
+f=5x+8y
+\]
+subject to
+\[
+x+2y\le16,
+\qquad 3x+2y\le24,
+\qquad x,y\ge0.
+\]
+The feasible vertices are \((0,0),(8,0),(4,6),(0,8)\). Evaluate \(f\) at all four vertices and identify the optimal point.
+\worklarge
+
+\item A cost problem has minimum requirements:
+\[
+x+y\ge8,
+\qquad 2x+y\ge10,
+\qquad x,y\ge0,
+\]
+and objective \(C=3x+5y\). The relevant boundary vertices are \((8,0),(2,6),(0,10)\). Evaluate the cost at each point and identify the minimum.
+\worklarge
+
+\item A feasible region has vertices
+\[
+(0,0),\ (4,0),\ (3,2),\ (0,5).
+\]
+Maximize \(f=3x+3y\).
+\begin{enumerate}[label=(\alph*),itemsep=4pt]
+\item Evaluate \(f\) at all four vertices.
+\item Which vertices are optimal?
+\item What can you conclude about the edge joining the two optimal vertices?
+\end{enumerate}
+\worklarge
+
+\item A nutrition problem produces a continuous optimum of \(x=2.4\) servings and \(y=1.7\) servings. The cafeteria can serve only whole servings. Explain what should be done next before choosing a practical solution.
+\workmed
+\end{enumerate}
+
+\quizhead{9}{Linear Programming}
+\begin{enumerate}
+\item A caterer makes sandwiches \((x)\) and salads \((y)\). Each sandwich uses \(2\) oz of bread and \(3\) oz of filling. Each salad uses \(1\) oz of bread and \(4\) oz of filling. The caterer has \(80\) oz of bread and \(150\) oz of filling. Sandwiches earn \(\$4\) and salads earn \(\$5\). Write the complete linear program, including objective direction.
+\workxl
+
+\item A feasible region has vertices \((0,0),(6,0),(4,5),(0,7)\). Maximize \(R=6x+7y\) by evaluating all four vertices.
+\worklarge
+
+\item A least-cost problem has objective \(C=5x+2y\) and feasible boundary vertices \((6,0),(3,6),(0,12)\). Evaluate the cost and identify the minimum.
+\workmed
+
+\item A linear objective takes the same maximum value at two adjacent vertices of a feasible polygon. What is true about the points on the edge joining those vertices?
+\workmed
+
+\item A factory's mathematical optimum is \(x=7.5\) machines and \(y=3\) machines. If only whole machines can be purchased, why is \((7.5,3)\) not yet a practical final answer, and what kind of points should be checked next?
+\workmed
+\end{enumerate}
+
+% =====================================================================
+% MODULE 10
+% =====================================================================
+\end{document}

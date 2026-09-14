@@ -1,0 +1,85 @@
+\documentclass[10pt]{article}
+\usepackage[letterpaper,margin=0.68in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\usepackage[most]{tcolorbox}
+\definecolor{olive}{HTML}{4D5430}
+\definecolor{gold}{HTML}{9A7B22}
+\definecolor{pale}{HTML}{F5F1DC}
+\definecolor{softgreen}{HTML}{EDF0E2}
+\pagestyle{fancy}\fancyhf{}\lhead{\textcolor{olive}{MATH\& 107 Answer Key}}\rhead{\textcolor{gold}{Fall 2026}}\cfoot{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\setlist[enumerate]{leftmargin=*,itemsep=5pt,topsep=4pt}
+\newtcolorbox{solbox}[1]{colback=pale,colframe=olive,boxrule=.7pt,arc=2mm,title=\textbf{#1},fonttitle=\color{olive},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+\newcommand{\modulekey}[2]{\clearpage{\Large\bfseries\textcolor{olive}{Module #1: #2 — Answer Key}}\par\textcolor{gold}{\rule{\linewidth}{1.2pt}}\par}
+\begin{document}
+\modulekey{1}{Number Systems}
+\textbf{Prequiz}
+\begin{enumerate}
+\item \(-35\) is an \textbf{integer}. It is not natural, and integers are contained in both the rationals and reals, so \(\mathbb Z\) is the smallest standard set listed that contains it.
+\item The trip is
+\[
+-6+10+(-14)=-10.
+\]
+The final position is \(\boxed{-10}\).
+\item Cross-products:
+\[
+6\cdot21=126,\qquad 9\cdot14=126,
+\]
+so the fractions are equivalent. Also,
+\[
+\frac69=\frac23,\qquad \frac{14}{21}=\frac23.
+\]
+\item A suitable recursion is
+\[
+H_0=800,\qquad H_{n+1}=H_n+120.
+\]
+After four years,
+\[
+H_4=800+4(120)=\boxed{1280}.
+\]
+\item
+\[
+B_0=800,\qquad B_{n+1}=1.10B_n.
+\]
+Then
+\[
+B_3=800(1.10)^3=\boxed{1064.8}.
+\]
+The \textbf{ratio} is constant: each year's value is \(1.10\) times the previous year's value.
+\end{enumerate}
+
+\textbf{Matching quiz}
+\begin{enumerate}
+\item \(-8\) is an \textbf{integer}.
+\item
+\[
+-3+11+(-6)=\boxed{2}.
+\]
+\item
+\[
+\frac8{12}=\frac23,\qquad \frac{18}{27}=\frac23,
+\]
+so the fractions are equivalent.
+\item
+\[
+H_0=1200,\qquad H_{n+1}=H_n+75,
+\]
+so
+\[
+H_5=1200+5(75)=\boxed{1575}.
+\]
+\item
+\[
+B_0=1200,\qquad B_{n+1}=1.05B_n,
+\]
+so
+\[
+B_2=1200(1.05)^2=\boxed{1323}.
+\]
+\end{enumerate}
+\end{document}

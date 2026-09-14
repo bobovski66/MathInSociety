@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 2 Laboratory — From Counts to Probability</title>
+<style>
+:root{--bg:#efefe4;--card:#fffdf3;--ink:#292d20;--muted:#6d705f;--line:#d9d5bd;--olive:#4d5430;--olive2:#697048;--gold:#b18a22;--goldsoft:#f1e6b2;--good:#657347;--bad:#965348;--shadow:0 12px 30px rgba(58,61,38,.10)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}a{color:var(--olive)}header{background:linear-gradient(135deg,var(--olive),#62693b);color:#fff;padding:24px 28px}header a{color:#f4eab9;text-decoration:none;font-weight:750}header h1{margin:10px 0 4px;font-size:clamp(1.8rem,4vw,2.7rem)}header p{margin:0;color:#e8e7d6;max-width:80ch}main{max-width:1160px;margin:auto;padding:24px 20px 70px}.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow);margin:16px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.kicker{text-transform:uppercase;letter-spacing:.11em;color:var(--gold);font-weight:850;font-size:.78rem}h2{margin:.15rem 0 .5rem;color:var(--olive)}h3{margin:.35rem 0 .55rem}.small,.muted{font-size:.92rem;color:var(--muted)}.callout{border-left:5px solid var(--gold);background:#faf3d4;padding:12px 14px;border-radius:10px}.task{border-top:1px solid var(--line);padding:16px 0}.task:first-of-type{border-top:0}label{font-weight:750}input,select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:#fffef8;color:var(--ink);font:inherit}.data{width:100%;border-collapse:collapse;margin-top:10px}.data th,.data td{padding:8px;border-bottom:1px solid var(--line);text-align:right}.data th:first-child,.data td:first-child{text-align:left}.data input{max-width:120px;text-align:right}.feedback{min-height:1.5em;margin-top:7px;font-weight:750}.good{color:var(--good)}.bad{color:var(--bad)}button{border:0;border-radius:10px;padding:9px 13px;font-weight:800;cursor:pointer;background:var(--olive);color:#fff}button.secondary{background:var(--gold);color:#211d0c}button.ghost{background:transparent;border:1px solid var(--line);color:var(--olive)}.progressbox{display:flex;align-items:center;gap:14px;justify-content:space-between;flex-wrap:wrap}.progressbar{height:12px;background:#e4e1cf;border-radius:999px;overflow:hidden;min-width:220px;flex:1}.progressbar>div{height:100%;background:linear-gradient(90deg,var(--olive2),var(--gold));width:0;transition:.25s}.pill{border:1px solid var(--line);background:var(--goldsoft);border-radius:999px;padding:6px 10px;font-weight:780}.scenario{border:1px solid var(--line);border-radius:14px;padding:13px;background:#fffef8}.chart{height:260px;border-left:2px solid var(--line);border-bottom:2px solid var(--line);display:flex;align-items:flex-end;gap:16px;padding:12px 18px 0;margin:14px 0 32px;background:#fffef8;border-radius:0 10px 0 0}.barcol{flex:1;height:100%;display:flex;align-items:flex-end;justify-content:center;position:relative}.bar{width:min(68px,72%);background:var(--olive2);border-radius:5px 5px 0 0;min-height:2px}.bar.gold{background:var(--gold)}.barcol .lab{position:absolute;bottom:-27px;font-size:.78rem;color:var(--muted);text-align:center}.barcol .val{position:absolute;bottom:calc(var(--h) + 4px);font-size:.78rem;font-weight:800;color:var(--olive)}@media(max-width:820px){.grid,.grid3{grid-template-columns:1fr}.chart{height:220px;gap:7px;padding-left:8px;padding-right:8px}}@media print{header{background:white;color:black;padding:0 0 12px}header a{display:none}header p{color:#444}.panel{box-shadow:none;break-inside:avoid}button{display:none}body{background:white}}
+
+
+/* Submission-friendly browser printing */
+.print-answer{display:none}
+.submission-panel .submission-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:end}
+.submission-panel .submission-help{margin:.35rem 0 .9rem;color:var(--muted)}
+.submission-panel .submission-name label{display:block;font-weight:750;margin-bottom:5px}
+.submission-panel .submission-name input{max-width:520px}
+.print-date{display:none}
+@media(max-width:760px){.submission-panel .submission-row{grid-template-columns:1fr}}
+@media print{
+  input,select,textarea{display:none!important}
+  .print-answer{display:inline-block!important;min-width:3.5em;max-width:100%;padding:3px 7px;border:1px solid #999;border-radius:5px;background:#fff;color:#000;font-weight:700;white-space:pre-wrap;overflow-wrap:anywhere;vertical-align:baseline}
+  td>.print-answer, .grid .print-answer, .grid3 .print-answer, .grid4 .print-answer, .scenario>.print-answer, label+.print-answer{display:block!important;width:100%;margin-top:4px}
+  .submission-panel{box-shadow:none!important;border:1px solid #999!important;break-inside:avoid}
+  .submission-panel .submission-help,.submission-panel button{display:none!important}
+  .submission-panel .submission-row{display:block}
+  .submission-panel .submission-name{margin-bottom:5px}
+  .print-date{display:block!important;margin-top:8px;font-size:.9rem;color:#444}
+}
+</style>
+<script>
+window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head><body>
+<header><a href="../index.html">← MATH&amp; 107 course</a><h1>Week 2 Laboratory — From Counts to Probability</h1><p>Use samples, frequency tables, relative frequencies, graphs, and probability distributions to summarize observed data.</p></header>
+<main>
+<section class="panel student-guide"><h2>Before you begin</h2><ol><li>Identify the population and sample before using any counts.</li><li>Build frequencies first, then divide by the sample size to obtain relative frequencies.</li><li>Choose a graph from the type of variable: categories use bars; quantitative intervals use a histogram.</li></ol></section>
+<section class="panel student-notation"><h2>Key notation</h2><p>For category \(i\), relative frequency is \(f_i/n\). A valid probability distribution has \(p_i\ge0\) and \(\sum p_i=1\). Also, \(P(\text{not }A)=1-P(A)\).</p></section>
+
+<section class="panel"><div class="progressbox"><div><div class="kicker">Week 2 skills</div><h2>Five steps from observations to a distribution</h2></div><div class="progressbar"><div id="progressFill"></div></div><div class="pill"><span id="progressText">0 / 5</span> sections checked</div></div><p class="callout">Most of this lab is adapted directly from the Chapter 2 exercises. Enter numerical answers as decimals when requested.</p></section>
+
+<section class="panel"><div class="kicker">Part 1 · Sampling</div><h2>Population, sample, and bias</h2><div class="grid3">
+<div class="scenario"><h3>Hospital wait times</h3><p>A hospital uses patients from one Tuesday to estimate average emergency-room wait time for the entire month.</p><label>Population</label><select id="s1p"><option value="">choose…</option><option value="month">all ER patients during the month</option><option value="tuesday">patients from that Tuesday</option></select><label style="display:block;margin-top:8px">Sample</label><select id="s1s"><option value="">choose…</option><option value="month">all ER patients during the month</option><option value="tuesday">patients from that Tuesday</option></select><label style="display:block;margin-top:8px">Likely biased?</label><select id="s1b"><option value="">choose…</option><option value="yes">yes</option><option value="no">no</option></select></div>
+<div class="scenario"><h3>Ballot poll</h3><p>A polling organization calls 1,000 randomly selected registered voters to estimate support among all registered voters.</p><label>Likely biased?</label><select id="s2b"><option value="">choose…</option><option value="yes">yes</option><option value="no">no</option></select></div>
+<div class="scenario"><h3>Coffee shop hours</h3><p>A coffee shop asks only Monday-morning customers whether the shop should open earlier.</p><label>Likely biased?</label><select id="s3b"><option value="">choose…</option><option value="yes">yes</option><option value="no">no</option></select></div></div><button style="margin-top:12px" onclick="checkSampling()">Check Part 1</button><div id="fb1" class="feedback"></div></section>
+
+<section class="panel"><div class="kicker">Part 2 · Frequency</div><h2>Build a frequency table</h2><p>The number of siblings reported by 18 students is:</p><div class="callout">2, 0, 1, 3, 1, 2, 0, 1, 1, 2, 3, 0, 1, 2, 1, 0, 2, 1</div><table class="data"><thead><tr><th>Siblings</th><th>Frequency</th></tr></thead><tbody id="sibRows"></tbody><tfoot><tr><th>Total</th><th><input id="sibTotal" type="number"></th></tr></tfoot></table><div class="grid" style="margin-top:12px"><div><label>Most common number of siblings</label><input id="sibMode" type="number"></div><div><label>Frequency of the most common value</label><input id="sibModeFreq" type="number"></div></div><button style="margin-top:12px" onclick="checkFrequency()">Check Part 2</button><div id="fb2" class="feedback"></div></section>
+
+<section class="panel"><div class="kicker">Part 3 · Relative frequency</div><h2>Turn counts into estimated probabilities</h2><p>Use your sibling counts from Part 2. Divide each frequency by 18.</p><table class="data"><thead><tr><th>Siblings</th><th>Relative frequency</th></tr></thead><tbody id="relRows"></tbody></table><div class="grid" style="margin-top:12px"><div><label>Estimated P(exactly 1 sibling)</label><input id="pOne" type="number" step="0.001"></div><div><label>Estimated P(more than 1 sibling)</label><input id="pMore" type="number" step="0.001"></div></div><button style="margin-top:12px" onclick="checkRelative()">Check Part 3</button><div id="fb3" class="feedback"></div></section>
+
+<section class="panel"><div class="kicker">Part 4 · Displays</div><h2>Choose the right graph and read its shape</h2><div class="grid"><div><h3>Categorical data: transportation</h3><p>Twenty employees report: car 10, bus 4, bike 3, walk 3.</p><label>Best display</label><select id="graphCat"><option value="">choose…</option><option value="bar">bar chart</option><option value="hist">histogram</option></select><label style="display:block;margin-top:8px">Relative frequency using a car</label><input id="carRF" type="number" step="0.01"><div id="transportChart" class="chart"></div></div><div><h3>Numerical data: volunteer ages</h3><p>Using the textbook age data, the five bins are [20,25), [25,30), [30,35), [35,40), [40,45).</p><label>Best display</label><select id="graphNum"><option value="">choose…</option><option value="bar">bar chart</option><option value="hist">histogram</option></select><table class="data"><thead><tr><th>Age bin</th><th>Frequency</th></tr></thead><tbody id="ageRows"></tbody></table><label>Bin with the greatest frequency</label><select id="ageMax"><option value="">choose…</option><option>[20,25)</option><option>[25,30)</option><option>[30,35)</option><option>[35,40)</option><option>[40,45)</option></select></div></div><button style="margin-top:12px" onclick="checkGraphs()">Check Part 4</button><div id="fb4" class="feedback"></div></section>
+
+<section class="panel"><div class="kicker">Part 5 · Probability distributions</div><h2>Check the rules and use a complement</h2><div class="grid"><div class="scenario"><h3>Repair a distribution</h3><p>A distribution has probabilities 0.15, 0.30, 0.25, and <em>p</em>.</p><label>Find p</label><input id="missingP" type="number" step="0.01"><label style="display:block;margin-top:8px">Why?</label><select id="sumRule"><option value="">choose…</option><option value="1">all probabilities must sum to 1</option><option value="100">all probabilities must sum to 100</option><option value="0">all probabilities must sum to 0</option></select></div><div class="scenario"><h3>Document errors</h3><p>P(0 errors)=0.50, P(1)=0.30, P(2)=0.12, P(3)=0.05, P(4)=0.03.</p><label>Is this a valid probability distribution?</label><select id="errValid"><option value="">choose…</option><option value="yes">yes</option><option value="no">no</option></select><label style="display:block;margin-top:8px">P(at least one error)</label><input id="errAtLeast" type="number" step="0.01"><label style="display:block;margin-top:8px">Shape</label><select id="errShape"><option value="">choose…</option><option value="right">skewed right</option><option value="left">skewed left</option><option value="sym">symmetric</option></select></div></div><button style="margin-top:12px" onclick="checkDistribution()">Check Part 5</button><div id="fb5" class="feedback"></div></section>
+
+<section class="panel"><div class="kicker">Finish</div><h2>Save your work</h2><p>Make sure all five sections are checked before submitting or saving a copy.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><button id="saveBtn">Save in this browser</button><button class="ghost" onclick="clearLab()">Clear lab</button><span id="status" class="small"></span></div></section>
+
+<section class="panel submission-panel">
+  <h2>Submit your completed lab</h2>
+  <p class="submission-help">Your answers are stored in this browser as you work. For a paper submission, enter your name and choose <strong>Print Completed Lab</strong>. In the browser print window, select a physical printer. You may also choose <strong>Save as PDF</strong> if you prefer an electronic copy.</p>
+  <div class="submission-row">
+    <div class="submission-name"><label for="printStudentName">Student name</label><input id="printStudentName" type="text" autocomplete="name" placeholder="Enter your name before printing"></div>
+    <button type="button" class="secondary" onclick="printCompletedLab()">Print Completed Lab</button>
+  </div>
+  <div class="print-date" id="printDate"></div>
+</section>
+</main>
+<script>
+const KEY='math107_week2_lab_v2',sib=[4,7,5,2],rels=sib.map(x=>x/18),ages=[4,9,5,4,2],bins=['[20,25)','[25,30)','[30,35)','[35,40)','[40,45)'];
+for(let i=0;i<4;i++)sibRows.insertAdjacentHTML('beforeend',`<tr><td>${i}</td><td><input id="sf${i}" type="number"></td></tr>`);for(let i=0;i<4;i++)relRows.insertAdjacentHTML('beforeend',`<tr><td>${i}</td><td><input id="rf${i}" type="number" step="0.001"></td></tr>`);bins.forEach((b,i)=>ageRows.insertAdjacentHTML('beforeend',`<tr><td>${b}</td><td><input id="age${i}" type="number"></td></tr>`));
+function makeBars(el,labels,vals,gold=false){let max=Math.max(...vals),e=document.getElementById(el);e.innerHTML='';labels.forEach((lab,i)=>{let h=Math.round(vals[i]/max*88);e.insertAdjacentHTML('beforeend',`<div class="barcol"><div class="bar ${gold?'gold':''}" style="height:${h}%;--h:${h}%"></div><div class="val">${vals[i]}</div><div class="lab">${lab}</div></div>`);})}makeBars('transportChart',['car','bus','bike','walk'],[10,4,3,3]);
+function feedback(id,msg,ok){let e=document.getElementById(id);e.textContent=msg;e.className='feedback '+(ok?'good':'bad')}function mark(n,ok){localStorage.setItem(KEY+'_part'+n,ok?'1':'0');updateProgress()}
+function checkSampling(){let ok=s1p.value==='month'&&s1s.value==='tuesday'&&s1b.value==='yes'&&s2b.value==='no'&&s3b.value==='yes';feedback('fb1',ok?'Correct. Random selection helps reduce selection bias; convenience samples can overrepresent certain groups.':'Recheck which group is the population, which is the observed sample, and whether selection favors certain people.',ok);mark(1,ok);saveData()}
+function checkFrequency(){let r=0;sib.forEach((v,i)=>{if(+document.getElementById('sf'+i).value===v)r++});let extras=+sibTotal.value===18&&+sibMode.value===1&&+sibModeFreq.value===7;let ok=r===4&&extras;feedback('fb2',`${r} of 4 frequency counts correct.${extras?' Total and mode are correct.':' Check the total and most common value.'}`,ok);mark(2,ok);saveData()}
+function checkRelative(){let r=0;rels.forEach((v,i)=>{if(Math.abs(+document.getElementById('rf'+i).value-v)<.006)r++});let probs=Math.abs(+pOne.value-7/18)<.006&&Math.abs(+pMore.value-7/18)<.006;let ok=r===4&&probs;feedback('fb3',`${r} of 4 relative frequencies correct.${probs?' Probability entries are correct.':' Recheck the two probability questions.'}`,ok);mark(3,ok);saveData()}
+function checkGraphs(){let r=0;ages.forEach((v,i)=>{if(+document.getElementById('age'+i).value===v)r++});let ok=graphCat.value==='bar'&&Math.abs(+carRF.value-.5)<.001&&graphNum.value==='hist'&&r===5&&ageMax.value==='[25,30)';feedback('fb4',ok?'Correct. Categories use a bar chart; numerical intervals use a histogram.':'Recheck the graph types, car relative frequency, and age-bin counts.',ok);mark(4,ok);saveData()}
+function checkDistribution(){let ok=Math.abs(+missingP.value-.30)<.001&&sumRule.value==='1'&&errValid.value==='yes'&&Math.abs(+errAtLeast.value-.50)<.001&&errShape.value==='right';feedback('fb5',ok?'Correct. Probabilities sum to 1, and P(at least one error)=1−P(0)=0.50.':'Check the total-probability rule and use the complement for “at least one error.”',ok);mark(5,ok);saveData()}
+function updateProgress(){let n=0;for(let i=1;i<=5;i++)if(localStorage.getItem(KEY+'_part'+i)==='1')n++;progressText.textContent=`${n} / 5`;progressFill.style.width=(n/5*100)+'%'}
+function saveData(){let d={};document.querySelectorAll('input,select').forEach(e=>d[e.id]=e.value);localStorage.setItem(KEY,JSON.stringify(d));status.textContent='Saved locally.'}function load(){try{let d=JSON.parse(localStorage.getItem(KEY)||'{}');Object.entries(d).forEach(([id,v])=>{let e=document.getElementById(id);if(e)e.value=v})}catch(e){}updateProgress()}function clearLab(){if(!confirm('Clear all Week 2 lab responses stored in this browser?'))return;localStorage.removeItem(KEY);for(let i=1;i<=5;i++)localStorage.removeItem(KEY+'_part'+i);location.reload()}document.querySelectorAll('input,select').forEach(e=>e.addEventListener('input',()=>{status.textContent='Unsaved changes';clearTimeout(window._autos);window._autos=setTimeout(saveData,700)}));saveBtn.onclick=saveData;load();
+</script>
+<script>
+/* Make completed HTML labs reliable as paper submissions. */
+(function(){
+  const NAME_KEY='math107_print_student_name';
+  function answerText(el){
+    if(el.tagName==='SELECT'){
+      const opt=el.selectedOptions && el.selectedOptions[0];
+      return el.value && opt ? opt.textContent.trim() : 'No response';
+    }
+    if(el.type==='checkbox' || el.type==='radio') return el.checked ? 'Selected' : 'Not selected';
+    const v=(el.value == null ? '' : String(el.value)).trim();
+    return v || 'No response';
+  }
+  window.prepareCompletedLabPrint=function(){
+    document.querySelectorAll('.print-answer').forEach(x=>x.remove());
+    document.querySelectorAll('input,select,textarea').forEach(el=>{
+      const type=(el.type||'').toLowerCase();
+      if(['button','submit','reset','hidden'].includes(type)) return;
+      const out=document.createElement('span');
+      out.className='print-answer';
+      out.textContent=answerText(el);
+      el.insertAdjacentElement('afterend',out);
+    });
+    const d=document.getElementById('printDate');
+    if(d) d.textContent='Printed '+new Date().toLocaleString();
+  };
+  window.printCompletedLab=function(){
+    window.prepareCompletedLabPrint();
+    setTimeout(()=>window.print(),40);
+  };
+  window.addEventListener('beforeprint',window.prepareCompletedLabPrint);
+  window.addEventListener('afterprint',()=>document.querySelectorAll('.print-answer').forEach(x=>x.remove()));
+  function init(){
+    const n=document.getElementById('printStudentName');
+    if(n){
+      try{n.value=localStorage.getItem(NAME_KEY)||''}catch(e){}
+      n.addEventListener('input',()=>{try{localStorage.setItem(NAME_KEY,n.value)}catch(e){}});
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>
+</body></html>

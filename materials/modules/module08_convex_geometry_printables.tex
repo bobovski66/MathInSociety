@@ -1,0 +1,205 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=0.68in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\usepackage{tabularx,array,booktabs}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+
+\definecolor{olive}{HTML}{4D5430}
+\definecolor{gold}{HTML}{9A7B22}
+\definecolor{pale}{HTML}{F5F1DC}
+\definecolor{softgreen}{HTML}{EDF0E2}
+\definecolor{softgray}{HTML}{F5F5F2}
+\definecolor{ink}{HTML}{292D20}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textcolor{olive}{MATH\& 107: Math in Society}}
+\rhead{\textcolor{gold}{Fall 2026}}
+\cfoot{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlist[enumerate]{leftmargin=*,itemsep=7pt,topsep=5pt}
+\setlist[itemize]{leftmargin=1.35em,itemsep=3pt,topsep=3pt}
+
+\newtcolorbox{keybox}[1]{colback=pale,colframe=olive,boxrule=0.8pt,arc=2mm,title=\textbf{#1},fonttitle=\color{olive},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+\newtcolorbox{examplebox}[1]{colback=softgreen,colframe=gold,boxrule=0.8pt,arc=2mm,title=\textbf{#1},fonttitle=\color{ink},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+\newtcolorbox{refbox}[1]{colback=softgray,colframe=gold,boxrule=0.7pt,arc=2mm,title=\textbf{#1},fonttitle=\color{ink},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+
+\newcommand{\summaryhead}[2]{%
+  \clearpage
+  {\Large\bfseries\textcolor{olive}{Module #1: #2 — Summary}}\par
+  \vspace{2pt}\textcolor{gold}{\rule{\linewidth}{1.2pt}}\par\smallskip
+}
+\newcommand{\prequizhead}[2]{%
+  \clearpage
+  {\Large\bfseries\textcolor{olive}{Module #1: #2 — Prequiz}}\par
+  \textit{Open-note. Show your mathematical work. A calculation and a clearly stated final answer are enough unless a sentence is specifically requested.}\par
+  Name: \hspace{2.6in} Date: \hspace{1.1in}\par
+  \vspace{2pt}\textcolor{gold}{\rule{\linewidth}{1.2pt}}\par\smallskip
+}
+\newcommand{\quizhead}[2]{%
+  \clearpage
+  {\Large\bfseries\textcolor{olive}{Module #1: #2 — Matching Quiz}}\par
+  \textit{These problems use the same skills as the prequiz, with new values and contexts. Show enough work to make your reasoning visible.}\par
+  Name: \hspace{2.6in} Date: \hspace{1.1in}\par
+  \vspace{2pt}\textcolor{gold}{\rule{\linewidth}{1.2pt}}\par\smallskip
+}
+\newcommand{\worksmall}{\par\vspace{0.38in}}
+\newcommand{\workmed}{\par\vspace{0.62in}}
+\newcommand{\worklarge}{\par\vspace{0.92in}}
+\newcommand{\workxl}{\par\vspace{1.22in}}
+\newcommand{\choice}[1]{\(\square\)~#1\qquad}
+
+\begin{document}
+\summaryhead{8}{Convex Geometry}
+
+\textbf{What this module is about.} Linear inequalities describe allowed regions rather than single lines. Each inequality selects one half-plane. When several constraints must all be satisfied, the feasible region is their intersection. In the two-variable problems in this course, feasible regions are usually convex polygons. Their vertices are especially important because a linear objective reaches its maximum or minimum at a corner point of a bounded feasible polygon.
+
+\begin{keybox}{Convex sets and half-planes}
+A set is \textbf{convex} if the complete line segment joining any two points in the set remains inside the set. Filled triangles, rectangles, circles, and half-planes are convex. Crescents, rings, and shapes with inward dents are not.
+
+A linear inequality such as
+\[
+ax+by\le c
+\]
+has boundary line \(ax+by=c\) and one feasible half-plane. For \(\le\) or \(\ge\), the boundary is included. For \(<\) or \(>\), the boundary is not included.
+\end{keybox}
+
+\begin{examplebox}{Example 1: Find the boundary and test points}
+Consider
+\[
+x+2y\le8.
+\]
+The boundary line \(x+2y=8\) has intercepts
+\[
+(8,0)\qquad\text{and}\qquad(0,4).
+\]
+Test the origin:
+\[
+0+2(0)=0\le8,
+\]
+so the feasible half-plane is the side containing \((0,0)\).
+
+The point \((2,3)\) lies on the boundary because \(2+2(3)=8\). The point \((4,3)\) is not feasible because \(4+2(3)=10>8\).
+\end{examplebox}
+
+\begin{keybox}{Feasible regions and vertices}
+To find a feasible polygon:
+\begin{enumerate}[label=\arabic*.]
+\item Graph or understand each boundary line.
+\item Determine the feasible side of each inequality.
+\item Intersect the allowed half-planes.
+\item Find the vertices from axis intercepts and intersections of boundary lines.
+\end{enumerate}
+A proposed point is feasible only if it satisfies \emph{every} constraint.
+\end{keybox}
+
+\begin{examplebox}{Example 2: Finding a non-axis vertex}
+Consider
+\[
+x+y\le8,
+\qquad
+2x+y\le10,
+\qquad x\ge0,
+\qquad y\ge0.
+\]
+The two non-axis boundary lines meet where
+\[
+x+y=8,
+\qquad 2x+y=10.
+\]
+Subtracting the first equation from the second gives \(x=2\), and then \(y=6\). One vertex is therefore \((2,6)\). The complete feasible polygon has vertices
+\[
+(0,0),\ (5,0),\ (2,6),\ (0,8).
+\]
+\end{examplebox}
+
+\begin{keybox}{Corner-point principle}
+For a linear objective \(f=ax+by\) on a bounded feasible polygon, at least one maximum and at least one minimum occur at vertices. Therefore, evaluate the objective at every feasible vertex and compare the values.
+
+If two \emph{adjacent} vertices have the same optimal value, then every point on the edge joining them is also optimal.
+\end{keybox}
+
+\prequizhead{8}{Convex Geometry}
+\begin{refbox}{A reliable procedure}
+Boundary line \(\to\) feasible side \(\to\) intersection of all constraints \(\to\) vertices \(\to\) evaluate the objective.
+\end{refbox}
+
+\begin{enumerate}
+\item A filled rectangle and a crescent-shaped region are drawn on the same page. Which one is convex? Use the definition of convexity to explain your answer in one sentence.
+\workmed
+
+\item A workshop constraint is
+\[
+x+2y\le8,
+\]
+where \(x\) and \(y\) are nonnegative quantities.
+\begin{enumerate}[label=(\alph*),itemsep=4pt]
+\item Find the positive \(x\)- and \(y\)-intercepts of the boundary line.
+\item Determine whether \((2,3)\) is feasible.
+\item Determine whether \((4,3)\) is feasible.
+\end{enumerate}
+\worklarge
+
+\item Consider the system
+\[
+x+y\le8,
+\qquad
+2x+y\le10,
+\qquad x\ge0,
+\qquad y\ge0.
+\]
+Find the intersection of the two non-axis boundary lines. Then list all vertices of the feasible region.
+\workxl
+
+\item Using the feasible vertices from Problem 3,
+\[
+(0,0),\ (5,0),\ (2,6),\ (0,8),
+\]
+evaluate
+\[
+P=4x+5y
+\]
+at every vertex. State the maximum value and the vertex where it occurs.
+\worklarge
+
+\item A feasible polygon has vertices \((0,0),(6,0),(4,3),(0,5)\). Evaluate \(f=3x+2y\) at all four vertices. Two adjacent vertices tie for the maximum. What does that imply about the edge connecting them?
+\worklarge
+\end{enumerate}
+
+\quizhead{8}{Convex Geometry}
+\begin{enumerate}
+\item Which is convex: a filled triangle or a ring-shaped region? Explain using line segments between points in the set.
+\workmed
+
+\item For the constraint \(3x+y\le12\), find the positive intercepts and determine whether \((3,4)\) is feasible.
+\worklarge
+
+\item Find all vertices of the feasible region
+\[
+x+y\le7,
+\qquad
+2x+y\le10,
+\qquad x\ge0,
+\qquad y\ge0.
+\]
+Show the calculation for the intersection of the two slanted boundary lines.
+\workxl
+
+\item Evaluate \(R=5x+4y\) at the vertices \((0,0),(5,0),(3,4),(0,7)\). Find the maximum and the vertex where it occurs.
+\worklarge
+
+\item Suppose a linear objective has the same maximum value at two adjacent vertices of a feasible polygon. Describe all of the optimal points.
+\workmed
+\end{enumerate}
+
+% =====================================================================
+% MODULE 9
+% =====================================================================
+\end{document}

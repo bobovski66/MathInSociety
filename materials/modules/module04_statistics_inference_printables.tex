@@ -1,0 +1,198 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=0.68in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\usepackage{tabularx,array,booktabs}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+
+\definecolor{olive}{HTML}{4D5430}
+\definecolor{gold}{HTML}{9A7B22}
+\definecolor{pale}{HTML}{F5F1DC}
+\definecolor{softgreen}{HTML}{EDF0E2}
+\definecolor{softgray}{HTML}{F5F5F2}
+\definecolor{ink}{HTML}{292D20}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textcolor{olive}{MATH\& 107: Math in Society}}
+\rhead{\textcolor{gold}{Fall 2026}}
+\cfoot{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlist[enumerate]{leftmargin=*,itemsep=7pt,topsep=5pt}
+\setlist[itemize]{leftmargin=1.35em,itemsep=3pt,topsep=3pt}
+
+\newtcolorbox{keybox}[1]{colback=pale,colframe=olive,boxrule=0.8pt,arc=2mm,title=\textbf{#1},fonttitle=\color{olive},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+\newtcolorbox{examplebox}[1]{colback=softgreen,colframe=gold,boxrule=0.8pt,arc=2mm,title=\textbf{#1},fonttitle=\color{ink},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+\newtcolorbox{refbox}[1]{colback=softgray,colframe=gold,boxrule=0.7pt,arc=2mm,title=\textbf{#1},fonttitle=\color{ink},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+
+\newcommand{\summaryhead}[2]{%
+  \clearpage
+  {\Large\bfseries\textcolor{olive}{Module #1: #2 — Summary}}\par
+  \vspace{2pt}\textcolor{gold}{\rule{\linewidth}{1.2pt}}\par\smallskip
+}
+\newcommand{\prequizhead}[2]{%
+  \clearpage
+  {\Large\bfseries\textcolor{olive}{Module #1: #2 — Prequiz}}\par
+  \textit{Open-note. Show your mathematical work. A calculation and a clearly stated final answer are enough unless a sentence is specifically requested.}\par
+  Name: \hspace{2.6in} Date: \hspace{1.1in}\par
+  \vspace{2pt}\textcolor{gold}{\rule{\linewidth}{1.2pt}}\par\smallskip
+}
+\newcommand{\quizhead}[2]{%
+  \clearpage
+  {\Large\bfseries\textcolor{olive}{Module #1: #2 — Matching Quiz}}\par
+  \textit{These problems use the same skills as the prequiz, with new values and contexts. Show enough work to make your reasoning visible.}\par
+  Name: \hspace{2.6in} Date: \hspace{1.1in}\par
+  \vspace{2pt}\textcolor{gold}{\rule{\linewidth}{1.2pt}}\par\smallskip
+}
+\newcommand{\worksmall}{\par\vspace{0.38in}}
+\newcommand{\workmed}{\par\vspace{0.62in}}
+\newcommand{\worklarge}{\par\vspace{0.92in}}
+\newcommand{\workxl}{\par\vspace{1.22in}}
+\newcommand{\choice}[1]{\(\square\)~#1\qquad}
+
+\begin{document}
+\summaryhead{4}{Intermediate Statistics and Inference}
+
+\textbf{What this module is about.} The normal distribution gives us a way to describe where individual values fall relative to a mean. A z-score measures distance from the mean in standard-deviation units. Statistical inference asks a different question: what can a sample tell us about a population? A confidence interval combines a sample estimate with a margin of error to give a plausible range for a population value.
+
+\begin{keybox}{Normal distributions and the Empirical Rule}
+For an approximately normal distribution:
+\begin{itemize}
+\item about \(68\%\) of values lie within \(1\sigma\) of the mean;
+\item about \(95\%\) lie within \(2\sigma\);
+\item about \(99.7\%\) lie within \(3\sigma\).
+\end{itemize}
+The remaining percentage is split equally between the two tails when the distribution is symmetric.
+\end{keybox}
+
+\begin{examplebox}{Example 1: Apple weights}
+Apple weights are approximately normal with mean \(\mu=180\) g and standard deviation \(\sigma=15\) g.
+\begin{itemize}
+\item One standard deviation from the mean is \(180\pm15\), or \(165\) to \(195\) g, so about \(68\%\) of apples lie there.
+\item Two standard deviations from the mean is \(180\pm30\), or \(150\) to \(210\) g, so about \(95\%\) lie there.
+\item About \(5\%\) lie outside that interval, so about \(2.5\%\) weigh more than \(210\) g.
+\end{itemize}
+\end{examplebox}
+
+\begin{keybox}{z-scores}
+For an individual value \(x\),
+\[
+z=\frac{x-\mu}{\sigma}.
+\]
+A positive z-score means the value is above the mean; a negative z-score means it is below the mean. To recover a value from a z-score,
+\[
+x=\mu+z\sigma.
+\]
+Because z-scores use standard-deviation units, they allow comparisons across different scales.
+\end{keybox}
+
+\begin{examplebox}{Example 2: Comparing two standardized tests}
+Student A scores \(520\) on a test with mean \(500\) and standard deviation \(100\):
+\[
+z_A=\frac{520-500}{100}=0.20.
+\]
+Student B scores \(28\) on a test with mean \(21\) and standard deviation \(5\):
+\[
+z_B=\frac{28-21}{5}=1.40.
+\]
+Student B performed farther above the mean relative to the spread of that test.
+\end{examplebox}
+
+\begin{keybox}{Samples, parameters, and confidence intervals}
+A \textbf{parameter} describes the population. A \textbf{statistic} is computed from a sample and is used to estimate the parameter.
+
+If an estimate is reported as \(E\pm M\), then the corresponding interval is
+\[
+[E-M,E+M].
+\]
+A larger sample generally produces a smaller margin of error. In the simplified model used here,
+\[
+M\propto \frac1{\sqrt n}.
+\]
+Therefore, multiplying the sample size by \(4\) approximately cuts the margin of error in half.
+\end{keybox}
+
+\begin{examplebox}{Example 3: A label claim and a sample interval}
+A cereal label claims a population mean of \(230\) calories. A sample gives \(243\pm8\) calories, so the interval is
+\[
+[243-8,243+8]=[235,251].
+\]
+Because \(230\) is outside this interval, the sample result is not compatible with the label claim under the interval rule being used in this course.
+\end{examplebox}
+
+\prequizhead{4}{Intermediate Statistics and Inference}
+\begin{refbox}{Useful formulas}
+\[
+z=\frac{x-\mu}{\sigma},
+\qquad
+x=\mu+z\sigma,
+\qquad
+\text{confidence interval}=\text{estimate}\pm\text{margin of error}.
+\]
+Empirical Rule: \(68\%\), \(95\%\), \(99.7\%\) within \(1,2,3\) standard deviations.
+\end{refbox}
+
+\begin{enumerate}
+\item Apple weights are approximately normal with mean \(180\) g and standard deviation \(15\) g.
+\begin{enumerate}[label=(\alph*),itemsep=4pt]
+\item About what percentage of apples weigh between \(165\) g and \(195\) g?
+\item About what percentage weigh more than \(210\) g?
+\item Between what two weights do the middle \(95\%\) of apples fall?
+\end{enumerate}
+\worklarge
+
+\item Student A scores \(520\) on a test with mean \(500\) and standard deviation \(100\). Student B scores \(28\) on a different test with mean \(21\) and standard deviation \(5\).
+\begin{enumerate}[label=(\alph*),itemsep=4pt]
+\item Find each student's z-score.
+\item Which student performed better relative to the distribution of scores on that student's test?
+\end{enumerate}
+\worklarge
+
+\item A consumer group tests \(64\) cereal boxes. The sample mean is \(243\) calories per serving, with a reported margin of error of \(\pm8\) calories. The manufacturer's label claims a population mean of \(230\) calories.
+\begin{enumerate}[label=(\alph*),itemsep=4pt]
+\item Construct the confidence interval.
+\item Is the claimed mean of \(230\) inside the interval?
+\item In this problem, is \(243\) a population parameter or a sample statistic?
+\end{enumerate}
+\workxl
+
+\item A study uses a sample of \(n=200\), and its margin of error is approximately proportional to \(1/\sqrt n\). About what sample size would be needed to cut the margin of error in half? Show how the square-root relationship determines your answer.
+\worklarge
+
+\item A distribution has mean \(\mu=60\) and standard deviation \(\sigma=12\). An individual value is \(x=78\).
+\begin{enumerate}[label=(\alph*),itemsep=4pt]
+\item Find the z-score of \(78\).
+\item Is the value within two standard deviations of the mean?
+\item Does this z-score answer a question about an individual observation or about a population parameter?
+\end{enumerate}
+\worklarge
+\end{enumerate}
+
+\quizhead{4}{Intermediate Statistics and Inference}
+\begin{enumerate}
+\item Commute times are approximately normal with mean \(35\) minutes and standard deviation \(8\) minutes. Use the Empirical Rule to estimate the percentage of commutes between \(19\) and \(51\) minutes.
+\workmed
+
+\item On one standardized test, a student has \(x=84\), \(\mu=72\), and \(\sigma=6\). Find the z-score and state whether the score is above or below the mean.
+\workmed
+
+\item A survey reports \(47\%\) support for a proposal with margin of error \(\pm6\%\). Construct the interval. Is \(55\%\) inside it?
+\workmed
+
+\item A sample mean of \(31.2\) cm is computed from \(40\) randomly caught fish. Is \(31.2\) cm a parameter or a statistic? What population quantity is it intended to estimate?
+\workmed
+
+\item If a sample size is multiplied by \(9\), by what factor does the simplified \(1/\sqrt n\) model predict the margin of error will change?
+\workmed
+\end{enumerate}
+
+% =====================================================================
+% MODULE 5
+% =====================================================================
+\end{document}

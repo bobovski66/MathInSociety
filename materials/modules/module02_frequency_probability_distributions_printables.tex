@@ -1,0 +1,185 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=0.68in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\usepackage{tabularx,array,booktabs}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+
+\definecolor{olive}{HTML}{4D5430}
+\definecolor{gold}{HTML}{9A7B22}
+\definecolor{pale}{HTML}{F5F1DC}
+\definecolor{softgreen}{HTML}{EDF0E2}
+\definecolor{softgray}{HTML}{F5F5F2}
+\definecolor{ink}{HTML}{292D20}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textcolor{olive}{MATH\& 107: Math in Society}}
+\rhead{\textcolor{gold}{Fall 2026}}
+\cfoot{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlist[enumerate]{leftmargin=*,itemsep=7pt,topsep=5pt}
+\setlist[itemize]{leftmargin=1.35em,itemsep=3pt,topsep=3pt}
+
+\newtcolorbox{keybox}[1]{colback=pale,colframe=olive,boxrule=0.8pt,arc=2mm,title=\textbf{#1},fonttitle=\color{olive},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+\newtcolorbox{examplebox}[1]{colback=softgreen,colframe=gold,boxrule=0.8pt,arc=2mm,title=\textbf{#1},fonttitle=\color{ink},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+\newtcolorbox{refbox}[1]{colback=softgray,colframe=gold,boxrule=0.7pt,arc=2mm,title=\textbf{#1},fonttitle=\color{ink},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+
+\newcommand{\summaryhead}[2]{%
+  \clearpage
+  {\Large\bfseries\textcolor{olive}{Module #1: #2 — Summary}}\par
+  \vspace{2pt}\textcolor{gold}{\rule{\linewidth}{1.2pt}}\par\smallskip
+}
+\newcommand{\prequizhead}[2]{%
+  \clearpage
+  {\Large\bfseries\textcolor{olive}{Module #1: #2 — Prequiz}}\par
+  \textit{Open-note. Show your mathematical work. A calculation and a clearly stated final answer are enough unless a sentence is specifically requested.}\par
+  Name: \hspace{2.6in} Date: \hspace{1.1in}\par
+  \vspace{2pt}\textcolor{gold}{\rule{\linewidth}{1.2pt}}\par\smallskip
+}
+\newcommand{\quizhead}[2]{%
+  \clearpage
+  {\Large\bfseries\textcolor{olive}{Module #1: #2 — Matching Quiz}}\par
+  \textit{These problems use the same skills as the prequiz, with new values and contexts. Show enough work to make your reasoning visible.}\par
+  Name: \hspace{2.6in} Date: \hspace{1.1in}\par
+  \vspace{2pt}\textcolor{gold}{\rule{\linewidth}{1.2pt}}\par\smallskip
+}
+\newcommand{\worksmall}{\par\vspace{0.38in}}
+\newcommand{\workmed}{\par\vspace{0.62in}}
+\newcommand{\worklarge}{\par\vspace{0.92in}}
+\newcommand{\workxl}{\par\vspace{1.22in}}
+\newcommand{\choice}[1]{\(\square\)~#1\qquad}
+
+\begin{document}
+\summaryhead{2}{Frequency, Probability, and Distributions}
+
+\textbf{What this module is about.} A statistical study begins with a group we want to understand, but we usually observe only part of that group. Counts from the observed sample can be converted into relative frequencies, which can be interpreted as empirical probabilities. The way data are displayed depends on whether the variable consists of named categories or numerical values. A probability distribution must assign nonnegative probabilities that add to \(1\).
+
+\begin{keybox}{Population, sample, and possible bias}
+\begin{itemize}
+\item The \textbf{population} is the entire group the question is about.
+\item The \textbf{sample} is the part of the population actually observed.
+\item A sampling method is \textbf{biased} when some kinds of members are systematically more likely to be included than others.
+\end{itemize}
+A large sample can still be biased. Random selection matters because it helps the sample represent the population.
+\end{keybox}
+
+\begin{examplebox}{Example 1: From a frequency table to probabilities}
+Twenty employees report how they commute to work: \(10\) drive, \(4\) take the bus, \(3\) bike, and \(3\) walk. The total sample size is \(n=20\).
+\[
+P(\text{drive})\approx\frac{10}{20}=0.50,
+\qquad
+P(\text{bus})\approx\frac4{20}=0.20.
+\]
+The four relative frequencies add to \(1\):
+\[
+0.50+0.20+0.15+0.15=1.00.
+\]
+Because commuting method is categorical, a bar chart is a natural display.
+\end{examplebox}
+
+\begin{keybox}{Frequency, relative frequency, and complements}
+If category \(i\) occurs \(f_i\) times in a sample of size \(n\), its relative frequency is
+\[
+r_i=\frac{f_i}{n}.
+\]
+A complete probability distribution satisfies
+\[
+p_i\ge0\quad\text{for every outcome},
+\qquad
+\sum p_i=1.
+\]
+The complement rule is
+\[
+P(\text{not }A)=1-P(A).
+\]
+\end{keybox}
+
+\begin{keybox}{Choosing a graph}
+\begin{itemize}
+\item Use a \textbf{bar chart} for named categories such as car, bus, bike, and walk. Bars are separated because the categories are distinct names.
+\item Use a \textbf{histogram} for quantitative data grouped into numerical intervals. Bars touch because the intervals form a numerical scale.
+\end{itemize}
+\end{keybox}
+
+\begin{examplebox}{Example 2: Repairing a probability distribution}
+Suppose four outcomes have probabilities \(0.15\), \(0.30\), \(0.25\), and \(p\). Because the total must be \(1\),
+\[
+0.15+0.30+0.25+p=1.
+\]
+The known probabilities sum to \(0.70\), so \(p=0.30\). If event \(A\) has probability \(0.30\), then
+\[
+P(\text{not }A)=1-0.30=0.70.
+\]
+\end{examplebox}
+
+\textbf{By the end of this module, you should be able to:} identify a population and sample; recognize an obviously biased sampling method; build a frequency and relative-frequency table; choose a bar chart or histogram appropriately; verify a probability distribution; and use complements.
+
+\prequizhead{2}{Frequency, Probability, and Distributions}
+\begin{refbox}{Useful facts}
+Relative frequency \(=\dfrac{\text{count}}{\text{sample size}}\). A probability distribution has nonnegative entries that add to \(1\). Also, \(P(\text{not }A)=1-P(A)\).
+\end{refbox}
+
+\begin{enumerate}
+\item A college wants to estimate how many hours its students work for pay each week. An instructor surveys \(150\) students who are enrolled in classes meeting before \(9\) a.m.
+\begin{enumerate}[label=(\alph*),itemsep=4pt]
+\item What is the population the college wants to understand?
+\item What is the sample actually observed?
+\item Give one reason this sample could be biased.
+\end{enumerate}
+\workxl
+
+\item In a transportation survey of \(24\) employees, \(12\) drive, \(6\) take the bus, \(4\) bike, and \(2\) walk.
+\begin{enumerate}[label=(\alph*),itemsep=4pt]
+\item Find the relative frequency of taking the bus.
+\item Find the relative frequency of \emph{not} driving.
+\item Which display is more appropriate for these data: a bar chart or a histogram? Explain with one short phrase.
+\end{enumerate}
+\worklarge
+
+\item A community center records the ages of volunteers and groups them into the intervals
+\[
+[20,25),\quad [25,30),\quad [30,35),\quad [35,40),\quad [40,45).
+\]
+Which display is more appropriate for these grouped numerical data: a bar chart or a histogram? State the feature of the data that determines your choice.
+\workmed
+
+\item A discrete probability distribution has four possible outcomes with probabilities
+\[
+0.18,\qquad 0.27,\qquad 0.31,\qquad p.
+\]
+Find \(p\). Then find the probability of \emph{not} getting the outcome whose probability is \(0.18\).
+\worklarge
+
+\item Two fair six-sided dice are rolled. There are \(36\) equally likely ordered outcomes, and \(6\) of them have a sum of \(7\). Find \(P(\text{sum}=7)\) as a fraction and as a decimal.
+\workmed
+\end{enumerate}
+
+\quizhead{2}{Frequency, Probability, and Distributions}
+\begin{enumerate}
+\item A county wants to estimate support for a new park levy. A polling organization randomly selects \(500\) registered county voters. Identify the population and the sample. Is the selection method obviously biased from the information given?
+\workmed
+
+\item In a sample of \(60\) households, \(18\) report using public transportation at least once each week. Find the relative frequency of households in the sample that use public transportation weekly.
+\workmed
+
+\item A researcher groups commute times into \(10\)-minute intervals. Should the frequencies be displayed with a bar chart for categories or with a histogram? Explain briefly.
+\workmed
+
+\item A probability distribution has probabilities \(0.22,0.35,0.19,p\). Find \(p\), and then find the complement of the event with probability \(0.35\).
+\workmed
+
+\item A spinner has \(8\) equal sections, of which \(3\) are blue. Find the probability of landing on blue and the probability of not landing on blue.
+\workmed
+\end{enumerate}
+
+% =====================================================================
+% MODULE 3
+% =====================================================================
+\end{document}

@@ -1,0 +1,65 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Week 7 Application — A Pop-Up Food Stand</title><style>
+:root{--bg:#efefe4;--card:#fffdf3;--ink:#292d20;--muted:#6d705f;--line:#d9d5bd;--olive:#4d5430;--olive2:#697048;--gold:#b18a22;--goldsoft:#f1e6b2;--good:#657347;--bad:#965348;--shadow:0 12px 30px rgba(58,61,38,.10)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}a{color:var(--olive)}
+header{background:linear-gradient(135deg,var(--olive),#62693b);color:#fff;padding:24px 28px}header a{color:#f4eab9;text-decoration:none;font-weight:750}header h1{margin:10px 0 4px;font-size:clamp(1.8rem,4vw,2.7rem)}header p{margin:0;color:#e8e7d6;max-width:88ch}
+main{max-width:1160px;margin:auto;padding:24px 20px 70px}.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow);margin:16px 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.kicker{text-transform:uppercase;letter-spacing:.11em;color:var(--gold);font-weight:850;font-size:.78rem}h2{margin:.15rem 0 .5rem;color:var(--olive)}h3{margin:.35rem 0 .55rem}.small,.muted{font-size:.92rem;color:var(--muted)}
+.callout{border-left:5px solid var(--gold);background:#faf3d4;padding:12px 14px;border-radius:10px}.scenario{border:1px solid var(--line);border-radius:14px;padding:13px;background:#fffef8}.task{border-top:1px solid var(--line);padding:16px 0}.task:first-of-type{border-top:0}
+label{font-weight:750;display:block;margin-top:8px}input,select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:#fffef8;color:var(--ink);font:inherit}.feedback{min-height:1.5em;margin-top:7px;font-weight:750}.good{color:var(--good)}.bad{color:var(--bad)}
+button{border:0;border-radius:10px;padding:9px 13px;font-weight:800;cursor:pointer;background:var(--olive);color:#fff}button.secondary{background:var(--gold);color:#211d0c}.progressbox{display:flex;align-items:center;gap:14px;justify-content:space-between;flex-wrap:wrap}.progressbar{height:12px;background:#e4e1cf;border-radius:999px;overflow:hidden;min-width:220px;flex:1}.progressbar>div{height:100%;background:linear-gradient(90deg,var(--olive2),var(--gold));width:0;transition:.25s}.pill{border:1px solid var(--line);background:var(--goldsoft);border-radius:999px;padding:6px 10px;font-weight:780}.formula{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#f5f1dc;border:1px solid var(--line);padding:10px 12px;border-radius:10px;overflow:auto}
+table{width:100%;border-collapse:collapse;margin-top:10px}th,td{padding:8px;border-bottom:1px solid var(--line);text-align:right}th:first-child,td:first-child{text-align:left}.readout{display:flex;flex-wrap:wrap;gap:9px}.control{margin:12px 0}.control label{display:flex;justify-content:space-between;gap:12px}.control input[type=range]{padding:0;border:0;background:transparent}.value{font-variant-numeric:tabular-nums;color:var(--gold);font-weight:850}canvas{width:100%;height:390px;border:1px solid var(--line);border-radius:14px;background:#fffef8;display:block}.choiceRow{display:flex;gap:10px;flex-wrap:wrap}.choiceRow label{font-weight:650;border:1px solid var(--line);padding:8px 10px;border-radius:10px;background:#fffef8}.choiceRow input{width:auto;margin-right:6px}
+@media(max-width:820px){.grid,.grid3,.grid4{grid-template-columns:1fr}canvas{height:320px}}
+@media print{header{background:white;color:black;padding:0 0 12px}header a{display:none}header p{color:#444}.panel{box-shadow:none;break-inside:avoid}button{display:none}body{background:white}}
+</style>
+<script>
+window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head><body>
+<header><a href="../index.html">← MATH&amp; 107 course</a><h1>Week 7 Application — A Pop-Up Food Stand</h1><p>Use cost, revenue, profit, and break-even models to decide how many meals a one-day food stand must sell.</p></header><main>
+<section class="panel student-guide"><h2>How to complete this application</h2><ol><li>Define fixed cost, variable cost, selling price, and quantity from the story.</li><li>Write \(C(q)\), \(R(q)\), and \(\pi(q)\) before calculating break-even.</li><li>Use marginal profit to compare what one additional sale contributes under each price.</li></ol></section>
+<section class="panel student-notation"><h2>Math model</h2><p>\(C(q)=F+vq\), \(R(q)=pq\), \(\pi(q)=(p-v)q-F\), and \(q^*=F/(p-v)\).</p></section>
+
+<section class="panel"><div class="kicker">Context</div><h2>The business model</h2>
+<p>A student organization operates a food stand at a community festival. The organization pays <strong>$240</strong> for the booth permit, equipment rental, and other costs that do not depend on the number of meals sold. Each meal costs <strong>$3.50</strong> for ingredients and packaging. Each meal sells for <strong>$9.50</strong>.</p>
+<div class="grid3"><div class="scenario"><h3>Fixed cost</h3><p><strong>F = $240</strong></p><p class="small">Paid even if no meals are sold.</p></div><div class="scenario"><h3>Variable cost</h3><p><strong>v = $3.50/meal</strong></p><p class="small">Added for each meal prepared.</p></div><div class="scenario"><h3>Price</h3><p><strong>p = $9.50/meal</strong></p><p class="small">Revenue received for each meal sold.</p></div></div>
+<div class="callout"><strong>Assumption for this model:</strong> every meal prepared is sold, and the fixed cost, variable cost, and selling price stay constant over the range considered.</div></section>
+
+<section class="panel"><div class="kicker">Part 1</div><h2>Write the functions</h2>
+<div class="grid3"><div><label>In C(q)=F+vq, enter F</label><input id="a1" type="number" step="0.01"></div><div><label>Enter v</label><input id="a2" type="number" step="0.01"></div><div><label>In R(q)=pq, enter p</label><input id="a3" type="number" step="0.01"></div></div>
+<div class="grid"><div><label>Profit slope p−v</label><input id="a4" type="number" step="0.01"></div><div><label>Profit intercept in π(q)=mq+b</label><input id="a5" type="number" step="0.01"></div></div>
+<button style="margin-top:14px" onclick="check1()">Check Part 1</button><div id="fb1" class="feedback"></div></section>
+
+<section class="panel"><div class="kicker">Part 2</div><h2>Find break-even</h2>
+<p>Break-even occurs when revenue and cost are equal, or equivalently when π(q)=0.</p>
+<div class="grid"><div><label>Break-even quantity q*</label><input id="b1" type="number" step="0.01" placeholder="meals"></div><div><label>Revenue and cost at break-even</label><input id="b2" type="number" step="0.01" placeholder="dollars"></div></div>
+<label>At 39 meals, the stand has a:</label><select id="b3"><option value="">choose…</option><option value="loss">loss</option><option value="profit">profit</option><option value="even">break-even</option></select>
+<button style="margin-top:14px" onclick="check2()">Check Part 2</button><div id="fb2" class="feedback"></div></section>
+
+<section class="panel"><div class="kicker">Part 3</div><h2>Evaluate several sales levels</h2>
+<table><thead><tr><th>Meals sold</th><th>28</th><th>40</th><th>55</th><th>80</th></tr></thead><tbody>
+<tr><td>Profit π(q)</td><td><input id="c1" type="number"></td><td><input id="c2" type="number"></td><td><input id="c3" type="number"></td><td><input id="c4" type="number"></td></tr></tbody></table>
+<div class="grid"><div><label>Marginal profit per additional meal</label><input id="c5" type="number" step="0.01"></div><div><label>Profit gained by increasing sales from 55 to 65 meals</label><input id="c6" type="number" step="0.01"></div></div>
+<button style="margin-top:14px" onclick="check3()">Check Part 3</button><div id="fb3" class="feedback"></div></section>
+
+<section class="panel"><div class="kicker">Part 4</div><h2>A price change</h2>
+<p>Suppose the group lowers the selling price from $9.50 to <strong>$8.50</strong> while fixed and variable costs remain unchanged.</p>
+<div class="grid3"><div><label>New marginal profit</label><input id="d1" type="number" step="0.01"></div><div><label>New break-even quantity</label><input id="d2" type="number" step="0.01"></div><div><label>Profit at 80 meals with new price</label><input id="d3" type="number" step="0.01"></div></div>
+<label>Under this model alone, which price produces more profit if exactly 80 meals are sold?</label><select id="d4"><option value="">choose…</option><option value="9.5">$9.50 price</option><option value="8.5">$8.50 price</option><option value="same">same profit</option></select>
+<div class="callout" style="margin-top:14px">This comparison holds the number sold fixed at 80. A complete pricing decision would also need a model for how price affects demand.</div>
+<button style="margin-top:14px" onclick="check4()">Check Part 4</button><div id="fb4" class="feedback"></div></section>
+
+<section class="panel"><div class="progressbox"><div><strong>Your work autosaves in this browser.</strong><div id="status" class="small">Ready.</div></div><button class="secondary" onclick="window.print()">Print / Save PDF</button></div></section>
+</main><script>
+const $=id=>document.getElementById(id),key='math107_week7_application_v2',ids=['a1','a2','a3','a4','a5','b1','b2','b3','c1','c2','c3','c4','c5','c6','d1','d2','d3','d4'];
+function near(id,x,t=.011){return Math.abs(+$ (id).value-x)<=t*Math.max(1,Math.abs(x))}
+function fb(n,ok,msg){let e=$('fb'+n);e.textContent=ok?'Correct.':msg;e.className='feedback '+(ok?'good':'bad');save()}
+function check1(){fb(1,near('a1',240)&&near('a2',3.5)&&near('a3',9.5)&&near('a4',6)&&near('a5',-240),'Use C(q)=240+3.5q, R(q)=9.5q, and π(q)=R−C.')}
+function check2(){fb(2,near('b1',40)&&near('b2',380)&&$('b3').value==='loss','Solve 6q−240=0. At q=40, cost and revenue are both $380.')}
+function check3(){fb(3,near('c1',-72)&&near('c2',0)&&near('c3',90)&&near('c4',240)&&near('c5',6)&&near('c6',60),'Use π(q)=6q−240. Ten additional meals add 10·$6 to profit.')}
+function check4(){fb(4,near('d1',5)&&near('d2',48)&&near('d3',160)&&$('d4').value==='9.5','At $8.50, π(q)=5q−240. Compare π(80) under the two prices.')}
+function save(){let o={};ids.forEach(id=>o[id]=$(id).value);localStorage.setItem(key,JSON.stringify(o));$('status').textContent='Saved locally.'}
+function load(){try{let o=JSON.parse(localStorage.getItem(key)||'{}');ids.forEach(id=>{if(o[id]!=null)$(id).value=o[id]})}catch(e){}}
+ids.forEach(id=>$(id).addEventListener('input',save));load();
+</script></body></html>

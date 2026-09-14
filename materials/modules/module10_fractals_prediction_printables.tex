@@ -1,0 +1,195 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=0.68in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\usepackage{tabularx,array,booktabs}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+
+\definecolor{olive}{HTML}{4D5430}
+\definecolor{gold}{HTML}{9A7B22}
+\definecolor{pale}{HTML}{F5F1DC}
+\definecolor{softgreen}{HTML}{EDF0E2}
+\definecolor{softgray}{HTML}{F5F5F2}
+\definecolor{ink}{HTML}{292D20}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textcolor{olive}{MATH\& 107: Math in Society}}
+\rhead{\textcolor{gold}{Fall 2026}}
+\cfoot{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlist[enumerate]{leftmargin=*,itemsep=7pt,topsep=5pt}
+\setlist[itemize]{leftmargin=1.35em,itemsep=3pt,topsep=3pt}
+
+\newtcolorbox{keybox}[1]{colback=pale,colframe=olive,boxrule=0.8pt,arc=2mm,title=\textbf{#1},fonttitle=\color{olive},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+\newtcolorbox{examplebox}[1]{colback=softgreen,colframe=gold,boxrule=0.8pt,arc=2mm,title=\textbf{#1},fonttitle=\color{ink},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+\newtcolorbox{refbox}[1]{colback=softgray,colframe=gold,boxrule=0.7pt,arc=2mm,title=\textbf{#1},fonttitle=\color{ink},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+
+\newcommand{\summaryhead}[2]{%
+  \clearpage
+  {\Large\bfseries\textcolor{olive}{Module #1: #2 — Summary}}\par
+  \vspace{2pt}\textcolor{gold}{\rule{\linewidth}{1.2pt}}\par\smallskip
+}
+\newcommand{\prequizhead}[2]{%
+  \clearpage
+  {\Large\bfseries\textcolor{olive}{Module #1: #2 — Prequiz}}\par
+  \textit{Open-note. Show your mathematical work. A calculation and a clearly stated final answer are enough unless a sentence is specifically requested.}\par
+  Name: \hspace{2.6in} Date: \hspace{1.1in}\par
+  \vspace{2pt}\textcolor{gold}{\rule{\linewidth}{1.2pt}}\par\smallskip
+}
+\newcommand{\quizhead}[2]{%
+  \clearpage
+  {\Large\bfseries\textcolor{olive}{Module #1: #2 — Matching Quiz}}\par
+  \textit{These problems use the same skills as the prequiz, with new values and contexts. Show enough work to make your reasoning visible.}\par
+  Name: \hspace{2.6in} Date: \hspace{1.1in}\par
+  \vspace{2pt}\textcolor{gold}{\rule{\linewidth}{1.2pt}}\par\smallskip
+}
+\newcommand{\worksmall}{\par\vspace{0.38in}}
+\newcommand{\workmed}{\par\vspace{0.62in}}
+\newcommand{\worklarge}{\par\vspace{0.92in}}
+\newcommand{\workxl}{\par\vspace{1.22in}}
+\newcommand{\choice}[1]{\(\square\)~#1\qquad}
+
+\begin{document}
+\summaryhead{10}{Fractal Geometry and the Limits of Prediction}
+
+\textbf{What this module is about.} A recursive rule can be completely deterministic and still produce very different kinds of long-term behavior. Some rules keep nearby starting values close. Some amplify differences in a predictable way. Chaotic rules can make a tiny uncertainty in the starting value grow into a large difference later. Fractals add another idea: measurements can depend strongly on the scale at which a boundary is observed.
+
+\begin{keybox}{Recursion and sensitive dependence}
+A recursion has the form
+\[
+x_{n+1}=f(x_n).
+\]
+The same rule is applied repeatedly. The logistic map is
+\[
+x_{n+1}=rx_n(1-x_n).
+\]
+For some values of \(r\), the sequence settles toward a fixed value; for other values, it becomes periodic or chaotic. In a chaotic regime, nearby starting values can eventually produce very different forecasts.
+\end{keybox}
+
+\begin{examplebox}{Example 1: Collatz trajectories}
+The Collatz rule is
+\[
+n\mapsto\begin{cases}
+ n/2,&n\text{ even},\\
+ 3n+1,&n\text{ odd}.
+\end{cases}
+\]
+Starting from \(7\):
+\[
+7\to22\to11\to34\to17\to52\to26\to13\to40\to20\to10\to5\to16\to8\to4\to2\to1.
+\]
+This path takes \(16\) steps and reaches a peak of \(52\). Nearby starting integers can have very different trajectories even though the rule itself is simple and exact.
+\end{examplebox}
+
+\begin{keybox}{Two fractal growth rules}
+For the Koch curve, each segment is replaced by \(4\) segments of one-third the original length. Therefore the total length is multiplied by
+\[
+4\left(\frac13\right)=\frac43
+\]
+at each step. Starting from length \(L_0\),
+\[
+L_n=L_0\left(\frac43\right)^n.
+\]
+
+For the Sierpinski triangle, \(3/4\) of the previous area remains at each step:
+\[
+A_n=A_0\left(\frac34\right)^n.
+\]
+Thus boundary complexity can increase while remaining area decreases.
+\end{keybox}
+
+\begin{examplebox}{Example 2: Scale-dependent coastline measurement}
+Suppose a coastline is measured with rulers of different lengths.
+\[
+\begin{array}{c|c|c}
+\text{ruler length} & \text{placements} & \text{measured length}\\\hline
+10 & 50 & 500\\
+5 & 130 & 650\\
+2.5 & 340 & 850\\
+1.25 & 900 & 1125
+\end{array}
+\]
+Shorter rulers follow smaller bends in the boundary and produce a larger measured length. The coastline has not physically grown; the observation scale has changed.
+\end{examplebox}
+
+\begin{examplebox}{Example 3: A first logistic-map step}
+With \(r=2.8\) and \(x_0=0.2\),
+\[
+x_1=2.8(0.2)(1-0.2)=2.8(0.2)(0.8)=0.448.
+\]
+The rule is deterministic: once \(r\) and \(x_0\) are fixed, the next value is fixed. But determinism alone does not guarantee that long-range forecasts remain stable when the initial measurement is slightly uncertain.
+\end{examplebox}
+
+\textbf{By the end of this module, you should be able to:} iterate simple recursive rules; compare Collatz trajectories; compute Koch segment counts and total-length factors; compute Sierpinski area fractions; carry out logistic-map steps; and explain with a concrete calculation why some measurements and predictions depend on scale or initial conditions.
+
+\prequizhead{10}{Fractal Geometry and the Limits of Prediction}
+\begin{refbox}{Useful rules}
+Collatz: even \(n\mapsto n/2\), odd \(n\mapsto3n+1\). Koch length factor: \(4/3\). Sierpinski area factor: \(3/4\). Logistic map: \(x_{n+1}=rx_n(1-x_n)\).
+\end{refbox}
+
+\begin{enumerate}
+\item Apply the Collatz rule starting from \(7\) until the sequence reaches \(1\).
+\begin{enumerate}[label=(\alph*),itemsep=4pt]
+\item Write the full sequence.
+\item How many steps are required to reach \(1\)?
+\item What is the largest value reached?
+\end{enumerate}
+\workxl
+
+\item A Koch curve begins with one segment of length \(1\).
+\begin{enumerate}[label=(\alph*),itemsep=4pt]
+\item How many segments are present at step \(3\)?
+\item What is the total length at step \(3\)? Give an exact fraction and a decimal approximation.
+\item By what factor does total length change from one step to the next?
+\end{enumerate}
+\worklarge
+
+\item A Sierpinski triangle keeps \(3/4\) of its area at each step. What fraction of the original area remains after \(4\) steps? Give both the exact expression and a decimal approximation.
+\worklarge
+
+\item Use the logistic map
+\[
+x_{n+1}=2.8x_n(1-x_n)
+\]
+with \(x_0=0.2\). Compute \(x_1\). Then explain what information would be needed to determine \(x_2\).
+\worklarge
+
+\item A surveyor measures a coastline with the data below.
+\[
+\begin{array}{c|c}
+\text{ruler length (km)} & \text{number of placements}\\\hline
+10 & 50\\
+5 & 130\\
+2.5 & 340\\
+1.25 & 900
+\end{array}
+\]
+For each row, compute \(\text{ruler length}\times\text{placements}\). Describe the numerical trend as the ruler gets shorter. Do \emph{not} say that the coastline itself is changing; identify what is changing in the measurement process.
+\workxl
+\end{enumerate}
+
+\quizhead{10}{Fractal Geometry and the Limits of Prediction}
+\begin{enumerate}
+\item Apply the Collatz rule starting from \(6\) until reaching \(1\). Record the sequence, number of steps, and peak value.
+\worklarge
+
+\item A Koch curve starts with one segment of length \(1\). How many segments are present at step \(4\), and by what factor has total length changed from step \(0\) to step \(4\)?
+\worklarge
+
+\item What fraction of the original Sierpinski-triangle area remains after \(3\) steps? Give a decimal approximation.
+\workmed
+
+\item For \(x_{n+1}=3x_n(1-x_n)\) with \(x_0=0.5\), compute \(x_1\) and \(x_2\).
+\worklarge
+
+\item A coastline is measured with increasingly short rulers, and the computed length increases each time the ruler gets shorter. What mathematical idea from this module does that demonstrate? Explain in one or two clear sentences.
+\workmed
+\end{enumerate}
+\end{document}

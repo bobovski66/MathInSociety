@@ -1,0 +1,198 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=0.68in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\usepackage{tabularx,array,booktabs}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+
+\definecolor{olive}{HTML}{4D5430}
+\definecolor{gold}{HTML}{9A7B22}
+\definecolor{pale}{HTML}{F5F1DC}
+\definecolor{softgreen}{HTML}{EDF0E2}
+\definecolor{softgray}{HTML}{F5F5F2}
+\definecolor{ink}{HTML}{292D20}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textcolor{olive}{MATH\& 107: Math in Society}}
+\rhead{\textcolor{gold}{Fall 2026}}
+\cfoot{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlist[enumerate]{leftmargin=*,itemsep=7pt,topsep=5pt}
+\setlist[itemize]{leftmargin=1.35em,itemsep=3pt,topsep=3pt}
+
+\newtcolorbox{keybox}[1]{colback=pale,colframe=olive,boxrule=0.8pt,arc=2mm,title=\textbf{#1},fonttitle=\color{olive},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+\newtcolorbox{examplebox}[1]{colback=softgreen,colframe=gold,boxrule=0.8pt,arc=2mm,title=\textbf{#1},fonttitle=\color{ink},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+\newtcolorbox{refbox}[1]{colback=softgray,colframe=gold,boxrule=0.7pt,arc=2mm,title=\textbf{#1},fonttitle=\color{ink},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+
+\newcommand{\summaryhead}[2]{%
+  \clearpage
+  {\Large\bfseries\textcolor{olive}{Module #1: #2 — Summary}}\par
+  \vspace{2pt}\textcolor{gold}{\rule{\linewidth}{1.2pt}}\par\smallskip
+}
+\newcommand{\prequizhead}[2]{%
+  \clearpage
+  {\Large\bfseries\textcolor{olive}{Module #1: #2 — Prequiz}}\par
+  \textit{Open-note. Show your mathematical work. A calculation and a clearly stated final answer are enough unless a sentence is specifically requested.}\par
+  Name: \hspace{2.6in} Date: \hspace{1.1in}\par
+  \vspace{2pt}\textcolor{gold}{\rule{\linewidth}{1.2pt}}\par\smallskip
+}
+\newcommand{\quizhead}[2]{%
+  \clearpage
+  {\Large\bfseries\textcolor{olive}{Module #1: #2 — Matching Quiz}}\par
+  \textit{These problems use the same skills as the prequiz, with new values and contexts. Show enough work to make your reasoning visible.}\par
+  Name: \hspace{2.6in} Date: \hspace{1.1in}\par
+  \vspace{2pt}\textcolor{gold}{\rule{\linewidth}{1.2pt}}\par\smallskip
+}
+\newcommand{\worksmall}{\par\vspace{0.38in}}
+\newcommand{\workmed}{\par\vspace{0.62in}}
+\newcommand{\worklarge}{\par\vspace{0.92in}}
+\newcommand{\workxl}{\par\vspace{1.22in}}
+\newcommand{\choice}[1]{\(\square\)~#1\qquad}
+
+\begin{document}
+\summaryhead{3}{Basic Statistics}
+
+\textbf{What this module is about.} Measures of center tell us where a data set is located, while measures of spread tell us how tightly or loosely the values cluster. A good description usually needs both. The mean and standard deviation use every observation and are sensitive to extreme values. The median is based on order and is often more resistant to an outlier.
+
+\begin{keybox}{Measures of center and spread}
+For data \(x_1,\ldots,x_n\):
+\[
+\bar x=\frac{x_1+\cdots+x_n}{n},
+\qquad
+\text{range}=\max-\min.
+\]
+The \textbf{median} is the middle ordered value (or the average of the two middle values). The \textbf{mode} is the most frequent value.
+
+For this course, Chapter 3 defines the standard deviation by dividing by \(n\):
+\[
+s=\sqrt{\frac{\sum (x_i-\bar x)^2}{n}}.
+\]
+\end{keybox}
+
+\begin{examplebox}{Example 1: Center and an outlier}
+A store records complaints on five days:
+\[
+2,\ 3,\ 2,\ 4,\ 9.
+\]
+The mean is
+\[
+\bar x=\frac{2+3+2+4+9}{5}=4,
+\]
+while the median is \(3\) and the mode is \(2\). The value \(9\) pulls the mean upward. If the unusually high day is removed, the remaining data are \(2,2,3,4\), with mean \(2.75\) and median \(2.5\). The center changes, but the mean changes more noticeably because it uses the magnitude of every value.
+\end{examplebox}
+
+\begin{examplebox}{Example 2: Standard deviation measures consistency}
+For the data \(3,5,5,7\), the mean is \(5\). The deviations and squared deviations are
+\[
+-2,0,0,2
+\qquad\Longrightarrow\qquad
+4,0,0,4.
+\]
+So
+\[
+s=\sqrt{\frac{4+0+0+4}{4}}=\sqrt2\approx1.41.
+\]
+Now compare two filling machines with the same mean of \(250\) mL:
+\[
+A:248,250,252,250,
+\qquad
+B:244,250,256,250.
+\]
+Machine A has the smaller spread, so it is the more consistent machine even though both machines have the same mean.
+\end{examplebox}
+
+\begin{keybox}{A useful workflow for standard deviation}
+\begin{enumerate}[label=\arabic*.]
+\item Compute the mean \(\bar x\).
+\item Find each deviation \(x_i-\bar x\).
+\item Square the deviations.
+\item Add the squared deviations.
+\item Divide by \(n\).
+\item Take the square root.
+\end{enumerate}
+The units of standard deviation are the same as the units of the original data.
+\end{keybox}
+
+\textbf{By the end of this module, you should be able to:} compute mean, median, mode, range, and the course standard deviation; recover a missing value from a known mean; compare consistency using spread; and explain why an outlier can affect the mean more strongly than the median.
+
+\prequizhead{3}{Basic Statistics}
+\begin{refbox}{Course standard deviation}
+\[
+\bar x=\frac{\sum x_i}{n},
+\qquad
+s=\sqrt{\frac{\sum (x_i-\bar x)^2}{n}}.
+\]
+\end{refbox}
+
+\begin{enumerate}
+\item A small store records the number of customer complaints received on five consecutive days:
+\[
+2,\ 3,\ 2,\ 4,\ 9.
+\]
+Find the mean, median, mode, and range of the five values.
+\workxl
+
+\item The value \(9\) in Problem 1 came from an unusually difficult day. Remove it and use the remaining data \(2,2,3,4\).
+\begin{enumerate}[label=(\alph*),itemsep=4pt]
+\item Find the new mean and median.
+\item Which measure of center changed more when the outlier was removed: the mean or the median?
+\end{enumerate}
+\worklarge
+
+\item Five students have a mean test score of \(80\). Four of the scores are \(72,78,85,81\).
+\begin{enumerate}[label=(\alph*),itemsep=4pt]
+\item What total number of points must the five scores have altogether?
+\item What is the missing fifth score?
+\end{enumerate}
+\worklarge
+
+\item Compute the course standard deviation for the data
+\[
+3,\ 5,\ 5,\ 7.
+\]
+Show the mean, the squared deviations, their sum, and the final square root.
+\workxl
+
+\item Two machines each average \(250\) mL per bottle.
+\[
+A:248,250,252,250,
+\qquad
+B:244,250,256,250.
+\]
+Without doing a full standard-deviation table, use the ranges to decide which machine is more consistent. Compute both ranges and state your conclusion.
+\worklarge
+\end{enumerate}
+
+\quizhead{3}{Basic Statistics}
+\begin{enumerate}
+\item A café records the number of orders received during five ten-minute periods:
+\[
+6,\ 7,\ 6,\ 8,\ 13.
+\]
+Find the mean, median, mode, and range.
+\worklarge
+
+\item Remove the unusually large value \(13\) from Problem 1. Find the new mean and median. Which of the two measures changes more?
+\worklarge
+
+\item Six students have a mean score of \(75\). Five scores are \(68,72,76,80,74\). Find the missing sixth score.
+\worklarge
+
+\item For the data \(2,4,4,6\), the mean is \(4\). Compute the course standard deviation by finding and averaging the squared deviations, then taking a square root.
+\worklarge
+
+\item Set A is \(49,50,50,51,50\). Set B is \(30,40,50,60,70\). Both have mean \(50\). Which set is more consistent, and what feature of the data supports your answer?
+\workmed
+\end{enumerate}
+
+% =====================================================================
+% MODULE 4
+% =====================================================================
+\end{document}

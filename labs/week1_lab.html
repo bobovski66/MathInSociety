@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 1 Laboratory — How Numbers Behave</title>
+<style>
+:root{
+  --bg:#efefe4;--card:#fffdf3;--ink:#292d20;--muted:#6d705f;--line:#d9d5bd;
+  --olive:#4d5430;--olive2:#697048;--gold:#b18a22;--goldsoft:#f1e6b2;
+  --good:#657347;--goodbg:#eef2df;--bad:#965348;--badbg:#f7e7e1;
+  --shadow:0 12px 30px rgba(58,61,38,.10)
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+a{color:var(--olive)}
+header{background:linear-gradient(135deg,var(--olive),#62693b);color:#fff;padding:24px 28px}
+header a{color:#f4eab9;text-decoration:none;font-weight:750}
+header h1{margin:10px 0 4px;font-size:clamp(1.8rem,4vw,2.7rem)}
+header p{margin:0;color:#e8e7d6;max-width:78ch}
+main{max-width:1160px;margin:auto;padding:24px 20px 70px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow);margin:16px 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.kicker{text-transform:uppercase;letter-spacing:.11em;color:var(--gold);font-weight:850;font-size:.78rem}
+h2{margin:.15rem 0 .5rem;color:var(--olive)}h3{margin:.35rem 0 .55rem}.muted,.small{color:var(--muted)}.small{font-size:.9rem}
+.callout{border-left:5px solid var(--gold);background:#faf3d4;padding:12px 14px;border-radius:10px}
+.task{border-top:1px solid var(--line);padding:18px 0}.task:first-of-type{border-top:0}
+label{font-weight:750} select,input[type=number],input[type=text]{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:#fffef8;color:var(--ink);font:inherit}
+textarea{width:100%;min-height:96px;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fffef8;color:var(--ink);font:inherit;resize:vertical}
+button{border:0;border-radius:10px;padding:9px 13px;font-weight:800;cursor:pointer;background:var(--olive);color:white}button.secondary{background:var(--gold);color:#211d0c}button.ghost{background:transparent;color:var(--olive);border:1px solid var(--line)}
+.feedback{min-height:1.55em;margin-top:7px;font-weight:750}.feedback.good{color:var(--good)}.feedback.bad{color:var(--bad)}
+.number-card{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fffef8}.number-card .n{font-size:1.35rem;font-weight:850;color:var(--olive);margin-bottom:7px}
+.numberline{position:relative;height:100px;margin:10px 0 2px;background:#fffef8;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.numberline .axis{position:absolute;left:5%;right:5%;top:52px;height:3px;background:var(--olive)}.tick{position:absolute;top:45px;width:1px;height:17px;background:var(--olive)}.tick span{position:absolute;top:18px;transform:translateX(-50%);font-size:.78rem;color:var(--muted)}
+.dot{position:absolute;top:43px;width:20px;height:20px;border-radius:50%;transform:translate(-50%,-50%);border:3px solid #fffef8;box-shadow:0 0 0 1px rgba(0,0,0,.1)}.dot.start{background:var(--olive)}.dot.end{background:var(--gold)}
+.arrow{position:absolute;top:22px;height:20px;border-top:3px solid var(--gold)}.arrow:after{content:"";position:absolute;right:-1px;top:-7px;border-left:9px solid var(--gold);border-top:5px solid transparent;border-bottom:5px solid transparent}
+.data-table{width:100%;border-collapse:collapse;margin-top:10px}.data-table th,.data-table td{padding:8px 7px;border-bottom:1px solid var(--line);text-align:right}.data-table th:first-child,.data-table td:first-child{text-align:left}.data-table input{max-width:125px;text-align:right}
+.pillrow{display:flex;gap:9px;flex-wrap:wrap}.pill{border:1px solid var(--line);background:var(--goldsoft);border-radius:999px;padding:6px 10px;font-weight:780}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:12px}.plan{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fffef8}.plan strong{color:var(--olive)}
+.barwrap{height:220px;display:flex;align-items:flex-end;gap:4px;border-left:2px solid var(--line);border-bottom:2px solid var(--line);padding:8px 8px 0;margin-top:12px;overflow:hidden}.barpair{flex:1;display:flex;align-items:flex-end;gap:2px;height:100%;position:relative}.bar{flex:1;min-width:4px;border-radius:3px 3px 0 0}.bar.a{background:var(--olive2)}.bar.b{background:var(--gold)}.barpair span{position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);font-size:.68rem;color:var(--muted)}
+.progressbox{display:flex;align-items:center;gap:14px;justify-content:space-between;flex-wrap:wrap}.progressbar{height:12px;background:#e4e1cf;border-radius:999px;overflow:hidden;min-width:220px;flex:1}.progressbar>div{height:100%;background:linear-gradient(90deg,var(--olive2),var(--gold));width:0;transition:.25s}
+@media(max-width:820px){.grid,.grid3,.compare{grid-template-columns:1fr}.barwrap{height:180px}.progressbar{min-width:100%}}
+@media print{header{background:white;color:black;padding:0 0 12px}header a{display:none}header p{color:#444}.panel{box-shadow:none;break-inside:avoid}button{display:none}body{background:white}}
+
+
+/* Submission-friendly browser printing */
+.print-answer{display:none}
+.submission-panel .submission-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:end}
+.submission-panel .submission-help{margin:.35rem 0 .9rem;color:var(--muted)}
+.submission-panel .submission-name label{display:block;font-weight:750;margin-bottom:5px}
+.submission-panel .submission-name input{max-width:520px}
+.print-date{display:none}
+@media(max-width:760px){.submission-panel .submission-row{grid-template-columns:1fr}}
+@media print{
+  input,select,textarea{display:none!important}
+  .print-answer{display:inline-block!important;min-width:3.5em;max-width:100%;padding:3px 7px;border:1px solid #999;border-radius:5px;background:#fff;color:#000;font-weight:700;white-space:pre-wrap;overflow-wrap:anywhere;vertical-align:baseline}
+  td>.print-answer, .grid .print-answer, .grid3 .print-answer, .grid4 .print-answer, .scenario>.print-answer, label+.print-answer{display:block!important;width:100%;margin-top:4px}
+  .submission-panel{box-shadow:none!important;border:1px solid #999!important;break-inside:avoid}
+  .submission-panel .submission-help,.submission-panel button{display:none!important}
+  .submission-panel .submission-row{display:block}
+  .submission-panel .submission-name{margin-bottom:5px}
+  .print-date{display:block!important;margin-top:8px;font-size:.9rem;color:#444}
+}
+</style>
+
+<script>
+window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+<header>
+  <a href="../index.html">← MATH&amp; 107 course</a>
+  <h1>Week 1 Laboratory — How Numbers Behave</h1>
+  <p>Numbers are not only labels. They can locate, move, scale, compare, and generate new values. This lab follows those roles from the number tower through recursion.</p>
+</header>
+<main>
+<section class="panel student-guide"><h2>Before you begin</h2><ol><li>Classify or compute first; use the representation named in the section rather than jumping to a calculator.</li><li>When a situation describes direction, encode direction with signed numbers before doing the arithmetic.</li><li>For recursion, write the update rule and calculate the first few steps before comparing long-run behavior.</li></ol></section>
+<section class="panel student-notation"><h2>Key notation</h2><p>The number systems satisfy \(\mathbb N\subset\mathbb Z\subset\mathbb Q\subset\mathbb R\). Fixed addition has \(a_{n+1}=a_n+d\); fixed-factor growth has \(b_{n+1}=rb_n\).</p></section>
+
+<section class="panel">
+  <div class="progressbox">
+    <div><div class="kicker">Laboratory question</div><h2>What changes when we change our way of looking at a number?</h2></div>
+    <div class="progressbar" aria-label="lab progress"><div id="progressFill"></div></div>
+    <div class="pill"><span id="progressText">0 / 5</span> sections checked</div>
+  </div>
+  <p class="callout">The goal is not to race through arithmetic. In each part, notice the representation that makes the structure easiest to see: containment, motion, scaling, equivalence, or repeated change.</p>
+</section>
+
+<section class="panel" id="part1">
+  <div class="kicker">Part 1 · Number tower</div>
+  <h2>Classify by the smallest system that works</h2>
+  <p>For each value, choose the <em>smallest</em> set containing it: natural (N), integer (Z), rational (Q), or real but irrational (R).</p>
+  <div class="grid3" id="classifyGrid"></div>
+  <div style="margin-top:12px"><button onclick="checkClassify()">Check classifications</button></div>
+  <div id="classifyFeedback" class="feedback"></div><p class="small">Choose the smallest set because it tells you more about the number than the broader label “real.”</p>
+</section>
+
+<section class="panel" id="part2">
+  <div class="kicker">Part 2 · Additive view</div>
+  <h2>Turn arithmetic into motion</h2>
+  <div class="grid">
+    <div>
+      <p>A diver begins at the surface, descends 15 m, rises 8 m, then descends 5 m. Treat upward motion as positive and downward motion as negative.</p>
+      <label>Write the motion as one sequence of additions.</label>
+      <input id="diverExpr" type="text" placeholder="Example format: 0 + ... + ... + ...">
+      <label style="display:block;margin-top:10px">Final depth (meters)</label>
+      <input id="diverFinal" type="number" step="1">
+      <button style="margin-top:10px" onclick="checkDiver()">Check</button>
+      <div id="diverFeedback" class="feedback"></div>
+    </div>
+    <div>
+      <div class="numberline" id="numberline"><div class="axis"></div></div>
+      <div class="pillrow"><span class="pill">start: 0</span><span class="pill">after descent: −15</span><span class="pill">after ascent: −7</span><span class="pill">final: −12</span></div>
+      <p class="small">Once the signs are chosen consistently, the arithmetic is just tracking position.</p>
+    </div>
+  </div><p class="small">With the sign convention fixed, downward motion is a negative addend and upward motion is a positive addend.</p>
+</section>
+
+<section class="panel" id="part3">
+  <div class="kicker">Part 3 · Multiplicative view</div>
+  <h2>Predict what a scale factor will do before calculating</h2>
+  <p>Start with 7. For each operation, predict whether the result is <strong>less than 7</strong>, <strong>equal to 7</strong>, or <strong>greater than 7</strong>. Then reveal the value.</p>
+  <table class="data-table">
+    <thead><tr><th>Operation</th><th>Prediction</th><th>Value</th></tr></thead>
+    <tbody id="scaleRows"></tbody>
+  </table>
+  <button style="margin-top:12px" onclick="checkScaling()">Check predictions</button>
+  <div id="scaleFeedback" class="feedback"></div><div class="grid" style="margin-top:12px"><div><label>Multiplying a positive number by a factor between 0 and 1 makes it:</label><select data-save="scaleRule1"><option value="">choose…</option><option>smaller</option><option>larger</option></select></div><div><label>Dividing a positive number by a factor between 0 and 1 makes it:</label><select data-save="scaleRule2"><option value="">choose…</option><option>smaller</option><option>larger</option></select></div></div>
+</section>
+
+<section class="panel" id="part4">
+  <div class="kicker">Part 4 · Rational equivalence</div>
+  <h2>Different symbols, same location</h2>
+  <div class="grid">
+    <div class="plan">
+      <h3>Pair A</h3>
+      <div style="font-size:1.4rem">12/14 &nbsp; and &nbsp; 18/21</div>
+      <p>Use cross-products to decide whether they are equivalent.</p>
+      <label>12 × 21</label><input id="cp1" type="number">
+      <label>14 × 18</label><input id="cp2" type="number">
+      <label>Equivalent?</label><select id="eq1"><option value="">choose…</option><option value="yes">Yes</option><option value="no">No</option></select>
+    </div>
+    <div class="plan">
+      <h3>Pair B</h3>
+      <div style="font-size:1.4rem">5/8 &nbsp; and &nbsp; 15/25</div>
+      <p>Use the same test.</p>
+      <label>5 × 25</label><input id="cp3" type="number">
+      <label>8 × 15</label><input id="cp4" type="number">
+      <label>Equivalent?</label><select id="eq2"><option value="">choose…</option><option value="yes">Yes</option><option value="no">No</option></select>
+    </div>
+  </div>
+  <button style="margin-top:12px" onclick="checkFractions()">Check equivalence tests</button>
+  <div id="fractionFeedback" class="feedback"></div><p class="small">Both fractions in Pair A simplify to <strong>6/7</strong>, confirming that the different symbols name the same rational number.</p>
+</section>
+
+<section class="panel" id="part5">
+  <div class="kicker">Part 5 · Recursion</div>
+  <h2>Add the same amount or multiply by the same factor?</h2>
+  <p>Two populations both begin at 1,000. Population A gains 200 each year. Population B grows by 15% each year. First compute only through year 5, as in the textbook exercise. Then use the explorer to test your long-range prediction.</p>
+  <div class="compare">
+    <div class="plan"><strong>Population A</strong><div>A₀ = 1000</div><div>Aₙ₊₁ = Aₙ + 200</div></div>
+    <div class="plan"><strong>Population B</strong><div>B₀ = 1000</div><div>Bₙ₊₁ = 1.15Bₙ</div></div>
+  </div>
+  <table class="data-table">
+    <thead><tr><th>Year</th><th>A: add 200</th><th>B: × 1.15</th></tr></thead>
+    <tbody id="recursionTable"></tbody>
+  </table>
+  <button onclick="checkRecursionTable()">Check years 1–5</button>
+  <div id="recursionFeedback" class="feedback"></div>
+
+  <div class="task">
+    <label>Before revealing years 6–20, which population do you predict will be larger in year 20?</label><select data-save="prediction"><option value="">choose…</option><option value="A">Population A: fixed addition</option><option value="B">Population B: 15% growth</option></select>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px">
+      <button class="secondary" onclick="revealLongRange()">Reveal years 6–20</button>
+      <span class="small" id="crossoverText">Long-range values hidden.</span>
+    </div>
+    <div id="chart" class="barwrap" style="display:none"></div>
+  </div><label style="display:block;margin-top:12px">Why can the percentage model eventually overtake the fixed-addition model?</label><select data-save="recursionReason"><option value="">choose…</option><option value="growing">The percentage is applied to a growing current value, so the absolute amount added grows over time.</option><option value="fixed">The percentage model adds the same number every year.</option><option value="random">The percentage model changes randomly.</option></select>
+</section>
+
+<section class="panel"><div class="kicker">Finish</div><h2>Save your work</h2><p>Make sure all five computational sections have been checked. Your entries are saved in this browser.</p><div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap"><button id="saveBtn">Save in this browser</button><button class="ghost" onclick="clearLab()">Clear lab</button><span id="status" class="small"></span></div></section>
+
+<section class="panel submission-panel">
+  <h2>Submit your completed lab</h2>
+  <p class="submission-help">Your answers are stored in this browser as you work. For a paper submission, enter your name and choose <strong>Print Completed Lab</strong>. In the browser print window, select a physical printer. You may also choose <strong>Save as PDF</strong> if you prefer an electronic copy.</p>
+  <div class="submission-row">
+    <div class="submission-name"><label for="printStudentName">Student name</label><input id="printStudentName" type="text" autocomplete="name" placeholder="Enter your name before printing"></div>
+    <button type="button" class="secondary" onclick="printCompletedLab()">Print Completed Lab</button>
+  </div>
+  <div class="print-date" id="printDate"></div>
+</section>
+</main>
+<script>
+const KEY='math107_week1_lab_v2';
+const classifications=[
+  ['12','N'],['−5','Z'],['3/8','Q'],['√5','R'],['0','Z'],['6/3','N']
+];
+const classifyGrid=document.getElementById('classifyGrid');
+classifications.forEach(([n,a],i)=>{
+  classifyGrid.insertAdjacentHTML('beforeend',`<div class="number-card"><div class="n">${n}</div><select id="class${i}"><option value="">smallest set…</option><option value="N">N — natural</option><option value="Z">Z — integer</option><option value="Q">Q — rational</option><option value="R">R — irrational real</option></select></div>`)
+});
+const scaleItems=[
+  ['7 × 3/2','greater',10.5],['7 × 1/2','less',3.5],['7 ÷ 1/2','greater',14],['7 ÷ 3','less',7/3]
+];
+const scaleRows=document.getElementById('scaleRows');
+scaleItems.forEach(([op],i)=>scaleRows.insertAdjacentHTML('beforeend',`<tr><td>${op}</td><td><select id="pred${i}"><option value="">choose…</option><option value="less">less than 7</option><option value="equal">equal to 7</option><option value="greater">greater than 7</option></select></td><td id="scaleVal${i}">hidden</td></tr>`));
+const rt=document.getElementById('recursionTable');
+for(let y=0;y<=5;y++){
+  if(y===0) rt.insertAdjacentHTML('beforeend',`<tr><td>0</td><td>1000</td><td>1000</td></tr>`);
+  else rt.insertAdjacentHTML('beforeend',`<tr><td>${y}</td><td><input id="a${y}" type="number" step="1"></td><td><input id="b${y}" type="number" step="0.01"></td></tr>`)
+}
+function setFeedback(id,msg,ok){const e=document.getElementById(id);e.textContent=msg;e.className='feedback '+(ok?'good':'bad')}
+function markPart(part,ok){localStorage.setItem(KEY+'_part'+part,ok?'1':'0');updateProgress()}
+function checkClassify(){let right=0;classifications.forEach(([,ans],i)=>{if(document.getElementById('class'+i).value===ans)right++});let ok=right===classifications.length;setFeedback('classifyFeedback',`${right} of ${classifications.length} correct.${ok?' Nice — smallest-set classification is working.':''}`,ok);markPart(1,ok);save()}
+function checkDiver(){let expr=diverExpr.value.replace(/\s/g,'').replace(/−/g,'-');let final=+diverFinal.value;let exprOK=expr==='0+-15+8+-5'||expr==='0-15+8-5'||expr==='-15+8-5';let ok=exprOK&&final===-12;setFeedback('diverFeedback',ok?'Correct: 0 + (−15) + 8 + (−5) = −12 m.':'Check the signs: descending is negative, ascending is positive; final depth is −12 m.',ok);markPart(2,ok);save()}
+function checkScaling(){let right=0;scaleItems.forEach(([op,ans,val],i)=>{if(document.getElementById('pred'+i).value===ans)right++;document.getElementById('scaleVal'+i).textContent=(Math.round(val*100)/100).toString()});let ok=right===scaleItems.length;setFeedback('scaleFeedback',`${right} of ${scaleItems.length} predictions correct. Values are now revealed.`,ok);markPart(3,ok);save()}
+function checkFractions(){let ok=(+cp1.value===252&&+cp2.value===252&&eq1.value==='yes'&&+cp3.value===125&&+cp4.value===120&&eq2.value==='no');setFeedback('fractionFeedback',ok?'Correct. Pair A names the same rational number; Pair B does not.':'Recheck the cross-products: equal cross-products mean equivalent fractions.',ok);markPart(4,ok);save()}
+function recVals(y){return [1000+200*y,1000*Math.pow(1.15,y)]}
+function checkRecursionTable(){let right=0,total=10;for(let y=1;y<=5;y++){let [a,b]=recVals(y);if(Math.abs(+document.getElementById('a'+y).value-a)<.01)right++;if(Math.abs(+document.getElementById('b'+y).value-b)<.51)right++}let ok=right===total;setFeedback('recursionFeedback',`${right} of ${total} entries correct. Round percentage-growth values to the nearest whole person or cent-like hundredth.`,ok);markPart(5,ok);save()}
+function revealLongRange(){chart.style.display='flex';chart.innerHTML='';let cross=null,max=0,vals=[];for(let y=0;y<=20;y++){let [a,b]=recVals(y);if(cross===null&&b>a)cross=y;vals.push([y,a,b]);max=Math.max(max,a,b)}vals.forEach(([y,a,b])=>{if(y%2===0){let p=document.createElement('div');p.className='barpair';p.innerHTML=`<div class="bar a" style="height:${100*a/max}%" title="A year ${y}: ${a.toFixed(0)}"></div><div class="bar b" style="height:${100*b/max}%" title="B year ${y}: ${b.toFixed(0)}"></div><span>${y}</span>`;chart.appendChild(p)}});let [a20,b20]=recVals(20);crossoverText.textContent=`Population B first exceeds A in year ${cross}. At year 20: A = ${a20.toFixed(0)}, B ≈ ${b20.toFixed(0)}.`;save()}
+function drawNumberLine(){const nl=document.getElementById('numberline');for(let n=-20;n<=5;n+=5){let t=document.createElement('div');t.className='tick';t.style.left=(5+(n+20)/25*90)+'%';t.innerHTML=`<span>${n}</span>`;nl.appendChild(t)}function pos(v){return 5+(v+20)/25*90}[[0,'start'],[-15,'end'],[-7,'end'],[-12,'end']].forEach(([v,c])=>{let d=document.createElement('div');d.className='dot '+c;d.style.left=pos(v)+'%';d.title=String(v);nl.appendChild(d)})}
+drawNumberLine();
+function save(){let data={};document.querySelectorAll('[data-save]').forEach(e=>data[e.dataset.save]=e.value);classifications.forEach((x,i)=>data['class'+i]=document.getElementById('class'+i).value);scaleItems.forEach((x,i)=>data['pred'+i]=document.getElementById('pred'+i).value);['diverExpr','diverFinal','cp1','cp2','cp3','cp4','eq1','eq2'].forEach(id=>data[id]=document.getElementById(id).value);for(let y=1;y<=5;y++){data['a'+y]=document.getElementById('a'+y).value;data['b'+y]=document.getElementById('b'+y).value}localStorage.setItem(KEY,JSON.stringify(data));status.textContent='Saved locally.'}
+function load(){try{let d=JSON.parse(localStorage.getItem(KEY)||'{}');document.querySelectorAll('[data-save]').forEach(e=>{if(d[e.dataset.save]!==undefined)e.value=d[e.dataset.save]});Object.entries(d).forEach(([id,val])=>{let e=document.getElementById(id);if(e)e.value=val})}catch(e){}updateProgress()}
+function updateProgress(){let n=0;for(let i=1;i<=5;i++)if(localStorage.getItem(KEY+'_part'+i)==='1')n++;progressText.textContent=`${n} / 5`;progressFill.style.width=(n/5*100)+'%'}
+function clearLab(){if(!confirm('Clear all Week 1 lab responses stored in this browser?'))return;localStorage.removeItem(KEY);for(let i=1;i<=5;i++)localStorage.removeItem(KEY+'_part'+i);location.reload()}
+document.querySelectorAll('textarea,input,select').forEach(e=>e.addEventListener('input',()=>{status.textContent='Unsaved changes';clearTimeout(window._autos);window._autos=setTimeout(save,700)}));saveBtn.onclick=save;load();
+</script>
+
+<script>
+/* Make completed HTML labs reliable as paper submissions. */
+(function(){
+  const NAME_KEY='math107_print_student_name';
+  function answerText(el){
+    if(el.tagName==='SELECT'){
+      const opt=el.selectedOptions && el.selectedOptions[0];
+      return el.value && opt ? opt.textContent.trim() : 'No response';
+    }
+    if(el.type==='checkbox' || el.type==='radio') return el.checked ? 'Selected' : 'Not selected';
+    const v=(el.value == null ? '' : String(el.value)).trim();
+    return v || 'No response';
+  }
+  window.prepareCompletedLabPrint=function(){
+    document.querySelectorAll('.print-answer').forEach(x=>x.remove());
+    document.querySelectorAll('input,select,textarea').forEach(el=>{
+      const type=(el.type||'').toLowerCase();
+      if(['button','submit','reset','hidden'].includes(type)) return;
+      const out=document.createElement('span');
+      out.className='print-answer';
+      out.textContent=answerText(el);
+      el.insertAdjacentElement('afterend',out);
+    });
+    const d=document.getElementById('printDate');
+    if(d) d.textContent='Printed '+new Date().toLocaleString();
+  };
+  window.printCompletedLab=function(){
+    window.prepareCompletedLabPrint();
+    setTimeout(()=>window.print(),40);
+  };
+  window.addEventListener('beforeprint',window.prepareCompletedLabPrint);
+  window.addEventListener('afterprint',()=>document.querySelectorAll('.print-answer').forEach(x=>x.remove()));
+  function init(){
+    const n=document.getElementById('printStudentName');
+    if(n){
+      try{n.value=localStorage.getItem(NAME_KEY)||''}catch(e){}
+      n.addEventListener('input',()=>{try{localStorage.setItem(NAME_KEY,n.value)}catch(e){}});
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>
+</body>
+</html>

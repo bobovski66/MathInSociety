@@ -1,0 +1,106 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Week 9 Laboratory — Linear Programming</title><style>
+:root{--bg:#efefe4;--card:#fffdf3;--ink:#292d20;--muted:#6d705f;--line:#d9d5bd;--olive:#4d5430;--olive2:#697048;--gold:#b18a22;--goldsoft:#f1e6b2;--good:#657347;--bad:#965348;--shadow:0 12px 30px rgba(58,61,38,.10)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}a{color:var(--olive)}
+header{background:linear-gradient(135deg,var(--olive),#62693b);color:#fff;padding:24px 28px}header a{color:#f4eab9;text-decoration:none;font-weight:750}header h1{margin:10px 0 4px;font-size:clamp(1.8rem,4vw,2.7rem)}header p{margin:0;color:#e8e7d6;max-width:88ch}
+main{max-width:1160px;margin:auto;padding:24px 20px 70px}.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow);margin:16px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.kicker{text-transform:uppercase;letter-spacing:.11em;color:var(--gold);font-weight:850;font-size:.78rem}h2{margin:.15rem 0 .5rem;color:var(--olive)}h3{margin:.35rem 0 .55rem}.small,.muted{font-size:.92rem;color:var(--muted)}.callout{border-left:5px solid var(--gold);background:#faf3d4;padding:12px 14px;border-radius:10px}.scenario{border:1px solid var(--line);border-radius:14px;padding:13px;background:#fffef8}.task{border-top:1px solid var(--line);padding:16px 0}.task:first-of-type{border-top:0}label{font-weight:750;display:block;margin-top:8px}input,select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:#fffef8;color:var(--ink);font:inherit}.feedback{min-height:1.5em;margin-top:7px;font-weight:750}.good{color:var(--good)}.bad{color:var(--bad)}button{border:0;border-radius:10px;padding:9px 13px;font-weight:800;cursor:pointer;background:var(--olive);color:#fff}button.secondary{background:var(--gold);color:#211d0c}.progressbox{display:flex;align-items:center;gap:14px;justify-content:space-between;flex-wrap:wrap}.progressbar{height:12px;background:#e4e1cf;border-radius:999px;overflow:hidden;min-width:220px;flex:1}.progressbar>div{height:100%;background:linear-gradient(90deg,var(--olive2),var(--gold));width:0;transition:.25s}.pill{border:1px solid var(--line);background:var(--goldsoft);border-radius:999px;padding:6px 10px;font-weight:780}.formula{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#f5f1dc;border:1px solid var(--line);padding:10px 12px;border-radius:10px;overflow:auto}table{width:100%;border-collapse:collapse;margin-top:10px}th,td{padding:8px;border-bottom:1px solid var(--line);text-align:right}th:first-child,td:first-child{text-align:left}.readout{display:flex;flex-wrap:wrap;gap:9px}.control{margin:12px 0}.control label{display:flex;justify-content:space-between;gap:12px}.control input[type=range]{padding:0;border:0;background:transparent}.value{font-variant-numeric:tabular-nums;color:var(--gold);font-weight:850}canvas{width:100%;height:500px;border:1px solid var(--line);border-radius:14px;background:#fffef8;display:block}.choiceRow{display:flex;gap:10px;flex-wrap:wrap}.choiceRow label{font-weight:650;border:1px solid var(--line);padding:8px 10px;border-radius:10px;background:#fffef8}.choiceRow input{width:auto;margin-right:6px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.tabs button.active{background:var(--gold);color:#211d0c}.tabpane{display:none}.tabpane.active{display:block}
+@media(max-width:820px){.grid,.grid3,.grid4{grid-template-columns:1fr}canvas{height:420px}}@media print{header{background:white;color:black;padding:0 0 12px}header a{display:none}header p{color:#444}.panel{box-shadow:none;break-inside:avoid}button{display:none}body{background:white}}
+
+
+/* Submission-friendly browser printing */
+.print-answer{display:none}
+.submission-panel .submission-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:end}
+.submission-panel .submission-help{margin:.35rem 0 .9rem;color:var(--muted)}
+.submission-panel .submission-name label{display:block;font-weight:750;margin-bottom:5px}
+.submission-panel .submission-name input{max-width:520px}
+.print-date{display:none}
+@media(max-width:760px){.submission-panel .submission-row{grid-template-columns:1fr}}
+@media print{
+  input,select,textarea{display:none!important}
+  .print-answer{display:inline-block!important;min-width:3.5em;max-width:100%;padding:3px 7px;border:1px solid #999;border-radius:5px;background:#fff;color:#000;font-weight:700;white-space:pre-wrap;overflow-wrap:anywhere;vertical-align:baseline}
+  td>.print-answer, .grid .print-answer, .grid3 .print-answer, .grid4 .print-answer, .scenario>.print-answer, label+.print-answer{display:block!important;width:100%;margin-top:4px}
+  .submission-panel{box-shadow:none!important;border:1px solid #999!important;break-inside:avoid}
+  .submission-panel .submission-help,.submission-panel button{display:none!important}
+  .submission-panel .submission-row{display:block}
+  .submission-panel .submission-name{margin-bottom:5px}
+  .print-date{display:block!important;margin-top:8px;font-size:.9rem;color:#444}
+}
+</style>
+<script>
+window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head><body>
+<header><a href="../index.html">← MATH&amp; 107 course</a><h1>Week 9 Laboratory — Linear Programming</h1><p>Build linear programs, solve maximization and minimization problems, and see how changing the objective can change the optimal corner.</p></header><main>
+<section class="panel student-guide"><h2>Before you begin</h2><ol><li>Define the decision variables in words and units before writing any inequality.</li><li>Translate each limitation or requirement into a constraint, then write the objective separately.</li><li>Evaluate the objective at every feasible vertex and state the final answer in the units of the original problem.</li></ol></section>
+<section class="panel student-notation"><h2>Key notation</h2><p>A linear program has decision variables, constraints, and an objective \(f=ax+by\). For the bounded two-variable problems in this course, a maximum or minimum occurs at a feasible vertex; a tie at adjacent vertices makes the entire joining edge optimal.</p></section>
+
+<section class="panel"><div class="progressbox"><div><div class="kicker">Week 9 skills</div><h2>Best choices under constraints</h2></div><div class="progressbar"><div id="progressFill"></div></div><div class="pill"><span id="progressText">0 / 5</span> sections checked</div></div><div class="callout"><strong>Linear-programming workflow</strong><div class="formula">1. Choose decision variables.<br>2. Write constraints.<br>3. Write the objective function.<br>4. Find feasible vertices.<br>5. Evaluate the objective at the vertices.<br>6. Choose the largest or smallest value required.</div></div></section>
+<section class="panel"><div class="kicker">Part 1 · Build the model</div><h2>Farmer: corn and soybeans</h2><div class="scenario">Let <strong>x</strong> be acres of corn and <strong>y</strong> be acres of soybeans. Corn uses 3 labor-hours per acre and earns $200 profit. Soybeans use 2 labor-hours per acre and earn $150 profit. The farmer has at most 120 labor-hours and 50 acres of land.</div><div class="grid"><div><label>Labor constraint</label><select id="p1a"><option value="">choose…</option><option value="right">3x + 2y ≤ 120</option><option>2x + 3y ≤ 120</option><option>3x + 2y ≥ 120</option></select></div><div><label>Land constraint</label><select id="p1b"><option value="">choose…</option><option value="right">x + y ≤ 50</option><option>x + y ≥ 50</option><option>3x + 2y ≤ 50</option></select></div></div><div class="grid"><div><label>Objective coefficient of x</label><input id="p1c" type="number"></div><div><label>Objective coefficient of y</label><input id="p1d" type="number"></div></div><label>Optimization direction</label><select id="p1e"><option value="">choose…</option><option value="max">maximize profit</option><option value="min">minimize profit</option></select><button style="margin-top:14px" onclick="check1()">Check Part 1</button><div id="fb1" class="feedback"></div></section>
+<section class="panel"><div class="kicker">Part 2 · Maximization</div><h2>Find the best feasible corner</h2><div class="formula">Maximize f = 5x + 8y<br>subject to x + 2y ≤ 16, 3x + 2y ≤ 24, x ≥ 0, y ≥ 0.</div><div class="grid"><div><label>Intersection of the two non-axis boundaries: x</label><input id="p2a" type="number"></div><div><label>Intersection: y</label><input id="p2b" type="number"></div></div><table><thead><tr><th>Vertex</th><th>(0,0)</th><th>(8,0)</th><th>(4,6)</th><th>(0,8)</th></tr></thead><tbody><tr><td>f=5x+8y</td><td><input id="p2c" type="number"></td><td><input id="p2d" type="number"></td><td><input id="p2e" type="number"></td><td><input id="p2f" type="number"></td></tr></tbody></table><div class="grid"><div><label>Maximum value</label><input id="p2g" type="number"></div><div><label>Optimal vertex</label><select id="p2h"><option value="">choose…</option><option>(8,0)</option><option value="right">(4,6)</option><option>(0,8)</option></select></div></div><button style="margin-top:14px" onclick="check2()">Check Part 2</button><div id="fb2" class="feedback"></div></section>
+<section class="panel"><div class="kicker">Part 3 · Minimization</div><h2>Requirements point the other way</h2><div class="formula">Minimize C = 3x + 5y<br>subject to x + y ≥ 8, 2x + y ≥ 10, x ≥ 0, y ≥ 0.</div><p class="small">Because these are minimum requirements, the feasible region extends up and to the right. The minimum is still found at a boundary vertex.</p><div class="grid"><div><label>Intersection x-coordinate</label><input id="p3a" type="number"></div><div><label>Intersection y-coordinate</label><input id="p3b" type="number"></div></div><table><thead><tr><th>Relevant vertex</th><th>(8,0)</th><th>(2,6)</th><th>(0,10)</th></tr></thead><tbody><tr><td>C=3x+5y</td><td><input id="p3c" type="number"></td><td><input id="p3d" type="number"></td><td><input id="p3e" type="number"></td></tr></tbody></table><div class="grid"><div><label>Minimum value</label><input id="p3f" type="number"></div><div><label>Minimum vertex</label><select id="p3g"><option value="">choose…</option><option value="right">(8,0)</option><option>(2,6)</option><option>(0,10)</option></select></div></div><button style="margin-top:14px" onclick="check3()">Check Part 3</button><div id="fb3" class="feedback"></div></section>
+<section class="panel"><div class="kicker">Part 4 · Same region, different question</div><h2>Change the objective</h2><p>A feasible region has vertices <strong>(0,0), (8,0), (5,4), (0,6)</strong>.</p><table><thead><tr><th>Objective</th><th>(0,0)</th><th>(8,0)</th><th>(5,4)</th><th>(0,6)</th></tr></thead><tbody><tr><td>π=10x+12y</td><td>0</td><td><input id="p4a" type="number"></td><td><input id="p4b" type="number"></td><td><input id="p4c" type="number"></td></tr><tr><td>R=15x+8y</td><td>0</td><td><input id="p4d" type="number"></td><td><input id="p4e" type="number"></td><td><input id="p4f" type="number"></td></tr><tr><td>C=4x+6y</td><td>ignore zero production</td><td><input id="p4g" type="number"></td><td><input id="p4h" type="number"></td><td><input id="p4i" type="number"></td></tr></tbody></table><div class="grid3"><div><label>π is largest at</label><select id="p4j"><option value="">choose…</option><option>(8,0)</option><option value="54">(5,4)</option><option>(0,6)</option></select></div><div><label>R is largest at</label><select id="p4k"><option value="">choose…</option><option value="80">(8,0)</option><option>(5,4)</option><option>(0,6)</option></select></div><div><label>C is smallest (excluding origin) at</label><select id="p4l"><option value="">choose…</option><option value="80">(8,0)</option><option>(5,4)</option><option>(0,6)</option></select></div></div><button style="margin-top:14px" onclick="check4()">Check Part 4</button><div id="fb4" class="feedback"></div></section>
+<section class="panel"><div class="kicker">Part 5 · Multiple optimal solutions</div><h2>A tie along an edge</h2><p>The feasible region has vertices (0,0), (4,0), (3,2), and (0,5). Maximize <strong>f=3x+3y</strong>.</p><div class="grid4"><div><label>f(0,0)</label><input id="p5a" type="number"></div><div><label>f(4,0)</label><input id="p5b" type="number"></div><div><label>f(3,2)</label><input id="p5c" type="number"></div><div><label>f(0,5)</label><input id="p5d" type="number"></div></div><div class="grid"><div><label>Maximum value</label><input id="p5e" type="number"></div><div><label>How many vertices attain it?</label><input id="p5f" type="number"></div></div><label>If two adjacent vertices have the same maximum objective value, what follows?</label><select id="p5g"><option value="">choose…</option><option value="right">Every point on the edge joining them is also optimal.</option><option>Only the midpoint is optimal.</option><option>The feasible region is invalid.</option></select><button style="margin-top:14px" onclick="check5()">Check Part 5</button><div id="fb5" class="feedback"></div></section>
+<section class="panel"><div class="progressbox"><div><strong>Your work autosaves in this browser.</strong><div class="small" id="saveStatus">Ready.</div></div></div></section>
+
+<section class="panel submission-panel">
+  <h2>Submit your completed lab</h2>
+  <p class="submission-help">Your answers are stored in this browser as you work. For a paper submission, enter your name and choose <strong>Print Completed Lab</strong>. In the browser print window, select a physical printer. You may also choose <strong>Save as PDF</strong> if you prefer an electronic copy.</p>
+  <div class="submission-row">
+    <div class="submission-name"><label for="printStudentName">Student name</label><input id="printStudentName" type="text" autocomplete="name" placeholder="Enter your name before printing"></div>
+    <button type="button" class="secondary" onclick="printCompletedLab()">Print Completed Lab</button>
+  </div>
+  <div class="print-date" id="printDate"></div>
+</section>
+</main><script>
+const $=id=>document.getElementById(id),key='math107_week9_lab_v2',done=[false,false,false,false,false];const ids=[...document.querySelectorAll('input,select')].map(e=>e.id).filter(Boolean);const eq=(id,v,t=.01)=>Math.abs(+$(id).value-v)<=t;const all=a=>a.every(Boolean);
+function result(n,ok,msg){done[n-1]=ok;let e=$('fb'+n);e.textContent=ok?'Correct — Part '+n+' complete.':msg;e.className='feedback '+(ok?'good':'bad');update();save()}function update(){let n=done.filter(Boolean).length;$('progressText').textContent=n+' / 5';$('progressFill').style.width=(20*n)+'%'}
+function check1(){result(1,all([$('p1a').value==='right',$('p1b').value==='right',eq('p1c',200),eq('p1d',150),$('p1e').value==='max']),'Use the coefficients and the words “at most” and “maximize profit.”')}
+function check2(){result(2,all([eq('p2a',4),eq('p2b',6),eq('p2c',0),eq('p2d',40),eq('p2e',68),eq('p2f',64),eq('p2g',68),$('p2h').value==='right']),'Solve the two boundary equations, then substitute all four vertices into f=5x+8y.')}
+function check3(){result(3,all([eq('p3a',2),eq('p3b',6),eq('p3c',24),eq('p3d',36),eq('p3e',50),eq('p3f',24),$('p3g').value==='right']),'For ≥ constraints, use the lower boundary vertices and choose the smallest cost.')}
+function check4(){let vals=[80,98,72,120,107,48,32,44,36], letters='abcdefghi';let ok=vals.every((v,i)=>eq('p4'+letters[i],v))&&$('p4j').value==='54'&&$('p4k').value==='80'&&$('p4l').value==='80';result(4,ok,'Evaluate each objective separately. The feasible region stays fixed, but the best corner can change.')}
+function check5(){result(5,all([eq('p5a',0),eq('p5b',12),eq('p5c',15),eq('p5d',15),eq('p5e',15),eq('p5f',2),$('p5g').value==='right']),'The two adjacent vertices (3,2) and (0,5) tie at 15, so the full connecting edge is optimal.')}
+function save(){let o={done};ids.forEach(id=>o[id]=$(id).value);localStorage.setItem(key,JSON.stringify(o));$('saveStatus').textContent='Saved locally.'}function load(){try{let o=JSON.parse(localStorage.getItem(key)||'{}');ids.forEach(id=>{if(o[id]!=null)$(id).value=o[id]});if(Array.isArray(o.done))o.done.forEach((x,i)=>done[i]=!!x);update()}catch(e){}}ids.forEach(id=>$(id).addEventListener('input',save));load();
+</script>
+<script>
+/* Make completed HTML labs reliable as paper submissions. */
+(function(){
+  const NAME_KEY='math107_print_student_name';
+  function answerText(el){
+    if(el.tagName==='SELECT'){
+      const opt=el.selectedOptions && el.selectedOptions[0];
+      return el.value && opt ? opt.textContent.trim() : 'No response';
+    }
+    if(el.type==='checkbox' || el.type==='radio') return el.checked ? 'Selected' : 'Not selected';
+    const v=(el.value == null ? '' : String(el.value)).trim();
+    return v || 'No response';
+  }
+  window.prepareCompletedLabPrint=function(){
+    document.querySelectorAll('.print-answer').forEach(x=>x.remove());
+    document.querySelectorAll('input,select,textarea').forEach(el=>{
+      const type=(el.type||'').toLowerCase();
+      if(['button','submit','reset','hidden'].includes(type)) return;
+      const out=document.createElement('span');
+      out.className='print-answer';
+      out.textContent=answerText(el);
+      el.insertAdjacentElement('afterend',out);
+    });
+    const d=document.getElementById('printDate');
+    if(d) d.textContent='Printed '+new Date().toLocaleString();
+  };
+  window.printCompletedLab=function(){
+    window.prepareCompletedLabPrint();
+    setTimeout(()=>window.print(),40);
+  };
+  window.addEventListener('beforeprint',window.prepareCompletedLabPrint);
+  window.addEventListener('afterprint',()=>document.querySelectorAll('.print-answer').forEach(x=>x.remove()));
+  function init(){
+    const n=document.getElementById('printStudentName');
+    if(n){
+      try{n.value=localStorage.getItem(NAME_KEY)||''}catch(e){}
+      n.addEventListener('input',()=>{try{localStorage.setItem(NAME_KEY,n.value)}catch(e){}});
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>
+</body></html>

@@ -1,0 +1,151 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Week 8 Laboratory — Convex Geometry</title><style>
+:root{--bg:#efefe4;--card:#fffdf3;--ink:#292d20;--muted:#6d705f;--line:#d9d5bd;--olive:#4d5430;--olive2:#697048;--gold:#b18a22;--goldsoft:#f1e6b2;--good:#657347;--bad:#965348;--shadow:0 12px 30px rgba(58,61,38,.10)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}a{color:var(--olive)}
+header{background:linear-gradient(135deg,var(--olive),#62693b);color:#fff;padding:24px 28px}header a{color:#f4eab9;text-decoration:none;font-weight:750}header h1{margin:10px 0 4px;font-size:clamp(1.8rem,4vw,2.7rem)}header p{margin:0;color:#e8e7d6;max-width:88ch}
+main{max-width:1160px;margin:auto;padding:24px 20px 70px}.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow);margin:16px 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.kicker{text-transform:uppercase;letter-spacing:.11em;color:var(--gold);font-weight:850;font-size:.78rem}h2{margin:.15rem 0 .5rem;color:var(--olive)}h3{margin:.35rem 0 .55rem}.small,.muted{font-size:.92rem;color:var(--muted)}
+.callout{border-left:5px solid var(--gold);background:#faf3d4;padding:12px 14px;border-radius:10px}.scenario{border:1px solid var(--line);border-radius:14px;padding:13px;background:#fffef8}.task{border-top:1px solid var(--line);padding:16px 0}.task:first-of-type{border-top:0}
+label{font-weight:750;display:block;margin-top:8px}input,select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:#fffef8;color:var(--ink);font:inherit}.feedback{min-height:1.5em;margin-top:7px;font-weight:750}.good{color:var(--good)}.bad{color:var(--bad)}
+button{border:0;border-radius:10px;padding:9px 13px;font-weight:800;cursor:pointer;background:var(--olive);color:#fff}button.secondary{background:var(--gold);color:#211d0c}.progressbox{display:flex;align-items:center;gap:14px;justify-content:space-between;flex-wrap:wrap}.progressbar{height:12px;background:#e4e1cf;border-radius:999px;overflow:hidden;min-width:220px;flex:1}.progressbar>div{height:100%;background:linear-gradient(90deg,var(--olive2),var(--gold));width:0;transition:.25s}.pill{border:1px solid var(--line);background:var(--goldsoft);border-radius:999px;padding:6px 10px;font-weight:780}.formula{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#f5f1dc;border:1px solid var(--line);padding:10px 12px;border-radius:10px;overflow:auto}
+table{width:100%;border-collapse:collapse;margin-top:10px}th,td{padding:8px;border-bottom:1px solid var(--line);text-align:right}th:first-child,td:first-child{text-align:left}.readout{display:flex;flex-wrap:wrap;gap:9px}.control{margin:12px 0}.control label{display:flex;justify-content:space-between;gap:12px}.control input[type=range]{padding:0;border:0;background:transparent}.value{font-variant-numeric:tabular-nums;color:var(--gold);font-weight:850}canvas{width:100%;height:520px;border:1px solid var(--line);border-radius:14px;background:#fffef8;display:block}.choiceRow{display:flex;gap:10px;flex-wrap:wrap}.choiceRow label{font-weight:650;border:1px solid var(--line);padding:8px 10px;border-radius:10px;background:#fffef8}.choiceRow input{width:auto;margin-right:6px}.swatch{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+@media(max-width:820px){.grid,.grid3,.grid4{grid-template-columns:1fr}canvas{height:420px}}
+@media print{header{background:white;color:black;padding:0 0 12px}header a{display:none}header p{color:#444}.panel{box-shadow:none;break-inside:avoid}button{display:none}body{background:white}}
+
+
+/* Submission-friendly browser printing */
+.print-answer{display:none}
+.submission-panel .submission-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:end}
+.submission-panel .submission-help{margin:.35rem 0 .9rem;color:var(--muted)}
+.submission-panel .submission-name label{display:block;font-weight:750;margin-bottom:5px}
+.submission-panel .submission-name input{max-width:520px}
+.print-date{display:none}
+@media(max-width:760px){.submission-panel .submission-row{grid-template-columns:1fr}}
+@media print{
+  input,select,textarea{display:none!important}
+  .print-answer{display:inline-block!important;min-width:3.5em;max-width:100%;padding:3px 7px;border:1px solid #999;border-radius:5px;background:#fff;color:#000;font-weight:700;white-space:pre-wrap;overflow-wrap:anywhere;vertical-align:baseline}
+  td>.print-answer, .grid .print-answer, .grid3 .print-answer, .grid4 .print-answer, .scenario>.print-answer, label+.print-answer{display:block!important;width:100%;margin-top:4px}
+  .submission-panel{box-shadow:none!important;border:1px solid #999!important;break-inside:avoid}
+  .submission-panel .submission-help,.submission-panel button{display:none!important}
+  .submission-panel .submission-row{display:block}
+  .submission-panel .submission-name{margin-bottom:5px}
+  .print-date{display:block!important;margin-top:8px;font-size:.9rem;color:#444}
+}
+</style>
+<script>
+window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head><body>
+<header><a href="../index.html">← MATH&amp; 107 course</a><h1>Week 8 Laboratory — Convex Geometry</h1><p>Classify convex sets, graph linear inequalities, test feasible points, find vertices, and evaluate linear expressions at corner points.</p></header><main>
+<section class="panel student-guide"><h2>Before you begin</h2><ol><li>Replace each inequality by its boundary equation before deciding which side is feasible.</li><li>Test a point in every constraint; feasible means satisfying all constraints at the same time.</li><li>Find every vertex before evaluating an objective expression at the corners.</li></ol></section>
+<section class="panel student-notation"><h2>Key notation</h2><p>A linear inequality defines a half-plane. The feasible region is the intersection of all required half-planes. A convex set contains the entire line segment joining any two of its points.</p></section>
+
+<section class="panel"><div class="progressbox"><div><div class="kicker">Week 8 skills</div><h2>The shape of possibility</h2></div><div class="progressbar"><div id="progressFill"></div></div><div class="pill"><span id="progressText">0 / 5</span> sections checked</div></div>
+<div class="callout"><strong>Key ideas</strong><div class="formula">Boundary line: ax + by = c<br>Feasible region = points satisfying every inequality<br>Vertices = corner points where active boundaries meet</div><p class="small">For ≤ or ≥, the boundary line is included. To test a point, substitute its coordinates into every constraint.</p></div></section>
+
+<section class="panel"><div class="kicker">Part 1 · Convex sets</div><h2>Which shapes are convex?</h2><p>A set is convex when the entire line segment joining any two points in the set stays inside the set.</p>
+<div class="grid4">
+<div><label>Filled rectangle</label><select id="p1a"><option value="">choose…</option><option value="yes">convex</option><option value="no">not convex</option></select></div>
+<div><label>Crescent-shaped region</label><select id="p1b"><option value="">choose…</option><option value="yes">convex</option><option value="no">not convex</option></select></div>
+<div><label>Half-plane x ≥ 2</label><select id="p1c"><option value="">choose…</option><option value="yes">convex</option><option value="no">not convex</option></select></div>
+<div><label>Five-pointed star region</label><select id="p1d"><option value="">choose…</option><option value="yes">convex</option><option value="no">not convex</option></select></div>
+</div>
+<div class="task"><label>The intersection of x ≥ 0 and y ≥ 0 is:</label><select id="p1e"><option value="">choose…</option><option value="quadrant">the first quadrant</option><option value="line">a line</option><option value="two">two disconnected regions</option></select></div>
+<button onclick="check1()">Check Part 1</button><div id="fb1" class="feedback"></div></section>
+
+<section class="panel"><div class="kicker">Part 2 · One inequality</div><h2>Boundary line and feasible side</h2><p>Consider <span class="formula" style="display:inline-block;padding:4px 8px">x + 2y ≤ 8</span>.</p>
+<div class="grid"><div><label>x-intercept of x+2y=8</label><input id="p2a" type="number"></div><div><label>y-intercept of x+2y=8</label><input id="p2b" type="number"></div></div>
+<div class="grid3"><div><label>Does (0,0) satisfy the inequality?</label><select id="p2c"><option value="">choose…</option><option value="yes">yes</option><option value="no">no</option></select></div><div><label>Does (2,3) satisfy it?</label><select id="p2d"><option value="">choose…</option><option value="yes">yes</option><option value="no">no</option></select></div><div><label>Does (4,3) satisfy it?</label><select id="p2e"><option value="">choose…</option><option value="yes">yes</option><option value="no">no</option></select></div></div>
+<button style="margin-top:14px" onclick="check2()">Check Part 2</button><div id="fb2" class="feedback"></div></section>
+
+<section class="panel"><div class="kicker">Part 3 · Constraint checking</div><h2>A manufacturing limit</h2><p>Machine hours must satisfy <strong>3x + 2y ≤ 60</strong>, where x and y are hours assigned to two different machines.</p>
+<div class="grid"><div><label>x-intercept of 3x+2y=60</label><input id="p3a" type="number"></div><div><label>y-intercept of 3x+2y=60</label><input id="p3b" type="number"></div></div>
+<div class="grid"><div><label>Is (10,10) feasible?</label><select id="p3c"><option value="">choose…</option><option value="yes">yes</option><option value="no">no</option></select></div><div><label>Is (15,8) feasible?</label><select id="p3d"><option value="">choose…</option><option value="yes">yes</option><option value="no">no</option></select></div></div>
+<div class="task"><div class="grid"><div><label>Value of 3x+2y at (10,10)</label><input id="p3e" type="number"></div><div><label>Value of 3x+2y at (15,8)</label><input id="p3f" type="number"></div></div></div>
+<button onclick="check3()">Check Part 3</button><div id="fb3" class="feedback"></div></section>
+
+<section class="panel"><div class="kicker">Part 4 · Feasible region</div><h2>Find the vertices</h2><p>Consider the system</p><div class="formula">2x + y ≤ 10<br>x + y ≤ 7<br>x ≥ 0, y ≥ 0</div>
+<p>First find the intersection of the two non-axis boundary lines.</p>
+<div class="grid"><div><label>Intersection x-coordinate</label><input id="p4a" type="number"></div><div><label>Intersection y-coordinate</label><input id="p4b" type="number"></div></div>
+<div class="task"><h3>Axis vertices</h3><div class="grid3"><div><label>Positive x-axis vertex x-value</label><input id="p4c" type="number"></div><div><label>Positive y-axis vertex y-value</label><input id="p4d" type="number"></div><div><label>Total number of vertices</label><input id="p4e" type="number"></div></div></div>
+<label>Which list gives the complete vertex set?</label><select id="p4f"><option value="">choose…</option><option value="right">(0,0), (5,0), (3,4), (0,7)</option><option>(0,0), (7,0), (3,4), (0,10)</option><option>(0,0), (5,0), (2,5), (0,7)</option></select>
+<button style="margin-top:14px" onclick="check4()">Check Part 4</button><div id="fb4" class="feedback"></div></section>
+
+<section class="panel"><div class="kicker">Part 5 · Corner points</div><h2>Evaluate linear expressions at the vertices</h2><p>A feasible polygon has vertices (0,0), (6,0), (4,3), and (0,5).</p>
+<table><thead><tr><th>Vertex</th><th>(0,0)</th><th>(6,0)</th><th>(4,3)</th><th>(0,5)</th></tr></thead><tbody>
+<tr><td>f = 3x + 2y</td><td><input id="p5a" type="number"></td><td><input id="p5b" type="number"></td><td><input id="p5c" type="number"></td><td><input id="p5d" type="number"></td></tr>
+<tr><td>g = x + 4y</td><td><input id="p5e" type="number"></td><td><input id="p5f" type="number"></td><td><input id="p5g" type="number"></td><td><input id="p5h" type="number"></td></tr></tbody></table>
+<div class="grid"><div><label>Maximum value of f</label><input id="p5i" type="number"></div><div><label>How many vertices achieve that maximum?</label><input id="p5j" type="number"></div></div>
+<div class="grid"><div><label>Maximum value of g</label><input id="p5k" type="number"></div><div><label>Vertex where g is largest</label><select id="p5l"><option value="">choose…</option><option>(6,0)</option><option>(4,3)</option><option value="right">(0,5)</option><option>(0,0)</option></select></div></div>
+<button style="margin-top:14px" onclick="check5()">Check Part 5</button><div id="fb5" class="feedback"></div></section>
+
+<section class="panel"><div class="progressbox"><div><strong>Your work autosaves in this browser.</strong><div class="small" id="saveStatus">Ready.</div></div></div></section>
+
+<section class="panel submission-panel">
+  <h2>Submit your completed lab</h2>
+  <p class="submission-help">Your answers are stored in this browser as you work. For a paper submission, enter your name and choose <strong>Print Completed Lab</strong>. In the browser print window, select a physical printer. You may also choose <strong>Save as PDF</strong> if you prefer an electronic copy.</p>
+  <div class="submission-row">
+    <div class="submission-name"><label for="printStudentName">Student name</label><input id="printStudentName" type="text" autocomplete="name" placeholder="Enter your name before printing"></div>
+    <button type="button" class="secondary" onclick="printCompletedLab()">Print Completed Lab</button>
+  </div>
+  <div class="print-date" id="printDate"></div>
+</section>
+</main><script>
+const $=id=>document.getElementById(id), key='math107_week8_lab_v2', done=[false,false,false,false,false];
+const ids=[...document.querySelectorAll('input,select')].map(x=>x.id).filter(Boolean);
+function all(a){return a.every(Boolean)} function eq(id,v,t=.01){return Math.abs(+$ (id).value-v)<=t}
+function result(n,ok,msg){done[n-1]=ok;let e=$('fb'+n);e.textContent=ok?'Correct — Part '+n+' complete.':msg;e.className='feedback '+(ok?'good':'bad');update();save()}
+function update(){let n=done.filter(Boolean).length;$('progressText').textContent=n+' / 5';$('progressFill').style.width=(20*n)+'%'}
+function check1(){result(1,all([$ ('p1a').value==='yes',$('p1b').value==='no',$('p1c').value==='yes',$('p1d').value==='no',$('p1e').value==='quadrant']),'Use the line-segment definition of convexity.')}
+function check2(){result(2,all([eq('p2a',8),eq('p2b',4),$('p2c').value==='yes',$('p2d').value==='yes',$('p2e').value==='no']),'Find the intercepts from x+2y=8 and substitute each test point.')}
+function check3(){result(3,all([eq('p3a',20),eq('p3b',30),$('p3c').value==='yes',$('p3d').value==='no',eq('p3e',50),eq('p3f',61)]),'Use 3x+2y≤60. A point is feasible only when the left side is at most 60.')}
+function check4(){result(4,all([eq('p4a',3),eq('p4b',4),eq('p4c',5),eq('p4d',7),eq('p4e',4),$('p4f').value==='right']),'Solve the two boundary equations together, then use the tighter constraint on each axis.')}
+function check5(){let vals=[0,18,18,10,0,6,16,20];let ok=vals.every((v,i)=>eq('p5'+String.fromCharCode(97+i),v))&&eq('p5i',18)&&eq('p5j',2)&&eq('p5k',20)&&$('p5l').value==='right';result(5,ok,'Substitute each vertex into both expressions. Notice that f has a tie for its maximum.')}
+function save(){let o={};ids.forEach(id=>o[id]=$(id).value);o.done=done;localStorage.setItem(key,JSON.stringify(o));$('saveStatus').textContent='Saved locally.'}
+function load(){try{let o=JSON.parse(localStorage.getItem(key)||'{}');ids.forEach(id=>{if(o[id]!=null)$(id).value=o[id]});if(Array.isArray(o.done))o.done.forEach((x,i)=>done[i]=!!x);update()}catch(e){}}
+ids.forEach(id=>$(id).addEventListener('input',save));load();
+</script>
+<script>
+/* Make completed HTML labs reliable as paper submissions. */
+(function(){
+  const NAME_KEY='math107_print_student_name';
+  function answerText(el){
+    if(el.tagName==='SELECT'){
+      const opt=el.selectedOptions && el.selectedOptions[0];
+      return el.value && opt ? opt.textContent.trim() : 'No response';
+    }
+    if(el.type==='checkbox' || el.type==='radio') return el.checked ? 'Selected' : 'Not selected';
+    const v=(el.value == null ? '' : String(el.value)).trim();
+    return v || 'No response';
+  }
+  window.prepareCompletedLabPrint=function(){
+    document.querySelectorAll('.print-answer').forEach(x=>x.remove());
+    document.querySelectorAll('input,select,textarea').forEach(el=>{
+      const type=(el.type||'').toLowerCase();
+      if(['button','submit','reset','hidden'].includes(type)) return;
+      const out=document.createElement('span');
+      out.className='print-answer';
+      out.textContent=answerText(el);
+      el.insertAdjacentElement('afterend',out);
+    });
+    const d=document.getElementById('printDate');
+    if(d) d.textContent='Printed '+new Date().toLocaleString();
+  };
+  window.printCompletedLab=function(){
+    window.prepareCompletedLabPrint();
+    setTimeout(()=>window.print(),40);
+  };
+  window.addEventListener('beforeprint',window.prepareCompletedLabPrint);
+  window.addEventListener('afterprint',()=>document.querySelectorAll('.print-answer').forEach(x=>x.remove()));
+  function init(){
+    const n=document.getElementById('printStudentName');
+    if(n){
+      try{n.value=localStorage.getItem(NAME_KEY)||''}catch(e){}
+      n.addEventListener('input',()=>{try{localStorage.setItem(NAME_KEY,n.value)}catch(e){}});
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>
+</body></html>

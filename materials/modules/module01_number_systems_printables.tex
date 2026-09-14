@@ -1,0 +1,192 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=0.68in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\usepackage{tabularx,array,booktabs}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+
+\definecolor{olive}{HTML}{4D5430}
+\definecolor{gold}{HTML}{9A7B22}
+\definecolor{pale}{HTML}{F5F1DC}
+\definecolor{softgreen}{HTML}{EDF0E2}
+\definecolor{softgray}{HTML}{F5F5F2}
+\definecolor{ink}{HTML}{292D20}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textcolor{olive}{MATH\& 107: Math in Society}}
+\rhead{\textcolor{gold}{Fall 2026}}
+\cfoot{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlist[enumerate]{leftmargin=*,itemsep=7pt,topsep=5pt}
+\setlist[itemize]{leftmargin=1.35em,itemsep=3pt,topsep=3pt}
+
+\newtcolorbox{keybox}[1]{colback=pale,colframe=olive,boxrule=0.8pt,arc=2mm,title=\textbf{#1},fonttitle=\color{olive},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+\newtcolorbox{examplebox}[1]{colback=softgreen,colframe=gold,boxrule=0.8pt,arc=2mm,title=\textbf{#1},fonttitle=\color{ink},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+\newtcolorbox{refbox}[1]{colback=softgray,colframe=gold,boxrule=0.7pt,arc=2mm,title=\textbf{#1},fonttitle=\color{ink},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+
+\newcommand{\summaryhead}[2]{%
+  \clearpage
+  {\Large\bfseries\textcolor{olive}{Module #1: #2 — Summary}}\par
+  \vspace{2pt}\textcolor{gold}{\rule{\linewidth}{1.2pt}}\par\smallskip
+}
+\newcommand{\prequizhead}[2]{%
+  \clearpage
+  {\Large\bfseries\textcolor{olive}{Module #1: #2 — Prequiz}}\par
+  \textit{Open-note. Show your mathematical work. A calculation and a clearly stated final answer are enough unless a sentence is specifically requested.}\par
+  Name: \hspace{2.6in} Date: \hspace{1.1in}\par
+  \vspace{2pt}\textcolor{gold}{\rule{\linewidth}{1.2pt}}\par\smallskip
+}
+\newcommand{\quizhead}[2]{%
+  \clearpage
+  {\Large\bfseries\textcolor{olive}{Module #1: #2 — Matching Quiz}}\par
+  \textit{These problems use the same skills as the prequiz, with new values and contexts. Show enough work to make your reasoning visible.}\par
+  Name: \hspace{2.6in} Date: \hspace{1.1in}\par
+  \vspace{2pt}\textcolor{gold}{\rule{\linewidth}{1.2pt}}\par\smallskip
+}
+\newcommand{\worksmall}{\par\vspace{0.38in}}
+\newcommand{\workmed}{\par\vspace{0.62in}}
+\newcommand{\worklarge}{\par\vspace{0.92in}}
+\newcommand{\workxl}{\par\vspace{1.22in}}
+\newcommand{\choice}[1]{\(\square\)~#1\qquad}
+
+\begin{document}
+\summaryhead{1}{Number Systems}
+
+\textbf{What this module is about.} Numbers can be organized by the kinds of values they allow, but the same number can also be viewed in different ways depending on what we want to do with it. Addition is naturally interpreted as motion on a number line. Multiplication is naturally interpreted as scaling. Fractions can look different while representing the same location. Recursive rules describe how a quantity changes one step at a time.
+
+\begin{keybox}{The number tower}
+The standard number systems are nested:
+\[
+\mathbb N\subset \mathbb Z\subset \mathbb Q\subset \mathbb R.
+\]
+\begin{itemize}
+\item \(\mathbb N\): natural numbers such as \(1,2,3,\ldots\) (and sometimes \(0\), depending on convention).
+\item \(\mathbb Z\): integers such as \(-4,0,12\).
+\item \(\mathbb Q\): rational numbers, which can be written as \(a/b\) with integers \(a,b\) and \(b\ne0\).
+\item \(\mathbb R\): all real numbers, including irrational numbers such as \(\sqrt2\) and \(\pi\).
+\end{itemize}
+When asked for the \emph{smallest} standard system containing a number, choose the first set in this chain that contains it.
+\end{keybox}
+
+\begin{examplebox}{Example 1: Signed numbers record direction}
+A diver begins at the surface. The diver descends \(15\) meters, rises \(8\) meters, and then descends another \(5\) meters. Let upward motion be positive and downward motion be negative.
+\[
+0+(-15)+8+(-5)=-12.
+\]
+The diver finishes \(12\) meters below the surface. Once direction has been encoded by signs, the entire trip can be written using addition.
+\end{examplebox}
+
+\begin{keybox}{Addition, multiplication, and equivalent fractions}
+\begin{itemize}
+\item Adding \(c\) moves a number by a fixed amount: \(x\mapsto x+c\).
+\item Multiplying by \(c\) rescales a number: \(x\mapsto cx\).
+\item If \(0<c<1\), multiplication by \(c\) shrinks a positive number toward \(0\).
+\item Two fractions \(a/b\) and \(c/d\) are equivalent when \(ad=bc\).
+\end{itemize}
+For example,
+\[
+\frac{12}{14}=\frac67,\qquad \frac{18}{21}=\frac67,
+\]
+so the two fractions represent the same rational number. The cross-products also agree: \(12\cdot21=14\cdot18=252\).
+\end{keybox}
+
+\begin{keybox}{Two basic recursive patterns}
+An \textbf{additive recursion} changes by the same amount every step:
+\[
+a_{n+1}=a_n+d,\qquad a_n=a_0+nd.
+\]
+A \textbf{multiplicative recursion} changes by the same factor every step:
+\[
+b_{n+1}=rb_n,\qquad b_n=b_0r^n.
+\]
+A constant difference signals additive change. A constant ratio signals multiplicative change.
+\end{keybox}
+
+\begin{examplebox}{Example 2: Fixed addition versus percentage growth}
+Two populations begin at \(1000\). Population A gains \(200\) people each year. Population B grows by \(15\%\) each year.
+\[
+A_n=1000+200n,
+\qquad
+B_n=1000(1.15)^n.
+\]
+After one year, \(A_1=1200\) while \(B_1=1150\), so the fixed-addition model is initially larger. But Population B's yearly increase is itself growing because \(15\%\) is applied to the current population. This is why percentage growth can eventually overtake a larger-looking fixed addition.
+\end{examplebox}
+
+\textbf{By the end of this module, you should be able to:}
+\begin{itemize}
+\item classify a number using the smallest standard number system that contains it;
+\item use signed numbers to represent direction and position;
+\item recognize multiplication as scaling and test whether two fractions are equivalent;
+\item generate terms of additive and multiplicative recursions and distinguish constant difference from constant ratio.
+\end{itemize}
+
+\prequizhead{1}{Number Systems}
+\begin{refbox}{Useful facts}
+\(\mathbb N\subset\mathbb Z\subset\mathbb Q\subset\mathbb R\), \qquad
+additive recursion: \(a_{n+1}=a_n+d\), \qquad
+multiplicative recursion: \(b_{n+1}=rb_n\).
+\end{refbox}
+
+\begin{enumerate}
+\item A checking account is overdrawn by \(\$35\), so its balance is represented by \(-35\). Using the smallest standard number system that contains the value, classify \(-35\) as natural, integer, rational, or real but irrational. Briefly state why your choice is the smallest one that works.
+\workmed
+
+\item A hiker is at position \(-6\) on a trail map. The hiker walks \(10\) units forward and then \(14\) units backward. Treat forward motion as positive and backward motion as negative.
+\begin{enumerate}[label=(\alph*),itemsep=4pt]
+\item Write the entire trip as a single addition expression using signed numbers.
+\item Find the hiker's final position.
+\end{enumerate}
+\worklarge
+
+\item A recipe uses the fraction \(6/9\), while another version of the same recipe uses \(14/21\).
+\begin{enumerate}[label=(\alph*),itemsep=4pt]
+\item Use cross-products to decide whether the fractions are equivalent.
+\item Simplify both fractions to confirm your conclusion.
+\end{enumerate}
+\worklarge
+
+\item A neighborhood has \(800\) households at the beginning of year \(0\). A planning model assumes that the neighborhood gains exactly \(120\) households each year.
+\begin{enumerate}[label=(\alph*),itemsep=4pt]
+\item Write an additive recursion for the number of households \(H_n\).
+\item Find \(H_4\), the number of households at the beginning of year \(4\).
+\end{enumerate}
+\worklarge
+
+\item A second neighborhood also begins with \(800\) households, but it grows by \(10\%\) each year.
+\begin{enumerate}[label=(\alph*),itemsep=4pt]
+\item Write the multiplicative recursion.
+\item Find the population after \(3\) years.
+\item Which feature of the model is constant from year to year: the dollar-size increase, the difference, or the ratio?
+\end{enumerate}
+\worklarge
+\end{enumerate}
+
+\quizhead{1}{Number Systems}
+\begin{enumerate}
+\item A temperature is recorded as \(-8^\circ\text{C}\). Using the smallest standard number system that contains the numerical value \(-8\), classify it as natural, integer, rational, or real but irrational.
+\worksmall
+
+\item An elevator begins on floor \(-3\), rises \(11\) floors, and then descends \(6\) floors. Write the trip as an addition expression with signed numbers and determine the final floor.
+\workmed
+
+\item Decide whether \(8/12\) and \(18/27\) represent the same rational number. Show either a cross-product check or a simplification of both fractions.
+\workmed
+
+\item A town has \(1200\) homes and adds \(75\) homes each year. Write an additive recursion and find the number of homes after \(5\) years.
+\workmed
+
+\item A different town begins with \(1200\) homes and grows by \(5\%\) per year. Write a multiplicative recursion and find the number of homes after \(2\) years.
+\workmed
+\end{enumerate}
+
+% =====================================================================
+% MODULE 2
+% =====================================================================
+\end{document}

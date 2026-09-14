@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 4 Laboratory — Normal Distributions and Inference</title>
+<style>
+:root{--bg:#efefe4;--card:#fffdf3;--ink:#292d20;--muted:#6d705f;--line:#d9d5bd;--olive:#4d5430;--olive2:#697048;--gold:#b18a22;--goldsoft:#f1e6b2;--good:#657347;--bad:#965348;--shadow:0 12px 30px rgba(58,61,38,.10)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}a{color:var(--olive)}header{background:linear-gradient(135deg,var(--olive),#62693b);color:#fff;padding:24px 28px}header a{color:#f4eab9;text-decoration:none;font-weight:750}header h1{margin:10px 0 4px;font-size:clamp(1.8rem,4vw,2.7rem)}header p{margin:0;color:#e8e7d6;max-width:84ch}main{max-width:1160px;margin:auto;padding:24px 20px 70px}.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow);margin:16px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.kicker{text-transform:uppercase;letter-spacing:.11em;color:var(--gold);font-weight:850;font-size:.78rem}h2{margin:.15rem 0 .5rem;color:var(--olive)}h3{margin:.35rem 0 .55rem}.small,.muted{font-size:.92rem;color:var(--muted)}.callout{border-left:5px solid var(--gold);background:#faf3d4;padding:12px 14px;border-radius:10px}.scenario{border:1px solid var(--line);border-radius:14px;padding:13px;background:#fffef8}.task{border-top:1px solid var(--line);padding:16px 0}.task:first-of-type{border-top:0}label{font-weight:750;display:block;margin-top:8px}input,select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:#fffef8;color:var(--ink);font:inherit}.data{width:100%;border-collapse:collapse;margin-top:10px}.data th,.data td{padding:8px;border-bottom:1px solid var(--line);text-align:center}.data input{max-width:110px;text-align:right}.feedback{min-height:1.5em;margin-top:7px;font-weight:750}.good{color:var(--good)}.bad{color:var(--bad)}button{border:0;border-radius:10px;padding:9px 13px;font-weight:800;cursor:pointer;background:var(--olive);color:#fff}button.secondary{background:var(--gold);color:#211d0c}button.ghost{background:transparent;border:1px solid var(--line);color:var(--olive)}.progressbox{display:flex;align-items:center;gap:14px;justify-content:space-between;flex-wrap:wrap}.progressbar{height:12px;background:#e4e1cf;border-radius:999px;overflow:hidden;min-width:220px;flex:1}.progressbar>div{height:100%;background:linear-gradient(90deg,var(--olive2),var(--gold));width:0;transition:.25s}.pill{border:1px solid var(--line);background:var(--goldsoft);border-radius:999px;padding:6px 10px;font-weight:780}.formula{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#f5f1dc;border:1px solid var(--line);padding:10px 12px;border-radius:10px;overflow:auto}.toolgrid{display:grid;grid-template-columns:1fr 2fr 1fr;gap:8px;align-items:center}.toolgrid>div{padding:8px;border-bottom:1px solid var(--line)}@media(max-width:820px){.grid,.grid3{grid-template-columns:1fr}.toolgrid{grid-template-columns:1fr}}@media print{header{background:white;color:black;padding:0 0 12px}header a{display:none}header p{color:#444}.panel{box-shadow:none;break-inside:avoid}button{display:none}body{background:white}}
+
+
+/* Submission-friendly browser printing */
+.print-answer{display:none}
+.submission-panel .submission-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:end}
+.submission-panel .submission-help{margin:.35rem 0 .9rem;color:var(--muted)}
+.submission-panel .submission-name label{display:block;font-weight:750;margin-bottom:5px}
+.submission-panel .submission-name input{max-width:520px}
+.print-date{display:none}
+@media(max-width:760px){.submission-panel .submission-row{grid-template-columns:1fr}}
+@media print{
+  input,select,textarea{display:none!important}
+  .print-answer{display:inline-block!important;min-width:3.5em;max-width:100%;padding:3px 7px;border:1px solid #999;border-radius:5px;background:#fff;color:#000;font-weight:700;white-space:pre-wrap;overflow-wrap:anywhere;vertical-align:baseline}
+  td>.print-answer, .grid .print-answer, .grid3 .print-answer, .grid4 .print-answer, .scenario>.print-answer, label+.print-answer{display:block!important;width:100%;margin-top:4px}
+  .submission-panel{box-shadow:none!important;border:1px solid #999!important;break-inside:avoid}
+  .submission-panel .submission-help,.submission-panel button{display:none!important}
+  .submission-panel .submission-row{display:block}
+  .submission-panel .submission-name{margin-bottom:5px}
+  .print-date{display:block!important;margin-top:8px;font-size:.9rem;color:#444}
+}
+</style>
+<script>
+window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head><body>
+<header><a href="../index.html">← MATH&amp; 107 course</a><h1>Week 4 Laboratory — Normal Distributions and Inference</h1><p>Use the Empirical Rule and z-scores for individual values, then use samples and confidence intervals to make statements about populations.</p></header>
+<main>
+<section class="panel student-guide"><h2>Before you begin</h2><ol><li>Decide whether the question concerns one individual value or a population estimate.</li><li>For an individual value, use the Empirical Rule or a z-score; for a population estimate, use the sample statistic and margin of error.</li><li>State interval endpoints in the original units and check the comparison value against the entire interval.</li></ol></section>
+<section class="panel student-notation"><h2>Key notation</h2><p>\(z=(x-\mu)/\sigma\), so \(x=\mu+z\sigma\). An estimate with margin \(E\) gives \([\text{estimate}-E,\text{estimate}+E]\). For similar studies, \(E\propto1/\sqrt n\).</p></section>
+
+<section class="panel"><div class="progressbox"><div><div class="kicker">Week 4 skills</div><h2>Individual values versus population estimates</h2></div><div class="progressbar"><div id="progressFill"></div></div><div class="pill"><span id="progressText">0 / 5</span> sections checked</div></div><div class="toolgrid" style="margin-top:14px"><div><strong>Tool</strong></div><div><strong>Question</strong></div><div><strong>Output</strong></div><div>Empirical Rule</div><div>What fraction falls within 1, 2, or 3 standard deviations?</div><div>Percentage</div><div>z-score</div><div>How far is one value from the mean?</div><div>Number of σ</div><div>Confidence interval</div><div>What population values are plausible from a sample?</div><div>Interval</div></div></section>
+
+<section class="panel"><div class="kicker">Part 1 · Empirical Rule</div><h2>Read percentages from a normal model</h2><div class="grid"><div class="scenario"><h3>Apple weights</h3><p>Apple weights are approximately normal with mean <strong>180 g</strong> and standard deviation <strong>15 g</strong>.</p><label>Percentage between 165 g and 195 g</label><input id="apple68" type="number" step="0.1"><label>Percentage above 210 g</label><input id="appleHigh" type="number" step="0.1"><div class="grid"><div><label>Lower endpoint of middle 95%</label><input id="appleLo" type="number"></div><div><label>Upper endpoint of middle 95%</label><input id="appleHi" type="number"></div></div></div><div class="scenario"><h3>Commute times</h3><p>Commute times are approximately normal with mean <strong>35 min</strong> and standard deviation <strong>8 min</strong>.</p><label>Percentage between 19 and 51 minutes</label><input id="commute95" type="number" step="0.1"><label>A 59-minute commute is how many standard deviations above the mean?</label><input id="commuteZ" type="number" step="0.1"><label>Percentage shorter than 27 minutes</label><input id="commuteLow" type="number" step="0.1"></div></div><button style="margin-top:14px" onclick="checkPart1()">Check Part 1</button><div id="fb1" class="feedback"></div></section>
+
+<section class="panel"><div class="kicker">Part 2 · z-scores</div><h2>Standardize and compare</h2><div class="callout"><strong>Formulas:</strong> z = (x − μ)/σ &nbsp;&nbsp; and &nbsp;&nbsp; x = μ + zσ</div><div class="task"><h3>Compute z-scores for μ = 100 and σ = 15.</h3><table class="data"><thead><tr><th>x</th><th>115</th><th>85</th><th>100</th><th>130</th></tr></thead><tbody><tr><th>z</th><td><input id="z115" type="number" step="0.01"></td><td><input id="z85" type="number" step="0.01"></td><td><input id="z100" type="number" step="0.01"></td><td><input id="z130" type="number" step="0.01"></td></tr></tbody></table></div><div class="task"><h3>Recover original values for μ = 40 and σ = 5.</h3><table class="data"><thead><tr><th>z</th><th>2</th><th>−1</th><th>0.5</th><th>−3</th></tr></thead><tbody><tr><th>x</th><td><input id="x2" type="number" step="0.01"></td><td><input id="xm1" type="number" step="0.01"></td><td><input id="x05" type="number" step="0.01"></td><td><input id="xm3" type="number" step="0.01"></td></tr></tbody></table></div><div class="task"><h3>Compare two standardized tests.</h3><p>Student A scores 520 on a test with mean 500 and SD 100. Student B scores 28 on a test with mean 21 and SD 5.</p><div class="grid3"><div><label>Student A z-score</label><input id="studentAZ" type="number" step="0.01"></div><div><label>Student B z-score</label><input id="studentBZ" type="number" step="0.01"></div><div><label>Stronger relative performance</label><select id="betterStudent"><option value="">choose…</option><option value="A">Student A</option><option value="B">Student B</option><option value="same">Same relative performance</option></select></div></div></div><button onclick="checkPart2()">Check Part 2</button><div id="fb2" class="feedback"></div></section>
+
+<section class="panel"><div class="kicker">Part 3 · Sampling</div><h2>Parameter or statistic?</h2><p>A <strong>parameter</strong> describes the population. A <strong>statistic</strong> is computed from the observed sample.</p><table class="data"><thead><tr><th>Situation</th><th>Population quantity being estimated</th><th>Observed sample statistic</th></tr></thead><tbody><tr><td style="text-align:left">1,200 voters surveyed; 58% support a candidate</td><td><select id="pollParam"><option value="">choose…</option><option value="mean">population mean</option><option value="prop">population proportion supporting the candidate</option><option value="size">population size</option></select></td><td><select id="pollStat"><option value="">choose…</option><option value="58">58%</option><option value="1200">1,200</option><option value="unknown">unknown</option></select></td></tr><tr><td style="text-align:left">40 fish measured; mean length 31.2 cm</td><td><select id="fishParam"><option value="">choose…</option><option value="mean">population mean fish length</option><option value="prop">population proportion</option><option value="size">population size</option></select></td><td><select id="fishStat"><option value="">choose…</option><option value="31.2">31.2 cm</option><option value="40">40</option><option value="unknown">unknown</option></select></td></tr><tr><td style="text-align:left">50 cereal boxes tested; mean weight 368 g</td><td><select id="cerealParam"><option value="">choose…</option><option value="mean">population mean box weight</option><option value="prop">population proportion</option><option value="size">population size</option></select></td><td><select id="cerealStat"><option value="">choose…</option><option value="368">368 g</option><option value="50">50</option><option value="unknown">unknown</option></select></td></tr></tbody></table><button style="margin-top:14px" onclick="checkPart3()">Check Part 3</button><div id="fb3" class="feedback"></div></section>
+
+<section class="panel"><div class="kicker">Part 4 · Confidence intervals</div><h2>Estimate a population value from a sample</h2><div class="formula">confidence interval = estimate − margin of error &nbsp; to &nbsp; estimate + margin of error</div><div class="task"><div class="grid3"><div><p><strong>Estimate 82, margin ±4</strong></p><label>Lower</label><input id="ci1lo" type="number"><label>Upper</label><input id="ci1hi" type="number"></div><div><p><strong>Estimate 3.7 h, margin ±0.5 h</strong></p><label>Lower</label><input id="ci2lo" type="number" step="0.1"><label>Upper</label><input id="ci2hi" type="number" step="0.1"></div><div><p><strong>Estimate 47%, margin ±6%</strong></p><label>Lower (%)</label><input id="ci3lo" type="number"><label>Upper (%)</label><input id="ci3hi" type="number"></div></div></div><div class="task"><h3>Cereal label check</h3><p>A label claims a population mean of 230 calories. A sample gives <strong>243 calories ± 8 calories</strong>.</p><div class="grid3"><div><label>CI lower endpoint</label><input id="cerealLo" type="number"></div><div><label>CI upper endpoint</label><input id="cerealHi" type="number"></div><div><label>Is 230 inside the interval?</label><select id="cerealInside"><option value="">choose…</option><option value="yes">Yes</option><option value="no">No</option></select></div></div></div><button onclick="checkPart4()">Check Part 4</button><div id="fb4" class="feedback"></div></section>
+
+<section class="panel"><div class="kicker">Part 5 · Precision and tool choice</div><h2>Match the question to the method</h2><div class="grid"><div class="scenario"><h3>Margin of error and sample size</h3><p>Suppose margin of error is approximately proportional to 1/√n. A study uses n = 200.</p><label>To cut the margin of error in half, approximately what sample size is needed?</label><input id="newN" type="number"></div><div class="scenario"><h3>One scenario, two questions</h3><p>A distribution has μ = 60 and σ = 12. An individual value is 78. A separate sample has mean 63 with margin ±3.</p><label>z-score of 78</label><input id="finalZ" type="number" step="0.01"><label>Is 78 within two standard deviations of the mean?</label><select id="within2"><option value="">choose…</option><option value="yes">Yes</option><option value="no">No</option></select><label>Does the confidence interval 63 ± 3 contain μ = 60?</label><select id="contains60"><option value="">choose…</option><option value="yes">Yes</option><option value="no">No</option></select></div></div><div class="task"><h3>Select the correct tool.</h3><div class="grid3"><div><label>How unusual is one person's score?</label><select id="tool1"><option value="">choose…</option><option value="z">z-score</option><option value="emp">Empirical Rule</option><option value="ci">confidence interval</option></select></div><div><label>What percentage lies within 2σ?</label><select id="tool2"><option value="">choose…</option><option value="z">z-score</option><option value="emp">Empirical Rule</option><option value="ci">confidence interval</option></select></div><div><label>What range is plausible for a population mean?</label><select id="tool3"><option value="">choose…</option><option value="z">z-score</option><option value="emp">Empirical Rule</option><option value="ci">confidence interval</option></select></div></div></div><button onclick="checkPart5()">Check Part 5</button>  <button class="ghost" onclick="resetLab()">Clear answers</button><div id="fb5" class="feedback"></div></section>
+
+<section class="panel submission-panel">
+  <h2>Submit your completed lab</h2>
+  <p class="submission-help">Your answers are stored in this browser as you work. For a paper submission, enter your name and choose <strong>Print Completed Lab</strong>. In the browser print window, select a physical printer. You may also choose <strong>Save as PDF</strong> if you prefer an electronic copy.</p>
+  <div class="submission-row">
+    <div class="submission-name"><label for="printStudentName">Student name</label><input id="printStudentName" type="text" autocomplete="name" placeholder="Enter your name before printing"></div>
+    <button type="button" class="secondary" onclick="printCompletedLab()">Print Completed Lab</button>
+  </div>
+  <div class="print-date" id="printDate"></div>
+</section>
+</main>
+<script>
+const KEY='math107_week4_lab_v2';const completed=[false,false,false,false,false];const ids=[...document.querySelectorAll('input,select')].map(e=>e.id).filter(Boolean);
+function n(id){return parseFloat(document.getElementById(id).value)}function near(x,a,t=.02){return Number.isFinite(x)&&Math.abs(x-a)<=t}function feedback(i,ok,msg){completed[i-1]=ok;const el=document.getElementById('fb'+i);el.className='feedback '+(ok?'good':'bad');el.textContent=msg;updateProgress();save()}function updateProgress(){const k=completed.filter(Boolean).length;progressText.textContent=`${k} / 5`;progressFill.style.width=(k/5*100)+'%'}
+function checkPart1(){const ok=near(n('apple68'),68,.1)&&near(n('appleHigh'),2.5,.1)&&near(n('appleLo'),150)&&near(n('appleHi'),210)&&near(n('commute95'),95,.1)&&near(n('commuteZ'),3,.01)&&near(n('commuteLow'),16,.1);feedback(1,ok,ok?'Correct. These all come directly from the 68–95–99.7 rule and symmetry.':'Check how many standard deviations each endpoint is from the mean. Remember that half of the percentage outside a symmetric interval is in each tail.')}
+function checkPart2(){const ok=near(n('z115'),1)&&near(n('z85'),-1)&&near(n('z100'),0)&&near(n('z130'),2)&&near(n('x2'),50)&&near(n('xm1'),35)&&near(n('x05'),42.5)&&near(n('xm3'),25)&&near(n('studentAZ'),.2)&&near(n('studentBZ'),1.4)&&betterStudent.value==='B';feedback(2,ok,ok?'Correct. z-scores make the two tests comparable even though their raw score scales differ.':'Use z=(x−μ)/σ. For the inverse questions use x=μ+zσ. Compare the students by z-score, not raw score.')}
+function checkPart3(){const ok=pollParam.value==='prop'&&pollStat.value==='58'&&fishParam.value==='mean'&&fishStat.value==='31.2'&&cerealParam.value==='mean'&&cerealStat.value==='368';feedback(3,ok,ok?'Correct. The population quantities are parameters; the observed sample values are statistics.':'The parameter describes the entire population. The statistic is the numerical result calculated from the sample.')}
+function checkPart4(){const ok=near(n('ci1lo'),78)&&near(n('ci1hi'),86)&&near(n('ci2lo'),3.2)&&near(n('ci2hi'),4.2)&&near(n('ci3lo'),41)&&near(n('ci3hi'),53)&&near(n('cerealLo'),235)&&near(n('cerealHi'),251)&&cerealInside.value==='no';feedback(4,ok,ok?'Correct. The cereal label value 230 lies outside the sample interval 235 to 251.':'Construct each interval by subtracting and adding the margin of error. Then compare 230 with the endpoints.')}
+function checkPart5(){const ok=near(n('newN'),800)&&near(n('finalZ'),1.5)&&within2.value==='yes'&&contains60.value==='yes'&&tool1.value==='z'&&tool2.value==='emp'&&tool3.value==='ci';feedback(5,ok,ok?'Correct. Halving margin of error requires about four times the sample size, and each tool answers a different kind of question.':'Because E is proportional to 1/√n, halving E requires multiplying n by 4. Then distinguish individual-value questions from population-estimation questions.')}
+function save(){const state={values:{},completed};ids.forEach(id=>state.values[id]=document.getElementById(id).value);localStorage.setItem(KEY,JSON.stringify(state))}function load(){try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(!s)return;ids.forEach(id=>{if(s.values&&id in s.values)document.getElementById(id).value=s.values[id]});if(Array.isArray(s.completed))s.completed.forEach((v,i)=>completed[i]=!!v);updateProgress()}catch(e){}}function resetLab(){if(!confirm('Clear all Week 4 lab answers?'))return;localStorage.removeItem(KEY);location.reload()}ids.forEach(id=>document.getElementById(id).addEventListener('input',save));load();
+</script>
+<script>
+/* Make completed HTML labs reliable as paper submissions. */
+(function(){
+  const NAME_KEY='math107_print_student_name';
+  function answerText(el){
+    if(el.tagName==='SELECT'){
+      const opt=el.selectedOptions && el.selectedOptions[0];
+      return el.value && opt ? opt.textContent.trim() : 'No response';
+    }
+    if(el.type==='checkbox' || el.type==='radio') return el.checked ? 'Selected' : 'Not selected';
+    const v=(el.value == null ? '' : String(el.value)).trim();
+    return v || 'No response';
+  }
+  window.prepareCompletedLabPrint=function(){
+    document.querySelectorAll('.print-answer').forEach(x=>x.remove());
+    document.querySelectorAll('input,select,textarea').forEach(el=>{
+      const type=(el.type||'').toLowerCase();
+      if(['button','submit','reset','hidden'].includes(type)) return;
+      const out=document.createElement('span');
+      out.className='print-answer';
+      out.textContent=answerText(el);
+      el.insertAdjacentElement('afterend',out);
+    });
+    const d=document.getElementById('printDate');
+    if(d) d.textContent='Printed '+new Date().toLocaleString();
+  };
+  window.printCompletedLab=function(){
+    window.prepareCompletedLabPrint();
+    setTimeout(()=>window.print(),40);
+  };
+  window.addEventListener('beforeprint',window.prepareCompletedLabPrint);
+  window.addEventListener('afterprint',()=>document.querySelectorAll('.print-answer').forEach(x=>x.remove()));
+  function init(){
+    const n=document.getElementById('printStudentName');
+    if(n){
+      try{n.value=localStorage.getItem(NAME_KEY)||''}catch(e){}
+      n.addEventListener('input',()=>{try{localStorage.setItem(NAME_KEY,n.value)}catch(e){}});
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>
+</body></html>
