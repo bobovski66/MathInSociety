@@ -1,0 +1,60 @@
+name: Build Math 107 module printables
+
+on:
+  push:
+    paths:
+      - "materials/modules/**"
+      - "materials/instructor_keys/**"
+      - ".github/workflows/build-printables.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Compile module printables and instructor keys
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: |
+            module01_number_systems_printables.tex
+            module02_frequency_probability_distributions_printables.tex
+            module03_basic_statistics_printables.tex
+            module04_statistics_inference_printables.tex
+            module05_computer_information_theory_printables.tex
+            module06_interest_loans_printables.tex
+            module07_cost_revenue_profit_printables.tex
+            module08_convex_geometry_printables.tex
+            module09_linear_programming_printables.tex
+            module10_fractals_prediction_printables.tex
+          working_directory: materials/modules
+          args: -pdf -interaction=nonstopmode -halt-on-error
+      - name: Compile instructor keys
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: |
+            module01_number_systems_answer_key.tex
+            module02_frequency_probability_distributions_answer_key.tex
+            module03_basic_statistics_answer_key.tex
+            module04_statistics_inference_answer_key.tex
+            module05_computer_information_theory_answer_key.tex
+            module06_interest_loans_answer_key.tex
+            module07_cost_revenue_profit_answer_key.tex
+            module08_convex_geometry_answer_key.tex
+            module09_linear_programming_answer_key.tex
+            module10_fractals_prediction_answer_key.tex
+          working_directory: materials/instructor_keys
+          args: -pdf -interaction=nonstopmode -halt-on-error
+      - name: Commit compiled PDFs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add materials/modules/*.pdf materials/instructor_keys/*.pdf
+          git diff --cached --quiet || git commit -m "Build Math 107 module printable PDFs"
+          git push
