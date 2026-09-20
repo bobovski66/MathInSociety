@@ -75,16 +75,16 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
   <p>Numbers are not only labels. They can locate, move, scale, compare, and generate new values. This lab follows those roles from the number tower through recursion.</p>
 </header>
 <main>
-<section class="panel student-guide"><h2>Before you begin</h2><ol><li>Classify or compute first; use the representation named in the section rather than jumping to a calculator.</li><li>When a situation describes direction, encode direction with signed numbers before doing the arithmetic.</li><li>For recursion, write the update rule and calculate the first few steps before comparing long-run behavior.</li></ol></section>
-<section class="panel student-notation"><h2>Key notation</h2><p>In this course, \(\mathbb N=\{1,2,3,\ldots\}\), so \(0\) is classified first as an integer. The number systems satisfy \(\mathbb N\subset\mathbb Z\subset\mathbb Q\subset\mathbb R\). Fixed addition has \(a_{n+1}=a_n+d\); fixed-factor growth has \(b_{n+1}=rb_n\).</p></section>
+<section class="panel student-guide"><h2>Before you begin</h2><p>Work through each section in order and show the mathematical reasoning requested. Use the check buttons when you are ready to check a section. Your work is saved in this browser.</p></section>
+<section class="panel student-notation"><h2>Key notation</h2><p>In this course, \(\mathbb N=\{1,2,3,\ldots\}\). The number systems satisfy \(\mathbb N\subset\mathbb Z\subset\mathbb Q\subset\mathbb R\). In the recursion section, \(a_{n+1}=a_n+d\) means “add the same amount each step,” while \(b_{n+1}=rb_n\) means “multiply by the same factor each step.”</p></section>
 
 <section class="panel">
   <div class="progressbox">
-    <div><div class="kicker">Laboratory question</div><h2>What changes when we change our way of looking at a number?</h2></div>
+    <div><div class="kicker">Laboratory question</div><h2>How can numbers represent location, scaling, equivalence, and repeated change?</h2></div>
     <div class="progressbar" aria-label="lab progress"><div id="progressFill"></div></div>
     <div class="pill"><span id="progressText">0 / 5</span> sections checked</div>
   </div>
-  <p class="callout">The goal is not to race through arithmetic. In each part, notice the representation that makes the structure easiest to see: containment, motion, scaling, equivalence, or repeated change.</p>
+  <p class="callout">Each section uses numbers in a different way. Read the context carefully, choose the appropriate operation or representation, and check your work when you are ready.</p>
 </section>
 
 <section class="panel" id="part1">
@@ -111,10 +111,9 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
     </div>
     <div>
       <div class="numberline" id="numberline"><div class="axis"></div></div>
-      <div class="pillrow"><span class="pill">start: 0</span><span class="pill">after descent: −15</span><span class="pill">after ascent: −7</span><span class="pill">final: −12</span></div>
-      <p class="small">Once the signs are chosen consistently, the arithmetic is just tracking position.</p>
+      <div class="pillrow"><span class="pill">start: 0</span><span class="pill">Use the number line to track each move after you check your work.</span></div>
     </div>
-  </div><p class="small">With the sign convention fixed, downward motion is a negative addend and upward motion is a positive addend.</p>
+  </div>
 </section>
 
 <section class="panel" id="part3">
@@ -151,13 +150,13 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
     </div>
   </div>
   <button style="margin-top:12px" onclick="checkFractions()">Check equivalence tests</button>
-  <div id="fractionFeedback" class="feedback"></div><p class="small">Both fractions in Pair A simplify to <strong>6/7</strong>, confirming that the different symbols name the same rational number.</p>
+  <div id="fractionFeedback" class="feedback"></div>
 </section>
 
 <section class="panel" id="part5">
   <div class="kicker">Part 5 · Recursion</div>
   <h2>Add the same amount or multiply by the same factor?</h2>
-  <p>Two populations both begin at 1,000. Population A gains 200 each year. Population B grows by 15% each year. First compute only through year 5, as in the textbook exercise. Then use the explorer to test your long-range prediction.</p>
+  <p>Two populations both begin at 1,000. Population A gains 200 each year. Population B grows by 15% each year. Compute years 1–5 first. Then make a prediction about year 20 before revealing the longer-term comparison.</p>
   <div class="compare">
     <div class="plan"><strong>Population A</strong><div>A₀ = 1000</div><div>Aₙ₊₁ = Aₙ + 200</div></div>
     <div class="plan"><strong>Population B</strong><div>B₀ = 1000</div><div>Bₙ₊₁ = 1.15Bₙ</div></div>
@@ -213,13 +212,39 @@ for(let y=0;y<=5;y++){
 function setFeedback(id,msg,ok){const e=document.getElementById(id);e.textContent=msg;e.className='feedback '+(ok?'good':'bad')}
 function markPart(part,ok){localStorage.setItem(KEY+'_part'+part,ok?'1':'0');updateProgress()}
 function checkClassify(){let right=0;classifications.forEach(([,ans],i)=>{if(document.getElementById('class'+i).value===ans)right++});let ok=right===classifications.length;setFeedback('classifyFeedback',`${right} of ${classifications.length} correct.${ok?' Nice — smallest-set classification is working.':''}`,ok);markPart(1,ok);save()}
-function checkDiver(){let expr=diverExpr.value.replace(/\s/g,'').replace(/−/g,'-');let final=+diverFinal.value;let exprOK=expr==='0+-15+8+-5'||expr==='0-15+8-5'||expr==='-15+8-5';let ok=exprOK&&final===-12;setFeedback('diverFeedback',ok?'Correct: 0 + (−15) + 8 + (−5) = −12 m.':'Check the signs: descending is negative, ascending is positive; final depth is −12 m.',ok);markPart(2,ok);save()}
+function checkDiver(){let expr=diverExpr.value.replace(/\s/g,'').replace(/−/g,'-');let final=Number(diverFinal.value);let exprOK=expr==='0+-15+8+-5'||expr==='0-15+8-5'||expr==='-15+8-5';let ok=exprOK&&diverFinal.value!==''&&final===-12;if(ok){setFeedback('diverFeedback','Correct. Your signed addition matches the diver\'s motion and your final position is correct.',true);drawDiverPath();}else{setFeedback('diverFeedback','Not quite. Check that each descent is represented by a negative change and each ascent by a positive change.',false);}markPart(2,ok);save()}
 function checkScaling(){let right=0;scaleItems.forEach(([op,ans,val],i)=>{if(document.getElementById('pred'+i).value===ans)right++;document.getElementById('scaleVal'+i).textContent=(Math.round(val*100)/100).toString()});let ok=right===scaleItems.length;setFeedback('scaleFeedback',`${right} of ${scaleItems.length} predictions correct. Values are now revealed.`,ok);markPart(3,ok);save()}
 function checkFractions(){let ok=(+cp1.value===252&&+cp2.value===252&&eq1.value==='yes'&&+cp3.value===125&&+cp4.value===120&&eq2.value==='no');setFeedback('fractionFeedback',ok?'Correct. Pair A names the same rational number; Pair B does not.':'Recheck the cross-products: equal cross-products mean equivalent fractions.',ok);markPart(4,ok);save()}
 function recVals(y){return [1000+200*y,1000*Math.pow(1.15,y)]}
 function checkRecursionTable(){let right=0,total=10;for(let y=1;y<=5;y++){let [a,b]=recVals(y);if(Math.abs(+document.getElementById('a'+y).value-a)<.01)right++;if(Math.abs(+document.getElementById('b'+y).value-b)<.51)right++}let ok=right===total;setFeedback('recursionFeedback',`${right} of ${total} entries correct. Round percentage-growth values to the nearest whole person or cent-like hundredth.`,ok);markPart(5,ok);save()}
 function revealLongRange(){chart.style.display='flex';chart.innerHTML='';let cross=null,max=0,vals=[];for(let y=0;y<=20;y++){let [a,b]=recVals(y);if(cross===null&&b>a)cross=y;vals.push([y,a,b]);max=Math.max(max,a,b)}vals.forEach(([y,a,b])=>{if(y%2===0){let p=document.createElement('div');p.className='barpair';p.innerHTML=`<div class="bar a" style="height:${100*a/max}%" title="A year ${y}: ${a.toFixed(0)}"></div><div class="bar b" style="height:${100*b/max}%" title="B year ${y}: ${b.toFixed(0)}"></div><span>${y}</span>`;chart.appendChild(p)}});let [a20,b20]=recVals(20);crossoverText.textContent=`Population B first exceeds A in year ${cross}. At year 20: A = ${a20.toFixed(0)}, B ≈ ${b20.toFixed(0)}.`;save()}
-function drawNumberLine(){const nl=document.getElementById('numberline');for(let n=-20;n<=5;n+=5){let t=document.createElement('div');t.className='tick';t.style.left=(5+(n+20)/25*90)+'%';t.innerHTML=`<span>${n}</span>`;nl.appendChild(t)}function pos(v){return 5+(v+20)/25*90}[[0,'start'],[-15,'end'],[-7,'end'],[-12,'end']].forEach(([v,c])=>{let d=document.createElement('div');d.className='dot '+c;d.style.left=pos(v)+'%';d.title=String(v);nl.appendChild(d)})}
+function numberLinePos(v){return 5+(v+20)/25*90}
+function drawNumberLine(){
+  const nl=document.getElementById('numberline');
+  for(let n=-20;n<=5;n+=5){
+    let t=document.createElement('div');
+    t.className='tick';
+    t.style.left=numberLinePos(n)+'%';
+    t.innerHTML=`<span>${n}</span>`;
+    nl.appendChild(t);
+  }
+  let d=document.createElement('div');
+  d.className='dot start';
+  d.style.left=numberLinePos(0)+'%';
+  d.title='start';
+  nl.appendChild(d);
+}
+function drawDiverPath(){
+  const nl=document.getElementById('numberline');
+  nl.querySelectorAll('.dot.end').forEach(x=>x.remove());
+  [-15,-7,-12].forEach(v=>{
+    let d=document.createElement('div');
+    d.className='dot end';
+    d.style.left=numberLinePos(v)+'%';
+    d.title=String(v);
+    nl.appendChild(d);
+  });
+}
 drawNumberLine();
 function save(){let data={};document.querySelectorAll('[data-save]').forEach(e=>data[e.dataset.save]=e.value);classifications.forEach((x,i)=>data['class'+i]=document.getElementById('class'+i).value);scaleItems.forEach((x,i)=>data['pred'+i]=document.getElementById('pred'+i).value);['diverExpr','diverFinal','cp1','cp2','cp3','cp4','eq1','eq2'].forEach(id=>data[id]=document.getElementById(id).value);for(let y=1;y<=5;y++){data['a'+y]=document.getElementById('a'+y).value;data['b'+y]=document.getElementById('b'+y).value}localStorage.setItem(KEY,JSON.stringify(data));status.textContent='Saved locally.'}
 function load(){try{let d=JSON.parse(localStorage.getItem(KEY)||'{}');document.querySelectorAll('[data-save]').forEach(e=>{if(d[e.dataset.save]!==undefined)e.value=d[e.dataset.save]});Object.entries(d).forEach(([id,val])=>{let e=document.getElementById(id);if(e)e.value=val})}catch(e){}updateProgress()}
