@@ -149,10 +149,10 @@ Define variables \(\to\) write constraints \(\to\) write objective and direction
 \end{refbox}
 
 \begin{enumerate}
-\item A farmer plants corn \((x\) acres\()\) and soybeans \((y\) acres\()\). Corn requires \(3\) labor-hours per acre and earns \(\$200\) profit per acre. Soybeans require \(2\) labor-hours per acre and earn \(\$150\) profit per acre. The farmer has at most \(120\) labor-hours and \(50\) acres of land.
+\item A workshop builds stools \(x\) and desks \(y\). Each stool requires \(2\) labor-hours and earns \(\$45\) profit. Each desk requires \(5\) labor-hours and earns \(\$100\) profit. The workshop has at most \(80\) labor-hours and can produce at most \(24\) total pieces.
 \begin{enumerate}[label=(\alph*),itemsep=4pt]
 \item Write the labor constraint.
-\item Write the land constraint.
+\item Write the total-production constraint.
 \item Write the nonnegativity constraints.
 \item Write the profit objective and state whether it should be maximized or minimized.
 \end{enumerate}
@@ -160,31 +160,19 @@ Define variables \(\to\) write constraints \(\to\) write objective and direction
 
 \item Maximize
 \[
-f=5x+8y
+f=4x+9y
 \]
-subject to
-\[
-x+2y\le16,
-\qquad 3x+2y\le24,
-\qquad x,y\ge0.
-\]
-The feasible vertices are \((0,0),(8,0),(4,6),(0,8)\). Evaluate \(f\) at all four vertices and identify the optimal point.
+for a feasible region with vertices \((0,0),(7,0),(5,4),(0,6)\). Evaluate \(f\) at all four vertices and identify the optimal point.
 \worklarge
 
-\item A cost problem has minimum requirements:
-\[
-x+y\ge8,
-\qquad 2x+y\ge10,
-\qquad x,y\ge0,
-\]
-and objective \(C=3x+5y\). The relevant boundary vertices are \((8,0),(2,6),(0,10)\). Evaluate the cost at each point and identify the minimum.
+\item A least-cost problem has objective \(C=4x+5y\) and feasible boundary vertices \((7,0),(3,5),(0,9)\). Evaluate the cost at each point and identify the minimum.
 \worklarge
 
 \item A feasible region has vertices
 \[
-(0,0),\ (4,0),\ (3,2),\ (0,5).
+(0,0),\ (5,0),\ (3,3),\ (0,6).
 \]
-Maximize \(f=3x+3y\).
+Maximize \(f=x+y\).
 \begin{enumerate}[label=(\alph*),itemsep=4pt]
 \item Evaluate \(f\) at all four vertices.
 \item Which vertices are optimal?
@@ -214,7 +202,4 @@ Maximize \(f=3x+3y\).
 \workmed
 \end{enumerate}
 
-% =====================================================================
-% MODULE 10
-% =====================================================================
 \end{document}
