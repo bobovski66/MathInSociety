@@ -62,7 +62,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
 <script>
 const key='math107_week5_lab_v2', checked=[false,false,false,false,false];
 const ids=[...document.querySelectorAll('input,select')].map(e=>e.id).filter(Boolean);
-function num(id){return Number(document.getElementById(id).value)} function txt(id){return document.getElementById(id).value.trim().replace(/\s+/g,'')} function near(a,b,t=.001){return Number.isFinite(a)&&Math.abs(a-b)<=t}
+function num(id){const v=document.getElementById(id).value.trim();return v===''?NaN:Number(v)} function txt(id){return document.getElementById(id).value.trim().replace(/\s+/g,'')} function near(a,b,t=.001){return Number.isFinite(a)&&Math.abs(a-b)<=t}
 function setfb(n,ok,msg){const e=document.getElementById('fb'+n);e.textContent=msg;e.className='feedback '+(ok?'good':'bad');if(ok)checked[n-1]=true;updateProgress();save(true)}
 function updateProgress(){const n=checked.filter(Boolean).length;progressText.textContent=n+' / 5';progressFill.style.width=(n/5*100)+'%'}
 function check1(){const ok=num('p1a')===500&&num('p1b')===9&&near(num('p1c'),.6)&&num('p1n')===5&&num('p1d')===8;setfb(1,ok,ok?'Part 1 correct.':'Check the place values and reduce 625/1000 to lowest terms.')}

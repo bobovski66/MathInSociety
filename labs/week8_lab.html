@@ -94,7 +94,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
 </main><script>
 const $=id=>document.getElementById(id), key='math107_week8_lab_v2', done=[false,false,false,false,false];
 const ids=[...document.querySelectorAll('input,select')].map(x=>x.id).filter(Boolean);
-function all(a){return a.every(Boolean)} function eq(id,v,t=.01){return Math.abs(+$ (id).value-v)<=t}
+function all(a){return a.every(Boolean)} function eq(id,v,t=.01){const raw=$(id).value.trim();if(raw==='')return false;const x=Number(raw);return Number.isFinite(x)&&Math.abs(x-v)<=t}
 function result(n,ok,msg){done[n-1]=ok;let e=$('fb'+n);e.textContent=ok?'Correct — Part '+n+' complete.':msg;e.className='feedback '+(ok?'good':'bad');update();save()}
 function update(){let n=done.filter(Boolean).length;$('progressText').textContent=n+' / 5';$('progressFill').style.width=(20*n)+'%'}
 function check1(){result(1,all([$ ('p1a').value==='yes',$('p1b').value==='no',$('p1c').value==='yes',$('p1d').value==='no',$('p1e').value==='quadrant']),'Use the line-segment definition of convexity.')}
