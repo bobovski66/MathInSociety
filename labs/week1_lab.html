@@ -32,7 +32,10 @@ button{border:0;border-radius:10px;padding:9px 13px;font-weight:800;cursor:point
 .number-card{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fffef8}.number-card .n{font-size:1.35rem;font-weight:850;color:var(--olive);margin-bottom:7px}
 .numberline{position:relative;height:100px;margin:10px 0 2px;background:#fffef8;border:1px solid var(--line);border-radius:14px;overflow:hidden}
 .numberline .axis{position:absolute;left:5%;right:5%;top:52px;height:3px;background:var(--olive)}.tick{position:absolute;top:45px;width:1px;height:17px;background:var(--olive)}.tick span{position:absolute;top:18px;transform:translateX(-50%);font-size:.78rem;color:var(--muted)}
-.dot{position:absolute;top:43px;width:20px;height:20px;border-radius:50%;transform:translate(-50%,-50%);border:3px solid #fffef8;box-shadow:0 0 0 1px rgba(0,0,0,.1)}.dot.start{background:var(--olive)}.dot.end{background:var(--gold)}
+.dot{position:absolute;top:52px;width:20px;height:20px;border-radius:50%;transform:translate(-50%,-50%);border:3px solid #fffef8;box-shadow:0 0 0 1px rgba(0,0,0,.1)}.dot.start{background:var(--olive)}.dot.end{background:var(--gold)}
+.dot.dragger{width:26px;height:26px;background:var(--gold);cursor:grab;touch-action:none;z-index:5;box-shadow:0 0 0 2px #fffef8,0 2px 8px rgba(0,0,0,.22)}.dot.dragger.dragging{cursor:grabbing;transform:translate(-50%,-50%) scale(1.08)}
+.path-segment{position:absolute;top:50px;height:4px;background:rgba(177,138,34,.45);border-radius:999px;z-index:1}
+.drag-readout{margin-top:9px}.drag-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
 .arrow{position:absolute;top:22px;height:20px;border-top:3px solid var(--gold)}.arrow:after{content:"";position:absolute;right:-1px;top:-7px;border-left:9px solid var(--gold);border-top:5px solid transparent;border-bottom:5px solid transparent}
 .data-table{width:100%;border-collapse:collapse;margin-top:10px}.data-table th,.data-table td{padding:8px 7px;border-bottom:1px solid var(--line);text-align:right}.data-table th:first-child,.data-table td:first-child{text-align:left}.data-table input{max-width:125px;text-align:right}
 .pillrow{display:flex;gap:9px;flex-wrap:wrap}.pill{border:1px solid var(--line);background:var(--goldsoft);border-radius:999px;padding:6px 10px;font-weight:780}
@@ -110,8 +113,18 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
       <div id="diverFeedback" class="feedback"></div>
     </div>
     <div>
+      <p id="diverMovePrompt"><strong>Move 1 of 3:</strong> Descend 15 m.</p>
       <div class="numberline" id="numberline"><div class="axis"></div></div>
-      <div class="pillrow"><span class="pill">start: 0</span><span class="pill">Use the number line to track each move after you check your work.</span></div>
+      <div class="pillrow drag-readout">
+        <span class="pill">current position: <span id="diverPosition">0</span> m</span>
+        <span class="pill">change from last stop: <span id="diverChange">0</span> m</span>
+      </div>
+      <div class="drag-actions">
+        <button type="button" id="recordDiverMove" onclick="recordDiverMove()">Record this move</button>
+        <button type="button" class="ghost" onclick="resetDiverPath()">Start over</button>
+      </div>
+      <div id="diverDragFeedback" class="feedback"></div>
+      <p class="small">Drag the gold point left for negative movement and right for positive movement. It snaps to whole-meter positions.</p>
     </div>
   </div>
 </section>
@@ -212,13 +225,158 @@ for(let y=0;y<=5;y++){
 function setFeedback(id,msg,ok){const e=document.getElementById(id);e.textContent=msg;e.className='feedback '+(ok?'good':'bad')}
 function markPart(part,ok){localStorage.setItem(KEY+'_part'+part,ok?'1':'0');updateProgress()}
 function checkClassify(){let right=0;classifications.forEach(([,ans],i)=>{if(document.getElementById('class'+i).value===ans)right++});let ok=right===classifications.length;setFeedback('classifyFeedback',`${right} of ${classifications.length} correct.${ok?' Nice — smallest-set classification is working.':''}`,ok);markPart(1,ok);save()}
-function checkDiver(){let expr=diverExpr.value.replace(/\s/g,'').replace(/−/g,'-');let final=Number(diverFinal.value);let exprOK=expr==='0+-15+8+-5'||expr==='0-15+8-5'||expr==='-15+8-5';let ok=exprOK&&diverFinal.value!==''&&final===-12;if(ok){setFeedback('diverFeedback','Correct. Your signed addition matches the diver\'s motion and your final position is correct.',true);drawDiverPath();}else{setFeedback('diverFeedback','Not quite. Check that each descent is represented by a negative change and each ascent by a positive change.',false);}markPart(2,ok);save()}
+function checkDiver(){
+  let expr=diverExpr.value.replace(/\s/g,'').replace(/−/g,'-');
+  let final=Number(diverFinal.value);
+  let exprOK=expr==='0+-15+8+-5'||expr==='0-15+8-5'||expr==='-15+8-5';
+  if(diverStep<3){
+    setFeedback('diverFeedback','Complete the three moves on the number line first, then use those signed changes in your calculation.',false);
+    markPart(2,false);save();return;
+  }
+  let ok=exprOK&&diverFinal.value!==''&&final===-12;
+  if(ok){
+    setFeedback('diverFeedback','Correct. Your signed addition matches the path you built on the number line.',true);
+  }else{
+    setFeedback('diverFeedback','Not quite. Use the three signed changes from your number-line path and add them in order.',false);
+  }
+  markPart(2,ok);save();
+}
 function checkScaling(){let right=0;scaleItems.forEach(([op,ans,val],i)=>{if(document.getElementById('pred'+i).value===ans)right++;document.getElementById('scaleVal'+i).textContent=(Math.round(val*100)/100).toString()});let ok=right===scaleItems.length;setFeedback('scaleFeedback',`${right} of ${scaleItems.length} predictions correct. Values are now revealed.`,ok);markPart(3,ok);save()}
 function checkFractions(){let ok=(+cp1.value===252&&+cp2.value===252&&eq1.value==='yes'&&+cp3.value===125&&+cp4.value===120&&eq2.value==='no');setFeedback('fractionFeedback',ok?'Correct. Pair A names the same rational number; Pair B does not.':'Recheck the cross-products: equal cross-products mean equivalent fractions.',ok);markPart(4,ok);save()}
 function recVals(y){return [1000+200*y,1000*Math.pow(1.15,y)]}
 function checkRecursionTable(){let right=0,total=10;for(let y=1;y<=5;y++){let [a,b]=recVals(y);if(Math.abs(+document.getElementById('a'+y).value-a)<.01)right++;if(Math.abs(+document.getElementById('b'+y).value-b)<.51)right++}let ok=right===total;setFeedback('recursionFeedback',`${right} of ${total} entries correct. Round percentage-growth values to the nearest whole person or cent-like hundredth.`,ok);markPart(5,ok);save()}
 function revealLongRange(){chart.style.display='flex';chart.innerHTML='';let cross=null,max=0,vals=[];for(let y=0;y<=20;y++){let [a,b]=recVals(y);if(cross===null&&b>a)cross=y;vals.push([y,a,b]);max=Math.max(max,a,b)}vals.forEach(([y,a,b])=>{if(y%2===0){let p=document.createElement('div');p.className='barpair';p.innerHTML=`<div class="bar a" style="height:${100*a/max}%" title="A year ${y}: ${a.toFixed(0)}"></div><div class="bar b" style="height:${100*b/max}%" title="B year ${y}: ${b.toFixed(0)}"></div><span>${y}</span>`;chart.appendChild(p)}});let [a20,b20]=recVals(20);crossoverText.textContent=`Population B first exceeds A in year ${cross}. At year 20: A = ${a20.toFixed(0)}, B ≈ ${b20.toFixed(0)}.`;save()}
+const diverMoves=[-15,8,-5];
+let diverStep=0;
+let diverStops=[0];
+let diverMarkerValue=0;
+let diverDragging=false;
+
 function numberLinePos(v){return 5+(v+20)/25*90}
+
+function signed(v){return v>0?'+'+v:String(v)}
+
+function updateDiverReadout(){
+  const previous=diverStops[diverStops.length-1];
+  document.getElementById('diverPosition').textContent=diverMarkerValue;
+  document.getElementById('diverChange').textContent=signed(diverMarkerValue-previous);
+  const prompt=document.getElementById('diverMovePrompt');
+  const btn=document.getElementById('recordDiverMove');
+  if(diverStep<diverMoves.length){
+    const move=diverMoves[diverStep];
+    const verb=move<0?'Descend':'Rise';
+    prompt.innerHTML=`<strong>Move ${diverStep+1} of 3:</strong> ${verb} ${Math.abs(move)} m.`;
+    btn.disabled=false;
+    btn.textContent='Record this move';
+  }else{
+    prompt.innerHTML='<strong>Path complete.</strong> Use the three signed changes to write one addition expression and find the final depth.';
+    btn.disabled=true;
+    btn.textContent='Path complete';
+  }
+}
+
+function renderDiverPath(){
+  const nl=document.getElementById('numberline');
+  nl.querySelectorAll('.dot.start,.dot.end,.dot.dragger,.path-segment').forEach(x=>x.remove());
+
+  for(let i=0;i<diverStops.length-1;i++){
+    const a=numberLinePos(diverStops[i]),b=numberLinePos(diverStops[i+1]);
+    const seg=document.createElement('div');
+    seg.className='path-segment';
+    seg.style.left=Math.min(a,b)+'%';
+    seg.style.width=Math.abs(b-a)+'%';
+    nl.appendChild(seg);
+  }
+
+  diverStops.forEach((v,i)=>{
+    const d=document.createElement('div');
+    d.className='dot '+(i===0?'start':'end');
+    d.style.left=numberLinePos(v)+'%';
+    d.title=i===0?'start: 0':`stop ${i}: ${v} m`;
+    nl.appendChild(d);
+  });
+
+  const drag=document.createElement('div');
+  drag.id='diverDragger';
+  drag.className='dot dragger';
+  drag.style.left=numberLinePos(diverMarkerValue)+'%';
+  drag.setAttribute('role','slider');
+  drag.setAttribute('aria-label','Diver position');
+  drag.setAttribute('aria-valuemin','-20');
+  drag.setAttribute('aria-valuemax','5');
+  drag.setAttribute('aria-valuenow',String(diverMarkerValue));
+  nl.appendChild(drag);
+  bindDiverDrag(drag);
+  updateDiverReadout();
+}
+
+function pointerToDiverValue(clientX){
+  const nl=document.getElementById('numberline');
+  const r=nl.getBoundingClientRect();
+  const left=r.left+r.width*.05;
+  const usable=r.width*.90;
+  const t=Math.max(0,Math.min(1,(clientX-left)/usable));
+  return Math.round(-20+t*25);
+}
+
+function setDiverMarker(v){
+  diverMarkerValue=Math.max(-20,Math.min(5,Math.round(v)));
+  const drag=document.getElementById('diverDragger');
+  if(drag){
+    drag.style.left=numberLinePos(diverMarkerValue)+'%';
+    drag.setAttribute('aria-valuenow',String(diverMarkerValue));
+  }
+  updateDiverReadout();
+}
+
+function bindDiverDrag(drag){
+  drag.addEventListener('pointerdown',e=>{
+    diverDragging=true;
+    drag.classList.add('dragging');
+    drag.setPointerCapture(e.pointerId);
+    setDiverMarker(pointerToDiverValue(e.clientX));
+  });
+  drag.addEventListener('pointermove',e=>{
+    if(diverDragging) setDiverMarker(pointerToDiverValue(e.clientX));
+  });
+  drag.addEventListener('pointerup',e=>{
+    diverDragging=false;
+    drag.classList.remove('dragging');
+    try{drag.releasePointerCapture(e.pointerId)}catch(err){}
+  });
+  drag.addEventListener('pointercancel',()=>{diverDragging=false;drag.classList.remove('dragging')});
+  drag.tabIndex=0;
+  drag.addEventListener('keydown',e=>{
+    if(e.key==='ArrowLeft'){e.preventDefault();setDiverMarker(diverMarkerValue-1)}
+    if(e.key==='ArrowRight'){e.preventDefault();setDiverMarker(diverMarkerValue+1)}
+  });
+}
+
+function recordDiverMove(){
+  if(diverStep>=diverMoves.length)return;
+  const previous=diverStops[diverStops.length-1];
+  const expected=previous+diverMoves[diverStep];
+  if(diverMarkerValue!==expected){
+    const direction=diverMoves[diverStep]<0?'negative':'positive';
+    setFeedback('diverDragFeedback',`Not quite. From the last stop, move ${Math.abs(diverMoves[diverStep])} units in the ${direction} direction.`,false);
+    return;
+  }
+  const completedChange=diverMoves[diverStep];
+  diverStops.push(diverMarkerValue);
+  diverStep++;
+  setFeedback('diverDragFeedback',`Good. That move represents a change of ${signed(completedChange)} m.`,true);
+  renderDiverPath();
+  save();
+}
+
+function resetDiverPath(){
+  diverStep=0;diverStops=[0];diverMarkerValue=0;
+  setFeedback('diverDragFeedback','',true);
+  renderDiverPath();
+  markPart(2,false);
+  save();
+}
+
 function drawNumberLine(){
   const nl=document.getElementById('numberline');
   for(let n=-20;n<=5;n+=5){
@@ -228,26 +386,11 @@ function drawNumberLine(){
     t.innerHTML=`<span>${n}</span>`;
     nl.appendChild(t);
   }
-  let d=document.createElement('div');
-  d.className='dot start';
-  d.style.left=numberLinePos(0)+'%';
-  d.title='start';
-  nl.appendChild(d);
-}
-function drawDiverPath(){
-  const nl=document.getElementById('numberline');
-  nl.querySelectorAll('.dot.end').forEach(x=>x.remove());
-  [-15,-7,-12].forEach(v=>{
-    let d=document.createElement('div');
-    d.className='dot end';
-    d.style.left=numberLinePos(v)+'%';
-    d.title=String(v);
-    nl.appendChild(d);
-  });
+  renderDiverPath();
 }
 drawNumberLine();
-function save(){let data={};document.querySelectorAll('[data-save]').forEach(e=>data[e.dataset.save]=e.value);classifications.forEach((x,i)=>data['class'+i]=document.getElementById('class'+i).value);scaleItems.forEach((x,i)=>data['pred'+i]=document.getElementById('pred'+i).value);['diverExpr','diverFinal','cp1','cp2','cp3','cp4','eq1','eq2'].forEach(id=>data[id]=document.getElementById(id).value);for(let y=1;y<=5;y++){data['a'+y]=document.getElementById('a'+y).value;data['b'+y]=document.getElementById('b'+y).value}localStorage.setItem(KEY,JSON.stringify(data));status.textContent='Saved locally.'}
-function load(){try{let d=JSON.parse(localStorage.getItem(KEY)||'{}');document.querySelectorAll('[data-save]').forEach(e=>{if(d[e.dataset.save]!==undefined)e.value=d[e.dataset.save]});Object.entries(d).forEach(([id,val])=>{let e=document.getElementById(id);if(e)e.value=val})}catch(e){}updateProgress()}
+function save(){let data={};document.querySelectorAll('[data-save]').forEach(e=>data[e.dataset.save]=e.value);classifications.forEach((x,i)=>data['class'+i]=document.getElementById('class'+i).value);scaleItems.forEach((x,i)=>data['pred'+i]=document.getElementById('pred'+i).value);['diverExpr','diverFinal','cp1','cp2','cp3','cp4','eq1','eq2'].forEach(id=>data[id]=document.getElementById(id).value);for(let y=1;y<=5;y++){data['a'+y]=document.getElementById('a'+y).value;data['b'+y]=document.getElementById('b'+y).value}data.diverStep=diverStep;data.diverStops=diverStops;localStorage.setItem(KEY,JSON.stringify(data));status.textContent='Saved locally.'}
+function load(){try{let d=JSON.parse(localStorage.getItem(KEY)||'{}');document.querySelectorAll('[data-save]').forEach(e=>{if(d[e.dataset.save]!==undefined)e.value=d[e.dataset.save]});Object.entries(d).forEach(([id,val])=>{let e=document.getElementById(id);if(e)e.value=val});if(Array.isArray(d.diverStops)&&d.diverStops.length>=1){diverStops=d.diverStops.map(Number).filter(Number.isFinite);diverStep=Math.max(0,Math.min(3,Number(d.diverStep)||0));diverMarkerValue=diverStops[diverStops.length-1];renderDiverPath()}}catch(e){}updateProgress()}
 function updateProgress(){let n=0;for(let i=1;i<=5;i++)if(localStorage.getItem(KEY+'_part'+i)==='1')n++;progressText.textContent=`${n} / 5`;progressFill.style.width=(n/5*100)+'%'}
 function clearLab(){if(!confirm('Clear all Week 1 lab responses stored in this browser?'))return;localStorage.removeItem(KEY);for(let i=1;i<=5;i++)localStorage.removeItem(KEY+'_part'+i);location.reload()}
 document.querySelectorAll('textarea,input,select').forEach(e=>e.addEventListener('input',()=>{status.textContent='Unsaved changes';clearTimeout(window._autos);window._autos=setTimeout(save,700)}));saveBtn.onclick=save;load();
