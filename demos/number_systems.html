@@ -8,30 +8,60 @@
 :root{
   --bg:#efefe4;--card:#fffdf3;--ink:#292d20;--muted:#6d705f;--line:#d9d5bd;
   --olive:#4d5430;--olive2:#697048;--gold:#b18a22;--goldsoft:#f1e6b2;
-  --shadow:0 12px 30px rgba(58,61,38,.10)
+  --shadow:0 8px 22px rgba(58,61,38,.09)
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+html,body{height:100%;margin:0}
+body{
+  background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  line-height:1.35;display:flex;flex-direction:column;overflow:hidden
+}
 a{color:var(--olive)}
-header{background:linear-gradient(135deg,var(--olive),#62693b);color:#fff;padding:12px 22px}
-header a{color:#f4eab9;text-decoration:none;font-weight:700}
-header h1{margin:4px 0 2px;font-size:clamp(1.45rem,2.7vw,2rem)}
-header p{margin:0;color:#e8e7d6;max-width:100ch;font-size:.92rem}
-main{max-width:1180px;margin:auto;padding:10px 16px 14px}
-.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px;box-shadow:var(--shadow);margin:8px 0}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.startline{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.startline label{font-weight:800}.startline input{width:78px;padding:5px 8px;border:1px solid var(--line);border-radius:9px;background:#fffef8;color:var(--ink);font:inherit;font-size:.95rem}
-.control{margin:6px 0}.control label{font-weight:800;display:flex;justify-content:space-between;gap:12px}.control input[type=range]{width:100%;accent-color:var(--olive)}
+header{flex:0 0 auto;background:linear-gradient(135deg,var(--olive),#62693b);color:#fff;padding:8px 18px 9px}
+header a{color:#f4eab9;text-decoration:none;font-weight:700;font-size:.86rem}
+header h1{margin:2px 0 1px;font-size:clamp(1.28rem,2.15vw,1.72rem);line-height:1.12}
+header p{margin:0;color:#e8e7d6;max-width:110ch;font-size:.80rem;line-height:1.25}
+main{
+  flex:1 1 auto;min-height:0;width:min(1180px,100%);margin:auto;padding:7px 14px 9px;
+  display:grid;grid-template-rows:auto minmax(0,1fr);gap:7px
+}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:9px 12px;box-shadow:var(--shadow);margin:0}
+.controls-panel{display:grid;gap:5px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.startline{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:.88rem}
+.startline label{font-weight:800}
+.startline input{width:68px;padding:3px 7px;border:1px solid var(--line);border-radius:8px;background:#fffef8;color:var(--ink);font:inherit;font-size:.88rem}
+.control{margin:3px 0}
+.control label{font-weight:800;display:flex;justify-content:space-between;gap:12px;font-size:.88rem}
+.control input[type=range]{width:100%;height:19px;accent-color:var(--olive);margin:1px 0}
 .value{font-variant-numeric:tabular-nums;color:var(--gold);font-weight:900}
-.rule{font-size:.92rem;background:#f5f1dc;border:1px solid var(--line);padding:5px 8px;border-radius:9px;margin:4px 0 6px;display:inline-block}
-.sequence-line{margin-top:6px;font-size:.82rem;color:var(--muted);overflow-wrap:anywhere;line-height:1.3}.sequence-line strong{color:var(--ink)}
-.callout{border-left:4px solid var(--gold);background:#faf3d4;padding:8px 11px;border-radius:9px;margin:8px 0 0;font-size:.9rem}
-.small{font-size:.9rem;color:var(--muted)}
-canvas{width:100%;height:330px;border:1px solid var(--line);border-radius:12px;background:#fffef8;display:block}
-.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:5px;color:var(--muted);font-size:.84rem}.legend span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}.legend .additive::before{background:var(--olive)}.legend .multiplicative::before{background:var(--gold)}
-@media(max-width:760px){.grid{grid-template-columns:1fr}canvas{height:320px}header p{display:none}}
-@media(max-height:820px) and (min-width:761px){header{padding:8px 20px}header h1{font-size:1.55rem}header p{font-size:.84rem}.panel{padding:9px 12px;margin:6px 0}.sequence-line{font-size:.76rem}canvas{height:280px}.callout{font-size:.82rem;padding:6px 9px}.legend{font-size:.78rem}}
+.rule{font-size:.80rem;background:#f5f1dc;border:1px solid var(--line);padding:2px 6px;border-radius:7px;margin-left:4px;display:inline-block}
+.sequence-line{margin-top:2px;font-size:.74rem;color:var(--muted);overflow-wrap:anywhere;line-height:1.2;white-space:normal}
+.sequence-line strong{color:var(--ink)}
+.small{font-size:.77rem;color:var(--muted)}
+.visual-panel{min-height:0;display:flex;flex-direction:column;padding-bottom:8px}
+.visual-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;flex:0 0 auto;font-size:.90rem}
+.canvas-wrap{flex:1 1 auto;min-height:220px;margin-top:5px;position:relative}
+canvas{position:absolute;inset:0;width:100%;height:100%;border:1px solid var(--line);border-radius:11px;background:#fffef8;display:block}
+.legend{flex:0 0 auto;display:flex;gap:18px;flex-wrap:wrap;margin-top:4px;color:var(--muted);font-size:.75rem;line-height:1.15}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.legend .additive::before{background:var(--olive)}.legend .multiplicative::before{background:var(--gold)}
+.callout{flex:0 0 auto;border-left:3px solid var(--gold);background:#faf3d4;padding:5px 8px;border-radius:7px;margin:4px 0 0;font-size:.76rem;line-height:1.2}
+@media(max-width:760px){
+  body{overflow:auto;height:auto;min-height:100%}
+  main{display:block;padding:8px 10px 12px}
+  .panel{margin-bottom:8px}
+  .grid{grid-template-columns:1fr;gap:7px}
+  .canvas-wrap{height:360px;min-height:360px}
+  canvas{position:relative}
+  header p{display:none}
+}
+@media(max-height:700px) and (min-width:761px){
+  header{padding:5px 16px 6px}header h1{font-size:1.2rem}header p{font-size:.72rem}
+  main{padding:5px 12px 6px;gap:5px}.panel{padding:6px 10px}.controls-panel{gap:2px}
+  .startline{font-size:.80rem}.control label{font-size:.80rem}.rule{font-size:.72rem}.sequence-line{font-size:.68rem}
+  .canvas-wrap{min-height:190px}.visual-head{font-size:.82rem}.callout{font-size:.69rem}.legend{font-size:.69rem}
+}
 </style>
 <script>
 window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};
@@ -45,7 +75,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
   <p>Start from one value, then drag the two recursion sliders and watch repeated addition and repeated multiplication unfold on the same number line.</p>
 </header>
 <main>
-<section class="panel">
+<section class="panel controls-panel">
   <div class="startline">
     <label for="startNumber">Starting value</label>
     <input id="startNumber" type="number" min="-20" max="20" step="1" value="2" aria-label="Starting value">
@@ -71,12 +101,12 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
   </div>
 </section>
 
-<section class="panel">
-  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap">
+<section class="panel visual-panel">
+  <div class="visual-head">
     <strong>Compare the two recursions on the same number line</strong>
     <span class="small">Dots are terms; arrows show each recursive step. The scale adjusts automatically.</span>
   </div>
-  <canvas id="c" width="1080" height="430" aria-label="Number line showing the first six terms of additive and multiplicative recursions"></canvas>
+  <div class="canvas-wrap"><canvas id="c" aria-label="Number line showing the first six terms of additive and multiplicative recursions"></canvas></div>
   <div class="legend"><span class="additive">Additive terms</span><span class="multiplicative">Multiplicative terms</span></div>
   <p class="callout">Additive recursion keeps the <strong>step size</strong> constant. Multiplicative recursion keeps the <strong>factor</strong> constant, so its spacing can change dramatically. Drag either slider and compare how the two sequences spread.</p>
 </section>
@@ -136,31 +166,22 @@ function drawArrow(x1,y,x2,color){
   ctx.globalAlpha=1;
 }
 
-function drawSeries(values,y,color,prefix,labelAbove,mapX){
-  ctx.fillStyle=color;ctx.strokeStyle=color;
-  ctx.font='700 14px system-ui';
-  values.forEach((v,i)=>{
-    if(i<values.length-1) drawArrow(mapX(v),y,mapX(values[i+1]),color);
-  });
-  values.forEach((v,i)=>{
-    const px=mapX(v);
-    ctx.beginPath();ctx.arc(px,y,8,0,Math.PI*2);ctx.fill();
-    const step=`${prefix}${i}`;
-    const val=clean(v);
-    ctx.textAlign='center';
-    if(labelAbove){
-      ctx.fillText(step,px,y-24);
-      ctx.font='600 13px system-ui';ctx.fillText(val,px,y-43);ctx.font='700 14px system-ui';
-    }else{
-      ctx.fillText(step,px,y+29);
-      ctx.font='600 13px system-ui';ctx.fillText(val,px,y+48);ctx.font='700 14px system-ui';
-    }
-  });
+function resizeCanvas(){
+  const rect=C.getBoundingClientRect();
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  const w=Math.max(1,Math.round(rect.width));
+  const h=Math.max(1,Math.round(rect.height));
+  const bw=Math.max(1,Math.round(w*dpr));
+  const bh=Math.max(1,Math.round(h*dpr));
+  if(C.width!==bw || C.height!==bh){C.width=bw;C.height=bh;}
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  return {W:w,H:h};
 }
 
 function drawNumberLine(addVals,multVals){
-  const W=C.width,H=C.height;
-  const left=64,right=40,axisY=215,addY=130,multY=300;
+  const {W,H}=resizeCanvas();
+  const left=Math.max(54,W*.055),right=Math.max(28,W*.03);
+  const axisY=H*.50,addY=H*.27,multY=H*.73;
   ctx.clearRect(0,0,W,H);
 
   const all=addVals.concat(multVals).concat([0]).filter(Number.isFinite);
@@ -170,31 +191,56 @@ function drawNumberLine(addVals,multVals){
   const pad=Math.max(rawRange*.08,1);
   min-=pad;max+=pad;
 
-  const tick=niceStep((max-min)/10);
+  const tick=niceStep((max-min)/(W<760?7:10));
   min=Math.floor(min/tick)*tick;
   max=Math.ceil(max/tick)*tick;
   if(min===max) max=min+tick;
   const mapX=v=>left+(v-min)*(W-left-right)/(max-min);
 
-  ctx.strokeStyle='#4d5430';ctx.lineWidth=3;
+  ctx.strokeStyle='#4d5430';ctx.lineWidth=2.5;
   ctx.beginPath();ctx.moveTo(left,axisY);ctx.lineTo(W-right,axisY);ctx.stroke();
   ctx.fillStyle='#4d5430';
-  ctx.beginPath();ctx.moveTo(W-right,axisY);ctx.lineTo(W-right-10,axisY-6);ctx.lineTo(W-right-10,axisY+6);ctx.closePath();ctx.fill();
+  ctx.beginPath();ctx.moveTo(W-right,axisY);ctx.lineTo(W-right-9,axisY-5);ctx.lineTo(W-right-9,axisY+5);ctx.closePath();ctx.fill();
 
-  ctx.font='13px system-ui';ctx.textAlign='center';
+  const tickFont=Math.max(10,Math.min(12,W/95));
+  ctx.font=`${tickFont}px system-ui`;ctx.textAlign='center';
   for(let t=min;t<=max+tick*.25;t+=tick){
     const px=mapX(t);
-    ctx.strokeStyle='#9a9c8c';ctx.lineWidth=1.2;
-    ctx.beginPath();ctx.moveTo(px,axisY-7);ctx.lineTo(px,axisY+7);ctx.stroke();
-    ctx.fillStyle='#6d705f';ctx.fillText(clean(t),px,axisY+26);
+    ctx.strokeStyle='#9a9c8c';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(px,axisY-6);ctx.lineTo(px,axisY+6);ctx.stroke();
+    ctx.fillStyle='#6d705f';ctx.fillText(clean(t),px,axisY+20);
   }
 
-  ctx.textAlign='left';ctx.font='800 15px system-ui';
-  ctx.fillStyle='#4d5430';ctx.fillText('Additive',left,82);
-  ctx.fillStyle='#b18a22';ctx.fillText('Multiplicative',left,365);
+  const labelFont=Math.max(12,Math.min(14,W/82));
+  ctx.textAlign='left';ctx.font=`800 ${labelFont}px system-ui`;
+  ctx.fillStyle='#4d5430';ctx.fillText('Additive',left,Math.max(18,addY-H*.13));
+  ctx.fillStyle='#b18a22';ctx.fillText('Multiplicative',left,Math.min(H-10,multY+H*.17));
 
-  drawSeries(addVals,addY,'#4d5430','a',true,mapX);
-  drawSeries(multVals,multY,'#b18a22','b',false,mapX);
+  drawSeriesResponsive(addVals,addY,'#4d5430','a',true,mapX,W,H);
+  drawSeriesResponsive(multVals,multY,'#b18a22','b',false,mapX,W,H);
+}
+
+function drawSeriesResponsive(values,y,color,prefix,labelAbove,mapX,W,H){
+  const dotR=Math.max(5.5,Math.min(7.5,W/150));
+  const stepFont=Math.max(10,Math.min(13,W/90));
+  const valueFont=Math.max(9,Math.min(12,W/100));
+  ctx.fillStyle=color;ctx.strokeStyle=color;
+  values.forEach((v,i)=>{if(i<values.length-1) drawArrow(mapX(v),y,mapX(values[i+1]),color);});
+  values.forEach((v,i)=>{
+    const px=mapX(v);
+    ctx.beginPath();ctx.arc(px,y,dotR,0,Math.PI*2);ctx.fill();
+    ctx.textAlign='center';ctx.fillStyle=color;
+    ctx.font=`700 ${stepFont}px system-ui`;
+    const step=`${prefix}${i}`;
+    const val=clean(v);
+    if(labelAbove){
+      ctx.fillText(step,px,y-18);
+      ctx.font=`600 ${valueFont}px system-ui`;ctx.fillText(val,px,y-33);
+    }else{
+      ctx.fillText(step,px,y+22);
+      ctx.font=`600 ${valueFont}px system-ui`;ctx.fillText(val,px,y+37);
+    }
+  });
 }
 
 function update(){
@@ -216,6 +262,9 @@ function update(){
 startNumber.addEventListener('input',update);
 addSlider.addEventListener('input',update);
 factorSlider.addEventListener('input',update);
+const ro=new ResizeObserver(()=>update());
+ro.observe(C.parentElement);
+window.addEventListener('resize',update);
 update();
 </script>
 </body>
