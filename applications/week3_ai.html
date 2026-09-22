@@ -16,11 +16,11 @@ Writing the mean this way reveals that an ordinary mean is a <strong>weighted av
 
 We will simplify each token down to just one numerical feature. Suppose four earlier tokens have feature values
 \[
-2,;5,;8,;10
+2,\\;5,\\;8,\\;10
 \]
 and receive attention weights
 \[
-0.10,;0.20,;0.60,;0.10.
+0.10,\\;0.20,\\;0.60,\\;0.10.
 \]
 The weights are nonnegative and add to 1, just like probabilities. The attention calculation forms a weighted combination instead of an ordinary mean.</div><p class="callout"><strong>Keep the scale in perspective:</strong> this page uses tiny numbers so you can see the mathematics. Real language models use many-dimensional vectors, very large vocabularies, and many repeated layers. The simplified calculation is a model of one mathematical structure, not a miniature copy of the whole system.</p></section>
 <section class="panel"><div class="kicker">Step 3 · Worked example</div><h2>Calculate the weighted average</h2><div>Compute
