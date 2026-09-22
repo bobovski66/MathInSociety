@@ -72,14 +72,14 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
 <header>
   <a href="../index.html">← MATH&amp; 107 course</a>
   <h1>Number Line & Recursion Explorer</h1>
-  <p>Start from one value, then drag the two recursion sliders and watch repeated addition and repeated multiplication unfold on the same number line.</p>
+  <p>Choose a starting value. Then adjust the two recursion rules and compare the sequences on the number line.</p>
 </header>
 <main>
 <section class="panel controls-panel">
   <div class="startline">
     <label for="startNumber">Starting value</label>
     <input id="startNumber" type="number" min="-20" max="20" step="1" value="2" aria-label="Starting value">
-    <span class="small">Both recursions start at the same point.</span>
+    <span class="small">Use the same starting value for both rules.</span>
   </div>
   <div class="grid">
     <div>
@@ -104,11 +104,11 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
 <section class="panel visual-panel">
   <div class="visual-head">
     <strong>Compare the two recursions on the same number line</strong>
-    <span class="small">Dots are terms; arrows show each recursive step. The scale adjusts automatically.</span>
+    <span class="small">Dots show terms; arrows show the steps from one term to the next.</span>
   </div>
   <div class="canvas-wrap"><canvas id="c" aria-label="Number line showing the first six terms of additive and multiplicative recursions"></canvas></div>
   <div class="legend"><span class="additive">Additive terms</span><span class="multiplicative">Multiplicative terms</span></div>
-  <p class="callout">Additive recursion keeps the <strong>step size</strong> constant. Multiplicative recursion keeps the <strong>factor</strong> constant, so its spacing can change dramatically. Drag either slider and compare how the two sequences spread.</p>
+  <p class="callout">In an additive recursion, the <strong>step size</strong> stays constant. In a multiplicative recursion, the <strong>factor</strong> stays constant. Adjust the sliders and compare how the spacing between terms changes.</p>
 </section>
 </main>
 
