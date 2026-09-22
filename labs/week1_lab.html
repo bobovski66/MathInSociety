@@ -225,12 +225,18 @@ for(let y=0;y<=5;y++){
 function setFeedback(id,msg,ok){const e=document.getElementById(id);e.textContent=msg;e.className='feedback '+(ok?'good':'bad')}
 function markPart(part,ok){localStorage.setItem(KEY+'_part'+part,ok?'1':'0');updateProgress()}
 function checkClassify(){let right=0;classifications.forEach(([,ans],i)=>{if(document.getElementById('class'+i).value===ans)right++});let ok=right===classifications.length;setFeedback('classifyFeedback',`${right} of ${classifications.length} correct.${ok?' Nice — smallest-set classification is working.':''}`,ok);markPart(1,ok);save()}
+function normalizeDiverExpression(raw){
+  let s=String(raw||'').replace(/\s+/g,'').replace(/−/g,'-');
+  s=s.replace(/\(([+-]?\d+(?:\.\d+)?)\)/g,'$1');
+  s=s.replace(/\+\-/g,'-').replace(/\-\-/g,'+');
+  return s;
+}
 function checkDiver(){
-  let expr=diverExpr.value.replace(/\s/g,'').replace(/−/g,'-');
+  let expr=normalizeDiverExpression(diverExpr.value);
   let final=Number(diverFinal.value);
-  let exprOK=expr==='0+-15+8+-5'||expr==='0-15+8-5'||expr==='-15+8-5';
+  let exprOK=expr==='0-15+8-5'||expr==='-15+8-5';
   if(diverStep<3){
-    setFeedback('diverFeedback','Complete the three moves on the number line first, then use those signed changes in your calculation.',false);
+    setFeedback('diverFeedback','Finish the three moves on the number line first, then use those signed changes in your calculation.',false);
     markPart(2,false);save();return;
   }
   let ok=exprOK&&diverFinal.value!==''&&final===-12;
@@ -326,6 +332,7 @@ function setDiverMarker(v){
     drag.style.left=numberLinePos(diverMarkerValue)+'%';
     drag.setAttribute('aria-valuenow',String(diverMarkerValue));
   }
+  if(diverStep<diverMoves.length) setFeedback('diverDragFeedback','',true);
   updateDiverReadout();
 }
 
@@ -343,6 +350,11 @@ function bindDiverDrag(drag){
     diverDragging=false;
     drag.classList.remove('dragging');
     try{drag.releasePointerCapture(e.pointerId)}catch(err){}
+    if(diverStep<diverMoves.length){
+      const previous=diverStops[diverStops.length-1];
+      const expected=previous+diverMoves[diverStep];
+      if(diverMarkerValue===expected) recordDiverMove();
+    }
   });
   drag.addEventListener('pointercancel',()=>{diverDragging=false;drag.classList.remove('dragging')});
   drag.tabIndex=0;
@@ -361,11 +373,14 @@ function recordDiverMove(){
     setFeedback('diverDragFeedback',`Not quite. From the last stop, move ${Math.abs(diverMoves[diverStep])} units in the ${direction} direction.`,false);
     return;
   }
-  const completedChange=diverMoves[diverStep];
   diverStops.push(diverMarkerValue);
   diverStep++;
-  setFeedback('diverDragFeedback',`Good. That move represents a change of ${signed(completedChange)} m.`,true);
   renderDiverPath();
+  if(diverStep<diverMoves.length){
+    setFeedback('diverDragFeedback','Move recorded. Continue with the next move.',true);
+  }else{
+    setFeedback('diverDragFeedback','Path complete. Now write the addition sequence and final depth.',true);
+  }
   save();
 }
 
