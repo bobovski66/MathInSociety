@@ -184,11 +184,11 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
 <section class="panel"><div class="kicker">Finish</div><h2>Save your work</h2><p>Make sure all five computational sections have been checked. Your entries are saved in this browser.</p><div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap"><button id="saveBtn">Save in this browser</button><button class="ghost" onclick="clearLab()">Clear lab</button><span id="status" class="small"></span></div></section>
 
 <section class="panel submission-panel">
-  <h2>Create your submission copy</h2>
-  <p class="submission-help">Your working answers stay in this browser while you complete the lab. When you are ready to submit, enter your name and choose <strong>Create Submission Copy</strong>. A separate, static copy will open with your current answers written into the page. From that copy you can <strong>Print / Save as PDF</strong> or <strong>Download HTML</strong> for upload to Canvas.</p>
+  <h2>Prepare your submission</h2>
+  <p class="submission-help">Your work is saved in this browser as you go. When you are ready to turn it in, enter your name and choose <strong>Prepare Submission</strong>. The lab will switch to a clean submission view in this same tab with your current answers written into the page. From there you can <strong>Print / Save as PDF</strong>, <strong>Download HTML</strong> for upload to Canvas, or return to the lab.</p>
   <div class="submission-row">
     <div class="submission-name"><label for="printStudentName">Student name</label><input id="printStudentName" type="text" autocomplete="name" placeholder="Enter your name"></div>
-    <button type="button" class="secondary" onclick="createSubmissionCopy()">Create Submission Copy</button>
+    <button type="button" class="secondary" onclick="createSubmissionCopy()">Prepare Submission</button>
   </div>
   <div id="submissionStatus" class="small submission-copy-status"></div>
 </section>
@@ -485,71 +485,70 @@ document.querySelectorAll('textarea,input,select').forEach(e=>e.addEventListener
     });
   }
 
-  function installSubmissionPage(doc,name,title,clone){
-    doc.open();
-    doc.write('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title></title></head><body></body></html>');
-    doc.close();
-    doc.title=title+' — '+name;
+  function installSubmissionPage(name,title,clone){
+    document.title=title+' — '+name;
 
-    document.querySelectorAll('style').forEach(style=>doc.head.appendChild(style.cloneNode(true)));
+    let extra=document.getElementById('submission-mode-style');
+    if(!extra){
+      extra=document.createElement('style');
+      extra.id='submission-mode-style';
+      extra.textContent=`
+        body{overflow:auto!important;height:auto!important;background:#fff!important;color:#111!important}
+        .submission-toolbar{position:sticky;top:0;z-index:1000;display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px 18px;background:#292d20;color:white;box-shadow:0 3px 12px rgba(0,0,0,.18)}
+        .submission-toolbar button{display:inline-block!important;background:#fffdf3!important;color:#292d20!important;border:1px solid #d9d5bd!important;padding:9px 13px!important;border-radius:9px!important;font-weight:800!important;cursor:pointer!important}
+        .submission-toolbar .submission-note{font-size:.88rem;color:#e8e7d6}
+        .submission-cover{max-width:1160px;margin:20px auto 0;padding:0 20px}
+        .submission-cover-card{background:#fffdf3;border:1px solid #d9d5bd;border-radius:14px;padding:14px 18px}
+        .submission-cover h1{margin:0 0 8px;color:#4d5430;font-size:1.45rem}
+        .submission-meta{display:flex;gap:22px;flex-wrap:wrap}
+        .submission-answer{display:inline-block;padding:4px 8px;border:1px solid #c9c5ae;border-radius:7px;background:#fff;color:#111;font-weight:700;white-space:pre-wrap;overflow-wrap:anywhere;vertical-align:baseline}
+        .submission-answer-block{display:block;width:100%;min-height:2.1em;margin-top:4px}
+        .submission-canvas-image{display:block;max-width:100%;height:auto;border:1px solid #d9d5bd;border-radius:10px;background:#fff}
+        input,select,textarea{display:none!important}
+        @media print{
+          .submission-toolbar{display:none!important}
+          .submission-cover{margin-top:0;padding:0}
+          body{background:white!important}
+          .panel{box-shadow:none!important}
+        }
+      `;
+      document.head.appendChild(extra);
+    }
 
-    const extra=doc.createElement('style');
-    extra.textContent=`
-      body{overflow:auto!important;height:auto!important}
-      .submission-toolbar{position:sticky;top:0;z-index:1000;display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px 18px;background:#292d20;color:white;box-shadow:0 3px 12px rgba(0,0,0,.18)}
-      .submission-toolbar button{display:inline-block!important;background:#fffdf3!important;color:#292d20!important;border:1px solid #d9d5bd!important;padding:9px 13px!important;border-radius:9px!important;font-weight:800!important;cursor:pointer!important}
-      .submission-toolbar .submission-note{font-size:.88rem;color:#e8e7d6}
-      .submission-cover{max-width:1160px;margin:20px auto 0;padding:0 20px}
-      .submission-cover-card{background:#fffdf3;border:1px solid #d9d5bd;border-radius:14px;padding:14px 18px}
-      .submission-cover h1{margin:0 0 8px;color:#4d5430;font-size:1.45rem}
-      .submission-meta{display:flex;gap:22px;flex-wrap:wrap}
-      .submission-answer{display:inline-block;padding:4px 8px;border:1px solid #c9c5ae;border-radius:7px;background:#fff;color:#111;font-weight:700;white-space:pre-wrap;overflow-wrap:anywhere;vertical-align:baseline}
-      .submission-answer-block{display:block;width:100%;min-height:2.1em;margin-top:4px}
-      .submission-canvas-image{display:block;max-width:100%;height:auto;border:1px solid #d9d5bd;border-radius:10px;background:#fff}
-      input,select,textarea{display:none!important}
-      @media print{
-        .submission-toolbar{display:none!important}
-        .submission-cover{margin-top:0}
-        body{background:white!important}
-        .panel{box-shadow:none!important}
-      }
-    `;
-    doc.head.appendChild(extra);
+    document.body.replaceChildren();
 
-    const toolbar=doc.createElement('div');
+    const toolbar=document.createElement('div');
     toolbar.className='submission-toolbar';
-    toolbar.innerHTML='<button type="button" id="submissionPrintButton">Print / Save as PDF</button><button type="button" id="submissionDownloadButton">Download HTML</button><span class="submission-note">This is a static submission copy. Your working lab remains open in the other tab.</span>';
-    doc.body.appendChild(toolbar);
+    toolbar.innerHTML='<button type="button" id="submissionPrintButton">Print / Save as PDF</button><button type="button" id="submissionDownloadButton">Download HTML</button><button type="button" id="submissionReturnButton">Return to Lab</button><span class="submission-note">Submission view — your answers are already saved.</span>';
+    document.body.appendChild(toolbar);
 
-    const cover=doc.createElement('div');
+    const cover=document.createElement('div');
     cover.className='submission-cover';
-    const card=doc.createElement('div');
+    const card=document.createElement('div');
     card.className='submission-cover-card';
-    const h=doc.createElement('h1');h.textContent=title;
-    const meta=doc.createElement('div');meta.className='submission-meta';
-    const student=doc.createElement('div');student.innerHTML='<strong>Student:</strong> ';
-    student.appendChild(doc.createTextNode(name));
-    const made=doc.createElement('div');made.innerHTML='<strong>Submission copy created:</strong> ';
-    made.appendChild(doc.createTextNode(new Date().toLocaleString()));
-    meta.append(student,made);card.append(h,meta);cover.appendChild(card);doc.body.appendChild(cover);
+    const h=document.createElement('h1');h.textContent=title;
+    const meta=document.createElement('div');meta.className='submission-meta';
+    const student=document.createElement('div');student.innerHTML='<strong>Student:</strong> ';
+    student.appendChild(document.createTextNode(name));
+    const made=document.createElement('div');made.innerHTML='<strong>Submission prepared:</strong> ';
+    made.appendChild(document.createTextNode(new Date().toLocaleString()));
+    meta.append(student,made);card.append(h,meta);cover.appendChild(card);document.body.appendChild(cover);
 
-    doc.body.appendChild(doc.importNode(clone,true));
+    document.body.appendChild(clone);
+    document.body.dataset.downloadBase=safeFilename(name)+'_'+safeFilename(title);
 
-    const script=doc.createElement('script');
-    script.textContent=`
-      document.getElementById('submissionPrintButton').addEventListener('click',()=>window.print());
-      document.getElementById('submissionDownloadButton').addEventListener('click',()=>{
-        const html='<!doctype html>\\n'+document.documentElement.outerHTML;
-        const blob=new Blob([html],{type:'text/html;charset=utf-8'});
-        const url=URL.createObjectURL(blob);
-        const a=document.createElement('a');
-        a.href=url;
-        a.download=${JSON.stringify(safeFilename(name))}+'_'+${JSON.stringify(safeFilename(title))}+'.html';
-        document.body.appendChild(a);a.click();a.remove();
-        setTimeout(()=>URL.revokeObjectURL(url),1000);
-      });
-    `;
-    doc.body.appendChild(script);
+    document.getElementById('submissionPrintButton').addEventListener('click',()=>window.print());
+    document.getElementById('submissionDownloadButton').addEventListener('click',()=>{
+      const html='<!doctype html>\\n'+document.documentElement.outerHTML;
+      const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url;
+      a.download=(document.body.dataset.downloadBase||'Math107_Lab_Submission')+'.html';
+      document.body.appendChild(a);a.click();a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),1000);
+    });
+    document.getElementById('submissionReturnButton').addEventListener('click',()=>location.reload());
   }
 
   window.createSubmissionCopy=function(){
@@ -557,17 +556,15 @@ document.querySelectorAll('textarea,input,select').forEach(e=>e.addEventListener
     const name=(nameInput?.value||'').trim();
     const status=document.getElementById('submissionStatus');
     if(!name){
-      if(status) status.textContent='Enter your name before creating the submission copy.';
+      if(status) status.textContent='Enter your name before preparing the submission.';
       nameInput?.focus();
       return;
     }
     try{localStorage.setItem(NAME_KEY,name)}catch(e){}
 
-    const popup=window.open('','_blank');
-    if(!popup){
-      if(status) status.textContent='Your browser blocked the submission window. Allow pop-ups for this site, then try again.';
-      return;
-    }
+    // Force the lab's own save handler before replacing the working view.
+    const saveButton=document.getElementById('saveBtn');
+    if(saveButton) saveButton.click();
 
     const source=document.querySelector('main');
     const clone=source.cloneNode(true);
@@ -577,11 +574,10 @@ document.querySelectorAll('textarea,input,select').forEach(e=>e.addEventListener
     cleanSubmissionClone(clone);
 
     const title=(document.querySelector('header h1')?.textContent||document.title).trim();
-    installSubmissionPage(popup.document,name,title,clone);
-    if(status) status.textContent='Submission copy opened in a new tab.';
+    installSubmissionPage(name,title,clone);
   };
 
-  function initSubmission(){
+    function initSubmission(){
     const n=document.getElementById('printStudentName');
     if(n){
       try{n.value=localStorage.getItem(NAME_KEY)||''}catch(e){}
