@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Module 8 AI Application — Attention and Convex Geometry</title>
+<style>
+:root{--bg:#efefe4;--card:#fffdf3;--ink:#292d20;--muted:#6d705f;--line:#d9d5bd;--olive:#4d5430;--olive2:#697048;--gold:#b18a22;--goldsoft:#f1e6b2;--good:#657347;--bad:#965348;--shadow:0 12px 30px rgba(58,61,38,.10)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.58}
+header{background:linear-gradient(135deg,var(--olive),#62693b);color:#fff;padding:26px 28px}header a{color:#f5e8ac;text-decoration:none;font-weight:750}header h1{margin:10px 0 5px;font-size:clamp(1.8rem,4vw,2.65rem)}header p{margin:0;max-width:86ch;color:#eeeddf}
+main{max-width:1050px;margin:auto;padding:24px 20px 72px}.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:21px;box-shadow:var(--shadow);margin:16px 0}
+.kicker{text-transform:uppercase;letter-spacing:.11em;color:var(--gold);font-size:.78rem;font-weight:850}h2{color:var(--olive);margin:.2rem 0 .6rem}h3{margin:.2rem 0 .55rem}.callout{background:#faf3d4;border-left:5px solid var(--gold);padding:13px 15px;border-radius:10px}
+.vocab{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.term{border:1px solid var(--line);border-radius:12px;padding:11px;background:#fffef8}.term strong{display:block;color:var(--olive)}.term span{color:var(--muted);font-size:.93rem}
+.task{border-top:1px solid var(--line);padding:17px 0}.task:first-of-type{border-top:0}input,select{display:block;width:min(100%,560px);padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:#fffef8;font:inherit;color:var(--ink);margin:8px 0}
+button{border:0;border-radius:10px;padding:9px 13px;font-weight:800;background:var(--olive);color:#fff;cursor:pointer}.secondary{background:var(--gold);color:#211d0c}.feedback{min-height:1.5em;margin-top:7px;font-weight:750}.good{color:var(--good)}.bad{color:var(--bad)}.small{color:var(--muted);font-size:.92rem}
+code{background:#f2efdc;padding:.12em .35em;border-radius:6px}.footer-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:16px}
+@media(max-width:720px){.vocab{grid-template-columns:1fr}}@media print{header{background:#fff;color:#000;padding:0 0 12px}header a{display:none}header p{color:#444}.panel{box-shadow:none}button{display:none}body{background:#fff}}
+</style>
+<script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script></head>
+<body><header><a href="../index.html">← MATH&amp; 107 course</a><h1>Module 8: AI Application — Attention and Convex Geometry</h1><p>Why weighted combinations naturally live inside a feasible geometric region.</p></header><main>
+<section class="panel"><div class="kicker">Why this page exists</div><h2>Mathematics gives us a way into AI</h2><p>In Module 3 we treated attention as a weighted average. Now we can see the geometry hiding inside that idea. If nonnegative weights add to 1, the weighted combination is a <strong>convex combination</strong>.</p><p class="callout"><strong>Important:</strong> the examples on this page are intentionally tiny models. Real LLMs use huge vectors, many layers, and billions of learned numerical parameters. We simplify the scale while keeping the mathematical structure recognizable.</p></section>
+<section class="panel"><div class="kicker">Connection to this module</div><h2>The mathematics you already know</h2><p>Convex geometry gives a visual interpretation of attention: combining points with weights that are nonnegative and sum to 1 keeps the result inside their convex hull.</p></section>
+<section class="panel"><div class="kicker">AI vocabulary</div><h2>Four ideas to carry with you</h2><div class="vocab"><div class="term"><strong>embedding</strong><span>A point or vector used to represent a token numerically.</span></div><div class="term"><strong>convex combination</strong><span>A weighted sum with nonnegative weights that total 1.</span></div><div class="term"><strong>convex hull</strong><span>The smallest convex region containing a collection of points.</span></div><div class="term"><strong>attention output</strong><span>A weighted combination of value vectors in a transformer attention calculation.</span></div></div></section>
+<section class="panel"><div class="kicker">Worked example</div><h2>Follow the numbers</h2><div>Take two simplified token embeddings
+\[
+A=(2,1),\qquad B=(8,5).
+\]
+Using weights 0.75 and 0.25 gives
+\[
+0.75A+0.25B
+=(0.75\cdot2+0.25\cdot8,;0.75\cdot1+0.25\cdot5)
+=(3.5,2).
+\]
+This point lies on the line segment connecting \(A\) and \(B\).</div></section>
+<section class="panel"><div class="kicker">Investigation</div><h2>Try the mathematics yourself</h2><div class="task"><h3>1. Do weights 0.75 and 0.25 define a convex combination?</h3><select id="q1"><option value="">choose…</option><option value="Yes">Yes</option><option value="No, because they are unequal">No, because they are unequal</option><option value="No, because neither equals 1">No, because neither equals 1</option><option value="Only in three dimensions">Only in three dimensions</option></select><button onclick="check(0)">Check</button><div id="f1" class="feedback"></div></div><div class="task"><h3>2. For A=(2,1) and B=(8,5), find the x-coordinate of 0.75A+0.25B.</h3><input id="q2" type="number" step="any" inputmode="decimal"><button onclick="check(1)">Check</button><div id="f2" class="feedback"></div></div><div class="task"><h3>3. Find the y-coordinate.</h3><input id="q3" type="number" step="any" inputmode="decimal"><button onclick="check(2)">Check</button><div id="f3" class="feedback"></div></div><div class="task"><h3>4. Where must every convex combination of A and B lie?</h3><select id="q4"><option value="">choose…</option><option value="On the line segment joining A and B">On the line segment joining A and B</option><option value="Anywhere in the plane">Anywhere in the plane</option><option value="Outside the segment joining A and B">Outside the segment joining A and B</option><option value="At the origin">At the origin</option></select><button onclick="check(3)">Check</button><div id="f4" class="feedback"></div></div><div class="footer-actions"><button id="saveBtn">Save in this browser</button><button class="secondary" onclick="window.print()">Print / Save PDF</button><span id="status" class="small"></span></div></section>
+<section class="panel"><div class="kicker">What to remember</div><h2>AI idea of the week</h2><p>This is a surprisingly deep bridge: attention uses probability-like weights, and probability-like weights create convex combinations. Statistical weighting and convex geometry are two views of the same structure.</p><p class="small">You do not need to know every engineering detail of an LLM to reason mathematically about what it is doing. We will keep adding one mathematical layer at a time.</p></section>
+</main>
+<script>
+const DATA=[{"type":"mc","answer":"Yes","tol":0.001,"hint":"Both are nonnegative and they add to 1."},{"type":"num","answer":3.5,"tol":0.001,"hint":"Compute 0.75(2)+0.25(8)."},{"type":"num","answer":2,"tol":0.001,"hint":"Compute 0.75(1)+0.25(5)."},{"type":"mc","answer":"On the line segment joining A and B","tol":0.001,"hint":"That segment is the convex hull of two points."}]; const KEY="math107_ai_module_8_v1";
+function check(i){const t=DATA[i],e=document.getElementById("q"+(i+1)),f=document.getElementById("f"+(i+1));let ok=false;
+if(t.type==="num"){const x=Number(e.value);ok=Number.isFinite(x)&&Math.abs(x-Number(t.answer))<=Number(t.tol)*Math.max(1,Math.abs(Number(t.answer)));}
+else ok=e.value===String(t.answer);
+f.textContent=ok?"Correct.":"Not quite yet. "+t.hint;f.className="feedback "+(ok?"good":"bad");save(true)}
+function save(silent){const o={};document.querySelectorAll("input,select").forEach(e=>o[e.id]=e.value);localStorage.setItem(KEY,JSON.stringify(o));if(!silent)document.getElementById("status").textContent="Saved locally."}
+function load(){try{const o=JSON.parse(localStorage.getItem(KEY)||"{}");for(const [id,v] of Object.entries(o)){const e=document.getElementById(id);if(e)e.value=v}}catch(e){}}
+document.querySelectorAll("input,select").forEach(e=>e.addEventListener("input",()=>document.getElementById("status").textContent="Unsaved changes"));document.getElementById("saveBtn").onclick=()=>save(false);load();
+</script></body></html>
