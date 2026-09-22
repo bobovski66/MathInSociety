@@ -7,19 +7,41 @@ main{max-width:1160px;margin:auto;padding:24px 20px 70px}.panel{background:var(-
 
 
 
-/* Submission-copy workflow */
-.submission-panel .submission-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:end}
-.submission-panel .submission-help{margin:.35rem 0 .9rem;color:var(--muted)}
-.submission-panel .submission-name label{display:block;font-weight:750;margin-bottom:5px}
-.submission-panel .submission-name input{max-width:520px}
-.submission-copy-status{margin-top:8px}
-@media(max-width:760px){.submission-panel .submission-row{grid-template-columns:1fr}}
+
+/* Always-visible student submission toolbar */
+.student-topbar{position:sticky;top:0;z-index:1000;background:#292d20;color:#fff;box-shadow:0 3px 12px rgba(0,0,0,.18)}
+.student-topbar-inner{max-width:1160px;margin:0 auto;padding:9px 20px;display:flex;align-items:end;gap:10px;flex-wrap:wrap}
+.student-topbar-name{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.student-topbar label{font-size:.82rem;font-weight:800;color:#f6f1d8}
+.student-topbar input{width:220px;max-width:42vw;padding:7px 9px;border:1px solid #77745f;border-radius:8px;background:#fffef8;color:#292d20;font:inherit}
+.student-topbar .student-submit-btn{background:#f1e6b2;color:#292d20;border:1px solid #d6c77a;padding:8px 13px;border-radius:9px;font-weight:850}
+.student-topbar-note,.student-topbar-status{font-size:.82rem;color:#e8e7d6;align-self:center}
+.student-topbar-status{font-weight:750;color:#f4eab9}
+@media(max-width:700px){
+  .student-topbar-inner{padding:8px 10px;align-items:stretch}
+  .student-topbar-name{flex:1 1 100%;display:grid;grid-template-columns:auto minmax(0,1fr)}
+  .student-topbar input{width:100%;max-width:none}
+  .student-topbar .student-submit-btn{flex:0 0 auto}
+  .student-topbar-note{display:none}
+}
+@media print{.student-topbar{display:none!important}}
 </style>
 <script>
 window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head><body>
+<div class="student-topbar">
+  <div class="student-topbar-inner">
+    <div class="student-topbar-name">
+      <label for="printStudentName">Student name</label>
+      <input id="printStudentName" type="text" autocomplete="name" placeholder="Enter your name">
+    </div>
+    <button type="button" class="student-submit-btn" onclick="createSubmissionCopy()">Prepare Submission</button>
+    <span class="student-topbar-note">Your work autosaves in this browser.</span>
+    <span id="submissionStatus" class="student-topbar-status"></span>
+  </div>
+</div>
 <header><a href="../index.html">← MATH&amp; 107 course</a><h1>Week 10 Laboratory — Recursion, Fractals, and Prediction</h1><p>Compare stable and sensitive recursions, compute Collatz trajectories, measure fractal growth, iterate the logistic map, and examine scale-dependent measurement.</p></header><main>
 <section class="panel student-guide"><h2>Before you begin</h2><ol><li>Write the recursion rule and starting value before iterating.</li><li>For a trajectory, keep track of both the number of steps and the largest value reached.</li><li>When measurement changes with scale, distinguish a change in the measured number from a change in the physical object.</li></ol></section>
 <section class="panel student-notation"><h2>Key notation</h2><p>Collatz: even \(n\mapsto n/2\), odd \(n\mapsto3n+1\). Koch length multiplies by \(4/3\) per step; Sierpinski area multiplies by \(3/4\). Logistic map: \(x_{n+1}=rx_n(1-x_n)\).</p></section>
@@ -30,15 +52,6 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
 <section class="panel"><div class="kicker">Part 4 · Logistic map</div><h2>Stable behavior and sensitivity</h2><div class="formula">xₙ₊₁ = r xₙ(1−xₙ)</div><p>For r=2.8, the stable fixed point is x*=1−1/r.</p><div class="grid"><div><label>Fixed point x*</label><input id="p4a" type="number" step="0.0001"></div><div><label>Starting from x₀=0.2, x₁</label><input id="p4b" type="number" step="0.0001"></div></div><div class="grid"><div><label>x₁₀, rounded to four decimals</label><input id="p4c" type="number" step="0.0001"></div><div><label>Behavior</label><select id="p4d"><option value="">choose…</option><option value="right">converges toward the fixed point</option><option>diverges without bound</option><option>collapses immediately to zero</option></select></div></div><p>Now use r=3.8 and compare x₀=0.40 with x₀=0.41.</p><label>At what step do the two trajectories first differ by more than 0.05?</label><input id="p4e" type="number"><button style="margin-top:14px" onclick="check4()">Check Part 4</button><div id="fb4" class="feedback"></div></section>
 <section class="panel"><div class="kicker">Part 5 · Measurement scale</div><h2>The coastline calculation</h2><p>A surveyor uses progressively shorter rulers. Measured length = ruler length × number of placements.</p><table><thead><tr><th>Ruler</th><th>Placements</th><th>Measured length</th></tr></thead><tbody><tr><td>100 m</td><td>80</td><td><input id="p5a" type="number" placeholder="meters"></td></tr><tr><td>50 m</td><td>200</td><td><input id="p5b" type="number"></td></tr><tr><td>25 m</td><td>520</td><td><input id="p5c" type="number"></td></tr><tr><td>12.5 m</td><td>1340</td><td><input id="p5d" type="number"></td></tr></tbody></table><label>As the ruler gets shorter, the measured coastline length:</label><select id="p5e"><option value="">choose…</option><option value="right">increases</option><option>decreases</option><option>stays exactly constant</option></select><button style="margin-top:14px" onclick="check5()">Check Part 5</button><div id="fb5" class="feedback"></div></section><section class="panel"><div class="progressbox"><div><strong>Your work autosaves in this browser.</strong><div class="small" id="saveStatus">Ready.</div></div></div></section>
 
-<section class="panel submission-panel">
-  <h2>Prepare your submission</h2>
-  <p class="submission-help">Your work is saved in this browser as you go. When you are ready to turn it in, enter your name and choose <strong>Prepare Submission</strong>. The lab will switch to a clean submission view in this same tab with your current answers written into the page. From there you can <strong>Print / Save as PDF</strong>, <strong>Download HTML</strong> for upload to Canvas, or return to the lab.</p>
-  <div class="submission-row">
-    <div class="submission-name"><label for="printStudentName">Student name</label><input id="printStudentName" type="text" autocomplete="name" placeholder="Enter your name"></div>
-    <button type="button" class="secondary" onclick="createSubmissionCopy()">Prepare Submission</button>
-  </div>
-  <div id="submissionStatus" class="small submission-copy-status"></div>
-</section>
 </main><script>const $=id=>document.getElementById(id),key='math107_week10_lab_v2',done=[false,false,false,false,false],ids=[...document.querySelectorAll('input,select')].map(e=>e.id).filter(Boolean);const eq=(id,v,t=.01)=>Math.abs(+$(id).value-v)<=t;const all=a=>a.every(Boolean);function result(n,ok,msg){done[n-1]=ok;let e=$('fb'+n);e.textContent=ok?'Correct — Part '+n+' complete.':msg;e.className='feedback '+(ok?'good':'bad');update();save()}function update(){let n=done.filter(Boolean).length;$('progressText').textContent=n+' / 5';$('progressFill').style.width=(20*n)+'%'}function check1(){result(1,all([eq('p1a',35),eq('p1b',35.1),eq('p1c',.1,.001),eq('p1d',7.29,.001),$('p1e').value==='right']),'The additive difference stays 0.1. Under multiplication by 3, the absolute difference is multiplied by 3 each step but the relative difference stays 1%.')}function check2(){result(2,all([eq('p2a',8),eq('p2b',16),eq('p2c',16),eq('p2d',52),$('p2e').value==='right']),'Write each Collatz sequence until 1, then count transitions and record the largest value.')}function check3(){result(3,all([eq('p3a',16),eq('p3b',16/9,.002),eq('p3c',64),eq('p3d',64/27,.002),eq('p3e',256),eq('p3f',256/81,.002),eq('p3g',4/3,.002),eq('p3h',81/256,.002),eq('p3i',.0563,.0002)]),'For Koch: segments=4ⁿ and total length=(4/3)ⁿ. For Sierpinski area: (3/4)ⁿ.')}function check4(){result(4,all([eq('p4a',1-1/2.8,.0002),eq('p4b',.448,.0002),eq('p4c',.6511,.0002),$('p4d').value==='right',eq('p4e',4)]),'For r=2.8 the iterates approach about 0.6429. For r=3.8, compare the two sequences step by step.')}function check5(){result(5,all([eq('p5a',8000),eq('p5b',10000),eq('p5c',13000),eq('p5d',16750),$('p5e').value==='right']),'Multiply ruler length by placements. The shorter ruler captures more small-scale detail.')}function save(){let o={done};ids.forEach(id=>o[id]=$(id).value);localStorage.setItem(key,JSON.stringify(o));$('saveStatus').textContent='Saved locally.'}function load(){try{let o=JSON.parse(localStorage.getItem(key)||'{}');ids.forEach(id=>{if(o[id]!=null)$(id).value=o[id]});if(Array.isArray(o.done))o.done.forEach((x,i)=>done[i]=!!x);update()}catch(e){}}ids.forEach(id=>$(id).addEventListener('input',save));load();</script>
 <script>
 /* Build a static submission document from the student's current work. */
