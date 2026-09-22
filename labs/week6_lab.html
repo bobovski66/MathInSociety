@@ -4,19 +4,41 @@
 
 
 
-/* Submission-copy workflow */
-.submission-panel .submission-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:end}
-.submission-panel .submission-help{margin:.35rem 0 .9rem;color:var(--muted)}
-.submission-panel .submission-name label{display:block;font-weight:750;margin-bottom:5px}
-.submission-panel .submission-name input{max-width:520px}
-.submission-copy-status{margin-top:8px}
-@media(max-width:760px){.submission-panel .submission-row{grid-template-columns:1fr}}
+
+/* Always-visible student submission toolbar */
+.student-topbar{position:sticky;top:0;z-index:1000;background:#292d20;color:#fff;box-shadow:0 3px 12px rgba(0,0,0,.18)}
+.student-topbar-inner{max-width:1160px;margin:0 auto;padding:9px 20px;display:flex;align-items:end;gap:10px;flex-wrap:wrap}
+.student-topbar-name{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.student-topbar label{font-size:.82rem;font-weight:800;color:#f6f1d8}
+.student-topbar input{width:220px;max-width:42vw;padding:7px 9px;border:1px solid #77745f;border-radius:8px;background:#fffef8;color:#292d20;font:inherit}
+.student-topbar .student-submit-btn{background:#f1e6b2;color:#292d20;border:1px solid #d6c77a;padding:8px 13px;border-radius:9px;font-weight:850}
+.student-topbar-note,.student-topbar-status{font-size:.82rem;color:#e8e7d6;align-self:center}
+.student-topbar-status{font-weight:750;color:#f4eab9}
+@media(max-width:700px){
+  .student-topbar-inner{padding:8px 10px;align-items:stretch}
+  .student-topbar-name{flex:1 1 100%;display:grid;grid-template-columns:auto minmax(0,1fr)}
+  .student-topbar input{width:100%;max-width:none}
+  .student-topbar .student-submit-btn{flex:0 0 auto}
+  .student-topbar-note{display:none}
+}
+@media print{.student-topbar{display:none!important}}
 </style>
 <script>
 window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head><body>
+<div class="student-topbar">
+  <div class="student-topbar-inner">
+    <div class="student-topbar-name">
+      <label for="printStudentName">Student name</label>
+      <input id="printStudentName" type="text" autocomplete="name" placeholder="Enter your name">
+    </div>
+    <button type="button" class="student-submit-btn" onclick="createSubmissionCopy()">Prepare Submission</button>
+    <span class="student-topbar-note">Your work autosaves in this browser.</span>
+    <span id="submissionStatus" class="student-topbar-status"></span>
+  </div>
+</div>
 <header><a href="../index.html">← MATH&amp; 107 course</a><h1>Week 6 Laboratory — Interest and Loans</h1><p>Calculate simple interest, compound growth, compounding frequency, doubling time, and month-by-month loan balances.</p></header><main>
 <section class="panel student-guide"><h2>Before you begin</h2><ol><li>Identify the principal, rate, time, and compounding period before choosing a formula.</li><li>Calculate at least one growth or loan period by hand so you can see what the percentage is applied to.</li><li>For a loan, separate each payment into interest and principal reduction before comparing payoff plans.</li></ol></section>
 <section class="panel student-notation"><h2>Key notation</h2><p>Simple interest: \(A=P(1+rt)\). Compound interest: \(A=P(1+r/n)^{nt}\). Rule of 72: doubling time \(\approx72/r_{\%}\). Loan update: \(B_{new}=B(1+r/12)-M\).</p></section>
@@ -29,15 +51,6 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
 <section class="panel"><div class="kicker">Part 5 · Loan recursion</div><h2>Interest first, then payment</h2><p>A $3,000 loan charges 9% APR compounded monthly. The monthly rate is 0.09/12 = 0.0075, and the monthly payment is $150.</p><table><thead><tr><th>Month</th><th>Starting balance</th><th>Interest</th><th>Balance after payment</th></tr></thead><tbody><tr><td>1</td><td>$3,000.00</td><td><input id="p5i1" type="number" step="0.01"></td><td><input id="p5b1" type="number" step="0.01"></td></tr><tr><td>2</td><td>$2,872.50</td><td><input id="p5i2" type="number" step="0.01"></td><td><input id="p5b2" type="number" step="0.01"></td></tr><tr><td>3</td><td>$2,744.04</td><td><input id="p5i3" type="number" step="0.01"></td><td><input id="p5b3" type="number" step="0.01"></td></tr><tr><td>4</td><td>$2,614.62</td><td><input id="p5i4" type="number" step="0.01"></td><td><input id="p5b4" type="number" step="0.01"></td></tr></tbody></table><div class="grid"><div><label>Month 1: amount of the $150 payment reducing principal</label><input id="p5p" type="number" step="0.01"></div><div><label>Two loans have the same principal and rate but different payment sizes. Which has the same first-month interest charge?</label><select id="p5s"><option value="">choose…</option><option value="both">both loans</option><option value="larger">only the larger-payment loan</option><option value="smaller">only the smaller-payment loan</option></select></div></div><button style="margin-top:14px" onclick="check5()">Check Part 5</button><div id="fb5" class="feedback"></div></section>
 <section class="panel"> <span class="small">Your entries save automatically in this browser.</span></section>
 
-<section class="panel submission-panel">
-  <h2>Prepare your submission</h2>
-  <p class="submission-help">Your work is saved in this browser as you go. When you are ready to turn it in, enter your name and choose <strong>Prepare Submission</strong>. The lab will switch to a clean submission view in this same tab with your current answers written into the page. From there you can <strong>Print / Save as PDF</strong>, <strong>Download HTML</strong> for upload to Canvas, or return to the lab.</p>
-  <div class="submission-row">
-    <div class="submission-name"><label for="printStudentName">Student name</label><input id="printStudentName" type="text" autocomplete="name" placeholder="Enter your name"></div>
-    <button type="button" class="secondary" onclick="createSubmissionCopy()">Prepare Submission</button>
-  </div>
-  <div id="submissionStatus" class="small submission-copy-status"></div>
-</section>
 </main><script>
 const KEY='math107_week6_lab_v2';const checked=[false,false,false,false,false];const all=[...document.querySelectorAll('input,select')];function n(id){return Number(document.getElementById(id).value)}function close(a,b,t=.02){return Number.isFinite(a)&&Math.abs(a-b)<=t}function mark(k,ok,msg){checked[k]=ok;const el=document.getElementById('fb'+(k+1));el.className='feedback '+(ok?'good':'bad');el.textContent=msg;update();save()}function update(){const c=checked.filter(Boolean).length;progressText.textContent=c+' / 5';progressFill.style.width=(c/5*100)+'%'}function check1(){let ok=close(n('p1a'),1680)&&close(n('p1b'),1040)&&close(n('p1c'),3,.01)&&close(n('p1d'),5,.01)&&close(n('p1e'),60)&&close(n('p1f'),1560);mark(0,ok,ok?'Part 1 correct.':'Check the simple-interest calculations. Remember that r is written as a decimal in the formula.')}function check2(){let ok=close(n('p2a'),1215.51,.02)&&close(n('p2b'),629.86,.02)&&close(n('p2c'),2541.48,.03)&&close(n('p2d'),2400,.02)&&close(n('p2e'),2686.27,.03)&&close(n('p2f'),2729.10,.03)&&p2g.value==='s-a-m';mark(1,ok,ok?'Part 2 correct.':'Check the exponent nt and the difference between simple and compound models.')}function check3(){let ok=close(n('p3a'),1790.85,.03)&&close(n('p3b'),1819.40,.03)&&close(n('p3c'),1822.03,.03)&&close(n('p3d'),120,.01)&&close(n('p3e'),.5,.001)&&close(n('p3f'),3.0416,.005)&&p3g.value==='diminish';mark(2,ok,ok?'Part 3 correct.':'Check the number of periods, periodic rate, and the effective annual yield.')}function check4(){let ok=close(n('p4a'),18,.01)&&close(n('p4b'),9,.01)&&close(n('p4c'),6,.01)&&close(n('p4d'),36,.01)&&close(n('p4e'),8,.01)&&close(n('p4f'),24,.01);mark(3,ok,ok?'Part 4 correct.':'Use 72 ÷ rate for one doubling. Quadrupling requires two doublings.')}function check5(){let ok=close(n('p5i1'),22.50,.02)&&close(n('p5b1'),2872.50,.02)&&close(n('p5i2'),21.54,.02)&&close(n('p5b2'),2744.04,.03)&&close(n('p5i3'),20.58,.02)&&close(n('p5b3'),2614.62,.03)&&close(n('p5i4'),19.61,.02)&&close(n('p5b4'),2484.23,.03)&&close(n('p5p'),127.50,.02)&&p5s.value==='both';mark(4,ok,ok?'Part 5 correct.':'For each month: interest = starting balance × 0.0075, then subtract the $150 payment.')}function save(){const state={values:{},checked};all.forEach(e=>state.values[e.id]=e.value);localStorage.setItem(KEY,JSON.stringify(state))}function load(){try{const s=JSON.parse(localStorage.getItem(KEY)||'{}');if(s.values)all.forEach(e=>{if(e.id in s.values)e.value=s.values[e.id]});if(Array.isArray(s.checked))s.checked.forEach((v,i)=>checked[i]=!!v)}catch(e){}update()}all.forEach(e=>e.addEventListener('input',save));all.forEach(e=>e.addEventListener('change',save));load();
 </script>
