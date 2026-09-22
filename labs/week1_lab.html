@@ -132,7 +132,6 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
         <span class="pill">change from last stop: <span id="diverChange">0</span> m</span>
       </div>
       <div class="drag-actions">
-        <button type="button" id="recordDiverMove" onclick="recordDiverMove()">Record this move</button>
         <button type="button" class="ghost" onclick="resetDiverPath()">Start over</button>
       </div>
       <div id="diverDragFeedback" class="feedback"></div>
@@ -270,17 +269,12 @@ function updateDiverReadout(){
   document.getElementById('diverPosition').textContent=diverMarkerValue;
   document.getElementById('diverChange').textContent=signed(diverMarkerValue-previous);
   const prompt=document.getElementById('diverMovePrompt');
-  const btn=document.getElementById('recordDiverMove');
   if(diverStep<diverMoves.length){
     const move=diverMoves[diverStep];
     const verb=move<0?'Descend':'Rise';
     prompt.innerHTML=`<strong>Move ${diverStep+1} of 3:</strong> ${verb} ${Math.abs(move)} m.`;
-    btn.disabled=false;
-    btn.textContent='Record this move';
   }else{
     prompt.innerHTML='<strong>Path complete.</strong> Use the three signed changes to write one addition expression and find the final depth.';
-    btn.disabled=true;
-    btn.textContent='Path complete';
   }
 }
 
