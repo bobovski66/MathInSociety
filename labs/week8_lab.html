@@ -14,19 +14,41 @@ table{width:100%;border-collapse:collapse;margin-top:10px}th,td{padding:8px;bord
 
 
 
-/* Submission-copy workflow */
-.submission-panel .submission-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:end}
-.submission-panel .submission-help{margin:.35rem 0 .9rem;color:var(--muted)}
-.submission-panel .submission-name label{display:block;font-weight:750;margin-bottom:5px}
-.submission-panel .submission-name input{max-width:520px}
-.submission-copy-status{margin-top:8px}
-@media(max-width:760px){.submission-panel .submission-row{grid-template-columns:1fr}}
+
+/* Always-visible student submission toolbar */
+.student-topbar{position:sticky;top:0;z-index:1000;background:#292d20;color:#fff;box-shadow:0 3px 12px rgba(0,0,0,.18)}
+.student-topbar-inner{max-width:1160px;margin:0 auto;padding:9px 20px;display:flex;align-items:end;gap:10px;flex-wrap:wrap}
+.student-topbar-name{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.student-topbar label{font-size:.82rem;font-weight:800;color:#f6f1d8}
+.student-topbar input{width:220px;max-width:42vw;padding:7px 9px;border:1px solid #77745f;border-radius:8px;background:#fffef8;color:#292d20;font:inherit}
+.student-topbar .student-submit-btn{background:#f1e6b2;color:#292d20;border:1px solid #d6c77a;padding:8px 13px;border-radius:9px;font-weight:850}
+.student-topbar-note,.student-topbar-status{font-size:.82rem;color:#e8e7d6;align-self:center}
+.student-topbar-status{font-weight:750;color:#f4eab9}
+@media(max-width:700px){
+  .student-topbar-inner{padding:8px 10px;align-items:stretch}
+  .student-topbar-name{flex:1 1 100%;display:grid;grid-template-columns:auto minmax(0,1fr)}
+  .student-topbar input{width:100%;max-width:none}
+  .student-topbar .student-submit-btn{flex:0 0 auto}
+  .student-topbar-note{display:none}
+}
+@media print{.student-topbar{display:none!important}}
 </style>
 <script>
 window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head><body>
+<div class="student-topbar">
+  <div class="student-topbar-inner">
+    <div class="student-topbar-name">
+      <label for="printStudentName">Student name</label>
+      <input id="printStudentName" type="text" autocomplete="name" placeholder="Enter your name">
+    </div>
+    <button type="button" class="student-submit-btn" onclick="createSubmissionCopy()">Prepare Submission</button>
+    <span class="student-topbar-note">Your work autosaves in this browser.</span>
+    <span id="submissionStatus" class="student-topbar-status"></span>
+  </div>
+</div>
 <header><a href="../index.html">← MATH&amp; 107 course</a><h1>Week 8 Laboratory — Convex Geometry</h1><p>Classify convex sets, graph linear inequalities, test feasible points, find vertices, and evaluate linear expressions at corner points.</p></header><main>
 <section class="panel student-guide"><h2>Before you begin</h2><ol><li>Replace each inequality by its boundary equation before deciding which side is feasible.</li><li>Test a point in every constraint; feasible means satisfying all constraints at the same time.</li><li>Find every vertex before evaluating an objective expression at the corners.</li></ol></section>
 <section class="panel student-notation"><h2>Key notation</h2><p>A linear inequality defines a half-plane. The feasible region is the intersection of all required half-planes. A convex set contains the entire line segment joining any two of its points.</p></section>
@@ -72,15 +94,6 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
 
 <section class="panel"><div class="progressbox"><div><strong>Your work autosaves in this browser.</strong><div class="small" id="saveStatus">Ready.</div></div></div></section>
 
-<section class="panel submission-panel">
-  <h2>Prepare your submission</h2>
-  <p class="submission-help">Your work is saved in this browser as you go. When you are ready to turn it in, enter your name and choose <strong>Prepare Submission</strong>. The lab will switch to a clean submission view in this same tab with your current answers written into the page. From there you can <strong>Print / Save as PDF</strong>, <strong>Download HTML</strong> for upload to Canvas, or return to the lab.</p>
-  <div class="submission-row">
-    <div class="submission-name"><label for="printStudentName">Student name</label><input id="printStudentName" type="text" autocomplete="name" placeholder="Enter your name"></div>
-    <button type="button" class="secondary" onclick="createSubmissionCopy()">Prepare Submission</button>
-  </div>
-  <div id="submissionStatus" class="small submission-copy-status"></div>
-</section>
 </main><script>
 const $=id=>document.getElementById(id), key='math107_week8_lab_v2', done=[false,false,false,false,false];
 const ids=[...document.querySelectorAll('input,select')].map(x=>x.id).filter(Boolean);
