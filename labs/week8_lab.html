@@ -13,24 +13,14 @@ table{width:100%;border-collapse:collapse;margin-top:10px}th,td{padding:8px;bord
 @media print{header{background:white;color:black;padding:0 0 12px}header a{display:none}header p{color:#444}.panel{box-shadow:none;break-inside:avoid}button{display:none}body{background:white}}
 
 
-/* Submission-friendly browser printing */
-.print-answer{display:none}
+
+/* Submission-copy workflow */
 .submission-panel .submission-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:end}
 .submission-panel .submission-help{margin:.35rem 0 .9rem;color:var(--muted)}
 .submission-panel .submission-name label{display:block;font-weight:750;margin-bottom:5px}
 .submission-panel .submission-name input{max-width:520px}
-.print-date{display:none}
+.submission-copy-status{margin-top:8px}
 @media(max-width:760px){.submission-panel .submission-row{grid-template-columns:1fr}}
-@media print{
-  input,select,textarea{display:none!important}
-  .print-answer{display:inline-block!important;min-width:3.5em;max-width:100%;padding:3px 7px;border:1px solid #999;border-radius:5px;background:#fff;color:#000;font-weight:700;white-space:pre-wrap;overflow-wrap:anywhere;vertical-align:baseline}
-  td>.print-answer, .grid .print-answer, .grid3 .print-answer, .grid4 .print-answer, .scenario>.print-answer, label+.print-answer{display:block!important;width:100%;margin-top:4px}
-  .submission-panel{box-shadow:none!important;border:1px solid #999!important;break-inside:avoid}
-  .submission-panel .submission-help,.submission-panel button{display:none!important}
-  .submission-panel .submission-row{display:block}
-  .submission-panel .submission-name{margin-bottom:5px}
-  .print-date{display:block!important;margin-top:8px;font-size:.9rem;color:#444}
-}
 </style>
 <script>
 window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};
@@ -83,13 +73,13 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
 <section class="panel"><div class="progressbox"><div><strong>Your work autosaves in this browser.</strong><div class="small" id="saveStatus">Ready.</div></div></div></section>
 
 <section class="panel submission-panel">
-  <h2>Submit your completed lab</h2>
-  <p class="submission-help">Your answers are stored in this browser as you work. For a paper submission, enter your name and choose <strong>Print Completed Lab</strong>. In the browser print window, select a physical printer. You may also choose <strong>Save as PDF</strong> if you prefer an electronic copy.</p>
+  <h2>Create your submission copy</h2>
+  <p class="submission-help">Your working answers stay in this browser while you complete the lab. When you are ready to submit, enter your name and choose <strong>Create Submission Copy</strong>. A separate, static copy will open with your current answers written into the page. From that copy you can <strong>Print / Save as PDF</strong> or <strong>Download HTML</strong> for upload to Canvas.</p>
   <div class="submission-row">
-    <div class="submission-name"><label for="printStudentName">Student name</label><input id="printStudentName" type="text" autocomplete="name" placeholder="Enter your name before printing"></div>
-    <button type="button" class="secondary" onclick="printCompletedLab()">Print Completed Lab</button>
+    <div class="submission-name"><label for="printStudentName">Student name</label><input id="printStudentName" type="text" autocomplete="name" placeholder="Enter your name"></div>
+    <button type="button" class="secondary" onclick="createSubmissionCopy()">Create Submission Copy</button>
   </div>
-  <div class="print-date" id="printDate"></div>
+  <div id="submissionStatus" class="small submission-copy-status"></div>
 </section>
 </main><script>
 const $=id=>document.getElementById(id), key='math107_week8_lab_v2', done=[false,false,false,false,false];
@@ -107,45 +97,193 @@ function load(){try{let o=JSON.parse(localStorage.getItem(key)||'{}');ids.forEac
 ids.forEach(id=>$(id).addEventListener('input',save));load();
 </script>
 <script>
-/* Make completed HTML labs reliable as paper submissions. */
+/* Build a static submission document from the student's current work. */
 (function(){
-  const NAME_KEY='math107_print_student_name';
+  const NAME_KEY='math107_submission_student_name';
+
   function answerText(el){
-    if(el.tagName==='SELECT'){
+    const tag=el.tagName;
+    const type=(el.type||'').toLowerCase();
+    if(tag==='SELECT'){
       const opt=el.selectedOptions && el.selectedOptions[0];
       return el.value && opt ? opt.textContent.trim() : 'No response';
     }
-    if(el.type==='checkbox' || el.type==='radio') return el.checked ? 'Selected' : 'Not selected';
-    const v=(el.value == null ? '' : String(el.value)).trim();
+    if(type==='checkbox') return el.checked ? 'Checked' : 'Not checked';
+    if(type==='radio') return el.checked ? 'Selected' : 'Not selected';
+    const v=(el.value==null?'':String(el.value)).trim();
     return v || 'No response';
   }
-  window.prepareCompletedLabPrint=function(){
-    document.querySelectorAll('.print-answer').forEach(x=>x.remove());
-    document.querySelectorAll('input,select,textarea').forEach(el=>{
-      const type=(el.type||'').toLowerCase();
-      if(['button','submit','reset','hidden'].includes(type)) return;
+
+  function safeFilename(s){
+    return String(s||'student').trim()
+      .replace(/[^a-z0-9._-]+/gi,'_')
+      .replace(/^_+|_+$/g,'') || 'student';
+  }
+
+  function replaceControlsWithAnswers(sourceRoot,cloneRoot){
+    const source=[...sourceRoot.querySelectorAll('input,select,textarea')];
+    const cloned=[...cloneRoot.querySelectorAll('input,select,textarea')];
+    cloned.forEach((copy,i)=>{
+      const original=source[i];
+      if(!original){copy.remove();return;}
+      if(original.id==='printStudentName'){copy.remove();return;}
+      const type=(original.type||'').toLowerCase();
+      if(['button','submit','reset','hidden'].includes(type)){copy.remove();return;}
       const out=document.createElement('span');
-      out.className='print-answer';
-      out.textContent=answerText(el);
-      el.insertAdjacentElement('afterend',out);
+      out.className='submission-answer';
+      out.textContent=answerText(original);
+      if(original.tagName==='TEXTAREA' || original.tagName==='SELECT' || ['text','number','email','url','range'].includes(type)){
+        out.classList.add('submission-answer-block');
+      }
+      copy.replaceWith(out);
     });
-    const d=document.getElementById('printDate');
-    if(d) d.textContent='Printed '+new Date().toLocaleString();
+  }
+
+  function replaceCanvases(sourceRoot,cloneRoot){
+    const source=[...sourceRoot.querySelectorAll('canvas')];
+    const cloned=[...cloneRoot.querySelectorAll('canvas')];
+    cloned.forEach((copy,i)=>{
+      const original=source[i];
+      if(!original){copy.remove();return;}
+      try{
+        const img=document.createElement('img');
+        img.className='submission-canvas-image';
+        img.alt=original.getAttribute('aria-label')||'Lab visual';
+        img.src=original.toDataURL('image/png');
+        copy.replaceWith(img);
+      }catch(err){
+        const note=document.createElement('div');
+        note.className='submission-answer';
+        note.textContent='Interactive visual not included in this copy.';
+        copy.replaceWith(note);
+      }
+    });
+  }
+
+  function makeLinksAbsolute(sourceRoot,cloneRoot){
+    const sourceImgs=[...sourceRoot.querySelectorAll('img')];
+    const clonedImgs=[...cloneRoot.querySelectorAll('img')];
+    clonedImgs.forEach((img,i)=>{if(sourceImgs[i] && sourceImgs[i].src && !img.src.startsWith('data:')) img.src=sourceImgs[i].src});
+    const sourceLinks=[...sourceRoot.querySelectorAll('a')];
+    const clonedLinks=[...cloneRoot.querySelectorAll('a')];
+    clonedLinks.forEach((a,i)=>{if(sourceLinks[i] && sourceLinks[i].href) a.href=sourceLinks[i].href});
+  }
+
+  function cleanSubmissionClone(clone){
+    clone.querySelectorAll('.submission-panel').forEach(x=>x.remove());
+    clone.querySelectorAll('button').forEach(x=>x.remove());
+    clone.querySelectorAll('.feedback').forEach(x=>x.remove());
+    clone.querySelectorAll('script').forEach(x=>x.remove());
+    clone.querySelectorAll('section.panel').forEach(section=>{
+      const h2=section.querySelector('h2');
+      if(h2 && h2.textContent.trim().toLowerCase()==='save your work') section.remove();
+    });
+  }
+
+  function installSubmissionPage(doc,name,title,clone){
+    doc.open();
+    doc.write('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title></title></head><body></body></html>');
+    doc.close();
+    doc.title=title+' — '+name;
+
+    document.querySelectorAll('style').forEach(style=>doc.head.appendChild(style.cloneNode(true)));
+
+    const extra=doc.createElement('style');
+    extra.textContent=`
+      body{overflow:auto!important;height:auto!important}
+      .submission-toolbar{position:sticky;top:0;z-index:1000;display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px 18px;background:#292d20;color:white;box-shadow:0 3px 12px rgba(0,0,0,.18)}
+      .submission-toolbar button{display:inline-block!important;background:#fffdf3!important;color:#292d20!important;border:1px solid #d9d5bd!important;padding:9px 13px!important;border-radius:9px!important;font-weight:800!important;cursor:pointer!important}
+      .submission-toolbar .submission-note{font-size:.88rem;color:#e8e7d6}
+      .submission-cover{max-width:1160px;margin:20px auto 0;padding:0 20px}
+      .submission-cover-card{background:#fffdf3;border:1px solid #d9d5bd;border-radius:14px;padding:14px 18px}
+      .submission-cover h1{margin:0 0 8px;color:#4d5430;font-size:1.45rem}
+      .submission-meta{display:flex;gap:22px;flex-wrap:wrap}
+      .submission-answer{display:inline-block;padding:4px 8px;border:1px solid #c9c5ae;border-radius:7px;background:#fff;color:#111;font-weight:700;white-space:pre-wrap;overflow-wrap:anywhere;vertical-align:baseline}
+      .submission-answer-block{display:block;width:100%;min-height:2.1em;margin-top:4px}
+      .submission-canvas-image{display:block;max-width:100%;height:auto;border:1px solid #d9d5bd;border-radius:10px;background:#fff}
+      input,select,textarea{display:none!important}
+      @media print{
+        .submission-toolbar{display:none!important}
+        .submission-cover{margin-top:0}
+        body{background:white!important}
+        .panel{box-shadow:none!important}
+      }
+    `;
+    doc.head.appendChild(extra);
+
+    const toolbar=doc.createElement('div');
+    toolbar.className='submission-toolbar';
+    toolbar.innerHTML='<button type="button" id="submissionPrintButton">Print / Save as PDF</button><button type="button" id="submissionDownloadButton">Download HTML</button><span class="submission-note">This is a static submission copy. Your working lab remains open in the other tab.</span>';
+    doc.body.appendChild(toolbar);
+
+    const cover=doc.createElement('div');
+    cover.className='submission-cover';
+    const card=doc.createElement('div');
+    card.className='submission-cover-card';
+    const h=doc.createElement('h1');h.textContent=title;
+    const meta=doc.createElement('div');meta.className='submission-meta';
+    const student=doc.createElement('div');student.innerHTML='<strong>Student:</strong> ';
+    student.appendChild(doc.createTextNode(name));
+    const made=doc.createElement('div');made.innerHTML='<strong>Submission copy created:</strong> ';
+    made.appendChild(doc.createTextNode(new Date().toLocaleString()));
+    meta.append(student,made);card.append(h,meta);cover.appendChild(card);doc.body.appendChild(cover);
+
+    doc.body.appendChild(doc.importNode(clone,true));
+
+    const script=doc.createElement('script');
+    script.textContent=`
+      document.getElementById('submissionPrintButton').addEventListener('click',()=>window.print());
+      document.getElementById('submissionDownloadButton').addEventListener('click',()=>{
+        const html='<!doctype html>\\n'+document.documentElement.outerHTML;
+        const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+        const url=URL.createObjectURL(blob);
+        const a=document.createElement('a');
+        a.href=url;
+        a.download=${JSON.stringify(safeFilename(name))}+'_'+${JSON.stringify(safeFilename(title))}+'.html';
+        document.body.appendChild(a);a.click();a.remove();
+        setTimeout(()=>URL.revokeObjectURL(url),1000);
+      });
+    `;
+    doc.body.appendChild(script);
+  }
+
+  window.createSubmissionCopy=function(){
+    const nameInput=document.getElementById('printStudentName');
+    const name=(nameInput?.value||'').trim();
+    const status=document.getElementById('submissionStatus');
+    if(!name){
+      if(status) status.textContent='Enter your name before creating the submission copy.';
+      nameInput?.focus();
+      return;
+    }
+    try{localStorage.setItem(NAME_KEY,name)}catch(e){}
+
+    const popup=window.open('','_blank');
+    if(!popup){
+      if(status) status.textContent='Your browser blocked the submission window. Allow pop-ups for this site, then try again.';
+      return;
+    }
+
+    const source=document.querySelector('main');
+    const clone=source.cloneNode(true);
+    replaceCanvases(source,clone);
+    replaceControlsWithAnswers(source,clone);
+    makeLinksAbsolute(source,clone);
+    cleanSubmissionClone(clone);
+
+    const title=(document.querySelector('header h1')?.textContent||document.title).trim();
+    installSubmissionPage(popup.document,name,title,clone);
+    if(status) status.textContent='Submission copy opened in a new tab.';
   };
-  window.printCompletedLab=function(){
-    window.prepareCompletedLabPrint();
-    setTimeout(()=>window.print(),40);
-  };
-  window.addEventListener('beforeprint',window.prepareCompletedLabPrint);
-  window.addEventListener('afterprint',()=>document.querySelectorAll('.print-answer').forEach(x=>x.remove()));
-  function init(){
+
+  function initSubmission(){
     const n=document.getElementById('printStudentName');
     if(n){
       try{n.value=localStorage.getItem(NAME_KEY)||''}catch(e){}
       n.addEventListener('input',()=>{try{localStorage.setItem(NAME_KEY,n.value)}catch(e){}});
     }
   }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initSubmission); else initSubmission();
 })();
 </script>
 </body></html>
