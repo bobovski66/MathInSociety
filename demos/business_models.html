@@ -13,6 +13,24 @@ table{width:100%;border-collapse:collapse;margin-top:10px}th,td{padding:8px;bord
 @media print{header{background:white;color:black;padding:0 0 12px}header a{display:none}header p{color:#444}.panel{box-shadow:none;break-inside:avoid}button{display:none}body{background:white}}
 
 .presetbar{display:flex;gap:8px;flex-wrap:wrap}.presetbar button{background:#d9d5bd;color:var(--ink)}.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;font-size:.92rem}.swatch{display:inline-block;width:18px;height:4px;vertical-align:middle;margin-right:6px;border-radius:2px}
+
+/* Compact side-by-side demo workspace */
+.demo-workspace{
+  display:grid;
+  grid-template-columns:minmax(270px,.78fr) minmax(0,1.5fr);
+  gap:14px;
+  align-items:stretch;
+}
+.demo-workspace>.panel,.demo-workspace>.control-column,.demo-workspace>.display-column{margin:0;min-width:0}
+.control-column,.display-column{min-width:0}
+.display-column{display:flex;flex-direction:column;gap:10px}
+.demo-workspace canvas{width:100%;height:auto;max-height:52vh;object-fit:contain}
+.workspace-intro{margin:0 0 12px;color:var(--muted);font-size:.9rem}
+.compact-readout{margin:8px 0}
+@media(max-width:820px){
+  .demo-workspace{grid-template-columns:1fr}
+  .demo-workspace canvas{max-height:none}
+}
 </style>
 <script>
 window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};
@@ -20,26 +38,36 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head><body>
 <header><a href="../index.html">← MATH&amp; 107 course</a><h1>Cost–Revenue–Profit Explorer</h1><p>Change a linear business model and watch fixed cost, slopes, break-even, and marginal profit change together.</p></header><main>
-<section class="panel student-guide"><h2>How to use this explorer</h2><p>Choose a preset, identify which quantities are intercepts and which are slopes, then change one parameter at a time. Watch how the break-even point and marginal profit respond.</p></section>
+<div class="demo-workspace">
+  <section class="panel control-column">
+    <div class="kicker">Business inputs</div>
+    <h2>Choose the model</h2>
+    <p class="workspace-intro">Choose a preset, then change one quantity at a time and watch the business model respond.</p>
+    <div class="presetbar"><button data-preset="tutor">Tutoring</button><button data-preset="cards">Craft fair</button><button data-preset="food">Food stand</button><button data-preset="thin">Thin margin</button></div>
+    <div class="control"><label>Fixed cost F <span id="fv" class="value"></span></label><input id="F" type="range" min="0" max="1000" step="10" value="300"></div>
+    <div class="control"><label>Variable cost v <span id="vv" class="value"></span></label><input id="v" type="range" min="0" max="20" step=".5" value="5"></div>
+    <div class="control"><label>Selling price p <span id="pv" class="value"></span></label><input id="p" type="range" min="1" max="30" step=".5" value="12"></div>
+    <div class="control"><label>Quantity q <span id="qv" class="value"></span></label><input id="q" type="range" min="0" max="120" step="1" value="40"></div>
+    <div class="readout compact-readout"><span class="pill">break-even q* = <span id="be"></span></span><span class="pill">marginal profit = $<span id="mp"></span></span></div>
+    <div class="small">Marginal cost: $<span id="mc"></span> · marginal revenue: $<span id="mr"></span></div>
+  </section>
 
-<section class="panel"><div class="presetbar"><button data-preset="tutor">Tutoring</button><button data-preset="cards">Craft fair</button><button data-preset="food">Food stand</button><button data-preset="thin">Thin margin</button></div></section>
-<div class="grid"><section class="panel"><div class="kicker">Business inputs</div><h2>Choose the model</h2>
-<div class="control"><label>Fixed cost F <span id="fv" class="value"></span></label><input id="F" type="range" min="0" max="1000" step="10" value="300"></div>
-<div class="control"><label>Variable cost v <span id="vv" class="value"></span></label><input id="v" type="range" min="0" max="20" step=".5" value="5"></div>
-<div class="control"><label>Selling price p <span id="pv" class="value"></span></label><input id="p" type="range" min="1" max="30" step=".5" value="12"></div>
-<div class="control"><label>Quantity q <span id="qv" class="value"></span></label><input id="q" type="range" min="0" max="120" step="1" value="40"></div>
-</section>
-<section class="panel"><div class="kicker">At the selected quantity</div><h2>Read the business</h2>
-<div class="readout"><span class="pill">C(q) = $<span id="cost"></span></span><span class="pill">R(q) = $<span id="rev"></span></span><span class="pill">π(q) = $<span id="profit"></span></span></div>
-<h3 style="margin-top:18px">Structure</h3><div class="readout"><span class="pill">break-even q* = <span id="be"></span></span><span class="pill">marginal cost = $<span id="mc"></span></span><span class="pill">marginal revenue = $<span id="mr"></span></span><span class="pill">marginal profit = $<span id="mp"></span></span></div>
-<p id="state" class="callout" style="margin-top:16px"></p></section></div>
-
-<section class="panel"><div class="kicker">Graph</div><h2>Cost and revenue</h2><canvas id="chart"></canvas><div class="legend"><span><span class="swatch" style="background:#697048"></span>cost</span><span><span class="swatch" style="background:#b18a22"></span>revenue</span><span>● selected quantity</span></div></section>
-
-<section class="panel"><div class="kicker">Marginal profit as recursion</div><h2>What happens when one more unit is sold?</h2>
-<p>For a linear model, profit changes by the same amount each time q increases by 1.</p>
-<table><thead><tr><th>Quantity</th><th>Profit</th><th>Change from previous row</th></tr></thead><tbody id="recRows"></tbody></table>
-<div class="formula" id="profitFormula"></div></section>
+  <section class="panel display-column">
+    <div>
+      <div class="kicker">At the selected quantity</div>
+      <h2>Cost, revenue, and profit</h2>
+      <div class="readout"><span class="pill">C(q) = $<span id="cost"></span></span><span class="pill">R(q) = $<span id="rev"></span></span><span class="pill">π(q) = $<span id="profit"></span></span></div>
+      <p id="state" class="callout" style="margin:10px 0 0"></p>
+    </div>
+    <canvas id="chart"></canvas>
+    <div class="legend"><span><span class="swatch" style="background:#697048"></span>cost</span><span><span class="swatch" style="background:#b18a22"></span>revenue</span><span>● selected quantity</span></div>
+    <div>
+      <h3 style="margin:6px 0">Profit changes one unit at a time</h3>
+      <table><thead><tr><th>Quantity</th><th>Profit</th><th>Change</th></tr></thead><tbody id="recRows"></tbody></table>
+      <div class="formula" id="profitFormula"></div>
+    </div>
+  </section>
+</div>
 </main><script>
 const $=id=>document.getElementById(id),money=x=>Number(x).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
 const presets={tutor:[200,5,25,14],cards:[48,1.5,6,16],food:[240,3.5,9.5,55],thin:[600,12,14,80]};
