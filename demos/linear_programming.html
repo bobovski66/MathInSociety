@@ -1,13 +1,51 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Linear Programming Optimizer</title><style>
 :root{--bg:#efefe4;--card:#fffdf3;--ink:#292d20;--muted:#6d705f;--line:#d9d5bd;--olive:#4d5430;--olive2:#697048;--gold:#b18a22;--goldsoft:#f1e6b2;--good:#657347;--bad:#965348;--shadow:0 12px 30px rgba(58,61,38,.10)}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}a{color:var(--olive)}header{background:linear-gradient(135deg,var(--olive),#62693b);color:#fff;padding:24px 28px}header a{color:#f4eab9;text-decoration:none;font-weight:750}header h1{margin:10px 0 4px;font-size:clamp(1.8rem,4vw,2.7rem)}header p{margin:0;color:#e8e7d6;max-width:88ch}main{max-width:1200px;margin:auto;padding:24px 20px 70px}.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow);margin:16px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}h2{margin:.15rem 0 .5rem;color:var(--olive)}.small,.muted{font-size:.92rem;color:var(--muted)}.callout{border-left:5px solid var(--gold);background:#faf3d4;padding:12px 14px;border-radius:10px}.control{margin:12px 0}.control label{font-weight:750;display:flex;justify-content:space-between;gap:12px}.control input[type=range]{width:100%}.value{font-variant-numeric:tabular-nums;color:var(--gold);font-weight:850}.pill{border:1px solid var(--line);background:var(--goldsoft);border-radius:999px;padding:6px 10px;font-weight:780;display:inline-block;margin:3px 4px 3px 0}button{border:0;border-radius:10px;padding:9px 13px;font-weight:800;cursor:pointer;background:var(--olive);color:#fff}button.secondary{background:var(--gold);color:#211d0c}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.tabs button.active{background:var(--gold);color:#211d0c}.tabpane{display:none}.tabpane.active{display:block}select,input{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:#fffef8;color:var(--ink);font:inherit}label{font-weight:750;display:block;margin-top:8px}canvas{width:100%;height:500px;border:1px solid var(--line);border-radius:14px;background:#fffef8;display:block}table{width:100%;border-collapse:collapse;margin-top:10px}th,td{padding:8px;border-bottom:1px solid var(--line);text-align:right}th:first-child,td:first-child{text-align:left}.formula{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#f5f1dc;border:1px solid var(--line);padding:10px 12px;border-radius:10px;overflow:auto}@media(max-width:820px){.grid,.grid3{grid-template-columns:1fr}canvas{height:420px}}
+
+/* Compact side-by-side demo workspace */
+.demo-workspace{
+  display:grid;
+  grid-template-columns:minmax(270px,.78fr) minmax(0,1.5fr);
+  gap:14px;
+  align-items:stretch;
+}
+.demo-workspace>.panel,.demo-workspace>.control-column,.demo-workspace>.display-column{margin:0;min-width:0}
+.control-column,.display-column{min-width:0}
+.display-column{display:flex;flex-direction:column;gap:10px}
+.demo-workspace canvas{width:100%;height:auto;max-height:52vh;object-fit:contain}
+.workspace-intro{margin:0 0 12px;color:var(--muted);font-size:.9rem}
+.compact-readout{margin:8px 0}
+@media(max-width:820px){
+  .demo-workspace{grid-template-columns:1fr}
+  .demo-workspace canvas{max-height:none}
+}
 </style>
 <script>
 window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head><body><header><a href="../index.html">← MATH&amp; 107 course</a><h1>Linear Programming Optimizer</h1><p>Switch among maximization, minimization, and multiple-optimum examples. Change the objective coefficients and watch the best corner move.</p></header><main>
-<section class="panel student-guide"><h2>How to use this explorer</h2><p>Keep the feasible region fixed while changing the objective coefficients. The constraints determine what is allowed; the objective determines which allowed corner is best. Use the tie preset to see why an entire edge can be optimal.</p></section>
-<div class="grid"><section class="panel"><h2>Model</h2><label>Preset</label><select id="preset"><option value="furniture">Furniture maker — maximize profit</option><option value="tomatoes">Tomatoes & peppers — maximize revenue</option><option value="nutrition">Supplement mix — minimize cost</option><option value="tie">Tie along an edge</option></select><div id="constraints" class="formula" style="margin-top:12px"></div><div class="callout" id="scenario"></div></section><section class="panel"><h2>Objective</h2><div class="control"><label>coefficient of x <span id="cxv" class="value"></span></label><input id="cx" type="range" min="0" max="100" step="0.5"></div><div class="control"><label>coefficient of y <span id="cyv" class="value"></span></label><input id="cy" type="range" min="0" max="100" step="0.5"></div><div><span class="pill" id="direction"></span><span class="pill">optimal value: <span id="best"></span></span><span class="pill">best: <span id="bestp"></span></span></div><p id="tieNote" class="small"></p></section></div><section class="panel"><canvas id="graph" width="1100" height="560"></canvas><table><thead><tr><th>Feasible vertex</th><th>Objective value</th><th>Status</th></tr></thead><tbody id="tbl"></tbody></table></section><section class="panel"><p class="callout">The feasible region comes from the constraints. The objective asks a separate question of that same region. Changing the objective can move the optimum even when no constraint changes.</p></section></main><script>
+<div class="demo-workspace">
+  <section class="panel control-column">
+    <h2>Model and objective</h2>
+    <p class="workspace-intro">The constraints determine what is allowed. The objective determines which allowed corner is best.</p>
+    <label>Preset</label>
+    <select id="preset"><option value="furniture">Furniture maker — maximize profit</option><option value="tomatoes">Tomatoes & peppers — maximize revenue</option><option value="nutrition">Supplement mix — minimize cost</option><option value="tie">Tie along an edge</option></select>
+    <div id="constraints" class="formula" style="margin-top:12px"></div>
+    <div class="callout" id="scenario"></div>
+    <div class="control"><label>coefficient of x <span id="cxv" class="value"></span></label><input id="cx" type="range" min="0" max="100" step="0.5"></div>
+    <div class="control"><label>coefficient of y <span id="cyv" class="value"></span></label><input id="cy" type="range" min="0" max="100" step="0.5"></div>
+    <div><span class="pill" id="direction"></span><span class="pill">optimal value: <span id="best"></span></span><span class="pill">best: <span id="bestp"></span></span></div>
+    <p id="tieNote" class="small"></p>
+  </section>
+
+  <section class="panel display-column">
+    <div><h2>Feasible region and optimum</h2><p class="small">Change the objective coefficients and watch the best feasible corner move.</p></div>
+    <canvas id="graph" width="1100" height="560"></canvas>
+    <table><thead><tr><th>Feasible vertex</th><th>Objective value</th><th>Status</th></tr></thead><tbody id="tbl"></tbody></table>
+    <p class="callout">Changing the objective can move the optimum even when the feasible region does not change.</p>
+  </section>
+</div>
+</main><script>
 const P={
 furniture:{name:'Furniture maker',desc:'Chairs x and desks y. Resource limits create a four-vertex polygon.',cons:[{a:2,b:3,c:120,s:'le'},{a:1,b:2,c:70,s:'le'}],cx:40,cy:70,dir:'max',xmax:72,ymax:44},
 tomatoes:{name:'Tomatoes & peppers',desc:'Crates of tomatoes x and peppers y. Maximize revenue.',cons:[{a:1,b:2,c:80,s:'le'},{a:1,b:1,c:50,s:'le'}],cx:25,cy:40,dir:'max',xmax:60,ymax:48},
