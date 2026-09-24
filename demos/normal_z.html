@@ -1,16 +1,75 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Normal Distribution & Inference Explorer</title><style>
 :root{--bg:#efefe4;--card:#fffdf3;--ink:#292d20;--muted:#6d705f;--line:#d9d5bd;--olive:#4d5430;--olive2:#697048;--gold:#b18a22;--goldsoft:#f1e6b2;--good:#657347;--bad:#965348;--shadow:0 12px 30px rgba(58,61,38,.10)}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}a{color:var(--olive)}header{background:linear-gradient(135deg,var(--olive),#62693b);color:#fff;padding:24px 28px}header a{color:#f4eab9;text-decoration:none;font-weight:700}header h1{margin:10px 0 4px;font-size:clamp(1.7rem,4vw,2.55rem)}header p{margin:0;color:#e8e7d6;max-width:80ch}main{max-width:1120px;margin:auto;padding:24px 20px 60px}.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow);margin:16px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.control{margin:12px 0}.control label{font-weight:750;display:flex;justify-content:space-between;gap:12px}.control input[type=range]{width:100%}.value{font-variant-numeric:tabular-nums;color:var(--gold);font-weight:850}.pill{display:inline-block;border:1px solid var(--line);background:var(--goldsoft);border-radius:999px;padding:7px 11px;font-weight:750;margin:3px}.callout{border-left:5px solid var(--gold);background:#faf3d4;padding:12px 14px;border-radius:10px}.small{font-size:.9rem;color:var(--muted)}canvas{width:100%;height:380px;border:1px solid var(--line);border-radius:14px;background:#fffef8;display:block}.tabs{display:flex;gap:8px;flex-wrap:wrap}.tabs button{border:1px solid var(--line);background:#fffef8;color:var(--olive);padding:9px 13px;border-radius:999px;font-weight:800;cursor:pointer}.tabs button.active{background:var(--olive);color:#fff}.mode{display:none}.mode.active{display:block}select,input[type=number]{width:100%;padding:9px;border:1px solid var(--line);border-radius:10px;background:#fffef8;font:inherit}.ciLine{height:100px;position:relative;border-bottom:2px solid var(--olive2);margin:20px 20px 0}.ciBand{position:absolute;bottom:-5px;height:10px;background:var(--gold);border-radius:999px}.ciTick,.claim{position:absolute;bottom:-11px;width:3px;height:23px;background:var(--olive)}.claim{background:var(--bad)}.ciTick span,.claim span{position:absolute;top:25px;transform:translateX(-50%);font-size:.78rem;white-space:nowrap}.claim span{top:-27px;color:var(--bad);font-weight:800}@media(max-width:760px){.grid,.grid3{grid-template-columns:1fr}canvas{height:320px}}
+
+/* Compact side-by-side demo workspace */
+.demo-workspace{
+  display:grid;
+  grid-template-columns:minmax(270px,.78fr) minmax(0,1.5fr);
+  gap:14px;
+  align-items:stretch;
+}
+.demo-workspace>.panel,.demo-workspace>.control-column,.demo-workspace>.display-column{margin:0;min-width:0}
+.control-column,.display-column{min-width:0}
+.display-column{display:flex;flex-direction:column;gap:10px}
+.demo-workspace canvas{width:100%;height:auto;max-height:52vh;object-fit:contain}
+.workspace-intro{margin:0 0 12px;color:var(--muted);font-size:.9rem}
+.compact-readout{margin:8px 0}
+@media(max-width:820px){
+  .demo-workspace{grid-template-columns:1fr}
+  .demo-workspace canvas{max-height:none}
+}
+
+main{max-width:1220px}
+.tabpane .demo-workspace,.mode .demo-workspace{margin-top:12px}
 </style>
 <script>
 window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head><body><header><a href="../index.html">← MATH&amp; 107 course</a><h1>Normal Distribution & Inference Explorer</h1><p>Explore two different statistical questions: where an individual value sits in a distribution, and what interval a sample gives for a population value.</p></header><main>
-<section class="panel student-guide"><h2>How to use this explorer</h2><p>Use the normal-model view for questions about one observation and the sample-estimate view for questions about a population value. Before changing a slider, predict whether the z-score or interval should move left, right, widen, or narrow.</p></section>
+<section class="panel" style="margin:0">
+  <div class="tabs"><button id="zTab" class="active">Individual value: z-score</button><button id="ciTab">Population estimate: confidence interval</button></div>
 
-<section class="panel"><div class="tabs"><button id="zTab" class="active">Individual value: z-score</button><button id="ciTab">Population estimate: confidence interval</button></div></section>
-<section id="zMode" class="mode active"><div class="grid"><section class="panel"><h2>Normal model</h2><div class="control"><label>Preset</label><select id="preset"><option value="custom">Custom</option><option value="apples">Apple weights</option><option value="commute">Commute times</option><option value="scores">Exam scores</option></select></div><div class="control"><label>Mean μ <span id="mv" class="value"></span></label><input id="mu" type="range" min="0" max="200" value="50"></div><div class="control"><label>Standard deviation σ <span id="sv" class="value"></span></label><input id="sig" type="range" min="1" max="40" value="10"></div><div class="control"><label>Observed x <span id="xv" class="value"></span></label><input id="xx" type="range" min="0" max="250" value="65"></div><div class="pill">z = <span id="zv"></span></div></section><section class="panel"><h2>Interpretation</h2><p id="interp"></p><div id="empirical" class="callout"></div><p class="small">Olive guide lines mark μ, μ±σ, μ±2σ, and μ±3σ. The gold line is the selected observation.</p></section></div><section class="panel"><canvas id="c" width="1000" height="390"></canvas></section></section>
-<section id="ciMode" class="mode"><div class="grid"><section class="panel"><h2>Sample estimate</h2><div class="control"><label>Estimate <span id="estv" class="value"></span></label><input id="est" type="range" min="0" max="100" value="54"></div><div class="control"><label>Margin of error <span id="ev" class="value"></span></label><input id="err" type="range" min="1" max="20" value="5"></div><div class="control"><label>Comparison value <span id="claimv" class="value"></span></label><input id="claimVal" type="range" min="0" max="100" value="50"></div><div class="pill">Interval: <span id="ciText"></span></div></section><section class="panel"><h2>Interpretation</h2><p id="ciInterp"></p><div class="callout">A confidence interval estimates a <strong>population parameter</strong>. It is not a prediction interval for a single individual observation.</div></section></div><section class="panel"><div id="ciLine" class="ciLine"><div id="ciBand" class="ciBand"></div><div id="ciLoTick" class="ciTick"><span id="ciLoLabel"></span></div><div id="ciHiTick" class="ciTick"><span id="ciHiLabel"></span></div><div id="claimTick" class="claim"><span id="claimLabel"></span></div></div></section><section class="panel"><h2>Sample size and precision</h2><p>If margin of error is approximately proportional to 1/√n, increasing the sample size narrows the interval.</p><div class="grid3"><div><label>Baseline sample size n₀</label><input id="baseN" type="number" value="100" min="1"></div><div><label>Baseline margin E₀</label><input id="baseE" type="number" value="10" min="0.1" step="0.1"></div><div><label>New sample size n</label><input id="newN" type="number" value="400" min="1"></div></div><p class="pill" style="margin-top:14px">Approximate new margin: <span id="scaledE"></span></p></section></section>
+  <section id="zMode" class="mode active">
+    <div class="demo-workspace">
+      <div class="control-column">
+        <h2>Normal model</h2>
+        <p class="workspace-intro">Predict how the z-score will change, then adjust the model or observation.</p>
+        <div class="control"><label>Preset</label><select id="preset"><option value="custom">Custom</option><option value="apples">Apple weights</option><option value="commute">Commute times</option><option value="scores">Exam scores</option></select></div>
+        <div class="control"><label>Mean μ <span id="mv" class="value"></span></label><input id="mu" type="range" min="0" max="200" value="50"></div>
+        <div class="control"><label>Standard deviation σ <span id="sv" class="value"></span></label><input id="sig" type="range" min="1" max="40" value="10"></div>
+        <div class="control"><label>Observed x <span id="xv" class="value"></span></label><input id="xx" type="range" min="0" max="250" value="65"></div>
+        <div class="pill">z = <span id="zv"></span></div>
+      </div>
+      <div class="display-column">
+        <div><h2>Interpretation</h2><p id="interp"></p><div id="empirical" class="callout"></div></div>
+        <canvas id="c" width="1000" height="390"></canvas>
+        <p class="small">Olive guide lines mark μ, μ±σ, μ±2σ, and μ±3σ. The gold line is the selected observation.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="ciMode" class="mode">
+    <div class="demo-workspace">
+      <div class="control-column">
+        <h2>Sample estimate</h2>
+        <p class="workspace-intro">Adjust the estimate, margin of error, and comparison value.</p>
+        <div class="control"><label>Estimate <span id="estv" class="value"></span></label><input id="est" type="range" min="0" max="100" value="54"></div>
+        <div class="control"><label>Margin of error <span id="ev" class="value"></span></label><input id="err" type="range" min="1" max="20" value="5"></div>
+        <div class="control"><label>Comparison value <span id="claimv" class="value"></span></label><input id="claimVal" type="range" min="0" max="100" value="50"></div>
+        <div class="pill">Interval: <span id="ciText"></span></div>
+        <h3>Sample size and precision</h3>
+        <p class="small">If margin of error is approximately proportional to 1/√n, increasing the sample size narrows the interval.</p>
+        <div class="grid3"><div><label>Baseline n₀</label><input id="baseN" type="number" value="100" min="1"></div><div><label>Baseline E₀</label><input id="baseE" type="number" value="10" min="0.1" step="0.1"></div><div><label>New n</label><input id="newN" type="number" value="400" min="1"></div></div>
+        <p class="pill" style="margin-top:10px">Approximate new margin: <span id="scaledE"></span></p>
+      </div>
+      <div class="display-column">
+        <div><h2>Confidence interval</h2><p id="ciInterp"></p><div class="callout">A confidence interval estimates a <strong>population parameter</strong>, not a single individual observation.</div></div>
+        <div id="ciLine" class="ciLine"><div id="ciBand" class="ciBand"></div><div id="ciLoTick" class="ciTick"><span id="ciLoLabel"></span></div><div id="ciHiTick" class="ciTick"><span id="ciHiLabel"></span></div><div id="claimTick" class="claim"><span id="claimLabel"></span></div></div>
+      </div>
+    </div>
+  </section>
+</section>
 </main><script>
 const ctx=c.getContext('2d');function activate(which){const z=which==='z';zMode.classList.toggle('active',z);ciMode.classList.toggle('active',!z);zTab.classList.toggle('active',z);ciTab.classList.toggle('active',!z)}zTab.onclick=()=>activate('z');ciTab.onclick=()=>activate('ci');
 const presets={apples:[180,15,210],commute:[35,8,59],scores:[75,10,95]};preset.onchange=()=>{if(presets[preset.value]){const [m,s,x]=presets[preset.value];mu.value=m;sig.value=s;xx.value=x;drawZ()}};function drawZ(){let m=+mu.value,s=+sig.value,v=+xx.value,z=(v-m)/s;mv.textContent=m;sv.textContent=s;xv.textContent=v;zv.textContent=z.toFixed(2);interp.textContent=z===0?'The observation is exactly at the mean.':`The observation is ${Math.abs(z).toFixed(2)} standard deviations ${z<0?'below':'above'} the mean.`;empirical.textContent=`Empirical Rule intervals: 68% ≈ ${fmt(m-s)} to ${fmt(m+s)}, 95% ≈ ${fmt(m-2*s)} to ${fmt(m+2*s)}, 99.7% ≈ ${fmt(m-3*s)} to ${fmt(m+3*s)}.`;ctx.clearRect(0,0,c.width,c.height);let L=m-4*s,R=m+4*s,px=t=>80+(t-L)/(R-L)*840,base=325,peak=225;ctx.strokeStyle='#4d5430';ctx.lineWidth=3;ctx.beginPath();for(let i=0;i<=500;i++){let t=L+(R-L)*i/500,y=Math.exp(-.5*((t-m)/s)**2),X=px(t),Y=base-y*peak;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.stroke();[-3,-2,-1,0,1,2,3].forEach(k=>{let X=px(m+k*s);ctx.strokeStyle=k===0?'#697048':'#c5c5b5';ctx.lineWidth=k===0?3:1.5;ctx.beginPath();ctx.moveTo(X,72);ctx.lineTo(X,base);ctx.stroke();ctx.fillStyle='#6d705f';ctx.font='14px system-ui';ctx.textAlign='center';ctx.fillText(k===0?'μ':`${k>0?'+':''}${k}σ`,X,350)});let X=px(v);ctx.strokeStyle='#b18a22';ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(X,55);ctx.lineTo(X,base);ctx.stroke();ctx.fillStyle='#8b6d19';ctx.fillText('x',X,48)}function fmt(x){return Number.isInteger(x)?x:x.toFixed(1)}[mu,sig,xx].forEach(e=>e.oninput=()=>{preset.value='custom';drawZ()});
