@@ -13,6 +13,24 @@ table{width:100%;border-collapse:collapse;margin-top:10px}th,td{padding:8px;bord
 @media print{header{background:white;color:black;padding:0 0 12px}header a{display:none}header p{color:#444}.panel{box-shadow:none;break-inside:avoid}button{display:none}body{background:white}}
 
 .presetRow{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.presetRow button{background:#777b58}.presetRow button.active{background:var(--gold);color:#211d0c}.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.92rem;color:var(--muted)}.checkline{display:flex;align-items:center;gap:8px;margin:8px 0}.checkline input{width:auto}.vertexList{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:1.8}
+
+/* Compact side-by-side demo workspace */
+.demo-workspace{
+  display:grid;
+  grid-template-columns:minmax(270px,.78fr) minmax(0,1.5fr);
+  gap:14px;
+  align-items:stretch;
+}
+.demo-workspace>.panel,.demo-workspace>.control-column,.demo-workspace>.display-column{margin:0;min-width:0}
+.control-column,.display-column{min-width:0}
+.display-column{display:flex;flex-direction:column;gap:10px}
+.demo-workspace canvas{width:100%;height:auto;max-height:52vh;object-fit:contain}
+.workspace-intro{margin:0 0 12px;color:var(--muted);font-size:.9rem}
+.compact-readout{margin:8px 0}
+@media(max-width:820px){
+  .demo-workspace{grid-template-columns:1fr}
+  .demo-workspace canvas{max-height:none}
+}
 </style>
 <script>
 window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};
@@ -20,18 +38,32 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head><body>
 <header><a href="../index.html">← MATH&amp; 107 course</a><h1>Convex Feasible Region Explorer</h1><p>See how two linear inequalities cut out half-planes, how their intersection becomes a feasible polygon, and which boundary intersections become vertices.</p></header><main>
-<section class="panel student-guide"><h2>How to use this explorer</h2><p>Show each half-plane separately before looking at their intersection. Click a test point, check every inequality, then compare the surviving intersections with the listed feasible vertices.</p></section>
+<div class="demo-workspace">
+  <section class="panel control-column">
+    <div class="kicker">Choose a system</div>
+    <h2>Constraints</h2>
+    <p class="workspace-intro">Change the limits and watch which points remain inside every half-plane.</p>
+    <div class="presetRow"><button data-p="simple" class="active">Simple</button><button data-p="workshop">Workshop</button><button data-p="textbook">Textbook</button></div>
+    <div class="scenario"><div id="eq1" class="formula"></div><div id="eq2" class="formula" style="margin-top:8px"></div><p class="small">Also impose x ≥ 0 and y ≥ 0.</p></div>
+    <div class="control"><label>Constraint 1 limit <span id="c1v" class="value"></span></label><input id="c1" type="range"></div>
+    <div class="control"><label>Constraint 2 limit <span id="c2v" class="value"></span></label><input id="c2" type="range"></div>
+    <div class="checkline"><input id="showHalf" type="checkbox" checked><label for="showHalf" style="margin:0">show individual half-planes</label></div>
+    <div class="checkline"><input id="showLabels" type="checkbox" checked><label for="showLabels" style="margin:0">label vertices</label></div>
+    <div class="readout" style="margin-top:12px"><div class="pill"><span id="count">0</span> vertices</div><div class="pill">area ≈ <span id="area">0</span></div></div>
+    <div id="vertexList" class="vertexList" style="margin-top:10px"></div>
+  </section>
 
-<div class="grid"><section class="panel"><div class="kicker">Choose a system</div><h2>Constraint presets</h2><div class="presetRow"><button data-p="simple" class="active">Simple</button><button data-p="workshop">Workshop</button><button data-p="textbook">Textbook</button></div>
-<div class="scenario"><div id="eq1" class="formula"></div><div id="eq2" class="formula" style="margin-top:8px"></div><p class="small">Also impose x ≥ 0 and y ≥ 0.</p></div>
-<div class="control"><label>Constraint 1 limit <span id="c1v" class="value"></span></label><input id="c1" type="range"></div><div class="control"><label>Constraint 2 limit <span id="c2v" class="value"></span></label><input id="c2" type="range"></div>
-<div class="checkline"><input id="showHalf" type="checkbox" checked><label for="showHalf" style="margin:0">show individual half-planes</label></div><div class="checkline"><input id="showLabels" type="checkbox" checked><label for="showLabels" style="margin:0">label vertices</label></div>
-</section>
-<section class="panel"><div class="kicker">Read the geometry</div><h2>Current feasible region</h2><div class="legend"><span><span class="swatch" style="background:rgba(105,112,72,.25)"></span>constraint 1</span><span><span class="swatch" style="background:rgba(177,138,34,.22)"></span>constraint 2</span><span><span class="swatch" style="background:rgba(77,84,48,.55)"></span>intersection</span></div>
-<div class="readout" style="margin-top:12px"><div class="pill"><span id="count">0</span> vertices</div><div class="pill">area ≈ <span id="area">0</span></div></div><div id="vertexList" class="vertexList" style="margin-top:12px"></div>
-<div class="callout" style="margin-top:12px"><strong>Click the graph</strong> to test a point. <span id="testText">No point selected yet.</span></div></section></div>
-<section class="panel"><canvas id="plot" width="1100" height="580"></canvas></section>
-<section class="panel"><div class="kicker">What to watch</div><div class="grid"><div><h3>Half-planes</h3><p>Each inequality keeps one side of a boundary line. The feasible region consists only of points kept by <em>every</em> constraint.</p></div><div><h3>Vertices</h3><p>A vertex appears where active boundaries meet. Some boundary intersections can lie outside another constraint and therefore are not feasible vertices.</p></div></div></section>
+  <section class="panel display-column">
+    <div>
+      <div class="kicker">Feasible region</div>
+      <h2>Intersection of the constraints</h2>
+      <div class="legend"><span><span class="swatch" style="background:rgba(105,112,72,.25)"></span>constraint 1</span><span><span class="swatch" style="background:rgba(177,138,34,.22)"></span>constraint 2</span><span><span class="swatch" style="background:rgba(77,84,48,.55)"></span>intersection</span></div>
+    </div>
+    <canvas id="plot" width="1100" height="580"></canvas>
+    <div class="callout"><strong>Click the graph</strong> to test a point. <span id="testText">No point selected yet.</span></div>
+    <p class="small">Each inequality keeps one side of a boundary line. Feasible vertices occur where active boundaries meet while satisfying every constraint.</p>
+  </section>
+</div>
 </main><script>
 const $=id=>document.getElementById(id), presets={
  simple:{name:'Simple',a1:1,b1:1,c1:8,a2:2,b2:1,c2:10,min1:4,max1:14,min2:6,max2:20},
