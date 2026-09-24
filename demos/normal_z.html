@@ -72,6 +72,62 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
 </section>
 </main><script>
 const ctx=c.getContext('2d');function activate(which){const z=which==='z';zMode.classList.toggle('active',z);ciMode.classList.toggle('active',!z);zTab.classList.toggle('active',z);ciTab.classList.toggle('active',!z)}zTab.onclick=()=>activate('z');ciTab.onclick=()=>activate('ci');
-const presets={apples:[180,15,210],commute:[35,8,59],scores:[75,10,95]};preset.onchange=()=>{if(presets[preset.value]){const [m,s,x]=presets[preset.value];mu.value=m;sig.value=s;xx.value=x;drawZ()}};function drawZ(){let m=+mu.value,s=+sig.value,v=+xx.value,z=(v-m)/s;mv.textContent=m;sv.textContent=s;xv.textContent=v;zv.textContent=z.toFixed(2);interp.textContent=z===0?'The observation is exactly at the mean.':`The observation is ${Math.abs(z).toFixed(2)} standard deviations ${z<0?'below':'above'} the mean.`;empirical.textContent=`Empirical Rule intervals: 68% ≈ ${fmt(m-s)} to ${fmt(m+s)}, 95% ≈ ${fmt(m-2*s)} to ${fmt(m+2*s)}, 99.7% ≈ ${fmt(m-3*s)} to ${fmt(m+3*s)}.`;ctx.clearRect(0,0,c.width,c.height);let L=m-4*s,R=m+4*s,px=t=>80+(t-L)/(R-L)*840,base=325,peak=225;ctx.strokeStyle='#4d5430';ctx.lineWidth=3;ctx.beginPath();for(let i=0;i<=500;i++){let t=L+(R-L)*i/500,y=Math.exp(-.5*((t-m)/s)**2),X=px(t),Y=base-y*peak;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.stroke();[-3,-2,-1,0,1,2,3].forEach(k=>{let X=px(m+k*s);ctx.strokeStyle=k===0?'#697048':'#c5c5b5';ctx.lineWidth=k===0?3:1.5;ctx.beginPath();ctx.moveTo(X,72);ctx.lineTo(X,base);ctx.stroke();ctx.fillStyle='#6d705f';ctx.font='14px system-ui';ctx.textAlign='center';ctx.fillText(k===0?'μ':`${k>0?'+':''}${k}σ`,X,350)});let X=px(v);ctx.strokeStyle='#b18a22';ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(X,55);ctx.lineTo(X,base);ctx.stroke();ctx.fillStyle='#8b6d19';ctx.fillText('x',X,48)}function fmt(x){return Number.isInteger(x)?x:x.toFixed(1)}[mu,sig,xx].forEach(e=>e.oninput=()=>{preset.value='custom';drawZ()});
+const presets={apples:[180,15,210],commute:[35,8,59],scores:[75,10,95]};preset.onchange=()=>{if(presets[preset.value]){const [m,s,x]=presets[preset.value];mu.value=m;sig.value=s;xx.value=x;drawZ()}};function drawZ(){
+  let m=+mu.value,s=+sig.value,v=+xx.value,z=(v-m)/s;
+  mv.textContent=m;sv.textContent=s;xv.textContent=v;zv.textContent=z.toFixed(2);
+  interp.textContent=z===0?'The observation is exactly at the mean.':`The observation is ${Math.abs(z).toFixed(2)} standard deviations ${z<0?'below':'above'} the mean.`;
+  empirical.textContent=`Empirical Rule intervals: 68% ≈ ${fmt(m-s)} to ${fmt(m+s)}, 95% ≈ ${fmt(m-2*s)} to ${fmt(m+2*s)}, 99.7% ≈ ${fmt(m-3*s)} to ${fmt(m+3*s)}.`;
+
+  ctx.clearRect(0,0,c.width,c.height);
+
+  /* Keep the measurement axis fixed. Mu moves the curve; sigma changes its spread.
+     The observed x-line moves only when x itself changes. */
+  const L=+xx.min,R=+xx.max;
+  const left=80,right=920,base=325,peak=225;
+  const px=t=>left+(t-L)/(R-L)*(right-left);
+
+  ctx.strokeStyle='#d9d5bd';
+  ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(left,base);ctx.lineTo(right,base);ctx.stroke();
+
+  ctx.fillStyle='#6d705f';
+  ctx.font='12px system-ui';
+  ctx.textAlign='center';
+  const tickStep=50;
+  for(let t=Math.ceil(L/tickStep)*tickStep;t<=R;t+=tickStep){
+    const X=px(t);
+    ctx.strokeStyle='#d9d5bd';
+    ctx.beginPath();ctx.moveTo(X,base);ctx.lineTo(X,base+6);ctx.stroke();
+    ctx.fillText(String(t),X,base+22);
+  }
+
+  ctx.strokeStyle='#4d5430';
+  ctx.lineWidth=3;
+  ctx.beginPath();
+  for(let i=0;i<=500;i++){
+    let t=L+(R-L)*i/500;
+    let y=Math.exp(-.5*((t-m)/s)**2);
+    let X=px(t),Y=base-y*peak;
+    i?ctx.lineTo(X,Y):ctx.moveTo(X,Y);
+  }
+  ctx.stroke();
+
+  [-3,-2,-1,0,1,2,3].forEach(k=>{
+    const value=m+k*s;
+    if(value<L||value>R)return;
+    let X=px(value);
+    ctx.strokeStyle=k===0?'#697048':'#c5c5b5';
+    ctx.lineWidth=k===0?3:1.5;
+    ctx.beginPath();ctx.moveTo(X,72);ctx.lineTo(X,base);ctx.stroke();
+    ctx.fillStyle='#6d705f';ctx.font='14px system-ui';ctx.textAlign='center';
+    ctx.fillText(k===0?'μ':`${k>0?'+':''}${k}σ`,X,350);
+  });
+
+  let X=px(v);
+  ctx.strokeStyle='#b18a22';ctx.lineWidth=5;
+  ctx.beginPath();ctx.moveTo(X,55);ctx.lineTo(X,base);ctx.stroke();
+  ctx.fillStyle='#8b6d19';ctx.font='700 14px system-ui';ctx.textAlign='center';
+  ctx.fillText('x = '+fmt(v),X,48);
+}function fmt(x){return Number.isInteger(x)?x:x.toFixed(1)}[mu,sig,xx].forEach(e=>e.oninput=()=>{preset.value='custom';drawZ()});
 function drawCI(){const m=+est.value,e=+err.value,q=+claimVal.value,lo=m-e,hi=m+e;estv.textContent=m;ev.textContent='±'+e;claimv.textContent=q;ciText.textContent=`${lo} to ${hi}`;const inside=q>=lo&&q<=hi;ciInterp.textContent=inside?`${q} lies inside the interval, so this comparison value is consistent with the sample estimate.`:`${q} lies outside the interval, so this comparison value is not contained in the sample estimate.`;let min=Math.min(lo,q)-5,max=Math.max(hi,q)+5,p=v=>(v-min)/(max-min)*100;ciBand.style.left=p(lo)+'%';ciBand.style.width=(p(hi)-p(lo))+'%';ciLoTick.style.left=p(lo)+'%';ciHiTick.style.left=p(hi)+'%';claimTick.style.left=p(q)+'%';ciLoLabel.textContent=lo;ciHiLabel.textContent=hi;claimLabel.textContent='comparison '+q;scaleMargin()}[est,err,claimVal].forEach(e=>e.oninput=drawCI);function scaleMargin(){const n0=+baseN.value,E0=+baseE.value,n=+newN.value;if(n0>0&&E0>0&&n>0)scaledE.textContent=(E0*Math.sqrt(n0/n)).toFixed(2);else scaledE.textContent='—'}[baseN,baseE,newN].forEach(e=>e.oninput=scaleMargin);drawZ();drawCI();
 </script></body></html>
