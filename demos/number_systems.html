@@ -62,6 +62,35 @@ canvas{position:absolute;inset:0;width:100%;height:100%;border:1px solid var(--l
   .startline{font-size:.80rem}.control label{font-size:.80rem}.rule{font-size:.72rem}.sequence-line{font-size:.68rem}
   .canvas-wrap{min-height:190px}.visual-head{font-size:.82rem}.callout{font-size:.69rem}.legend{font-size:.69rem}
 }
+
+/* Compact side-by-side demo workspace */
+.demo-workspace{
+  display:grid;
+  grid-template-columns:minmax(270px,.78fr) minmax(0,1.5fr);
+  gap:14px;
+  align-items:stretch;
+}
+.demo-workspace>.panel,.demo-workspace>.control-column,.demo-workspace>.display-column{margin:0;min-width:0}
+.control-column,.display-column{min-width:0}
+.display-column{display:flex;flex-direction:column;gap:10px}
+.demo-workspace canvas{width:100%;height:auto;max-height:52vh;object-fit:contain}
+.workspace-intro{margin:0 0 12px;color:var(--muted);font-size:.9rem}
+.compact-readout{margin:8px 0}
+@media(max-width:820px){
+  .demo-workspace{grid-template-columns:1fr}
+  .demo-workspace canvas{max-height:none}
+}
+
+main{display:block!important;min-height:0!important;padding:7px 14px 9px!important}
+.demo-workspace{height:100%;min-height:0;grid-template-columns:minmax(310px,.82fr) minmax(0,1.55fr);gap:7px}
+.demo-workspace .controls-panel .grid{grid-template-columns:1fr;gap:8px}
+.demo-workspace .visual-panel{min-height:0}
+.demo-workspace .canvas-wrap{min-height:260px}
+@media(max-width:760px){
+  main{display:block!important}
+  .demo-workspace{height:auto;grid-template-columns:1fr}
+  .demo-workspace .canvas-wrap{height:360px;min-height:360px}
+}
 </style>
 <script>
 window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};
@@ -75,12 +104,13 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
   <p>Choose a starting value. Then adjust the two recursion rules and compare the sequences on the number line.</p>
 </header>
 <main>
-<section class="panel controls-panel">
+<div class="demo-workspace">
+<section class="panel controls-panel control-column">
   <div class="startline">
     <label for="startNumber">Starting value</label>
     <input id="startNumber" type="number" min="-20" max="20" step="1" value="2" aria-label="Starting value">
-    <span class="small">Use the same starting value for both rules.</span>
   </div>
+  <p class="workspace-intro">Use the same starting value for both rules, then compare repeated addition with repeated multiplication.</p>
   <div class="grid">
     <div>
       <div><strong>Additive recursion</strong> <span class="rule">\(a_{n+1}=a_n+d\)</span></div>
@@ -101,7 +131,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
   </div>
 </section>
 
-<section class="panel visual-panel">
+<section class="panel visual-panel display-column">
   <div class="visual-head">
     <strong>Compare the two recursions on the same number line</strong>
     <span class="small">Dots show terms; arrows show the steps from one term to the next.</span>
@@ -110,6 +140,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
   <div class="legend"><span class="additive">Additive terms</span><span class="multiplicative">Multiplicative terms</span></div>
   <p class="callout">In an additive recursion, the <strong>step size</strong> stays constant. In a multiplicative recursion, the <strong>factor</strong> stays constant. Adjust the sliders and compare how the spacing between terms changes.</p>
 </section>
+</div>
 </main>
 
 <script>
