@@ -1,0 +1,294 @@
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{ll}
+\toprule
+\textbf{Measure of center} & \textbf{Companion measure of spread} \\
+\midrule
+Mean   & Sample standard deviation \\
+Median & Range \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+The mean and sample standard deviation are appropriate when the
+data is approximately symmetric with no extreme values.
+The median and range are more informative when the data
+contains extreme values or is heavily skewed.
+
+\begin{example}
+The following data records the ages of participants in
+two different programs.
+
+Program A (yoga class):
+\[ 28,\; 31,\; 34,\; 29,\; 33,\; 30,\; 32,\; 35. \]
+\[
+\bar{x}_A = 31.5, \qquad s_A \approx 2.45.
+\]
+
+Program B (community center drop-in):
+\[ 8,\; 15,\; 22,\; 45,\; 67,\; 72,\; 78,\; 83. \]
+\[
+\bar{x}_B = 48.75, \qquad \text{Median}_B = 56, \qquad
+\text{Range}_B = 75.
+\]
+
+Program A has a narrow age range and a small standard
+deviation. The mean and sample standard deviation describe it well.
+Program B spans a wide age range with no clear cluster.
+The median and range are more informative for Program B.
+\end{example}
+
+\begin{exercises}
+  \item For each data set, compute all five statistics:
+    mean, median, mode, range, and sample standard deviation.
+    Then state which pair (mean/SD or median/range) better
+    describes the center and spread, and explain why.
+    \begin{enumerate}[label=(\alph*), itemsep=6pt]
+      \item $12,\; 14,\; 14,\; 15,\; 16,\; 17,\; 14$
+      \item $5,\; 6,\; 7,\; 8,\; 9,\; 10,\; 85$
+    \end{enumerate}
+
+  \item A meteorologist records daily rainfall (in inches)
+    for two weeks:
+    \[ 0,\; 0,\; 0.2,\; 0,\; 1.4,\; 0,\; 0,\;
+       0.1,\; 0,\; 0,\; 2.1,\; 0,\; 0,\; 0. \]
+    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+      \item Find the mean, median, and mode.
+      \item Which measure of center best represents a
+        typical day?
+        Justify in two sentences.
+    \end{enumerate}
+
+  \item A dataset has mean $20$ and sample standard deviation $3$.
+    Another has mean $20$ and sample standard deviation $10$.
+    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+      \item Sketch a rough histogram for each,
+        placing the center at $20$.
+      \item What does a larger sample standard deviation indicate
+        about the distribution of values?
+    \end{enumerate}
+\end{exercises}
+
+%--------------------------------------------------------------------
+\section{Visualizing Center and Spread}
+%--------------------------------------------------------------------
+
+The histogram is the primary visual tool for understanding
+the distribution of a data set.
+Center and spread are visible in the shape of a histogram:
+the center is where the distribution is tallest, and the
+spread is how wide the distribution is.
+
+\begin{example}
+The following histogram shows the distribution of 50 exam
+scores.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  ybar interval,
+  width=10cm, height=5.5cm,
+  bar width=1.0,
+  xtick={50,60,70,80,90,100,110},
+  xticklabels={50,60,70,80,90,100,{}},
+  x tick label style={font=\small},
+  xlabel={Score},
+  ylabel={Frequency},
+  y tick label style={font=\small},
+  ytick={0,2,4,6,8,10,12,14},
+  ymin=0, ymax=15,
+  ymajorgrids=true,
+  grid style=dotted,
+]
+\addplot[fill=mathblue!55, draw=mathblue]
+  coordinates {(50,3)(60,7)(70,14)(80,13)(90,9)(100,4)(110,0)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+The distribution is approximately symmetric and centered
+near $75$--$80$.
+Most scores fall between $60$ and $90$.
+A small number of scores appear below $60$ or above $90$.
+\end{example}
+
+\begin{example}[Two distributions with the same mean]
+The two distributions below both have mean $50$,
+but different sample standard deviations.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=10cm, height=6cm,
+  xlabel={Value},
+  ylabel={Relative Frequency},
+  ytick={0,0.1,0.2,0.3,0.4},
+  ymin=0, ymax=0.45,
+  xmin=20, xmax=80,
+  grid=major,
+  grid style=dotted,
+  legend style={at={(0.97,0.97)}, anchor=north east, font=\small},
+]
+\addplot[mathblue, very thick, smooth, samples=60,
+  domain=22:78]
+  {0.40*exp(-0.5*((x-50)/6)^2)};
+\addlegendentry{Small $s$}
+\addplot[mathred, very thick, smooth, dashed, samples=60,
+  domain=22:78]
+  {0.16*exp(-0.5*((x-50)/15)^2)};
+\addlegendentry{Large $s$}
+\draw[black, thick, dashed]
+  (axis cs:50,0) -- (axis cs:50,0.40);
+\node[above right, font=\small] at (axis cs:50,0.01)
+  {mean $= 50$};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+The narrow distribution has a small sample standard deviation:
+values cluster tightly around the mean.
+The wide distribution has a large sample standard deviation:
+values are spread broadly around the mean.
+Both are centered at the same location.
+\end{example}
+
+\begin{exercises}
+  \item The histogram below shows the distribution of
+    heights (in inches) for a sample of 40 adults.
+
+  \begin{center}
+  \begin{tikzpicture}
+  \begin{axis}[
+    ybar interval,
+    width=9cm, height=5cm,
+    bar width=1.0,
+    xtick={58,62,66,70,74,78},
+    xticklabels={58,62,66,70,74,{}},
+    x tick label style={font=\small},
+    xlabel={Height (inches)},
+    ylabel={Frequency},
+    y tick label style={font=\small},
+    ytick={0,2,4,6,8,10,12},
+    ymin=0, ymax=13,
+    ymajorgrids=true,
+    grid style=dotted,
+  ]
+  \addplot[fill=mathgreen!50, draw=mathgreen]
+    coordinates {(58,2)(62,7)(66,12)(70,11)(74,6)(78,2)(82,0)};
+  \end{axis}
+  \end{tikzpicture}
+  \end{center}
+
+    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+      \item In which interval do most heights fall?
+      \item Is the distribution symmetric or skewed?
+      \item Would you expect the mean to be close to the
+        median? Explain in one sentence.
+    \end{enumerate}
+
+  \item Sketch two histograms with the same center but
+    different spreads. Label the center on both.
+    Below each sketch, write one sentence describing
+    what each distribution tells an observer about
+    the data.
+
+  \item A data set has mean $30$ and sample standard deviation $2$.
+    A second data set has mean $30$ and sample standard deviation $8$.
+    An observation of $36$ is taken.
+    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+      \item How many sample standard deviations above the mean
+        is $36$ in each data set?
+      \item In which data set is the value $36$ more
+        unusual? Explain in one sentence.
+    \end{enumerate}
+\end{exercises}
+
+%--------------------------------------------------------------------
+\section*{Chapter 3 Review}
+%--------------------------------------------------------------------
+
+\addcontentsline{toc}{section}{Chapter 3 Review}
+
+\begin{enumerate}[label=\arabic*., leftmargin=2em, itemsep=8pt]
+
+  \item The following data records the number of hours per
+    week a sample of 10 students spend on homework:
+    \[ 4,\; 7,\; 5,\; 8,\; 6,\; 5,\; 9,\; 4,\; 6,\; 6. \]
+    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+      \item Find the mean, median, mode, and range.
+      \item Construct the deviation table and compute
+        the sample standard deviation.
+      \item Describe the center and spread of this data
+        set in two complete sentences.
+    \end{enumerate}
+
+  \item A company tracks the number of sick days taken
+    by employees in one year.
+    The data for eight employees is:
+    \[ 0,\; 1,\; 2,\; 1,\; 0,\; 3,\; 1,\; 18. \]
+    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+      \item Compute the mean and median.
+      \item Which measure better represents a typical
+        employee? Explain.
+      \item If the value $18$ is removed, how do the mean
+        and median each change? Compute both.
+    \end{enumerate}
+
+  \item Three students each score a mean of $80$ on five
+    exams. Student A's scores are
+    $78, 79, 80, 81, 82$.
+    Student B's scores are
+    $60, 70, 80, 90, 100$.
+    Without computing, predict which student has the
+    larger sample standard deviation.
+    Then compute both sample standard deviations to verify.
+
+  \item A data set has six values.
+    Five of them are $12, 15, 14, 13, 16$.
+    The mean of all six values is $14$.
+    Find the sixth value.
+
+  \item A histogram of test scores is skewed left.
+    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+      \item What does it mean for a histogram to be
+        skewed left?
+      \item Would you expect the mean to be greater than,
+        equal to, or less than the median?
+        Explain in two sentences.
+    \end{enumerate}
+
+  \item The temperatures recorded over five days in two
+    cities are:
+    \begin{center}
+    \renewcommand{\arraystretch}{1.4}
+    \begin{tabular}{lrrrrr}
+    \toprule
+    & Day 1 & Day 2 & Day 3 & Day 4 & Day 5 \\
+    \midrule
+    City A & 68 & 70 & 69 & 71 & 67 \\
+    City B & 55 & 62 & 74 & 79 & 85 \\
+    \bottomrule
+    \end{tabular}
+    \end{center}
+    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+      \item Compute the mean for each city.
+      \item Compute the range and sample standard deviation
+        for each city.
+      \item Which city has more consistent temperatures?
+        Justify using both spread measures.
+    \end{enumerate}
+
+  \item A quality control engineer samples 6 ball bearings
+    and measures their diameters (in mm):
+    \[ 9.98,\; 10.01,\; 10.00,\; 9.99,\; 10.02,\; 10.00. \]
+    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+      \item Compute the mean and sample standard deviation.
+      \item The specification requires that all bearings
+        fall within $0.03$ mm of the target diameter of
+        $10.00$ mm. Do all sampled bearings meet this
+        requirement?
+    \end{enumerate}
+
+\end{enumerate}
