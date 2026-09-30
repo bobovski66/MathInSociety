@@ -1,0 +1,245 @@
+The first property is called the center of the data.
+The second is called the spread.
+This chapter defines three measures of center, two measures
+of spread, and examines the relationship between them.
+The choice of measure is not arbitrary: different measures
+reveal different features of the data, and the appropriate
+choice depends on the structure of the data set itself.
+
+%--------------------------------------------------------------------
+\section{Measures of Center}
+%--------------------------------------------------------------------
+
+A \textbf{measure of center} is a single number that summarizes
+the location of a data set on the number line.
+Three measures are in common use: the mean, the median,
+and the mode.
+
+\subsection*{The Mean}
+
+\begin{definition}{Mean}
+The \textbf{mean} of a data set is the sum of all values
+divided by the number of values.
+\[
+\bar{x} = \frac{\displaystyle\sum_{i=1}^{n} x_i}{n}
+= \frac{x_1 + x_2 + \cdots + x_n}{n}
+\]
+where $n$ is the number of values and $\bar{x}$ is read
+``$x$-bar.''
+\end{definition}
+
+\noindent
+The mean is the most commonly used measure of center.
+It uses every value in the data set.
+
+\begin{example}
+The high temperatures (in degrees Fahrenheit) recorded on
+seven consecutive days were:
+\[ 58,\; 63,\; 61,\; 67,\; 70,\; 65,\; 62. \]
+\[
+\bar{x} = \frac{58+63+61+67+70+65+62}{7}
+= \frac{446}{7} \approx 63.7.
+\]
+The mean high temperature for the week was approximately
+$63.7^\circ$F.
+\end{example}
+
+\subsection*{The Median}
+
+\begin{definition}{Median}
+The \textbf{median} of a data set is the middle value when
+the values are arranged in order from smallest to largest.
+When the number of values is even, the median is the mean
+of the two middle values.
+\end{definition}
+
+\noindent
+The median divides the data set in half: exactly half the
+values fall below the median and half fall above it.
+
+\begin{example}
+Find the median of the temperature data from Example 3.1.1.
+
+Arranging in order:
+\[ 58,\; 61,\; 62,\; \mathbf{63},\; 65,\; 67,\; 70. \]
+With seven values, the middle value is in position 4.
+The median is $\mathbf{63}^\circ$F.
+\end{example}
+
+\begin{example}[Even number of values]
+Find the median of the following eight quiz scores:
+\[ 72,\; 85,\; 91,\; 78,\; 88,\; 65,\; 90,\; 80. \]
+
+Arranging in order:
+\[ 65,\; 72,\; 78,\; \mathbf{80},\; \mathbf{85},\;
+   88,\; 90,\; 91. \]
+The two middle values (positions 4 and 5) are $80$ and $85$.
+\[
+\text{Median} = \frac{80 + 85}{2} = \frac{165}{2} = 82.5.
+\]
+\end{example}
+
+\subsection*{The Mode}
+
+\begin{definition}{Mode}
+The \textbf{mode} of a data set is the value that appears
+most frequently.
+A data set may have one mode, more than one mode, or no mode
+if every value appears exactly once.
+\end{definition}
+
+\begin{example}
+Find the mode of each data set.
+\begin{enumerate}[label=(\alph*), itemsep=4pt]
+  \item $3,\; 5,\; 5,\; 7,\; 8,\; 9,\; 5$: the value $5$
+    appears three times. The mode is $5$.
+  \item $2,\; 4,\; 4,\; 6,\; 6,\; 8$: both $4$ and $6$
+    appear twice. This data set has two modes: $4$ and $6$.
+  \item $10,\; 20,\; 30,\; 40$: every value appears once.
+    There is no mode.
+\end{enumerate}
+\end{example}
+
+\subsection*{Choosing a Measure of Center}
+
+The mean uses every value in its calculation.
+A single extreme value pulls the mean toward it without
+affecting the median.
+When a data set contains extreme values, the median is often
+a more representative description of center.
+
+\begin{example}[Effect of an extreme value]
+Six employees at a small company earn the following annual
+salaries (in thousands of dollars):
+\[ 38,\; 42,\; 45,\; 47,\; 50,\; 310. \]
+
+\[
+\text{Mean} = \frac{38+42+45+47+50+310}{6}
+= \frac{532}{6} \approx \$88{,}700.
+\]
+
+Ordered data: $38, 42, 45, 47, 50, 310$.
+The two middle values are $45$ and $47$.
+\[
+\text{Median} = \frac{45+47}{2} = \$46{,}000.
+\]
+
+The mean of \$88{,}700 is pulled upward by the one salary
+of \$310{,}000. The median of \$46{,}000 reflects what a
+typical employee earns. Five of the six employees earn less
+than the mean.
+\end{example}
+
+\begin{exercises}
+  \item Find the mean, median, and mode of each data set.
+    \begin{enumerate}[label=(\alph*), itemsep=5pt]
+      \item $4,\; 7,\; 7,\; 9,\; 11,\; 13,\; 7,\; 6$
+      \item $22,\; 18,\; 30,\; 22,\; 25,\; 18,\; 29,\;
+             22,\; 31$
+      \item $0.5,\; 1.2,\; 0.8,\; 1.5,\; 0.9,\; 1.1$
+    \end{enumerate}
+
+  \item The following data records the number of customer
+    complaints received by a store over ten days:
+    \[ 3,\; 0,\; 5,\; 2,\; 1,\; 4,\; 2,\; 8,\; 2,\; 3. \]
+    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+      \item Find the mean, median, and mode.
+      \item On day 8, a particularly difficult situation led
+        to 8 complaints. Describe the effect of removing this
+        value from the data set on each of the three measures.
+    \end{enumerate}
+
+  \item A real estate agent reports that the mean home price
+    in a neighborhood is \$420{,}000, but the median is
+    \$285{,}000.
+    In two complete sentences, explain what this difference
+    tells a potential buyer about the distribution of home
+    prices in the neighborhood.
+
+  \item Seven students took a test. Six of them scored
+    $72, 78, 84, 80, 76, 88$.
+    The mean score for all seven students is $80$.
+    What did the seventh student score?
+    Show your work.
+\end{exercises}
+
+%--------------------------------------------------------------------
+\section{Measures of Spread: Range}
+%--------------------------------------------------------------------
+
+Two data sets can have the same mean but very different
+distributions of values around that mean.
+A measure of spread quantifies how much the values vary.
+
+\begin{definition}{Range}
+The \textbf{range} of a data set is the difference between
+the maximum and minimum values.
+\[
+\text{Range} = \text{maximum} - \text{minimum}
+\]
+\end{definition}
+
+\noindent
+The range is easy to compute and gives a quick sense of the
+full extent of the data.
+It uses only two values and is sensitive to extreme
+observations.
+
+\begin{example}
+Two groups of students each took the same exam.
+
+Group A scores: $62, 65, 68, 70, 72, 74, 78$.
+\[
+\text{Mean}_A = 69.9, \qquad
+\text{Range}_A = 78 - 62 = 16.
+\]
+
+Group B scores: $45, 58, 65, 72, 75, 80, 95$.
+\[
+\text{Mean}_B = 70.0, \qquad
+\text{Range}_B = 95 - 45 = 50.
+\]
+
+The two groups have nearly identical means but very different
+spreads. Group A's scores are clustered close to the center.
+Group B's scores are spread widely.
+\end{example}
+
+\begin{exercises}
+  \item Find the range of each data set.
+    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+      \item $14,\; 22,\; 9,\; 31,\; 18,\; 27$
+      \item $-5,\; 0,\; 3,\; -2,\; 8,\; -7,\; 1$
+      \item $0.4,\; 1.1,\; 0.7,\; 1.8,\; 0.3$
+    \end{enumerate}
+
+  \item Two delivery drivers recorded the following number
+    of deliveries per day over five days.
+    \begin{center}
+    \renewcommand{\arraystretch}{1.4}
+    \begin{tabular}{lrrrrr}
+    \toprule
+    & Day 1 & Day 2 & Day 3 & Day 4 & Day 5 \\
+    \midrule
+    Driver A & 12 & 14 & 11 & 13 & 15 \\
+    Driver B & 8  & 18 & 10 & 16 & 13 \\
+    \bottomrule
+    \end{tabular}
+    \end{center}
+    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+      \item Compute the mean and range for each driver.
+      \item Which driver is more consistent?
+        Justify your answer using the range.
+    \end{enumerate}
+
+  \item A data set has a range of $40$ and a minimum value
+    of $15$. What is the maximum value?
+\end{exercises}
+
+%--------------------------------------------------------------------
+\section{Measures of Spread: Sample Standard Deviation}
+%--------------------------------------------------------------------
+
+The range measures spread using only the two most extreme
+values.
+The \textbf{sample standard deviation} uses every value in the
