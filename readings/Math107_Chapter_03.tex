@@ -1,0 +1,90 @@
+\documentclass[12pt]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\pgfplotsset{compat=1.18}
+\geometry{margin=1.1in, top=1.2in, bottom=1.2in}
+
+\definecolor{mathblue}{RGB}{30,90,160}
+\definecolor{mathgreen}{RGB}{30,140,80}
+\definecolor{mathred}{RGB}{180,40,40}
+\definecolor{lightgray}{RGB}{240,240,240}
+
+\titleformat{\chapter}[display]
+  {\normalfont\large\bfseries}
+  {\chaptertitlename\ \thechapter}{12pt}{\LARGE}
+\titleformat{\section}
+  {\normalfont\large\bfseries}{{\thesection}}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries}{{\thesubsection}}{1em}{}
+
+\setcounter{chapter}{2}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\small\textit{Chapter \thechapter.\ Basic Statistics}}
+\fancyhead[RO]{\small\textit{Observing with Mathematical Perspectives}}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcounter{exercise}[section]
+\renewcommand{\theexercise}{\thesection.\arabic{exercise}}
+\newenvironment{exercises}{%
+  \begin{mdframed}[backgroundcolor=lightgray, linewidth=0pt,
+    innertopmargin=10pt, innerbottommargin=10pt]
+  \noindent\textbf{Exercises \thesection}
+  \begin{list}{\theexercise.}
+    {\usecounter{exercise}
+     \setlength{\leftmargin}{2em}
+     \setlength{\itemsep}{6pt}}
+}{%
+  \end{list}
+  \end{mdframed}
+}
+
+\newcounter{example}[section]
+\renewcommand{\theexample}{\thesection.\arabic{example}}
+\newenvironment{example}[1][]{%
+  \refstepcounter{example}
+  \medskip
+  \noindent\textbf{Example \theexample.}%
+  \ifx&#1&\else\ \textit{(#1)}\fi\quad
+}{%
+  \medskip
+}
+
+\newenvironment{definition}[1]{%
+  \begin{mdframed}[linecolor=mathblue, linewidth=1pt,
+    innertopmargin=8pt, innerbottommargin=8pt]
+  \noindent\textbf{Definition.} \textit{#1.}\quad
+}{%
+  \end{mdframed}\medskip
+}
+
+\begin{document}
+
+%====================================================================
+\chapter{Basic Statistics}
+%====================================================================
+
+A data set is a collection of numerical observations.
+Before drawing conclusions from data, an observer needs
+concise descriptions of two properties: where the values tend
+to sit, and how much they vary around that location.
+
+\input{chapter3/part1.tex}
+\input{chapter3/part2.tex}
+\input{chapter3/part3.tex}
+
+\end{document}
