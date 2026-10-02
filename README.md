@@ -10,7 +10,7 @@ All ten weeks now have full exercise-based lab/application passes.
 - Week 2: counts, samples, probability, and distributions
 - Week 3: center, spread, consistency, and outliers
 - Week 4: normal distributions, z-scores, sampling, and confidence intervals
-- Week 5: decimal/binary representation, approximation, compression, parity, and information
+- Week 5: cybernetic systems, feedback loops, information, stability, delay, and learning
 - Week 6: simple and compound interest, Rule of 72, and loan repayment
 - Week 7: cost, revenue, profit, break-even, marginal analysis, and graph reading
 - Week 8: convex sets, half-planes, feasible regions, vertices, and the corner-point principle
@@ -23,9 +23,9 @@ Student-facing interactive work saves locally in the browser where appropriate. 
 
 The course pages are written to be self-contained for students. Each lab and application introduces the meaning and units of the quantities before asking for a calculation, gives the small set of formulas or notation needed on that page, and uses specific interpretation questions rather than broad reflection prompts. Interactive demos include a short use guide so students know what to vary and what mathematical relationship to watch. The printable summaries, prequizzes, and matching quizzes use the same notation, contexts, and computational emphasis as the online labs and mastery quizzes.
 
-## Module printables
+## Module 5 materials
 
-The Modules view links a separate PDF packet for each module. Each packet contains the summary, prequiz, and matching quiz. Matching instructor keys are stored in `materials/instructor_keys/`. The included GitHub Action recompiles all module PDFs when their LaTeX sources change.
+The Week 5 module links the revised cybernetics chapter, an interactive feedback explorer, a student-facing laboratory, a greenhouse application, an AI learning application, and a discussion about how measurements change behavior. Its printable PDF includes the key ideas, worked feedback calculations, and five practice problems. The chapter and printable PDFs are built from their LaTeX sources by the Chapter 5 GitHub Action.
 ## Printing completed HTML labs
 
 All ten HTML labs can now be submitted directly on paper without first creating a PDF. At the bottom of each lab, students can enter their name and choose **Print Completed Lab**. Before the browser print dialog opens, the page converts typed inputs and selected dropdown choices into static print-only answer text, so completed responses do not depend on how a particular browser renders form controls. Students may select a physical printer or choose **Save as PDF** from the same print dialog. The student name is remembered locally on that browser for the next lab.
