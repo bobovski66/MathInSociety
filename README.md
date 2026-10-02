@@ -11,7 +11,7 @@ All ten weeks now have full exercise-based lab/application passes.
 - Week 3: center, spread, consistency, and outliers
 - Week 4: normal distributions, z-scores, sampling, and confidence intervals
 - Week 5: cybernetic systems, feedback loops, information, stability, delay, and learning
-- Week 6: simple and compound interest, Rule of 72, and loan repayment
+- Week 6: additive and multiplicative growth, interest as an amplifying update, and loan payments as a recurring subtraction from a changing balance
 - Week 7: cost, revenue, profit, break-even, marginal analysis, and graph reading
 - Week 8: convex sets, half-planes, feasible regions, vertices, and the corner-point principle
 - Week 9: linear-program setup, maximization, minimization, objective sensitivity, and multiple optima
