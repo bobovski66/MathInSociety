@@ -1,0 +1,281 @@
+\documentclass[12pt]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\geometry{margin=1.1in,top=1.2in,bottom=1.2in}
+\definecolor{mathblue}{RGB}{30,90,160}
+\definecolor{mathgreen}{RGB}{30,140,80}
+\definecolor{mathred}{RGB}{180,40,40}
+\definecolor{lightgray}{RGB}{240,240,240}
+\titleformat{\chapter}[display]{\normalfont\large\bfseries}{\chaptertitlename\ \thechapter}{12pt}{\LARGE}
+\titleformat{\section}{\normalfont\large\bfseries}{{\thesection}}{1em}{}
+\setcounter{chapter}{4}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[LE]{\small\textit{Chapter \thechapter.\ Cybernetic Systems}}
+\fancyhead[RO]{\small\textit{Observing with Mathematical Perspectives}}
+\fancyfoot[C]{\small\thepage}\renewcommand{\headrulewidth}{0.4pt}
+\newcounter{exercise}[section]\renewcommand{\theexercise}{\thesection.\arabic{exercise}}
+\newenvironment{exercises}{\begin{mdframed}[backgroundcolor=lightgray,linewidth=0pt,innertopmargin=10pt,innerbottommargin=10pt]\noindent\textbf{Exercises \thesection}\begin{list}{\theexercise.}{\usecounter{exercise}\setlength{\leftmargin}{2em}\setlength{\itemsep}{6pt}}}{\end{list}\end{mdframed}}
+\newcounter{example}[section]\renewcommand{\theexample}{\thesection.\arabic{example}}
+\newenvironment{example}[1][]{\refstepcounter{example}\medskip\noindent\textbf{Example \theexample.}\ifx&#1&\else\ \textit{(#1)}\fi\quad}{\medskip}
+\newenvironment{definition}[1]{\begin{mdframed}[linecolor=mathblue,linewidth=1pt,innertopmargin=8pt,innerbottommargin=8pt]\noindent\textbf{Definition.} \textit{#1.}\quad}{\end{mdframed}\medskip}
+\begin{document}
+\chapter{Cybernetic Systems: Feedback, Information, and Control}
+A thermostat, a driver keeping a car near a chosen speed, a person learning from mistakes, and a recommendation system responding to clicks look very different. Yet each can be understood through the same simple idea: information about what just happened is used to influence what happens next.
+
+This chapter develops a mathematical language for that idea. The arithmetic is intentionally modest. The goal is not to turn every reader into an engineer. The goal is to make feedback visible.
+
+\section{From a Changing Quantity to a Feedback Loop}
+A changing quantity can be recorded as a sequence
+\[x_0,x_1,x_2,\ldots\]
+where the subscript marks the step in time. This notation already appeared in recursion. Cybernetics asks an additional question: \emph{does information about the current state affect the next step?}
+
+\begin{definition}{Cybernetic system}
+A \textbf{cybernetic system} uses information about its present or recent condition to guide later action.
+\end{definition}
+
+A simple feedback loop can be pictured as
+\[
+\boxed{\text{state}}\longrightarrow\boxed{\text{measurement}}\longrightarrow\boxed{\text{comparison}}\longrightarrow\boxed{\text{action}}\longrightarrow\boxed{\text{new state}}.
+\]
+The new state is measured again, so the path closes into a loop.
+
+\begin{example}[A thermostat]
+A room is at $64^\circ$F and the thermostat is set to $70^\circ$F. The thermostat measures the room, compares the measurement with $70$, and calls for heat. The warmer room is then measured again. The action changes the condition that supplies the next measurement.
+\end{example}
+
+\begin{example}[Driving]
+A driver wants to stay near $60$ mph. The speedometer reports $55$ mph, so the driver presses the accelerator. A moment later the speedometer reports a new speed. The driver does not need to predict every future speed in advance; repeated measurement allows repeated correction.
+\end{example}
+
+\begin{exercises}
+\item For each situation, identify the state being observed and one action that can change it: room temperature, water level in a tank, amount of inventory in a store, and a student's quiz score.
+\item Explain why a kitchen timer that simply counts down is not, by itself, a feedback controller.
+\item Draw the five-box loop above for a driver trying to maintain a chosen speed.
+\end{exercises}
+
+\section{Goals, Measurements, and Error}
+Many feedback systems compare what is happening with what is wanted. Let
+\[r=\text{desired value},\qquad x_n=\text{observed value at step }n.\]
+The difference
+\[e_n=r-x_n\]
+is called the \textbf{error}. Here, ``error'' does not mean a mistake. It means a difference between a reference value and an observation.
+
+\begin{example}[Reading an error signal]
+If a thermostat is set to $70$ and measures $64$, then
+\[e=70-64=6.\]
+The positive error says the room is $6^\circ$ below the target. If the room is $73$, then
+\[e=70-73=-3,\]
+so the sign tells us that the room is above the target.
+\end{example}
+
+A very simple correction rule is
+\[x_{n+1}=x_n+k e_n,\]
+where $k$ is the \textbf{response strength}. Substituting $e_n=r-x_n$ gives
+\[x_{n+1}=x_n+k(r-x_n).\]
+The rule says: measure the difference from the target, take some fraction or multiple of that difference, and use it as the next correction.
+
+\begin{example}[Half the remaining error]
+Suppose $r=70$, $x_0=64$, and $k=0.5$.
+\[
+\begin{array}{c|c|c|c}
+n&x_n&e_n=70-x_n&\text{correction }0.5e_n\\\hline
+0&64&6&3\\
+1&67&3&1.5\\
+2&68.5&1.5&0.75\\
+3&69.25&0.75&0.375
+\end{array}
+\]
+Each correction removes half of the remaining difference. The values approach $70$.
+\end{example}
+
+\begin{exercises}
+\item A water tank has target level $100$ cm and current level $84$ cm. Find the error.
+\item Using $r=100$, $x_0=84$, and $k=0.25$, compute $x_1$ and $x_2$.
+\item A driver wants $55$ mph and observes $61$ mph. Find the error and explain the meaning of its sign.
+\end{exercises}
+
+\section{Negative Feedback and Stability}
+\begin{definition}{Negative feedback}
+\textbf{Negative feedback} acts against a departure from a reference value. When the state is too low it tends to push upward; when the state is too high it tends to push downward.
+\end{definition}
+The word \emph{negative} does not mean harmful. It describes the direction of the feedback: the response tends to reduce the deviation.
+
+For the correction rule
+\[x_{n+1}=x_n+k(r-x_n),\]
+the response strength $k$ changes the behavior dramatically.
+
+\begin{center}\begin{tabular}{cl}\toprule
+Response strength & Typical behavior in this simple model\\\midrule
+$0<k<1$ & approaches the target without crossing it\\
+$k=1$ & reaches the target in one step\\
+$1<k<2$ & overshoots, then oscillates toward the target\\
+$k=2$ & repeats equal-size overshoots\\
+$k>2$ & overshoots grow in size\\\bottomrule
+\end{tabular}\end{center}
+
+\begin{example}[Overshoot]
+Let $r=70$, $x_0=64$, and $k=1.5$.
+\[x_1=64+1.5(6)=73.\]
+Now the error is $70-73=-3$, so
+\[x_2=73+1.5(-3)=68.5.\]
+The system crosses the target, but the overshoot becomes smaller. This is a damped oscillation.
+\end{example}
+
+A useful word is \textbf{stability}. A stable feedback process stays near, or returns toward, a desired operating condition after a disturbance. An unstable process moves farther away or develops growing oscillations.
+
+\begin{exercises}
+\item Starting from $x_0=0$ with target $r=10$, compute three updates for $k=0.5$.
+\item Repeat with $k=1.5$. What new behavior appears?
+\item Without calculating many steps, predict what will happen for $k=2.5$ and explain why the prediction is reasonable.
+\item Give one everyday example in which too strong a correction can produce overshoot.
+\end{exercises}
+
+\section{Positive Feedback: When Change Amplifies Change}
+\begin{definition}{Positive feedback}
+\textbf{Positive feedback} reinforces a departure instead of correcting it. A change produces conditions that encourage more change in the same direction.
+\end{definition}
+Again, \emph{positive} does not mean good. A useful positive-feedback process may build momentum; a harmful one may run away.
+
+A simple amplification rule is
+\[x_{n+1}=(1+g)x_n,\]
+where $g>0$ is the fractional increase per step.
+
+\begin{example}[Repeated amplification]
+Suppose a message reaches $100$ people and each round increases exposure by $20\%$:
+\[x_{n+1}=1.2x_n.\]
+Then
+\[100,\ 120,\ 144,\ 172.8,\ldots\]
+The larger the exposure becomes, the larger the next increase becomes.
+\end{example}
+
+Examples of positive feedback can include microphone squeal, applause that encourages more applause, speculative buying that raises attention and attracts more buyers, and online content whose increased visibility generates more engagement and therefore still more visibility.
+
+\begin{exercises}
+\item Starting from $50$, apply a $10\%$ amplification for four steps.
+\item Explain why compound interest is naturally connected to positive feedback.
+\item Classify each as mainly corrective or amplifying: cruise control, a thermostat, microphone squeal, and a rumor that spreads faster as more people repeat it.
+\end{exercises}
+
+\section{A System Acts on Information, Not on the World Directly}
+A controller usually does not have direct access to the quantity it cares about. It receives a \textbf{measurement} or a \textbf{signal}.
+\[\boxed{\text{world}}\longrightarrow\boxed{\text{sensor}}\longrightarrow\boxed{\text{signal}}.\]
+The signal may be rounded, delayed, noisy, incomplete, or wrong. The quality of the feedback depends on the quality of the information entering the loop.
+
+\begin{example}[Limited precision]
+A cheap temperature sensor reports only whole degrees. A true temperature of $69.6^\circ$F may be reported as $70^\circ$F. If the target is $70$, the controller may see zero error even though a small difference remains.
+\end{example}
+
+Some signals are represented using only two states, often written $0$ and $1$: off/on, closed/open, no alarm/alarm. Larger measurements can also be encoded as strings of such symbols. The important cybernetic question is not the notation itself, but what information the representation preserves and how reliably it reaches the decision process.
+
+One simple error check is \textbf{even parity}: an extra bit is chosen so that the transmitted block contains an even number of $1$s. If one bit flips, the receiver sees an odd count and knows that something went wrong. Parity does not repair the message; it gives the feedback system a way to notice some transmission errors.
+
+Information can also be connected to surprise. An event with probability $p=1/32=2^{-5}$ carries $5$ bits of information in the measure
+\[I=-\log_2(p).\]
+For this course, the important interpretation is simple: rarer observations can change what we know more strongly than routine observations.
+
+\begin{exercises}
+\item A sensor rounds water level to the nearest $10$ cm. Explain one way this could affect a controller whose target is $100$ cm.
+\item A four-bit message is $1011$. Choose an even-parity bit.
+\item An alarm occurs with probability $1/8$. How many bits of information does the event carry using $I=-\log_2(p)$?
+\item Give an example in which a measurement is useful even though it is imperfect.
+\end{exercises}
+
+\section{Delay: Correcting the Past}
+Feedback can become difficult when the measurement arrives late. A driver who steers using an old view of the road will overcorrect. A store that orders inventory using last month's demand may alternate between shortages and excess stock.
+
+A one-step delay can be represented schematically by
+\[\text{action at step }n\ \text{uses a measurement from step }n-1.\]
+The arithmetic can still be elementary, but the behavior may change dramatically because the system is correcting a condition that has already changed.
+
+\begin{example}[Inventory with delayed information]
+A store wants $100$ units in stock. At the end of Monday it has $60$, but the ordering system still sees Sunday's report of $80$. If the rule orders half the reported shortage, it orders
+\[0.5(100-80)=10\]
+units rather than the $20$ units it would have ordered from the current measurement. Delay changes the action even though the arithmetic rule is unchanged.
+\end{example}
+
+\begin{exercises}
+\item In the inventory example, compute the order based on the current level $60$ and compare it with the delayed order.
+\item Explain why delayed feedback can create repeated overcorrection.
+\item Name one social or economic system in which decisions are commonly based on information that is already old by the time it arrives.
+\end{exercises}
+
+\section{Adaptation and Learning}
+A controller can do more than repeat the same response rule. It can change how it responds after seeing the results of earlier attempts. This is \textbf{adaptation}.
+
+Consider a system that makes a prediction, compares it with a target, and then changes an adjustable weight:
+\[
+\boxed{\text{prediction}}\longrightarrow\boxed{\text{error}}\longrightarrow\boxed{\text{weight change}}\longrightarrow\boxed{\text{new prediction}}.
+\]
+
+\begin{example}[A tiny learning loop]
+Suppose an adjustable weight is $w=1$ and the system's simple prediction is twice the weight. The target is $6$.
+\[\widehat y=2w=2,\qquad e=6-2=4.\]
+Use the toy update rule
+\[w_{\text{new}}=w+0.25e.\]
+Then $w_{\text{new}}=2$, so the next prediction is $4$. The new error is $2$, giving $w=2.5$ and prediction $5$. Repeated correction moves the prediction toward the target.
+\end{example}
+
+Modern neural networks contain very many adjustable weights. During training, a prediction is compared with a target and an overall error is measured. \textbf{Backpropagation} is the bookkeeping process that works backward through the network to determine how the error is connected to the adjustable weights. A training rule then changes those weights. The detailed calculation is beyond this course, but the cybernetic structure is not:
+\[
+\text{attempt}\to\text{measure error}\to\text{change}\to\text{attempt again}.
+\]
+A trained network making a prediction is one pass from input to output. Training closes a larger loop around that pass.
+
+\begin{exercises}
+\item Continue the tiny learning loop above for two more updates.
+\item Explain in words why training is a feedback process.
+\item What is the difference between making one prediction and learning from the error in that prediction?
+\end{exercises}
+
+\section{Cybernetics in Human Systems}
+Cybernetic thinking applies whenever observations influence later actions. The same pattern appears in biological regulation, education, traffic control, markets, organizations, ecosystems, medicine, recommendation systems, and public administration.
+
+The mathematics gives us a powerful set of questions:
+\begin{itemize}
+\item What quantity is being observed?
+\item Who or what chooses the target?
+\item How is the difference between current and desired conditions measured?
+\item What action follows from that measurement?
+\item How strongly does the system respond?
+\item Is the feedback corrective or amplifying?
+\item Is the information noisy, delayed, or incomplete?
+\item Does the action change the environment that will generate the next measurement?
+\end{itemize}
+
+The last question is especially important in human systems. A recommendation system observes what people click, changes what they see, and then measures the clicks produced by the changed environment. A school measures performance, changes instruction, and then measures new performance. The observer and the observed system can become part of the same loop.
+
+\begin{example}[A school feedback loop]
+A class completes a short assessment. The instructor sees that many students missed the same idea, changes the next lesson, and then observes a new set of student responses. The assessment is not only a record; it becomes information used to alter the future state of the class.
+\end{example}
+
+Cybernetic analysis does not automatically tell us what a target \emph{should} be. Mathematics can reveal how a feedback loop behaves, but human judgment is still required when goals, measurements, and consequences affect people.
+
+\begin{exercises}
+\item Choose one of these systems---education, traffic, social media, public health, or a workplace---and identify state, measurement, target, action, and feedback.
+\item Give one example in which optimizing a measured quantity might accidentally encourage undesirable behavior.
+\item Explain why ``positive feedback'' and ``negative feedback'' should not be interpreted as ``good'' and ``bad.''
+\end{exercises}
+
+\section*{Chapter 5 Review}
+\addcontentsline{toc}{section}{Chapter 5 Review}
+\begin{enumerate}[label=\arabic*.,leftmargin=2em,itemsep=8pt]
+\item A greenhouse has target temperature $72^\circ$F and current temperature $66^\circ$F. Find the error. With response strength $k=0.5$, compute the next two temperatures using $x_{n+1}=x_n+k(72-x_n)$.
+\item Starting from $x_0=10$, apply the amplification rule $x_{n+1}=1.25x_n$ for four steps. Is this corrective or amplifying feedback?
+\item A controller has target $50$, current value $40$, and $k=1.5$. Compute the next two states and describe the overshoot.
+\item A sensor reports only multiples of $5$. Describe one consequence for a controller trying to hold a quantity exactly at $42$.
+\item Explain how delayed information can produce oscillation even when each individual correction seems reasonable.
+\item Draw a feedback loop for a student using quiz results to change study behavior.
+\item In two or three sentences, explain why neural-network training can be understood as a cybernetic process.
+\item Choose one human institution and identify one target, one measurement, and one possible unintended feedback effect.
+\end{enumerate}
+\end{document}
