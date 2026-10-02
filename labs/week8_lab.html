@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Week 8 Laboratory — Convex Geometry</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Week 8 Laboratory — Optimization Under Constraints</title><style>
 :root{--bg:#efefe4;--card:#fffdf3;--ink:#292d20;--muted:#6d705f;--line:#d9d5bd;--olive:#4d5430;--olive2:#697048;--gold:#b18a22;--goldsoft:#f1e6b2;--good:#657347;--bad:#965348;--shadow:0 12px 30px rgba(58,61,38,.10)}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}a{color:var(--olive)}
 header{background:linear-gradient(135deg,var(--olive),#62693b);color:#fff;padding:24px 28px}header a{color:#f4eab9;text-decoration:none;font-weight:750}header h1{margin:10px 0 4px;font-size:clamp(1.8rem,4vw,2.7rem)}header p{margin:0;color:#e8e7d6;max-width:88ch}
@@ -49,11 +49,11 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
     <span id="submissionStatus" class="student-topbar-status"></span>
   </div>
 </div>
-<header><a href="../index.html">← MATH&amp; 107 course</a><h1>Week 8 Laboratory — Convex Geometry</h1><p>Classify convex sets, graph linear inequalities, test feasible points, find vertices, and evaluate linear expressions at corner points.</p></header><main>
+<header><a href="../index.html">← MATH&amp; 107 course</a><h1>Week 8 Laboratory — Optimization Under Constraints</h1><p>Describe possible choices with constraints, identify feasible vertices, and compare objective values to decide what is best.</p></header><main>
 <section class="panel student-guide"><h2>Before you begin</h2><ol><li>Replace each inequality by its boundary equation before deciding which side is feasible.</li><li>Test a point in every constraint; feasible means satisfying all constraints at the same time.</li><li>Find every vertex before evaluating an objective expression at the corners.</li></ol></section>
 <section class="panel student-notation"><h2>Key notation</h2><p>A linear inequality defines a half-plane. The feasible region is the intersection of all required half-planes. A convex set contains the entire line segment joining any two of its points.</p></section>
 
-<section class="panel"><div class="progressbox"><div><div class="kicker">Week 8 skills</div><h2>The shape of possibility</h2></div><div class="progressbar"><div id="progressFill"></div></div><div class="pill"><span id="progressText">0 / 5</span> sections checked</div></div>
+<section class="panel"><div class="progressbox"><div><div class="kicker">Week 8 skills</div><h2>From possible choices to best choice</h2></div><div class="progressbar"><div id="progressFill"></div></div><div class="pill"><span id="progressText">0 / 5</span> sections checked</div></div>
 <div class="callout"><strong>Key ideas</strong><div class="formula">Boundary line: ax + by = c<br>Feasible region = points satisfying every inequality<br>Vertices = corner points where active boundaries meet</div><p class="small">For ≤ or ≥, the boundary line is included. To test a point, substitute its coordinates into every constraint.</p></div></section>
 
 <section class="panel"><div class="kicker">Part 1 · Convex sets</div><h2>Which shapes are convex?</h2><p>A set is convex when the entire line segment joining any two points in the set stays inside the set.</p>
@@ -92,10 +92,11 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
 <div class="grid"><div><label>Maximum value of g</label><input id="p5k" type="number"></div><div><label>Vertex where g is largest</label><select id="p5l"><option value="">choose…</option><option>(6,0)</option><option>(4,3)</option><option value="right">(0,5)</option><option>(0,0)</option></select></div></div>
 <button style="margin-top:14px" onclick="check5()">Check Part 5</button><div id="fb5" class="feedback"></div></section>
 
+<section class="panel"><h2>Continue: compare objectives</h2><p>Use the <a href="week8_optimization_lab.html">Week 8 optimization extension</a> to build decision-variable models, compare maximum and minimum objectives, and study ties along an optimal edge.</p></section>
 <section class="panel"><div class="progressbox"><div><strong>Your work autosaves in this browser.</strong><div class="small" id="saveStatus">Ready.</div></div></div></section>
 
 </main><script>
-const $=id=>document.getElementById(id), key='math107_week8_lab_v2', done=[false,false,false,false,false];
+const $=id=>document.getElementById(id), key='math107_week8_lab_v3', done=[false,false,false,false,false];
 const ids=[...document.querySelectorAll('input,select')].map(x=>x.id).filter(Boolean);
 function all(a){return a.every(Boolean)} function eq(id,v,t=.01){const raw=$(id).value.trim();if(raw==='')return false;const x=Number(raw);return Number.isFinite(x)&&Math.abs(x-v)<=t}
 function result(n,ok,msg){done[n-1]=ok;let e=$('fb'+n);e.textContent=ok?'Correct — Part '+n+' complete.':msg;e.className='feedback '+(ok?'good':'bad');update();save()}
