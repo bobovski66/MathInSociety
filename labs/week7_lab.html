@@ -51,10 +51,10 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
 </div>
 <header><a href="../index.html">← MATH&amp; 107 course</a><h1>Week 7 Laboratory — Cost, Revenue, and Profit</h1><p>Write linear business models, calculate break-even points, compare profit at different sales levels, and interpret marginal profit.</p></header><main>
 <section class="panel student-guide"><h2>Before you begin</h2><ol><li>Translate the story into fixed cost \(F\), variable cost \(v\), price \(p\), and quantity \(q\).</li><li>Write cost, revenue, and profit functions before substituting a production level.</li><li>Treat break-even as the boundary between loss and profit, then use marginal profit to describe one additional unit.</li></ol></section>
-<section class="panel student-notation"><h2>Key notation</h2><p>\(C(q)=F+vq\), \(R(q)=pq\), and \(\pi(q)=R(q)-C(q)=(p-v)q-F\). Break-even is \(q^*=F/(p-v)\) when \(p>v\). Marginal profit is \(p-v\).</p></section>
+<section class="panel student-notation"><h2>Key notation</h2><p>\(C(q)=F+vq\), \(R(q)=pq\), and \(P(q)=R(q)-C(q)=(p-v)q-F\). Break-even is \(q^*=F/(p-v)\) when \(p>v\). Marginal profit is \(p-v\).</p></section>
 
 <section class="panel"><div class="progressbox"><div><div class="kicker">Week 7 skills</div><h2>Tradeoffs and break-even thinking</h2></div><div class="progressbar"><div id="progressFill"></div></div><div class="pill"><span id="progressText">0 / 5</span> sections checked</div></div>
-<div class="callout"><strong>Models used this week</strong><div class="formula">Cost: C(q) = F + vq &nbsp;&nbsp; Revenue: R(q) = pq<br>Profit: π(q) = R(q) − C(q) = (p − v)q − F &nbsp;&nbsp; Break-even: q* = F/(p − v)</div><p class="small">F = fixed cost, v = variable cost per unit, p = selling price per unit, q = number of units.</p></div></section>
+<div class="callout"><strong>Models used this week</strong><div class="formula">Cost: C(q) = F + vq &nbsp;&nbsp; Revenue: R(q) = pq<br>Profit: P(q) = R(q) − C(q) = (p − v)q − F &nbsp;&nbsp; Break-even: q* = F/(p − v)</div><p class="small">F = fixed cost, v = variable cost per unit, p = selling price per unit, q = number of units. The break-even formula applies when p &gt; v. If F &gt; 0 and p &le; v, no nonnegative quantity breaks even.</p></div></section>
 
 <section class="panel"><div class="kicker">Part 1 · Cost and revenue</div><h2>Read the model</h2>
 <p>A small print shop pays <strong>$300</strong> in fixed weekly costs and <strong>$7</strong> for each poster it prints. Each poster sells for <strong>$15</strong>.</p>
@@ -66,12 +66,12 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
 <section class="panel"><div class="kicker">Part 2 · Build the full model</div><h2>Craft-fair greeting cards</h2>
 <p>A student pays a <strong>$48 table fee</strong> at a craft fair. Each greeting card costs <strong>$1.50</strong> to make and sells for <strong>$6</strong>.</p>
 <div class="grid3"><div><label>Cost slope v</label><input id="p2a" type="number" step="0.01"></div><div><label>Revenue slope p</label><input id="p2b" type="number" step="0.01"></div><div><label>Profit slope p − v</label><input id="p2c" type="number" step="0.01"></div></div>
-<div class="task"><h3>Profit model π(q) = mq + b</h3><div class="grid"><div><label>m</label><input id="p2d" type="number" step="0.01"></div><div><label>b</label><input id="p2e" type="number" step="0.01"></div></div></div>
+<div class="task"><h3>Profit model P(q) = mq + b</h3><div class="grid"><div><label>m</label><input id="p2d" type="number" step="0.01"></div><div><label>b</label><input id="p2e" type="number" step="0.01"></div></div></div>
 <div class="grid"><div><label>Exact break-even q*</label><input id="p2f" type="number" step="0.001"></div><div><label>Minimum whole number of cards needed for nonnegative profit</label><input id="p2g" type="number"></div></div>
 <button style="margin-top:14px" onclick="check2()">Check Part 2</button><div id="fb2" class="feedback"></div></section>
 
-<section class="panel"><div class="kicker">Part 3 · Profit table</div><h2>Before and after break-even</h2><p>Continue using <span class="formula" style="display:inline-block;padding:4px 8px">π(q)=4.5q−48</span>.</p>
-<table><thead><tr><th>Cards q</th><th>0</th><th>8</th><th>10</th><th>12</th><th>16</th><th>20</th></tr></thead><tbody><tr><td>Profit π(q)</td>
+<section class="panel"><div class="kicker">Part 3 · Profit table</div><h2>Before and after break-even</h2><p>Continue using <span class="formula" style="display:inline-block;padding:4px 8px">P(q)=4.5q−48</span>.</p>
+<table><thead><tr><th>Cards q</th><th>0</th><th>8</th><th>10</th><th>12</th><th>16</th><th>20</th></tr></thead><tbody><tr><td>Profit P(q)</td>
 <td><input id="p3a" type="number"></td><td><input id="p3b" type="number"></td><td><input id="p3c" type="number"></td><td><input id="p3d" type="number"></td><td><input id="p3e" type="number"></td><td><input id="p3f" type="number"></td></tr></tbody></table>
 <div class="grid"><div><label>At q=10, the business has a:</label><select id="p3g"><option value="">choose…</option><option value="loss">loss</option><option value="profit">profit</option><option value="even">break-even exactly</option></select></div><div><label>At q=12, the business has a:</label><select id="p3h"><option value="">choose…</option><option value="loss">loss</option><option value="profit">profit</option><option value="even">break-even exactly</option></select></div></div>
 <button style="margin-top:14px" onclick="check3()">Check Part 3</button><div id="fb3" class="feedback"></div></section>
@@ -100,10 +100,10 @@ function all(vals){return vals.every(Boolean)}
 function result(n,ok,msg){done[n-1]=ok;const el=$('fb'+n);el.textContent=ok?'Correct — Part '+n+' complete.':msg;el.className='feedback '+(ok?'good':'bad');update();save()}
 function update(){let n=done.filter(Boolean).length;$('progressText').textContent=n+' / 5';$('progressFill').style.width=(20*n)+'%'}
 function check1(){result(1,all([+$('p1a').value===300,+$('p1b').value===7,+$('p1c').value===15,+$('p1d').value===580,+$('p1e').value===600,$('p1f').value==='right']),'Check F, v, p and evaluate C(40), R(40).')}
-function check2(){result(2,all([close($('p2a').value,1.5),close($('p2b').value,6),close($('p2c').value,4.5),close($('p2d').value,4.5),close($('p2e').value,-48),close($('p2f').value,48/4.5,.002),+$('p2g').value===11]),'Use π(q)=(6−1.5)q−48 and solve π(q)=0.')}
-function check3(){let vals=[-48,-12,-3,6,24,42];let ok=vals.every((v,i)=>close($('p3'+String.fromCharCode(97+i)).value,v))&&$('p3g').value==='loss'&&$('p3h').value==='profit';result(3,ok,'Evaluate π(q)=4.5q−48 at each q, then use the sign of profit.')}
-function check4(){result(4,all([+$('p4a').value===7,+$('p4b').value===15,+$('p4c').value===8,+$('p4d').value===60,+$('p4e').value===40,+$('p4f').value===200,+$('p4g').value===600,+$('p4h').value===150]),'Marginal profit = marginal revenue − marginal cost. For the two businesses, π=mq−600.')}
-function check5(){result(5,all([+$('p5a').value===10,+$('p5b').value===-80,+$('p5c').value===80,$('p5d').value==='revenue']),'Set 200+5q=25q, then evaluate π(q)=20q−200.')}
+function check2(){result(2,all([close($('p2a').value,1.5),close($('p2b').value,6),close($('p2c').value,4.5),close($('p2d').value,4.5),close($('p2e').value,-48),close($('p2f').value,48/4.5,.002),+$('p2g').value===11]),'Use P(q)=(6−1.5)q−48 and solve P(q)=0.')}
+function check3(){let vals=[-48,-12,-3,6,24,42];let ok=vals.every((v,i)=>close($('p3'+String.fromCharCode(97+i)).value,v))&&$('p3g').value==='loss'&&$('p3h').value==='profit';result(3,ok,'Evaluate P(q)=4.5q−48 at each q, then use the sign of profit.')}
+function check4(){result(4,all([+$('p4a').value===7,+$('p4b').value===15,+$('p4c').value===8,+$('p4d').value===60,+$('p4e').value===40,+$('p4f').value===200,+$('p4g').value===600,+$('p4h').value===150]),'Marginal profit = marginal revenue − marginal cost. For the two businesses, P=mq−600.')}
+function check5(){result(5,all([+$('p5a').value===10,+$('p5b').value===-80,+$('p5c').value===80,$('p5d').value==='revenue']),'Set 200+5q=25q, then evaluate P(q)=20q−200.')}
 function save(){let obj={};ids.forEach(id=>obj[id]=$(id).value);obj.done=done;localStorage.setItem(key,JSON.stringify(obj));$('saveStatus').textContent='Saved locally.'}
 function load(){try{let obj=JSON.parse(localStorage.getItem(key)||'{}');ids.forEach(id=>{if(obj[id]!=null)$(id).value=obj[id]});if(Array.isArray(obj.done))obj.done.forEach((x,i)=>done[i]=!!x);update()}catch(e){}}
 ids.forEach(id=>$(id).addEventListener('input',()=>{$('saveStatus').textContent='Saving…';save()}));

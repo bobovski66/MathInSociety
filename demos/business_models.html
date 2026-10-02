@@ -56,7 +56,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
     <div>
       <div class="kicker">At the selected quantity</div>
       <h2>Cost, revenue, and profit</h2>
-      <div class="readout"><span class="pill">C(q) = $<span id="cost"></span></span><span class="pill">R(q) = $<span id="rev"></span></span><span class="pill">π(q) = $<span id="profit"></span></span></div>
+      <div class="readout"><span class="pill">C(q) = $<span id="cost"></span></span><span class="pill">R(q) = $<span id="rev"></span></span><span class="pill">P(q) = $<span id="profit"></span></span></div>
       <p id="state" class="callout" style="margin:10px 0 0"></p>
     </div>
     <canvas id="chart"></canvas>
@@ -78,7 +78,7 @@ function draw(){let F=+$('F').value,v=+$('v').value,p=+$('p').value,q=+$('q').va
 $('fv').textContent='$'+money(F);$('vv').textContent='$'+money(v);$('pv').textContent='$'+money(p);$('qv').textContent=q;
 $('cost').textContent=money(C);$('rev').textContent=money(R);$('profit').textContent=(P<0?'−':'')+money(Math.abs(P));$('be').textContent=Number.isFinite(be)?be.toFixed(2):'none';$('mc').textContent=money(v);$('mr').textContent=money(p);$('mp').textContent=money(m);
 $('state').textContent=m<=0?'Price is not above variable cost. Selling more units cannot overcome the fixed cost in this model.':(P<0?'At q='+q+', cost is still above revenue: the business has a loss.':P>0?'At q='+q+', revenue is above cost: the business has a profit.':'At q='+q+', revenue equals cost exactly.');
-$('profitFormula').textContent='π(q) = ('+p.toFixed(2)+' − '+v.toFixed(2)+')q − '+F.toFixed(2)+' = '+m.toFixed(2)+'q − '+F.toFixed(2);
+$('profitFormula').textContent='P(q) = ('+p.toFixed(2)+' − '+v.toFixed(2)+')q − '+F.toFixed(2)+' = '+m.toFixed(2)+'q − '+F.toFixed(2);
 let body=$('recRows');body.innerHTML='';for(let qq=Math.max(0,q-2);qq<=q+2;qq++){let pr=m*qq-F,prev=m*(qq-1)-F;let tr=document.createElement('tr');tr.innerHTML='<td>'+qq+'</td><td>$'+(pr<0?'−':'')+money(Math.abs(pr))+'</td><td>'+(qq===Math.max(0,q-2)?'—':'$'+money(pr-prev))+'</td>';body.appendChild(tr)}
 drawChart(F,v,p,q,be);}
 function drawChart(F,v,p,q,be){let cv=$('chart'),g=prep(cv),ctx=g.ctx,W=g.W,H=g.H,pad=55,qmax=Math.max(100,q*1.25,Number.isFinite(be)?be*1.35:100),ymax=Math.max(F+v*qmax,p*qmax,100)*1.08,X=x=>pad+x/qmax*(W-2*pad),Y=y=>H-pad-y/ymax*(H-2*pad);
