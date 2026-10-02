@@ -21,7 +21,7 @@ Student-facing interactive work saves locally in the browser where appropriate. 
 
 ## Instructional design
 
-The course pages are written to be self-contained for students. Each lab and application introduces the meaning and units of the quantities before asking for a calculation, gives the small set of formulas or notation needed on that page, and uses specific interpretation questions rather than broad reflection prompts. Interactive demos include a short use guide so students know what to vary and what mathematical relationship to watch. The course site links to assigned course readings and activities. Student practice printables are distributed separately from the public repository.
+The course pages are written to be self-contained for students. Each lab and application introduces the meaning and units of the quantities before asking for a calculation, gives the small set of formulas or notation needed on that page, and uses specific interpretation questions rather than broad reflection prompts. Interactive demos include a short use guide so students know what to vary and what mathematical relationship to watch.
 
 ## Module 5 materials
 
