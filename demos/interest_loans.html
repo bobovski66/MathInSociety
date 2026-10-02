@@ -27,7 +27,7 @@ main{max-width:1220px}
 window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-</head><body><header><a href="../index.html">← MATH&amp; 107 course</a><h1>Interest & Loan Explorer</h1><p>Switch between savings growth and loan repayment. The same percentage-growth rule produces very different behavior depending on whether money is being accumulated or paid down.</p></header><main>
+</head><body><header><a href="../index.html">← MATH&amp; 107 course</a><h1>Interest & Loan Explorer</h1><p>Follow one balance through two kinds of change: repeated growth while saving, and growth followed by a scheduled payment while repaying a loan. Watch the balance act as the state that each period starts from.</p></header><main>
 <section class="panel" style="margin:0">
   <div class="tabs"><button id="tabSavings" class="active">Savings growth</button><button id="tabLoan">Loan repayment</button></div>
 
@@ -44,7 +44,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
       <div class="display-column">
         <div><h2>Growth comparison</h2><div class="readout"><span class="pill">simple: $<span id="simpleOut"></span></span><span class="pill">compound: $<span id="compoundOut"></span></span><span class="pill">difference: $<span id="diffOut"></span></span><span class="pill">Rule of 72: ≈ <span id="ruleOut"></span> years</span></div></div>
         <canvas id="sChart" width="1000" height="390"></canvas>
-        <p class="small">Simple interest adds P·r each year. Compound interest repeatedly multiplies the current balance.</p>
+        <p class="small">Simple interest adds the same amount each year: an additive update. Compound interest multiplies the current balance by a growth factor each period: an amplifying, exponential update. In a loan, the scheduled payment is subtracted after interest is added.</p>
       </div>
     </div>
   </div>
@@ -53,7 +53,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
     <div class="demo-workspace">
       <div class="control-column">
         <h2>Loan inputs</h2>
-        <p class="workspace-intro">Change the payment and watch both payoff time and total interest.</p>
+        <p class="workspace-intro">The balance is the changing state. Interest is calculated from the current balance first; the scheduled payment then reduces it. Change the payment to see how that recurring subtraction changes later balances and interest.</p>
         <div class="control"><label>Loan principal <span id="lpv" class="value"></span></label><input id="lP" type="range" min="1000" max="20000" step="250" value="6000"></div>
         <div class="control"><label>APR <span id="lrv" class="value"></span></label><input id="lr" type="range" min="1" max="30" step="0.5" value="7.5"></div>
         <div class="control"><label>Monthly payment <span id="lpayv" class="value"></span></label><input id="lpay" type="range" min="25" max="1000" step="5" value="200"></div>
