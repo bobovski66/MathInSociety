@@ -30,6 +30,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
           git add readings/Math107_Chapter_05.pdf readings/Math107_Chapter_05_Printables.pdf
           git diff --cached --quiet && exit 0
           git commit -m "Build revised Chapter 5 PDF"
