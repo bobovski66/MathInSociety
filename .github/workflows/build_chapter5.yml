@@ -4,7 +4,6 @@ on:
   push:
     paths:
       - 'readings/Math107_Chapter_05.tex'
-      - 'readings/Math107_Chapter_05_Printables.tex'
   workflow_dispatch:
 
 permissions:
@@ -19,13 +18,11 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y texlive-latex-extra texlive-fonts-recommended
-      - name: Compile Chapter 5 and student printables
+      - name: Compile Chapter 5
         working-directory: readings
         run: |
           pdflatex -interaction=nonstopmode -halt-on-error Math107_Chapter_05.tex
           pdflatex -interaction=nonstopmode -halt-on-error Math107_Chapter_05.tex
-          pdflatex -interaction=nonstopmode -halt-on-error Math107_Chapter_05_Printables.tex
-          pdflatex -interaction=nonstopmode -halt-on-error Math107_Chapter_05_Printables.tex
       - name: Commit PDFs
         run: |
           git config user.name "github-actions[bot]"
@@ -33,7 +30,7 @@ jobs:
           git stash push --include-untracked -m "compiled Chapter 5 PDFs"
           git pull --rebase origin main
           git stash pop
-          git add readings/Math107_Chapter_05.pdf readings/Math107_Chapter_05_Printables.pdf
+          git add readings/Math107_Chapter_05.pdf
           git diff --cached --quiet && exit 0
           git commit -m "Build revised Chapter 5 PDF"
           git push
