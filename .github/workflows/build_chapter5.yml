@@ -2,8 +2,6 @@ name: Build Chapter 5 PDF
 
 on:
   push:
-    paths:
-      - 'readings/Math107_Chapter_05.tex'
   workflow_dispatch:
 
 permissions:
