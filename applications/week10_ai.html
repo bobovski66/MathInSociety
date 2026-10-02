@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Module 10 AI Application — Autoregression, Branching, and Prediction</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Module 10 AI Application — Complexity and the Limits of Prediction</title>
 <style>
 :root{--bg:#efefe4;--card:#fffdf3;--ink:#292d20;--muted:#6d705f;--line:#d9d5bd;--olive:#4d5430;--gold:#b18a22;--good:#657347;--bad:#965348;--shadow:0 12px 30px rgba(58,61,38,.10)}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.65}header{background:linear-gradient(135deg,var(--olive),#62693b);color:#fff;padding:26px 28px}header a{color:#f5e8ac;text-decoration:none;font-weight:750}header h1{margin:10px 0 5px;font-size:clamp(1.8rem,4vw,2.65rem)}header p{margin:0;max-width:88ch;color:#eeeddf}
@@ -7,7 +7,7 @@ table{width:100%;border-collapse:collapse;margin:12px 0}th,td{padding:9px 10px;b
 @media print{header{background:#fff;color:#000;padding:0 0 12px}header a{display:none}header p{color:#444}.panel{box-shadow:none}button{display:none}body{background:#fff}}
 </style>
 <script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script></head><body>
-<header><a href="../index.html">← MATH&amp; 107 course</a><h1>Module 10: AI Application — Autoregression, Branching, and Prediction</h1><p>Recursion and probability come together in step-by-step text generation.</p></header><main>
+<header><a href="../index.html">← MATH&amp; 107 course</a><h1>Module 10: AI Application — Complexity and the Limits of Prediction</h1><p>Recursion and probability come together in step-by-step text generation.</p></header><main>
 <section class="panel question-panel"><div class="kicker">A question for this module</div><div class="lead-question">Why can one small early word change the entire rest of an AI-generated response?</div><p>By now you have most of the pieces. Text became tokens. Tokens led to next-token probabilities. Attention combined context. Information measured surprise. Now recursion tells us how one local prediction becomes a whole paragraph.</p></section>
 <section class="panel"><div class="kicker">Start with familiar mathematics</div><h2>The Module 10 idea</h2><div>In Module 10, a recursion such as
 \[
