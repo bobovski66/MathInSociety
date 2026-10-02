@@ -12,6 +12,52 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Reframe Module 5 on course page
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path('index.html')
+          text=p.read_text()
+          ws=text.index('const WEEKS = ')+len('const WEEKS = ')
+          we=text.index(';\nconst ASSESSMENTS',ws)
+          weeks=json.loads(text[ws:we])
+          weeks[4]={
+            'week':5,
+            'title':'Cybernetic Systems: Feedback, Information, and Control',
+            'summary':'Use feedback loops to understand how systems observe, compare, act, stabilize, amplify, and learn.',
+            'reading':[{'title':'Chapter 5 — Cybernetic Systems: Feedback, Information, and Control','url':'readings/Math107_Chapter_05.pdf','note':'Course textbook reading. Guiding thread: feedback, information, stability, and adaptation.'}],
+            'demos':[{'title':'Cybernetic Systems Explorer','url':'demos/cybernetics.html','note':'Change target, response strength, feedback type, and delay; watch correction, overshoot, oscillation, and amplification.'}],
+            'weekly_lab':{'title':'Week 5 Laboratory — Cybernetic Systems','url':'labs/week5_lab.html','note':'Interactive investigation: feedback loops, error signals, response strength, amplification, and learning from error.'},
+            'application':[{'title':'Application — Keeping a Community Greenhouse Stable','url':'applications/week5_application.html','note':'Use a simple feedback rule to compare gentle correction, overshoot, and delayed information.'},{'title':'AI Application — Learning as a Feedback Loop','url':'applications/week5_ai.html','note':'See how prediction, error, weight changes, and backpropagation fit into a larger corrective loop.'}],
+            'quiz':'week5',
+            'discussion':[{'title':'Module 5 Discussion — When Measurement Changes Behavior','url':'discussions/week5_discussion.html','note':'Analyze a school feedback loop and consider what happens when measurements are noisy or incomplete.'}]
+          }
+          text=text[:ws]+json.dumps(weeks,ensure_ascii=False,separators=(',',':'))+text[we:]
+          a=text.index('const ASSESSMENTS = ')+len('const ASSESSMENTS = ')
+          b=text.index(';\nconst STORAGE_KEY',a)
+          assessments=json.loads(text[a:b])
+          assessments['week5']={
+            'title':'Week 5 Mastery Quiz — Cybernetic Systems',
+            'subtitle':'Five questions on feedback, error signals, response strength, delay, and learning.',
+            'questions':[
+              {'id':'w5q1','type':'num','prompt':'A classroom is 64°F and the thermostat target is 70°F. Using error = target − observed, what is the error?','answer':6,'tolerance':0.01,'hint':'Subtract the observed temperature from the target.','success':'Correct.','placeholder':'Enter a number'},
+              {'id':'w5q2','type':'num','prompt':'A system has target 70, current state 64, and response strength k=0.5. Using next state = current state + k(target − current state), find the next state.','answer':67,'tolerance':0.01,'hint':'The error is 6, so the correction is half of 6.','success':'Correct.','placeholder':'Enter a number'},
+              {'id':'w5q3','type':'mc','prompt':'Which description best matches corrective feedback?','options':['It acts against a departure from a reference value.','It always makes a quantity grow by a percentage.','It ignores measurements and repeats the same action.','It requires every signal to be written in binary.'],'answer':'It acts against a departure from a reference value.','hint':'Corrective feedback tends to reduce a difference from a target.','success':'Correct.'},
+              {'id':'w5q4','type':'mc','prompt':'Why can delayed feedback produce overshoot?','options':['The system may act on a condition that has already changed.','Delay always makes the response strength zero.','The target disappears during the delay.','A delayed measurement is automatically random.'],'answer':'The system may act on a condition that has already changed.','hint':'Ask what happens when a correction is based on old information.','success':'Correct.'},
+              {'id':'w5q5','type':'mc','prompt':'Why can neural-network training be viewed as a feedback process?','options':['Error from one attempt is used to change adjustable weights before later attempts.','The network must repeat the same output forever.','Training removes all measurements from the system.','Every prediction is converted to a base-two integer.'],'answer':'Error from one attempt is used to change adjustable weights before later attempts.','hint':'Training closes a loop around prediction by using measured error.','success':'Correct.'}
+            ]
+          }
+          finalqs=assessments.get('final',{}).get('questions',[])
+          for q in finalqs:
+            if q.get('id')=='fq7':
+              q.update({'type':'num','prompt':'A feedback system has target 50 and observed state 42. What is the error target − observed?','answer':8,'tolerance':0.01,'hint':'Compute 50−42.','success':'Correct.','placeholder':'Enter a number'})
+              q.pop('options',None)
+            if q.get('id')=='fq8':
+              q.clear(); q.update({'id':'fq8','type':'mc','prompt':'Which situation is an example of amplifying feedback?','options':['More visibility produces more engagement, which produces still more visibility.','A thermostat heats less as a room reaches its target.','A driver brakes after noticing the car is above the chosen speed.','A tank controller reduces inflow when the level is too high.'],'answer':'More visibility produces more engagement, which produces still more visibility.','hint':'Amplifying feedback reinforces a change instead of opposing it.','success':'Correct.'})
+          text=text[:a]+json.dumps(assessments,ensure_ascii=False,separators=(',',':'))+text[b:]
+          p.write_text(text)
+          PY
       - name: Install LaTeX
         run: |
           sudo apt-get update
@@ -21,11 +67,11 @@ jobs:
         run: |
           pdflatex -interaction=nonstopmode -halt-on-error Math107_Chapter_05.tex
           pdflatex -interaction=nonstopmode -halt-on-error Math107_Chapter_05.tex
-      - name: Commit PDF
+      - name: Commit rebuilt Module 5 outputs
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add readings/Math107_Chapter_05.pdf
+          git add index.html readings/Math107_Chapter_05.pdf
           git diff --cached --quiet && exit 0
-          git commit -m "Build revised Chapter 5 PDF"
+          git commit -m "Rebuild Module 5 around cybernetic systems"
           git push
