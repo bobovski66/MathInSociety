@@ -1,0 +1,36 @@
+name: Build Chapter 6 PDF
+
+on:
+  push:
+    paths:
+      - 'readings/Math107_Chapter_06.tex'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-extra texlive-fonts-recommended
+      - name: Compile Chapter 6
+        working-directory: readings
+        run: |
+          pdflatex -interaction=nonstopmode -halt-on-error Math107_Chapter_06.tex
+          pdflatex -interaction=nonstopmode -halt-on-error Math107_Chapter_06.tex
+      - name: Commit PDFs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git stash push --include-untracked -m "compiled Chapter 6 PDFs"
+          git pull --rebase origin main
+          git stash pop
+          git add readings/Math107_Chapter_06.pdf
+          git diff --cached --quiet && exit 0
+          git commit -m "Build revised Chapter 6 PDF"
+          git push
