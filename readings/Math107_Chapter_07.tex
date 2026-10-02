@@ -34,7 +34,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[LE]{\small\textit{Chapter \thechapter.\
-  Continuous Math II: Cost, Revenue, and Profit}}
+  Optimization: Choosing What Best Means}}
 \fancyhead[RO]{\small\textit{Observing with Mathematical Perspectives}}
 \fancyfoot[C]{\small\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
@@ -76,21 +76,49 @@
 \begin{document}
 
 %====================================================================
-\chapter{Continuous Math II: Cost, Revenue, and Profit}
+\chapter{Optimization: Choosing What Best Means}
 %====================================================================
 
-This chapter develops three closely related ideas used in
-business mathematics: cost, revenue, and profit. Cost describes
-how much it takes to produce or operate. Revenue describes the
-money brought in from sales. Profit is the difference between
-the two.
+This chapter asks how mathematics can help compare possible
+choices. In optimization, a decision variable represents a
+choice, and an objective function assigns a numerical value to
+that choice. The objective might be something to maximize, such
+as profit or output, or something to minimize, such as travel
+time or energy use.
 
-We begin with linear models in which each additional unit
-changes cost or revenue by a constant amount. This leads
-naturally to profit functions, break-even analysis, and
-marginal analysis. These tools help answer practical questions
-such as how many units must be sold to avoid a loss and how
-profit changes as production increases.
+We use a business as our main example. The number of units
+produced and sold is the decision variable, and profit is the
+objective. Cost and revenue models let us build that objective;
+break-even and marginal analysis help interpret it. A good
+decision also depends on which choices are actually available
+and what the model assumes.
+
+%--------------------------------------------------------------------
+\section{From Decisions to Objectives}
+
+An \textbf{objective function} measures an outcome for each
+possible choice. To optimize means to choose an available option
+that makes the objective as large or as small as the goal requires.
+The choice is represented by a \textbf{decision variable}.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{lll}
+\toprule
+Setting & Decision variable & Objective \\
+\midrule
+Business & $q$, units produced and sold & Maximize profit $P(q)$ \\
+Trip planning & $r$, route selected & Minimize travel time $T(r)$ \\
+Energy use & $s$, system setting & Minimize energy $E(s)$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+In each case, the goal must be stated before the choices can be
+compared. The objective assigns a value; it does not decide which
+goal matters most. This chapter develops profit as a familiar,
+concrete objective. The same way of thinking applies when the
+objective is cost, time, output, or another measurable benefit.
 
 %--------------------------------------------------------------------
 \section{Cost Functions}
@@ -183,7 +211,7 @@ C(200) = 350 + 4(200) = 350 + 800 = \$1{,}150.
 
   \item A bakery has fixed costs of \$250 per week and
     a variable cost of \$1.50 per loaf.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), itemsep=2pt]
       \item Write the cost function.
       \item Fill in the cost table for
         $q = 0, 50, 100, 150, 200$.
@@ -195,14 +223,14 @@ C(200) = 350 + 4(200) = 350 + 800 = \$1{,}150.
   \item A company's total cost at $q = 100$ units is
     \$1{,}800 and at $q = 200$ units is \$2{,}600.
     Assume the cost function is linear.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), itemsep=2pt]
       \item Find the variable cost per unit.
       \item Find the fixed cost.
       \item Write the cost function $C(q)$.
     \end{enumerate}
 
   \item A cost function is $C(q) = 400 + 6q$.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), itemsep=2pt]
       \item Identify the fixed cost and variable cost per unit.
       \item Compute $C(0)$ and explain what it represents.
       \item At what quantity does the total cost first
@@ -271,14 +299,14 @@ R(q) = 3q.
 \begin{exercises}
   \item Write the revenue function $R(q)$ for each
     situation and compute revenue at the given quantity.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), itemsep=2pt]
       \item Price \$25 per unit, $q = 60$ units.
       \item Price \$4.50 per item, $q = 200$ items.
       \item Price \$85 per service, $q = 12$ services.
     \end{enumerate}
 
   \item A food truck earns \$560 selling 80 meals.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), itemsep=2pt]
       \item Find the price per meal.
       \item Write the revenue function.
       \item At what quantity does revenue reach \$1{,}400?
@@ -288,7 +316,7 @@ R(q) = 3q.
     Product A sells for \$12 per unit.
     Product B sells for \$20 per unit.
     In one week, 30 units of A and 15 units of B are sold.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), itemsep=2pt]
       \item Compute total revenue from each product.
       \item Compute total revenue from both products combined.
     \end{enumerate}
@@ -296,7 +324,7 @@ R(q) = 3q.
   \item A revenue function is $R(q) = 18q$.
     A cost function is $C(q) = 240 + 10q$.
     At $q = 40$:
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), itemsep=2pt]
       \item Compute $R(40)$ and $C(40)$.
       \item Is revenue greater or less than cost at
         this quantity?
@@ -358,6 +386,13 @@ Break-even: $q^* = 180 / 6 = 30$ candles.
 At 30 candles the maker covers all costs exactly.
 At fewer than 30, a loss results.
 At more than 30, a profit results.
+
+Suppose a venue allows the maker to choose only among
+$q=20$, $q=30$, and $q=40$ candles. Their profits are
+$-\$60$, $\$0$, and $\$60$, respectively. If the goal is to
+maximize profit among these available choices, $q=40$ is best.
+The break-even quantity marks where profit changes sign; it does
+not by itself identify the most profitable available choice.
 \end{example}
 
 \begin{example}
@@ -431,7 +466,7 @@ P(88) = 4(88) - 350 = 352 - 350 = \$2 \text{ profit.}
     fair.
     The table fee is \$48 and each card costs \$1.50 to make.
     Cards sell for \$6 each.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), itemsep=2pt]
       \item Write $C(q)$, $R(q)$, and $P(q)$.
       \item Find the break-even quantity.
       \item Complete the profit table for
@@ -440,7 +475,7 @@ P(88) = 4(88) - 350 = 352 - 350 = \$2 \text{ profit.}
     \end{enumerate}
 
   \item A company's profit function is $P(q) = 7q - 420$.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), itemsep=2pt]
       \item Find the break-even quantity.
       \item Identify the fixed cost and the profit per unit
         beyond break-even.
@@ -451,7 +486,7 @@ P(88) = 4(88) - 350 = 352 - 350 = \$2 \text{ profit.}
     \$5 profit on each unit sold beyond break-even.
     At $q = 120$ units the business earns a profit of
     \$100.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), itemsep=2pt]
       \item Find the break-even quantity.
       \item Find the price per unit and variable cost per
         unit, given that $p - v = \$5$.
@@ -573,7 +608,7 @@ it does not predict how many units will sell.
 \begin{exercises}
   \item Find the marginal cost, marginal revenue, and
     marginal profit for each situation.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), itemsep=2pt]
       \item $C(q) = 300 + 7q$, $R(q) = 15q$
       \item $C(q) = 800 + 20q$, $R(q) = 35q$
       \item $F = \$450$, $v = \$9$, $p = \$14$
@@ -581,7 +616,7 @@ it does not predict how many units will sell.
 
   \item A craft fair vendor has marginal profit of \$6
     per item and fixed costs of \$240.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), itemsep=2pt]
       \item Find the break-even quantity.
       \item How much profit is earned at 10 items beyond
         break-even?
@@ -591,7 +626,7 @@ it does not predict how many units will sell.
   \item Two businesses have the same fixed cost of \$600.
     Business A has marginal profit \$10 per unit.
     Business B has marginal profit \$15 per unit.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), itemsep=2pt]
       \item Find the break-even quantity for each.
       \item At $q = 80$ units, compute the profit for each.
       \item Which business benefits more from selling
@@ -731,7 +766,7 @@ q^* = \frac{400}{15 - 5} = \frac{400}{10} = 40 \text{ units.}
       \item The cost line passes through $(60, \$660)$.
       \item The revenue line passes through $(60, \$900)$.
     \end{itemize}
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), itemsep=2pt]
       \item Write $C(q)$ and $R(q)$.
       \item Find the break-even quantity.
       \item Find the profit at $q = 80$.
@@ -743,7 +778,7 @@ q^* = \frac{400}{15 - 5} = \frac{400}{10} = 40 \text{ units.}
     costs of \$8 per unit.
     Business B has fixed costs of \$400 and variable
     costs of \$12 per unit.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), itemsep=2pt]
       \item Write the profit function for each business.
       \item Find the break-even quantity for each.
       \item At $q = 60$, which business is more profitable?
@@ -838,7 +873,7 @@ The customer asking about price would prefer neither.
 
 \begin{exercises}
   \item A business has $C(q) = 420 + 6q$ and $R(q) = 14q$.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), itemsep=2pt]
       \item Find the break-even quantity and profit at
         $q = 80$.
       \item The owner raises the price to \$18.
@@ -858,7 +893,7 @@ The customer asking about price would prefer neither.
     Fixed costs are \$1{,}200.
     Variable costs are \$8 per attendee.
     Ticket price is \$20 per attendee.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), itemsep=2pt]
       \item Find the break-even attendance.
       \item The nonprofit wants to reduce the ticket price
         to \$15 to attract more attendees.
@@ -875,12 +910,12 @@ The customer asking about price would prefer neither.
 
 \addcontentsline{toc}{section}{Chapter 7 Review}
 
-\begin{enumerate}[label=\arabic*., leftmargin=2em, itemsep=8pt]
+\begin{enumerate}[label=\arabic*., leftmargin=2em, itemsep=3pt, topsep=2pt, parsep=0pt]
 
   \item A small printing company has monthly fixed costs
     of \$800 and a variable cost of \$3 per pamphlet.
     Pamphlets sell for \$8 each.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), itemsep=2pt]
       \item Write $C(q)$, $R(q)$, and $P(q)$.
       \item Find the break-even quantity.
       \item Complete the table for $q = 0, 80, 160, 200,
@@ -891,7 +926,7 @@ The customer asking about price would prefer neither.
   \item A mobile car wash has fixed costs of \$600 and
     charges \$25 per car.
     Supplies cost \$7 per car.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), itemsep=2pt]
       \item Write all three functions and find the
         break-even quantity.
       \item Find the marginal profit and explain what it
@@ -902,7 +937,7 @@ The customer asking about price would prefer neither.
 
   \item A cost function is $C(q) = 900 + 12q$ and a
     revenue function is $R(q) = 21q$.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), itemsep=2pt]
       \item Find the break-even quantity.
       \item Sketch the graph, labeling the vertical
         intercept, the break-even point, and the slopes
@@ -914,7 +949,7 @@ The customer asking about price would prefer neither.
     and has fixed monthly costs of \$320.
     The designer's time costs \$20 per hour (opportunity
     cost and materials).
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), itemsep=2pt]
       \item Write the profit function.
       \item Find the break-even number of hours.
       \item How many hours must be billed to earn
@@ -925,7 +960,7 @@ The customer asking about price would prefer neither.
     with variable cost \$7 and fixed cost \$540.
     A competitor enters the market, forcing the price
     down to \$13.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), itemsep=2pt]
       \item Find the original break-even quantity
         and profit at $q = 80$.
       \item Find the new break-even quantity and
@@ -937,7 +972,7 @@ The customer asking about price would prefer neither.
   \item Two bakeries both sell bread for \$7 per loaf.
     Bakery A: $F = \$400$, $v = \$2$.
     Bakery B: $F = \$200$, $v = \$4$.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), itemsep=2pt]
       \item Write the profit function for each.
       \item Find the break-even quantity for each.
       \item At what quantity do the two bakeries earn

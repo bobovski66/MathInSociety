@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Week 7 Application — A Pop-Up Food Stand</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Week 7 Application — Choosing a Food-Stand Plan</title><style>
 :root{--bg:#efefe4;--card:#fffdf3;--ink:#292d20;--muted:#6d705f;--line:#d9d5bd;--olive:#4d5430;--olive2:#697048;--gold:#b18a22;--goldsoft:#f1e6b2;--good:#657347;--bad:#965348;--shadow:0 12px 30px rgba(58,61,38,.10)}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}a{color:var(--olive)}
 header{background:linear-gradient(135deg,var(--olive),#62693b);color:#fff;padding:24px 28px}header a{color:#f4eab9;text-decoration:none;font-weight:750}header h1{margin:10px 0 4px;font-size:clamp(1.8rem,4vw,2.7rem)}header p{margin:0;color:#e8e7d6;max-width:88ch}
@@ -17,8 +17,8 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head><body>
-<header><a href="../index.html">← MATH&amp; 107 course</a><h1>Week 7 Application — A Pop-Up Food Stand</h1><p>Use cost, revenue, profit, and break-even models to decide how many meals a one-day food stand must sell.</p></header><main>
-<section class="panel student-guide"><h2>How to complete this application</h2><ol><li>Define fixed cost, variable cost, selling price, and quantity from the story.</li><li>Write \(C(q)\), \(R(q)\), and \(P(q)\) before calculating break-even.</li><li>Use marginal profit to compare what one additional sale contributes under each price.</li></ol></section>
+<header><a href="../index.html">← MATH&amp; 107 course</a><h1>Week 7 Application — Choosing a Food-Stand Plan</h1><p>Use a profit objective to compare food-stand choices, while keeping sales and pricing assumptions visible.</p></header><main>
+<section class="panel student-guide"><h2>How to complete this application</h2><ol><li>Define fixed cost, variable cost, selling price, and quantity from the story.</li><li>Write \(C(q)\), \(R(q)\), and \(P(q)\) before calculating break-even.</li><li>Treat quantity as a decision and profit as the objective. Compare plans only under the stated sales assumptions.</li><li>Use marginal profit to compare what one additional sale contributes under each price.</li></ol></section>
 <section class="panel student-notation"><h2>Math model</h2><p>\(C(q)=F+vq\), \(R(q)=pq\), and \(P(q)=(p-v)q-F\). When \(p&gt;v\), break-even is \(q^*=F/(p-v)\). If \(F&gt;0\) and \(p\le v\), no nonnegative quantity breaks even.</p></section>
 
 <section class="panel"><div class="kicker">Context</div><h2>The business model</h2>
@@ -43,7 +43,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
 <div class="grid"><div><label>Marginal profit per additional meal</label><input id="c5" type="number" step="0.01"></div><div><label>Profit gained by increasing sales from 55 to 65 meals</label><input id="c6" type="number" step="0.01"></div></div>
 <button style="margin-top:14px" onclick="check3()">Check Part 3</button><div id="fb3" class="feedback"></div></section>
 
-<section class="panel"><div class="kicker">Part 4</div><h2>A price change</h2>
+<section class="panel"><div class="kicker">Part 4</div><h2>Compare two pricing choices</h2>
 <p>Suppose the group lowers the selling price from $9.50 to <strong>$8.50</strong> while fixed and variable costs remain unchanged.</p>
 <div class="grid3"><div><label>New marginal profit</label><input id="d1" type="number" step="0.01"></div><div><label>New break-even quantity</label><input id="d2" type="number" step="0.01"></div><div><label>Profit at 80 meals with new price</label><input id="d3" type="number" step="0.01"></div></div>
 <label>Under this model alone, which price produces more profit if exactly 80 meals are sold?</label><select id="d4"><option value="">choose…</option><option value="9.5">$9.50 price</option><option value="8.5">$8.50 price</option><option value="same">same profit</option></select>
