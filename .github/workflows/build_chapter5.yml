@@ -2,6 +2,8 @@ name: Build Chapter 5 PDF
 
 on:
   push:
+    paths:
+      - 'readings/Math107_Chapter_05.tex'
   workflow_dispatch:
 
 permissions:
@@ -12,18 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Refresh course sequence language
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          p=Path('index.html')
-          text=p.read_text()
-          old='The course begins with number and observation, moves through probability, statistics, information, finance, and business models, then turns those ideas into geometry, optimization, recursion, and the limits of prediction.'
-          new='The course begins with number and observation, moves through probability and statistics, then turns to feedback, changing systems, decision-making, constraints, and the limits of prediction.'
-          if old in text:
-              text=text.replace(old,new)
-          p.write_text(text)
-          PY
       - name: Install LaTeX
         run: |
           sudo apt-get update
@@ -33,11 +23,11 @@ jobs:
         run: |
           pdflatex -interaction=nonstopmode -halt-on-error Math107_Chapter_05.tex
           pdflatex -interaction=nonstopmode -halt-on-error Math107_Chapter_05.tex
-      - name: Commit refreshed outputs
+      - name: Commit PDF
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html readings/Math107_Chapter_05.pdf
+          git add readings/Math107_Chapter_05.pdf
           git diff --cached --quiet && exit 0
-          git commit -m "Refresh course sequence after cybernetics rebuild"
+          git commit -m "Build revised Chapter 5 PDF"
           git push
