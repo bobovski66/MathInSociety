@@ -1,25 +1,407 @@
 \documentclass[11pt]{book}
-\usepackage[utf8]{inputenc}\usepackage[T1]{fontenc}\usepackage{amsmath,amssymb}\usepackage[margin=0.82in]{geometry}\usepackage{enumitem}\usepackage{booktabs}\usepackage{xcolor}\usepackage{tikz}\usepackage{fancyhdr}\usepackage{titlesec}
-\definecolor{mathblue}{RGB}{30,90,160}\definecolor{mathgreen}{RGB}{30,140,80}\titleformat{\chapter}[display]{\normalfont\large\bfseries}{Chapter \thechapter}{12pt}{\LARGE}
-\pagestyle{fancy}\fancyhf{}\fancyhead[L]{MATH\& 107: Math in Society}\fancyhead[R]{Networks and Collective Systems}\fancyfoot[C]{\thepage}
-\begin{document}\setcounter{chapter}{8}\chapter{Networks and Collective Systems}
-\begin{center}\large Connections shape what a system can do.\end{center}
-\section{From components to connections}
-A system is made of parts, but its behavior also depends on how those parts are connected. A network (or graph) represents this structure. We write $G=(V,E)$, where $V$ is a set of vertices (nodes) and $E$ is a set of edges (links). Nodes may represent people, places, computers, or organizations; an edge represents a relationship or possible interaction.
-\begin{center}\begin{tikzpicture}[every node/.style={circle,draw=mathblue,fill=blue!6,minimum size=8mm},thick]\node(A) at (0,0){A};\node(B) at (2,1){B};\node(C) at (2,-1){C};\node(D) at (4,0){D};\draw(A)--(B)(A)--(C)(B)--(C)(B)--(D)(C)--(D);\end{tikzpicture}\end{center}
-\section{Degree and paths}
-The degree of a node is the number of edges touching it. In the diagram above, $\deg(A)=2$ and $\deg(B)=3$. A path is a sequence of nodes joined by edges. For example, $A\to B\to D$ is a path of length 2 (two edges). A shortest path uses as few edges as possible.
-\textbf{Example.} If a message can travel along each edge in one round, then after one round from A it can reach B and C. After two rounds it may also reach D. A node with many immediate neighbors can spread a message quickly, though degree alone does not tell the whole story.
-\section{Connected components and bottlenecks}
-A network is connected if a path joins every pair of nodes. If not, it consists of separate connected components. An edge is a bridge if removing it disconnects part of the network. Bridges matter in roads, supply chains, communication, and social contact: a low-degree link can be structurally important even when its endpoints have few connections.
-\section{Diffusion and collective behavior}
-Diffusion describes how something moves through links: information, a behavior, a resource, or (in a simplified model) an infection. A basic discrete model starts with a set of active nodes. At each step, activity may pass to neighboring nodes. The model's assumptions matter: transmission may not be certain, connections may be directed, and people may respond differently.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=0.82in]{geometry}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\definecolor{mathblue}{RGB}{30,90,160}
+\definecolor{mathgreen}{RGB}{30,140,80}
+\definecolor{mathgold}{RGB}{170,125,25}
+\titleformat{\chapter}[display]{\normalfont\large\bfseries}{Chapter \thechapter}{12pt}{\LARGE}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{MATH\& 107: Math in Society}
+\fancyhead[R]{Networks and Collective Systems}
+\fancyfoot[C]{\thepage}
+\newcommand{\term}[1]{\textbf{#1}}
+\newcommand{\idea}[1]{\begin{quote}\color{mathblue}\textbf{Key idea.} #1\end{quote}}
+\begin{document}
+\setcounter{chapter}{8}
+\chapter{Networks and Collective Systems}
+\begin{center}
+\large Connections shape what a system can do.
+\end{center}
+
+A list of parts does not completely describe a system. We also need to know how the parts are connected. A city with many roads behaves differently from a city with only one road between neighborhoods. A social group with several independent lines of communication behaves differently from one in which every message must pass through one person. A computer network, a supply chain, a neural network, and an ecosystem can all be studied by asking the same structural questions: \emph{what is connected to what, how far apart are two parts, where are the bottlenecks, and how can an effect spread?}
+
+This chapter develops a small mathematical language for those questions. The goal is not to turn every real situation into a graph and declare the problem solved. The goal is to learn what the graph makes visible, what it hides, and how local connections can create system-level behavior.
+
+\section{Networks as mathematical models}
+A \term{network}, or \term{graph}, is written
+\[
+G=(V,E),
+\]
+where $V$ is a set of \term{vertices} (or nodes) and $E$ is a set of \term{edges} (or links). The nodes represent the objects we care about. The edges represent a relationship that we decide is important.
+
+For example, suppose
+\[
+V=\{A,B,C,D,E,F\}
+\]
+and
+\[
+E=\{AB,AC,BC,BD,CD,DE,EF\}.
+\]
+One drawing of this network is shown below.
+
+\begin{center}
+\begin{tikzpicture}[every node/.style={circle,draw=mathblue,fill=blue!6,minimum size=9mm},thick]
+\node(A) at (0,0){A};
+\node(B) at (2,1.3){B};
+\node(C) at (2,-1.3){C};
+\node(D) at (4,0){D};
+\node(E) at (6,0){E};
+\node(F) at (8,0){F};
+\draw(A)--(B) (A)--(C) (B)--(C) (B)--(D) (C)--(D) (D)--(E) (E)--(F);
+\end{tikzpicture}
+\end{center}
+
+The same picture can model very different situations. The nodes might be buildings and the edges walkways. They might be people and the edges communication links. They might be warehouses and the edges shipping routes. The mathematics is the same only after the meaning of an edge has been stated clearly.
+
+\idea{A graph is a model of relationships. Before doing any calculation, say what a node represents and what an edge means.}
+
+\subsection{Undirected, directed, and weighted edges}
+In an \term{undirected} network, an edge $AB$ means that A is connected to B and B is connected to A. Friendships and two-way roads are often simplified this way.
+
+Some relationships have direction. In a \term{directed graph}, an arrow $A\to B$ may mean that A sends information to B, that A follows B, or that a resource can move from A to B. The direction matters: $A\to B$ does not automatically give $B\to A$.
+
+Edges can also carry numbers called \term{weights}. A road might be weighted by travel time, a social connection by interaction frequency, and a neural-network connection by the strength of its signal. In a weighted network, the shortest route may mean the route with the smallest total weight rather than the route with the fewest edges.
+
+\section{Degree: the first local measurement}
+The \term{degree} of a node is the number of edges incident to it. We write $\deg(v)$ for the degree of a node $v$. In the network above,
+\[
+\deg(A)=2,\qquad \deg(B)=3,\qquad \deg(D)=3,\qquad \deg(F)=1.
+\]
+Degree measures direct connectivity. A node with high degree has many immediate neighbors.
+
+A useful normalized version is \term{degree centrality}. In a network with $n$ nodes,
+\[
+C_D(v)=\frac{\deg(v)}{n-1}.
+\]
+The denominator $n-1$ is the largest possible degree in a simple network, because a node can connect to every other node but not to itself. If a node has degree 3 in a 6-node network, then
+\[
+C_D(v)=\frac{3}{5}=0.60.
+\]
+This makes degree easier to compare between networks of different sizes.
+
+\subsection{A global check: the handshake rule}
+Every undirected edge touches exactly two nodes. Therefore the sum of all node degrees counts every edge twice:
+\[
+\sum_{v\in V}\deg(v)=2|E|.
+\]
+This is sometimes called the \term{handshake theorem}. If the network has 7 edges, the degrees must add to 14.
+
+For the example network,
+\[
+2+3+3+3+2+1=14=2(7).
+\]
+This gives us a quick error check when counting degrees.
+
+\section{Density: how much of the possible network is present?}
+A network with $n$ nodes could have as many as
+\[
+\binom{n}{2}=\frac{n(n-1)}{2}
+\]
+undirected edges. If it actually has $m$ edges, its \term{density} is
+\[
+D=\frac{m}{\binom{n}{2}}=\frac{2m}{n(n-1)}.
+\]
+Density ranges from 0 to 1. A density near 0 means that relatively few possible links are present. A density near 1 means that nearly every pair is directly connected.
+
+\textbf{Example.} A six-node network with seven edges has density
+\[
+D=\frac{2(7)}{6(5)}=\frac{14}{30}\approx0.467.
+\]
+About 46.7\% of all possible undirected links are present.
+
+Density is a global measurement. Degree describes one node; density describes the network as a whole.
+
+\section{Paths, distance, and reachability}
+A \term{path} is a sequence of nodes joined by edges. The \term{length} of a path is the number of edges used. For example,
+\[
+A\to B\to D\to E
+\]
+has length 3.
+
+The \term{distance} $d(u,v)$ between two nodes is the length of a shortest path joining them. In the example network,
+\[
+d(A,D)=2,\qquad d(A,E)=3,\qquad d(A,F)=4.
+\]
+There may be several different shortest paths. From A to D we can travel A--B--D or A--C--D. Both have length 2.
+
+Distance is one of the most useful ideas in network mathematics because it turns a picture into a numerical geometry. We can ask which nodes are close, which are far away, and how quickly information could possibly travel if one edge can be crossed per round.
+
+\subsection{Average distance and closeness}
+Suppose a node $v$ can reach every other node. Add the distances from $v$ to all other nodes and divide by $n-1$:
+\[
+\text{average distance from }v=\frac{1}{n-1}\sum_{u\ne v}d(v,u).
+\]
+A node with a small average distance is centrally located in the network even if it does not have the largest degree.
+
+One common version of \term{closeness centrality} reverses that average:
+\[
+C_C(v)=\frac{n-1}{\sum_{u\ne v}d(v,u)}.
+\]
+Large closeness means that, in terms of shortest paths, the node is only a few steps from the rest of the network.
+
+\idea{High degree means ``many neighbors.'' High closeness means ``few steps from everyone.'' These are different kinds of centrality.}
+
+\section{Connectedness and components}
+A network is \term{connected} if every pair of nodes can be joined by a path. If a network is not connected, it breaks into \term{connected components}. Within a component, nodes can reach one another. Nodes in different components cannot.
+
+This distinction is crucial in practical systems. A communication network can contain many functioning devices and still fail as a system if those devices split into disconnected groups.
+
+Consider the edges
+\[
+AB,\ BC,\ AC,\ DE.
+\]
+The nodes A, B, and C form one component. D and E form another. The network contains edges, but the network is not connected.
+
+\section{Bottlenecks, bridges, and articulation points}
+Some links matter much more than their number suggests. A \term{bridge} is an edge whose removal increases the number of connected components. In the six-node example, $EF$ is a bridge. If it is removed, F becomes isolated from the rest of the network.
+
+A node can play a similar role. An \term{articulation point} is a node whose removal disconnects a previously connected network. In the path
+\[
+A-B-C-D-E,
+\]
+B, C, and D are articulation points.
+
+Bridges and articulation points identify structural vulnerabilities. A link may connect only two nodes and still be more important for resilience than a link inside a tightly connected cluster.
+
+\subsection{Redundancy and alternate paths}
+A network is more resilient when important destinations can be reached by more than one independent route. In the example network, D can be reached from A through B or C. The triangle-like structure around A, B, C, and D creates redundancy. By contrast, F has only one route to the rest of the system, through E.
+
+Adding the edge $DF$ would create an alternate route to F. The new network would no longer depend on the single bridge $EF$ for access to F.
+
+This gives a simple intervention principle:
+\[
+\text{resilience often increases when critical nodes gain alternate paths.}
+\]
+But there can be costs. New links may require money, time, maintenance, trust, bandwidth, or attention. Network design is therefore often an optimization problem under constraints, connecting this chapter directly to the previous module.
+
+\section{Centrality: several meanings of ``important''}
+There is no single mathematical definition of an important node. Different questions lead to different measurements.
+
+\begin{center}
+\begin{tabular}{p{0.23\textwidth}p{0.31\textwidth}p{0.34\textwidth}}
+\toprule
+\textbf{Measure} & \textbf{What it notices} & \textbf{Question it helps answer}\\
+\midrule
+Degree & Immediate neighbors & Who can directly contact many others?\\
+Closeness & Total shortest-path distance & Who can reach the network in relatively few steps?\\
+Betweenness & Shortest paths passing through a node & Who lies between groups or controls routes?\\
+Bridge/articulation role & Loss of connectivity after removal & Which link or node is structurally critical?\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Betweenness as a bottleneck idea}
+A node has high \term{betweenness} when many shortest paths between other nodes pass through it. We will not need the full formula, but the idea is important.
+
+Imagine two dense friend groups connected by one person, Maya. Maya may have only four friends, while other students each have ten. Yet if most shortest paths between the two groups pass through Maya, then Maya occupies a powerful structural position. Degree alone would miss this.
+
+This is one reason network mathematics is useful: it distinguishes popularity, accessibility, and brokerage rather than treating all of them as the same thing.
+
+\section{Adjacency tables and matrices}
+A drawing is useful for small networks, but large networks need systematic data structures. One possibility is an \term{adjacency matrix}. For nodes $v_1,\ldots,v_n$, define
+\[
+A_{ij}=\begin{cases}
+1,&\text{if }v_i\text{ and }v_j\text{ are connected},\\
+0,&\text{otherwise.}
+\end{cases}
+\]
+For the small network with edges $AB,AC,BC,BD$, the matrix is
+\[
+A=\begin{pmatrix}
+0&1&1&0\\
+1&0&1&1\\
+1&1&0&0\\
+0&1&0&0
+\end{pmatrix}.
+\]
+Each row records the neighbors of one node. Adding the entries in a row gives that node's degree.
+
+This is also a bridge to computing. Social-network software, route planners, recommendation systems, and machine-learning systems often store network structure in arrays or sparse tables rather than pictures.
+
+\subsection{An optional mathematical glimpse}
+Matrix multiplication contains path information. For an unweighted adjacency matrix, entries of $A^2$ count two-step walks, entries of $A^3$ count three-step walks, and so on. We will not use this computationally in this course, but it is a beautiful example of algebra encoding network structure.
+
+\section{Diffusion: how something spreads}
+A network tells us which transfers are possible. A \term{diffusion rule} tells us how a state actually moves through those connections.
+
+Suppose A initially has a message. If every informed node shares with all neighbors once per round, then the informed set grows in layers of network distance.
+
+For the six-node example:
+\begin{itemize}
+\item Round 0: A is informed.
+\item Round 1: B and C become informed.
+\item Round 2: D becomes informed.
+\item Round 3: E becomes informed.
+\item Round 4: F becomes informed.
+\end{itemize}
+
+The network geometry determines the earliest possible arrival time in this simple model: a node at distance $k$ cannot be reached in fewer than $k$ rounds.
+
+\subsection{Why real diffusion is more complicated}
+Real spread is rarely automatic. A person may ignore a message. A disease may fail to transmit. A social behavior may require several friends to adopt it before someone changes. A server may be overloaded. A road may be closed.
+
+A model might therefore use a probability of transmission or a threshold rule.
+
+\subsection{Threshold behavior}
+Suppose a node adopts a behavior only when at least half of its neighbors have adopted it. If a node has four neighbors, at least two must be active. If it has three neighbors, at least two must be active.
+
+This can produce a surprising effect: a high-degree node may be harder to activate because it requires more active neighbors. More connections can increase exposure but also raise the threshold needed for a majority.
+
+Threshold models help explain why collective behavior can remain stable for a long time and then suddenly change after one more local adoption pushes several nodes past their thresholds.
+
+\section{Cascades and collective effects}
+A \term{cascade} occurs when one local change triggers another, which triggers another, and the effect propagates through the network. Cascades may be beneficial, harmful, or simply descriptive.
+
+Examples include:
+\begin{itemize}
+\item a warning spreading through an emergency communication network,
+\item a bank failure creating stress for connected financial institutions,
+\item a popular post receiving more visibility, which creates more engagement,
+\item a power-grid failure shifting load to neighboring components,
+\item a rumor spreading through overlapping communities.
+\end{itemize}
+
+The important point is that the response of the whole system is not determined by one node alone. It emerges from the interaction between local rules and network structure.
+
 \section{Networks and feedback}
-A network describes who or what can influence whom. Feedback describes how a system responds to measured outcomes. Together they help explain collective systems: a change at one node can spread along paths, alter other nodes, and feed back into later decisions. A network diagram does not predict behavior by itself; it makes structure visible so that questions about reach, resilience, and bottlenecks can be asked clearly.
-\section{A practical workflow}
-\begin{enumerate}[label=\arabic*.]\item Name the nodes and define what an edge means.\item List or draw the edges.\item Use degree to count direct connections and paths to trace reach.\item Check connectedness and look for bridges or bottlenecks.\item State what the model leaves out, such as link strength, direction, time, or uncertainty.\end{enumerate}
+Module 5 introduced feedback loops: a system observes outcomes, compares them with some condition or target, acts, and then observes again. Networks answer a different question: \emph{who can influence whom?}
+
+Put the two ideas together and a collective system appears:
+\[
+\text{state}\to\text{signals through network}\to\text{responses}\to\text{new state}\to\cdots
+\]
+A recommendation system is a familiar example. People interact with content. Those interactions affect what the system recommends. Recommendations change what people see. What people see changes later interactions. The network of users and items carries influence while feedback repeatedly updates the state.
+
+Positive feedback can amplify a network effect. More attention can lead to more sharing, which leads to more attention. Corrective feedback can reduce a network effect, as when a routing system redirects traffic away from an overloaded road.
+
+\idea{A network describes the structure of possible influence. A feedback rule describes how the system changes after influence occurs. Together they create dynamics.}
+
+\section{Directed and weighted networks in practice}
+The simple graphs used so far treat every edge as equal and two-way. Many real systems need more detail.
+
+\subsection{Direction}
+In a directed network, each node can have an \term{in-degree} and an \term{out-degree}. In-degree counts incoming edges; out-degree counts outgoing edges. On a social platform, a person may follow thousands of accounts but be followed by only a few. Those are very different structural roles.
+
+\subsection{Weight}
+If a road network uses travel times as weights, the best route minimizes total time rather than number of roads. A two-edge route taking 40 minutes may be worse than a four-edge route taking 18 minutes.
+
+If a neural network uses weights, a large positive weight, a small positive weight, and a negative weight represent different strengths and directions of influence. The edge is no longer merely present or absent.
+
+\section{A practical network-analysis workflow}
+When facing a new situation, use the following sequence.
+
+\begin{enumerate}[label=\arabic*.]
+\item \textbf{Define the model.} What are the nodes? What exactly does an edge mean? Is the network directed or weighted?
+\item \textbf{Record the structure.} Draw the network or list the edges.
+\item \textbf{Measure locally.} Compute degrees and identify unusually connected nodes.
+\item \textbf{Measure routes.} Find paths, shortest paths, and distances.
+\item \textbf{Check the whole system.} Is the network connected? What is its density?
+\item \textbf{Look for vulnerability.} Identify bridges, articulation points, and destinations with only one route.
+\item \textbf{Study spread.} Choose an explicit diffusion rule and trace several rounds.
+\item \textbf{Consider intervention.} Add, remove, strengthen, or redirect a link and compare the result.
+\item \textbf{State limitations.} What does the network leave out: timing, uncertainty, trust, capacity, geography, cost, or changing behavior?
+\end{enumerate}
+
+\section{Worked example: a community alert network}
+Suppose six locations are connected by
+\[
+CL,\ CC,\ LS,\ CS,\ SH,\ HN,
+\]
+where C is a coordinator, L a library, Cc a clinic, S a school, H a shelter, and N the north block. To avoid using C twice in notation, let us rename the clinic K. The edges are therefore
+\[
+CL,\ CK,\ LS,\ KS,\ SH,\ HN.
+\]
+
+The degrees are
+\[
+\deg(C)=2,\quad \deg(L)=2,\quad \deg(K)=2,\quad \deg(S)=3,\quad \deg(H)=2,\quad \deg(N)=1.
+\]
+There are six nodes and six edges, so the density is
+\[
+D=\frac{2(6)}{6(5)}=0.4.
+\]
+The shortest route from C to N has length 4:
+\[
+C-L-S-H-N
+\]
+or
+\[
+C-K-S-H-N.
+\]
+The edge $HN$ is a bridge. If it fails, N becomes disconnected. Adding an edge $SN$ would create an alternate path and remove that single point of failure.
+
+Notice that S has the highest degree, but H is also structurally important because every original path to N passes through H. The most connected node and the most strategically placed node need not be the same.
+
+\section{Worked example: a threshold cascade}
+Consider a node X with four neighbors A, B, C, and D. X adopts a behavior when at least half of its neighbors have adopted.
+
+If only A is active, then the active fraction around X is
+\[
+\frac{1}{4}=0.25,
+\]
+so X does not adopt. If A and B are active, then
+\[
+\frac{2}{4}=0.50,
+\]
+so X adopts. X may then become one of the active neighbors of another node, pushing that node over its own threshold. A local change can therefore initiate a larger cascade.
+
+This does not mean every social process follows a 50\% threshold. The point is to see how a precise local rule can generate collective behavior when repeated through a network.
+
+\section{What network models leave out}
+Network diagrams are powerful because they simplify. That is also their danger.
+
+An edge may hide differences in strength, reliability, trust, distance, or timing. A static graph may ignore the fact that relationships change. A social network may represent interactions but not motives. A supply-chain edge may exist on paper but have limited capacity. A neural-network picture may suppress millions or billions of parameters.
+
+A good network analysis therefore ends with two statements:
+\begin{enumerate}
+\item what the graph allows us to conclude, and
+\item what additional information would be needed before making a real decision.
+\end{enumerate}
+
 \section*{Practice}
-\begin{enumerate}\item For edges $AB, AC, AD, BE, CE$, find the degree of A and E.\item Is there a path from D to E? Give one if it exists.\item If A starts a one-step spread, how many new nodes are reached?\item In the path $A-B-C-D$, which edge is a bridge?\item Give one limitation of using an unweighted graph to model a real social network.\end{enumerate}
-\section*{Key ideas}\begin{itemize}\item $G=(V,E)$ records nodes and links.\item Degree counts immediate neighbors; path length counts edges.\item Connectedness asks whether paths join every pair.\item Diffusion follows connections over time.\item Network structure can reveal bottlenecks without fully predicting behavior.\end{itemize}
+Use the network with edges
+\[
+AB,\ AC,\ BC,\ BD,\ CD,\ DE,\ EF.
+\]
+
+\begin{enumerate}
+\item Find the degree of every node and verify the handshake rule.
+\item Compute the density of the network.
+\item Find $d(A,D)$, $d(A,E)$, and $d(B,F)$.
+\item Give two different shortest paths from A to D.
+\item Which edge is a bridge? Explain what becomes disconnected when it is removed.
+\item Which node is an articulation point separating F from A, B, and C?
+\item If A begins a deterministic one-edge-per-round spread, list the newly reached nodes after rounds 1, 2, 3, and 4.
+\item Add one edge that would make access to F more resilient. Explain why.
+\item Compare B and E. Which has greater degree? Which is more important for reaching F from the left side of the graph?
+\item Give a real example in which edges should be directed rather than undirected.
+\item Give a real example in which edge weights would matter.
+\item A node has five neighbors and uses a 60\% adoption threshold. How many active neighbors are required before it adopts?
+\end{enumerate}
+
+\section*{Key ideas}
+\begin{itemize}
+\item A graph $G=(V,E)$ records entities and relationships.
+\item Degree measures direct connectivity; density measures how much of the possible network is present.
+\item Paths create a geometry of distance and reachability.
+\item Connected components describe which parts of a network can reach one another.
+\item Bridges and articulation points reveal structural vulnerability.
+\item Degree, closeness, and betweenness describe different kinds of centrality.
+\item Diffusion requires both network structure and a rule for how states move or change.
+\item Threshold rules can create cascades and other collective effects.
+\item Networks describe possible influence; feedback turns that influence into dynamics.
+\item Every network model should state what its nodes and edges mean and what the model leaves out.
+\end{itemize}
+
 \end{document}
 % Build the companion course PDF from this source.
