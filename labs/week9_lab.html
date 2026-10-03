@@ -1,1 +1,154 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Week 9 Laboratory — Networks and Collective Systems</title><style>:root{--bg:#efefe4;--card:#fffdf3;--ink:#292d20;--muted:#6d705f;--line:#d9d5bd;--olive:#4d5430;--gold:#b18a22}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,sans-serif}header{background:linear-gradient(135deg,var(--olive),#62693b);color:white;padding:24px max(22px,calc((100vw - 1100px)/2))}header a{color:#f4eab9}main{max-width:1100px;margin:auto;padding:24px 20px 70px}.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0}h1{margin:12px 0 4px;font-size:clamp(1.8rem,4vw,2.6rem)}h2{color:var(--olive)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.callout{background:#f5f1dc;border-left:5px solid var(--gold);padding:12px 16px;border-radius:8px}button,select,input{font:inherit;padding:8px;border-radius:8px;border:1px solid var(--line)}button{background:var(--olive);color:white;cursor:pointer}.muted{color:var(--muted)}svg{width:100%;height:auto;background:#fffef8;border:1px solid var(--line);border-radius:12px}.answer{font-weight:700;color:var(--olive)}@media(max-width:650px){header{padding:20px}}</style></head><body><header><a href="../index.html">← MATH&amp; 107 course</a><h1>Week 9 Laboratory — Networks and Collective Systems</h1><p>Analyze node degree, paths, connectedness, diffusion, and bottlenecks in a small network.</p></header><main><section class="panel"><h2>Before you begin</h2><p>Use the edge list as the source of truth. A path counts edges; degree counts incident edges. For spread, count only direct neighbors unless a question says otherwise.</p><div class="callout"><b>Network:</b> edges AB, AC, AD, BE, CE, DF</div></section><section class="panel"><h2>Part 1 · Degree</h2><p>Find the degree of A and E.</p><label>degree(A) <input id="a1" type="number"></label><label>degree(E) <input id="a2" type="number"></label><button onclick="check(1,[['a1',3],['a2',2]])">Check</button><p id="f1" class="answer"></p></section><section class="panel"><h2>Part 2 · Paths</h2><p>Give the number of edges in A–D–F and A–B–E–C.</p><label>Edges in A–D–F <input id="b1" type="number"></label><label>Edges in A–B–E–C <input id="b2" type="number"></label><button onclick="check(2,[['b1',2],['b2',3]])">Check</button><p id="f2" class="answer"></p></section><section class="panel"><h2>Part 3 · Connectedness</h2><p>Is every node reachable from A? How many nodes are in the network?</p><label>Reachable from A <select id="c1"><option></option><option>yes</option><option>no</option></select></label><label>Number of nodes <input id="c2" type="number"></label><button onclick="check(3,[['c1','yes'],['c2',6]])">Check</button><p id="f3" class="answer"></p></section><section class="panel"><h2>Part 4 · One-step diffusion</h2><p>If only A initially has a message, how many new nodes receive it after one step?</p><label>Newly reached nodes <input id="d1" type="number"></label><button onclick="check(4,[['d1',3]])">Check</button><p id="f4" class="answer"></p></section><section class="panel"><h2>Part 5 · Bottlenecks</h2><p>Which edge is a bridge whose removal disconnects F from the rest?</p><label>Edge <select id="e1"><option></option><option>AB</option><option>BE</option><option>DF</option><option>CE</option></select></label><button onclick="check(5,[['e1','DF']])">Check</button><p id="f5" class="answer"></p></section></main><script>function check(n,ans){let ok=ans.every(([id,v])=>document.getElementById(id).value==String(v));document.getElementById('f'+n).textContent=ok?'Correct. Section complete.':'Recheck the edge list and your counting.'}</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 9 Laboratory — Networks and Collective Systems</title>
+<style>
+:root{--bg:#efefe4;--card:#fffdf3;--ink:#292d20;--muted:#6d705f;--line:#d9d5bd;--olive:#4d5430;--gold:#b18a22;--good:#657347;--bad:#965348;--soft:#f5f1dc}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.58 system-ui,-apple-system,"Segoe UI",sans-serif}header{background:linear-gradient(135deg,var(--olive),#62693b);color:white;padding:25px max(22px,calc((100vw - 1120px)/2))}header a{color:#f4eab9}main{max-width:1120px;margin:auto;padding:24px 20px 70px}.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:21px;margin:17px 0;box-shadow:0 7px 20px rgba(55,60,35,.05)}h1{margin:12px 0 5px;font-size:clamp(1.8rem,4vw,2.65rem)}h2{color:var(--olive);margin-top:0}h3{color:var(--olive)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.callout{background:var(--soft);border-left:5px solid var(--gold);padding:13px 16px;border-radius:8px}.mini{font-size:.93rem;color:var(--muted)}label{display:block;margin:9px 0}input,select,textarea,button{font:inherit}input,select,textarea{padding:8px 9px;border-radius:8px;border:1px solid var(--line);background:#fffef8;color:var(--ink)}input[type=number]{width:100px}textarea{width:100%;min-height:95px;resize:vertical}button{padding:9px 13px;border-radius:9px;border:1px solid var(--olive);background:var(--olive);color:white;cursor:pointer;font-weight:700}button.secondary{background:transparent;color:var(--olive)}button:focus,input:focus,select:focus,textarea:focus{outline:3px solid rgba(177,138,34,.25);outline-offset:2px}.answer{font-weight:750;min-height:1.4em}.answer.good{color:var(--good)}.answer.bad{color:var(--bad)}svg{width:100%;height:auto;background:#fffef8;border:1px solid var(--line);border-radius:12px}.math{font-family:Georgia,"Times New Roman",serif}.step{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--olive);color:#fff;font-weight:800;margin-right:7px}.progress{height:9px;border-radius:99px;background:#e3e0cc;overflow:hidden}.progress>div{height:100%;width:0;background:var(--gold);transition:width .2s}.resultbox{background:#f7f5e9;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:10px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:520px}th,td{border-bottom:1px solid var(--line);padding:9px;text-align:center}th{background:#f1eedc}td:first-child,th:first-child{text-align:left}.round-controls{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.88rem;color:var(--muted)}.dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:5px;vertical-align:-1px}.reflection{border:1px dashed var(--gold);background:#fffdf5;border-radius:12px;padding:14px}@media(max-width:650px){header{padding:20px}.panel{padding:17px}}
+</style>
+</head>
+<body>
+<header>
+<a href="../index.html">← MATH&amp; 107 course</a>
+<h1>Week 9 Laboratory — Networks and Collective Systems</h1>
+<p>Move from a picture of connections to measurable ideas: degree, density, distance, centrality, bottlenecks, resilience, and diffusion.</p>
+</header>
+<main>
+<section class="panel">
+<h2>What you are investigating</h2>
+<p>A network is not just a diagram. It is a mathematical model of which interactions are possible. In this lab, the same seven-node network will be studied from several viewpoints. Each viewpoint answers a different question about the system.</p>
+<div class="callout"><b>Base network:</b> nodes A, B, C, D, E, F, G with edges <span class="math">AB, AC, BC, BD, CD, DE, EF, EG, FG</span>.</div>
+<p class="mini">Assume the graph is undirected and unweighted unless a section says otherwise. Path length means number of edges.</p>
+<div class="progress" aria-label="lab progress"><div id="bar"></div></div><p class="mini" id="progressText">0 of 7 checked sections complete</p>
+</section>
+
+<section class="panel">
+<h2><span class="step">1</span>Read the network</h2>
+<p>The left side contains a tightly connected group around A, B, C, and D. The right side contains a triangle E, F, G. One edge joins the two regions.</p>
+<svg id="graph" viewBox="0 0 820 390" role="img" aria-label="Network with nodes A through G">
+<g stroke="#697048" stroke-width="5" id="edges"></g><g id="nodes"></g>
+</svg>
+<div class="legend"><span><span class="dot" style="background:#4d5430"></span>ordinary node</span><span><span class="dot" style="background:#b18a22"></span>selected or newly reached</span><span><span class="dot" style="background:#965348"></span>inactive after a removed bridge</span></div>
+<p class="resultbox" id="graphInfo">Select a node by clicking it. The page will report its immediate neighbors.</p>
+</section>
+
+<section class="panel">
+<h2><span class="step">2</span>Degree, the handshake rule, and density</h2>
+<p>Degree measures immediate connectivity. Start locally, then use those local counts to check the network globally.</p>
+<div class="grid">
+<label>degree(A) <input id="degA" type="number"></label>
+<label>degree(D) <input id="degD" type="number"></label>
+<label>degree(E) <input id="degE" type="number"></label>
+<label>degree(G) <input id="degG" type="number"></label>
+</div>
+<p>The network has 9 edges. Since every edge contributes 2 to the total degree, the handshake rule predicts a degree sum of <span class="math">2(9)=18</span>.</p>
+<label>Sum of all seven degrees <input id="degSum" type="number"></label>
+<p>There are <span class="math">7(6)/2=21</span> possible undirected edges among seven nodes. Density is actual edges divided by possible edges.</p>
+<label>Network density, rounded to three decimals <input id="density" type="number" step="0.001"></label>
+<button onclick="checkDegree()">Check section</button><p id="fDegree" class="answer"></p>
+</section>
+
+<section class="panel">
+<h2><span class="step">3</span>Paths and network distance</h2>
+<p>A path is a sequence of adjacent edges. Distance means the length of a shortest path. Multiple shortest paths can exist.</p>
+<div class="grid">
+<label>Distance from A to D <input id="distAD" type="number"></label>
+<label>Distance from A to E <input id="distAE" type="number"></label>
+<label>Distance from A to G <input id="distAG" type="number"></label>
+<label>Distance from B to F <input id="distBF" type="number"></label>
+</div>
+<label>Which is a shortest A-to-G route?
+<select id="routeAG"><option value=""></option><option>A–B–D–E–G</option><option>A–B–C–D–E–F–G</option><option>A–C–B–A–D–G</option></select></label>
+<button onclick="checkPaths()">Check section</button><p id="fPaths" class="answer"></p>
+<div class="callout"><b>Interpretation:</b> if a message can cross one edge per round, distance gives the earliest round in which a node can possibly receive it.</div>
+</section>
+
+<section class="panel">
+<h2><span class="step">4</span>Centrality is not one idea</h2>
+<p>Different meanings of “central” answer different questions. A node can have many neighbors, be only a few steps from everyone, or sit between otherwise separated groups.</p>
+<div class="table-wrap"><table><thead><tr><th>Idea</th><th>What it measures</th><th>Useful question</th></tr></thead><tbody>
+<tr><td>Degree</td><td>Immediate neighbors</td><td>Who can contact many nodes directly?</td></tr>
+<tr><td>Closeness</td><td>Total shortest-path distance</td><td>Who is only a few steps from the rest?</td></tr>
+<tr><td>Betweenness</td><td>Shortest routes passing through a node</td><td>Who sits between groups?</td></tr>
+</tbody></table></div>
+<p>D and E both have degree 3. But the single edge D–E connects the left region to the right triangle.</p>
+<label>If you care about communication <em>between the two regions</em>, which pair is structurally most important?
+<select id="central"><option value=""></option><option>A and B</option><option>D and E</option><option>F and G</option></select></label>
+<label>Why can degree alone miss this importance?
+<select id="centralWhy"><option value=""></option><option>Because degree only counts direct neighbors, not whether routes between groups pass through a node.</option><option>Because degree measures physical distance in miles.</option><option>Because every node always has the same degree.</option></select></label>
+<button onclick="checkCentral()">Check section</button><p id="fCentral" class="answer"></p>
+</section>
+
+<section class="panel">
+<h2><span class="step">5</span>Bottlenecks and resilience</h2>
+<p>The edge D–E is a bridge: removing it splits the network into two connected components. Try it.</p>
+<div class="round-controls"><button onclick="setBridge(false)">Remove D–E</button><button class="secondary" onclick="setBridge(true)">Restore D–E</button></div>
+<p id="bridgeInfo" class="resultbox">D–E is currently present.</p>
+<label>After removing D–E, how many connected components are there? <input id="components" type="number"></label>
+<label>Which added edge would create an alternate route between the two regions?
+<select id="redundancy"><option value=""></option><option>A–C</option><option>D–F</option><option>E–F</option><option>B–C</option></select></label>
+<label>What is the main benefit of that added edge?
+<select id="benefit"><option value=""></option><option>It creates redundancy so failure of D–E no longer separates the regions.</option><option>It makes every node degree 6.</option><option>It removes all paths from A to G.</option></select></label>
+<button onclick="checkBridge()">Check section</button><p id="fBridge" class="answer"></p>
+</section>
+
+<section class="panel">
+<h2><span class="step">6</span>Diffusion over several rounds</h2>
+<p>Now treat the network as a communication system. A is informed at round 0. During each round, every informed node sends the message to all of its neighbors. Once informed, a node stays informed.</p>
+<div class="round-controls"><button onclick="spreadRound(0)">Round 0</button><button onclick="spreadRound(1)">Round 1</button><button onclick="spreadRound(2)">Round 2</button><button onclick="spreadRound(3)">Round 3</button><button onclick="spreadRound(4)">Round 4</button></div>
+<p id="spreadInfo" class="resultbox">Round 0: only A is informed.</p>
+<div class="grid">
+<label>New nodes in round 1 <input id="r1" type="number"></label>
+<label>New nodes in round 2 <input id="r2" type="number"></label>
+<label>New nodes in round 3 <input id="r3" type="number"></label>
+<label>New nodes in round 4 <input id="r4" type="number"></label>
+</div>
+<button onclick="checkSpread()">Check section</button><p id="fSpread" class="answer"></p>
+<div class="callout"><b>Notice the geometry:</b> nodes arrive in layers of shortest-path distance from A. Structure constrains the earliest possible spread even before we model human behavior.</div>
+</section>
+
+<section class="panel">
+<h2><span class="step">7</span>Thresholds and collective behavior</h2>
+<p>Automatic spreading is only one model. Suppose instead that a node adopts a behavior when at least half of its neighbors have already adopted it.</p>
+<p>Node E has three neighbors: D, F, and G. “At least half” means E needs at least 2 active neighbors.</p>
+<label>If only D is active, does E adopt? <select id="th1"><option value=""></option><option>yes</option><option>no</option></select></label>
+<label>If D and F are active, does E adopt? <select id="th2"><option value=""></option><option>yes</option><option>no</option></select></label>
+<label>Why can one additional adoption trigger a larger cascade?
+<select id="th3"><option value=""></option><option>It can push neighboring nodes across their thresholds, and those newly active nodes can push others across theirs.</option><option>Every edge disappears after one use.</option><option>Threshold models ignore the network.</option></select></label>
+<button onclick="checkThreshold()">Check section</button><p id="fThreshold" class="answer"></p>
+</section>
+
+<section class="panel">
+<h2>Final reflection · The model and the world</h2>
+<p>Choose one real network: friends, roads, a supply chain, electrical power, a school communication system, websites, an ecosystem, or something else. Identify what the nodes and edges would mean. Then name one feature that an unweighted, undirected graph would leave out.</p>
+<div class="reflection"><textarea id="reflection" placeholder="Example: In a road network, nodes could be intersections and edges could be roads. An unweighted graph would ignore travel time, road capacity, and closures..."></textarea><p class="mini">There is no automatic right answer here. The point is to state the model assumptions explicitly.</p></div>
+</section>
+</main>
+<script>
+const nodes=['A','B','C','D','E','F','G'];
+const edges=[['A','B'],['A','C'],['B','C'],['B','D'],['C','D'],['D','E'],['E','F'],['E','G'],['F','G']];
+const pos={A:[100,195],B:[250,95],C:[250,295],D:[405,195],E:[565,195],F:[705,105],G:[705,285]};
+let bridgePresent=true, spreadSet=new Set(), selected=null;
+const complete=new Set();
+const $=id=>document.getElementById(id);
+function adj(edgeSet=edges){const a=Object.fromEntries(nodes.map(n=>[n,[]]));for(const [u,v] of edgeSet){a[u].push(v);a[v].push(u)}return a}
+function draw(){const es=bridgePresent?edges:edges.filter(e=>!(e.includes('D')&&e.includes('E')));$('edges').innerHTML='';$('nodes').innerHTML='';for(const [u,v] of es){const line=document.createElementNS('http://www.w3.org/2000/svg','line');line.setAttribute('x1',pos[u][0]);line.setAttribute('y1',pos[u][1]);line.setAttribute('x2',pos[v][0]);line.setAttribute('y2',pos[v][1]);line.setAttribute('stroke',(u==='D'&&v==='E')||(u==='E'&&v==='D')?'#b18a22':'#697048');$('edges').append(line)}
+const A=adj(es);for(const n of nodes){const g=document.createElementNS('http://www.w3.org/2000/svg','g');const c=document.createElementNS('http://www.w3.org/2000/svg','circle');c.setAttribute('cx',pos[n][0]);c.setAttribute('cy',pos[n][1]);c.setAttribute('r','27');let fill='#4d5430';if(spreadSet.has(n)||selected===n)fill='#b18a22';if(!bridgePresent&&['E','F','G'].includes(n))fill='#965348';c.setAttribute('fill',fill);const t=document.createElementNS('http://www.w3.org/2000/svg','text');t.setAttribute('x',pos[n][0]);t.setAttribute('y',pos[n][1]+6);t.setAttribute('text-anchor','middle');t.setAttribute('fill','white');t.setAttribute('font-weight','800');t.textContent=n;g.append(c,t);g.style.cursor='pointer';g.onclick=()=>{selected=n;spreadSet.clear();$('graphInfo').textContent=`Node ${n} has degree ${A[n].length}; neighbors: ${A[n].join(', ')}.`;draw()};$('nodes').append(g)}}
+function mark(key){complete.add(key);$('bar').style.width=(complete.size/7*100)+'%';$('progressText').textContent=`${complete.size} of 7 checked sections complete`}
+function feedback(id,ok,good,bad){const el=$(id);el.textContent=ok?good:bad;el.className='answer '+(ok?'good':'bad');return ok}
+function num(id){return Number($(id).value)}
+function checkDegree(){const ok=num('degA')===2&&num('degD')===3&&num('degE')===3&&num('degG')===2&&num('degSum')===18&&Math.abs(num('density')-0.429)<.002;if(feedback('fDegree',ok,'Correct. Local degree counts agree with the global edge count, and density is 9/21 ≈ 0.429.','Recheck the edge list. Degrees should total 18, and density is 9 divided by 21 possible edges.'))mark('degree')}
+function checkPaths(){const ok=num('distAD')===2&&num('distAE')===3&&num('distAG')===4&&num('distBF')===3&&$('routeAG').value==='A–B–D–E–G';if(feedback('fPaths',ok,'Correct. Distance counts edges in a shortest route, not nodes.','Trace the shortest route edge by edge. A can reach D in 2 steps, E in 3, and G in 4.'))mark('paths')}
+function checkCentral(){const ok=$('central').value==='D and E'&&$('centralWhy').value.startsWith('Because degree only');if(feedback('fCentral',ok,'Correct. Degree describes local connectivity; route position can make a node important for a completely different reason.','Think about what every left-to-right path must cross.'))mark('central')}
+function setBridge(on){bridgePresent=on;selected=null;spreadSet.clear();$('bridgeInfo').textContent=on?'D–E is currently present. The full network is connected.':'D–E removed: {A,B,C,D} and {E,F,G} are now separate components.';draw()}
+function checkBridge(){const ok=num('components')===2&&$('redundancy').value==='D–F'&&$('benefit').value.startsWith('It creates redundancy');if(feedback('fBridge',ok,'Correct. D–F supplies an alternate cross-region path and removes the single-edge dependency on D–E.','Remove D–E mentally, identify the two groups, then choose an edge that crosses between them.'))mark('bridge')}
+const rounds=[['A'],['A','B','C'],['A','B','C','D'],['A','B','C','D','E'],['A','B','C','D','E','F','G']];
+function spreadRound(r){bridgePresent=true;spreadSet=new Set(rounds[r]);selected=null;const newly=r===0?['A']:rounds[r].filter(x=>!rounds[r-1].includes(x));$('spreadInfo').textContent=`Round ${r}: informed = ${rounds[r].join(', ')}.${r?` Newly reached: ${newly.join(', ')}.`:''}`;draw()}
+function checkSpread(){const ok=num('r1')===2&&num('r2')===1&&num('r3')===1&&num('r4')===2;if(feedback('fSpread',ok,'Correct. The wave of first arrivals is 2, 1, 1, 2 nodes across rounds 1–4.','Start from A and add only nodes not already informed. B and C arrive first; then D; then E; then F and G.'))mark('spread')}
+function checkThreshold(){const ok=$('th1').value==='no'&&$('th2').value==='yes'&&$('th3').value.startsWith('It can push');if(feedback('fThreshold',ok,'Correct. Local thresholds can turn one additional active neighbor into a system-level cascade.','E needs at least 2 of its 3 neighbors active. Then think about what E becoming active can do to its neighbors.'))mark('threshold')}
+draw();
+</script>
+</body>
+</html>
