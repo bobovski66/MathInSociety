@@ -35,7 +35,7 @@
 </section>
 
 <section class="panel">
-<h2><span class="step">2</span>Degree, the handshake rule, and density</h2>
+<h2><span class="step">2</span>Degree, the handshake rule, and density</h2><div class="callout"><strong>Worked example:</strong> In a triangle with nodes P, Q, and R, each node has degree 2. The total degree is 6, twice the 3 edges, since every edge touches two nodes. All 3 of the 3 possible connections are present, so density is 1.</div>
 <p>Degree measures immediate connectivity. Start locally, then use those local counts to check the network globally.</p>
 <div class="grid">
 <label>degree(A) <input id="degA" type="number"></label>
@@ -51,7 +51,7 @@
 </section>
 
 <section class="panel">
-<h2><span class="step">3</span>Paths and network distance</h2>
+<h2><span class="step">3</span>Paths and network distance</h2><div class="callout"><strong>Worked example:</strong> If P connects to Q and Q connects to R, the route P–Q–R has length 2. Adding a direct P–R edge changes the shortest distance to 1. Count the <em>edges</em>, not the node names.</div>
 <p>A path is a sequence of adjacent edges. Distance means the length of a shortest path. Multiple shortest paths can exist.</p>
 <div class="grid">
 <label>Distance from A to D <input id="distAD" type="number"></label>
@@ -82,7 +82,7 @@
 </section>
 
 <section class="panel">
-<h2><span class="step">5</span>Bottlenecks and resilience</h2>
+<h2><span class="step">5</span>Bottlenecks and resilience</h2><p>Resilience means that a network can still function after a connection fails. A <strong>bridge</strong> is an edge whose removal increases the number of connected components. Extra connections can create alternative routes, reducing dependence on a single link.</p>
 <p>The edge D–E is a bridge: removing it splits the network into two connected components. Try it.</p>
 <div class="round-controls"><button onclick="setBridge(false)">Remove D–E</button><button class="secondary" onclick="setBridge(true)">Restore D–E</button></div>
 <p id="bridgeInfo" class="resultbox">D–E is currently present.</p>
@@ -95,7 +95,7 @@
 </section>
 
 <section class="panel">
-<h2><span class="step">6</span>Diffusion over several rounds</h2>
+<h2><span class="step">6</span>Diffusion over several rounds</h2><p>Here each informed node shares the message with all neighbors every round, and information is never forgotten. Nodes are first reached according to their shortest-path distance from A: immediate neighbors in round one, their not-yet-reached neighbors in round two, and so on.</p>
 <p>Now treat the network as a communication system. A is informed at round 0. During each round, every informed node sends the message to all of its neighbors. Once informed, a node stays informed.</p>
 <div class="round-controls"><button onclick="spreadRound(0)">Round 0</button><button onclick="spreadRound(1)">Round 1</button><button onclick="spreadRound(2)">Round 2</button><button onclick="spreadRound(3)">Round 3</button><button onclick="spreadRound(4)">Round 4</button></div>
 <p id="spreadInfo" class="resultbox">Round 0: only A is informed.</p>
@@ -110,7 +110,7 @@
 </section>
 
 <section class="panel">
-<h2><span class="step">7</span>Thresholds and collective behavior</h2>
+<h2><span class="step">7</span>Thresholds and collective behavior</h2><p>Threshold adoption differs from automatic spreading: it depends on how many neighbors have already adopted. “At least half” requires rounding up when half the number of neighbors is not an integer. A node with five neighbors needs at least three adopters. One more adoption can cause several others to cross their thresholds.</p>
 <p>Automatic spreading is only one model. Suppose instead that a node adopts a behavior when at least half of its neighbors have already adopted it.</p>
 <p>Node E has three neighbors: D, F, and G. “At least half” means E needs at least 2 active neighbors.</p>
 <label>If only D is active, does E adopt? <select id="th1"><option value=""></option><option>yes</option><option>no</option></select></label>
