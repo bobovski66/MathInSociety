@@ -89,7 +89,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
   <h1>Week 1 Laboratory — How Numbers Behave</h1>
   <p>Numbers are not only labels. They can locate, move, scale, compare, and generate new values. This lab follows those roles from the number tower through recursion.</p>
 </header>
-<main>
+<main><section class="panel"><h2>Why do we need different kinds of numbers?</h2><p>Numbers do several jobs. They can count objects, locate positions, compare proportions, and describe changes through time. The same arithmetic operation can carry very different meaning depending on its setting. This lab begins with the kinds of numbers we use, then explores addition as movement, multiplication as scaling, fractions as equivalent representations, and recursion as a model of change.</p><p>For each task, first ask what the number <em>represents</em>. Then decide what mathematical operation tells you about it.</p></section>
 <section class="panel student-guide"><h2>Before you begin</h2><p>Work through each section in order and show the mathematical reasoning requested. Use the check buttons when you are ready to check a section. Your work is saved in this browser.</p></section>
 <section class="panel student-notation"><h2>Key notation</h2><p>In this course, \(\mathbb N=\{1,2,3,\ldots\}\). The number systems satisfy \(\mathbb N\subset\mathbb Z\subset\mathbb Q\subset\mathbb R\). In the recursion section, \(a_{n+1}=a_n+d\) means “add the same amount each step,” while \(b_{n+1}=rb_n\) means “multiply by the same factor each step.”</p></section>
 
@@ -104,7 +104,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
 
 <section class="panel" id="part1">
   <div class="kicker">Part 1 · Number tower</div>
-  <h2>Classify by the smallest system that works</h2>
+  <h2>Classify by the smallest system that works</h2><p>The number systems fit inside one another. Natural numbers count positive whole objects: 1, 2, 3, and so on. Integers add zero and negative whole numbers. Rational numbers are fractions of integers with nonzero denominators. Real numbers also include irrational numbers, which cannot be written as such fractions.</p><div class="callout"><strong>Worked example:</strong> The number −4 is an integer, so it is also rational (\(-4=-4/1\)) and real. Its <em>smallest</em> listed set is the integers. The number \(0.75=3/4\) is rational but not an integer. The number \(\sqrt2\) is real but irrational.</div><p>When you choose the smallest possible system, you are identifying the most specific useful description rather than every set that contains the number.</p>
   <p>For each value, choose the <em>smallest</em> set containing it: natural (N), integer (Z), rational (Q), or real but irrational (R).</p>
   <div class="grid3" id="classifyGrid"></div>
   <div style="margin-top:12px"><button onclick="checkClassify()">Check classifications</button></div>
@@ -113,7 +113,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
 
 <section class="panel" id="part2">
   <div class="kicker">Part 2 · Additive view</div>
-  <h2>Turn arithmetic into motion</h2>
+  <h2>Turn arithmetic into motion</h2><p>A number line lets us interpret signed numbers as <strong>changes in position</strong>. Moving right or up is positive; moving left or down is negative. Your final location is your starting location plus every signed change, in order. A negative final value is not an error; it tells you on which side of zero you ended.</p><div class="callout"><strong>Worked example:</strong> A hiker begins at elevation 0, descends 6 meters, climbs 4 meters, then descends 3 meters. The sequence is \(0+(-6)+4+(-3)=-5\). The hiker finishes 5 meters below the starting level. You can follow the same steps on a number line.</div>
   <div class="grid">
     <div>
       <p>A diver begins at the surface, descends 15 m, rises 8 m, then descends 5 m. Treat upward motion as positive and downward motion as negative.</p>
@@ -142,7 +142,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
 
 <section class="panel" id="part3">
   <div class="kicker">Part 3 · Multiplicative view</div>
-  <h2>Predict what a scale factor will do before calculating</h2>
+  <h2>Predict what a scale factor will do before calculating</h2><p>Multiplication is not always an increase. Multiplication by 2 doubles a positive amount, but multiplication by 0.5 cuts it in half. More generally, multiplying a positive quantity by a factor between zero and one makes it smaller. Dividing by a positive fraction less than one has the opposite effect.</p><div class="callout"><strong>Worked example:</strong> Suppose a recipe requires 12 cups of a mixture. Scaling it by \(3/4\) gives \(12(3/4)=9\) cups. In contrast, \(12\div(3/4)=16\): we are asking how many three-quarter-cup portions fit into 12 cups. Predict the direction of change before calculating each result below.</div>
   <p>Start with 7. For each operation, predict whether the result is <strong>less than 7</strong>, <strong>equal to 7</strong>, or <strong>greater than 7</strong>. Then reveal the value.</p>
   <table class="data-table">
     <thead><tr><th>Operation</th><th>Prediction</th><th>Value</th></tr></thead>
@@ -154,7 +154,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
 
 <section class="panel" id="part4">
   <div class="kicker">Part 4 · Rational equivalence</div>
-  <h2>Different symbols, same location</h2>
+  <h2>Different symbols, same location</h2><p>Fractions can look different while representing the same number. The fractions \(2/3\) and \(4/6\) mark the same location on a number line because numerator and denominator were both doubled. To test two fractions \(a/b\) and \(c/d\), with nonzero denominators, compare their cross-products \(ad\) and \(bc\).</p><div class="callout"><strong>Worked example:</strong> Compare \(3/5\) and \(9/15\). The cross-products are \(3(15)=45\) and \(5(9)=45\), so the fractions are equivalent. Compare \(2/5\) and \(3/8\): \(2(8)=16\) while \(5(3)=15\); they are not equivalent.</div>
   <div class="grid">
     <div class="plan">
       <h3>Pair A</h3>
@@ -179,7 +179,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],proc
 
 <section class="panel" id="part5">
   <div class="kicker">Part 5 · Recursion</div>
-  <h2>Add the same amount or multiply by the same factor?</h2>
+  <h2>Add the same amount or multiply by the same factor?</h2><p>A <strong>recursive rule</strong> specifies a starting value and how to get the next value from the current one. With constant addition, the amount gained each year is fixed. With constant percentage growth, the amount gained increases as the current population increases. Two models may begin together and separate gradually.</p><div class="callout"><strong>Worked example:</strong> Start two accounts at 100. Account A adds 20 per year, giving 120, 140, 160. Account B grows 20% per year, giving 120, 144, 172.80. Both gained 20 in year one, but B's next increase was 24 because the percentage was applied to 120 rather than 100.</div><p>Fill the five-year table before checking the longer-term values. Use the pattern to make a prediction, even if you are uncertain.</p>
   <p>Two populations both begin at 1,000. Population A gains 200 each year. Population B grows by 15% each year. Compute years 1–5 first. Then make a prediction about year 20 before revealing the longer-term comparison.</p>
   <div class="compare">
     <div class="plan"><strong>Population A</strong><div>A₀ = 1000</div><div>Aₙ₊₁ = Aₙ + 200</div></div>
