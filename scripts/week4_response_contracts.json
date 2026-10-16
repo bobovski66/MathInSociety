@@ -1,0 +1,831 @@
+{
+  "readings/week4_reading.html": [],
+  "labs/week4_lab.html": [
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "printStudentName",
+        "type": "text",
+        "autocomplete": "name",
+        "placeholder": "Enter your name"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "apple68",
+        "type": "number",
+        "step": "0.1"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "appleHigh",
+        "type": "number",
+        "step": "0.1"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "appleLo",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "appleHi",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "commute95",
+        "type": "number",
+        "step": "0.1"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "commuteZ",
+        "type": "number",
+        "step": "0.1"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "commuteLow",
+        "type": "number",
+        "step": "0.1"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "z115",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "z85",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "z100",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "z130",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "x2",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "xm1",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "x05",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "xm3",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "studentAZ",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "studentBZ",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "betterStudent"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "A",
+          "Student A"
+        ],
+        [
+          "B",
+          "Student B"
+        ],
+        [
+          "same",
+          "Same relative performance"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "pollParam"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "mean",
+          "population mean"
+        ],
+        [
+          "prop",
+          "population proportion supporting the candidate"
+        ],
+        [
+          "size",
+          "population size"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "pollStat"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "58",
+          "58%"
+        ],
+        [
+          "1200",
+          "1,200"
+        ],
+        [
+          "unknown",
+          "unknown"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "fishParam"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "mean",
+          "population mean fish length"
+        ],
+        [
+          "prop",
+          "population proportion"
+        ],
+        [
+          "size",
+          "population size"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "fishStat"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "31.2",
+          "31.2 cm"
+        ],
+        [
+          "40",
+          "40"
+        ],
+        [
+          "unknown",
+          "unknown"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "cerealParam"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "mean",
+          "population mean box weight"
+        ],
+        [
+          "prop",
+          "population proportion"
+        ],
+        [
+          "size",
+          "population size"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "cerealStat"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "368",
+          "368 g"
+        ],
+        [
+          "50",
+          "50"
+        ],
+        [
+          "unknown",
+          "unknown"
+        ]
+      ]
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "ci1lo",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "ci1hi",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "ci2lo",
+        "type": "number",
+        "step": "0.1"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "ci2hi",
+        "type": "number",
+        "step": "0.1"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "ci3lo",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "ci3hi",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "cerealLo",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "cerealHi",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "cerealInside"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ]
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "newN",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "finalZ",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "within2"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "contains60"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "tool1"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "z",
+          "z-score"
+        ],
+        [
+          "emp",
+          "Empirical Rule"
+        ],
+        [
+          "ci",
+          "confidence interval"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "tool2"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "z",
+          "z-score"
+        ],
+        [
+          "emp",
+          "Empirical Rule"
+        ],
+        [
+          "ci",
+          "confidence interval"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "tool3"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "z",
+          "z-score"
+        ],
+        [
+          "emp",
+          "Empirical Rule"
+        ],
+        [
+          "ci",
+          "confidence interval"
+        ]
+      ]
+    }
+  ],
+  "applications/week4_application.html": [
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "lo",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "hi",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "inside"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "decision"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "consistent",
+          "The sample is consistent with a population mean of 230 calories."
+        ],
+        [
+          "notconsistent",
+          "The sample interval does not include 230 calories, so the claim is not consistent with this estimate."
+        ],
+        [
+          "individual",
+          "Every individual box must contain more than 230 calories."
+        ]
+      ]
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "newE",
+        "type": "number",
+        "step": "0.1"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "newLo",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "newHi",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "newInside"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ]
+    }
+  ],
+  "applications/week4_ai.html": [
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q1",
+        "type": "number",
+        "step": "any",
+        "inputmode": "decimal"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q2",
+        "type": "number",
+        "step": "any",
+        "inputmode": "decimal"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q3",
+        "type": "number",
+        "step": "any",
+        "inputmode": "decimal"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "q4"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "The benchmark estimates performance on the kinds of tasks represented by its questions.",
+          "The benchmark estimates performance on the kinds of tasks represented by its questions."
+        ],
+        [
+          "The benchmark measures every possible use of the model.",
+          "The benchmark measures every possible use of the model."
+        ],
+        [
+          "An 85% score makes every future answer 85% likely to be true.",
+          "An 85% score makes every future answer 85% likely to be true."
+        ],
+        [
+          "A large benchmark automatically removes all bias.",
+          "A large benchmark automatically removes all bias."
+        ]
+      ]
+    }
+  ],
+  "applications/ai_week4.html": [
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "q1a"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "population",
+          "population"
+        ],
+        [
+          "sample",
+          "sample"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "q1b"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "parameter",
+          "population parameter"
+        ],
+        [
+          "statistic",
+          "sample statistic"
+        ]
+      ]
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q2a",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q2b",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "q3"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "all",
+          "Every individual response must score between 74 and 82."
+        ],
+        [
+          "mean",
+          "It is a plausible range for the population mean score under the study's assumptions."
+        ],
+        [
+          "future",
+          "The next response is guaranteed to score 78."
+        ]
+      ]
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q4",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "q5"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "certain",
+          "The sample proves Model B is better for every prompt."
+        ],
+        [
+          "careful",
+          "The estimates differ, but these intervals alone do not establish a universal difference; more evidence may be needed."
+        ],
+        [
+          "same",
+          "The models are mathematically identical."
+        ]
+      ]
+    }
+  ],
+  "discussions/week4_discussion.html": []
+}
