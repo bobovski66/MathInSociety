@@ -1,0 +1,21 @@
+/* Guided history: preserve all filters and use the same exact feedback model as the unit. */
+(function(){
+'use strict';
+function init(){
+const cards=[...document.querySelectorAll('.milestone')],search=document.getElementById('searchEvents'),count=document.getElementById('resultCount'),empty=document.getElementById('emptyMessage');let cat='all',era='all';
+function pick(selector,value){document.querySelectorAll(selector).forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.value===value)));}
+function update(){const q=search.value.toLocaleLowerCase().trim();let n=0;for(const card of cards){const visible=(cat==='all'||card.dataset.cat===cat)&&(era==='all'||card.dataset.era===era)&&(!q||card.dataset.query.includes(q));card.hidden=!visible;if(visible)n++;}count.textContent=n+' of '+cards.length+' milestones';empty.classList.toggle('show',!n);}
+document.querySelectorAll('.cat').forEach(b=>b.addEventListener('click',()=>{cat=b.dataset.value;pick('.cat',cat);update();}));document.querySelectorAll('.era').forEach(b=>b.addEventListener('click',()=>{era=b.dataset.value;pick('.era',era);update();}));search.addEventListener('input',update);
+document.getElementById('clearFilters').addEventListener('click',()=>{cat=era='all';search.value='';pick('.cat',cat);pick('.era',era);update();});
+document.querySelectorAll('[data-jump]').forEach(b=>b.addEventListener('click',()=>{cat=era='all';search.value='';pick('.cat',cat);pick('.era',era);update();const target=cards.find(x=>+x.dataset.year>=+b.dataset.jump);if(target)target.scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});}));
+const range=document.getElementById('chanceRange'),V=window.Week5Visuals;
+function updateEntropy(){const p=+range.value/100;document.getElementById('chanceVal').textContent=Math.round(p*100)+'%';document.getElementById('headBar').style.width=p*100+'%';document.getElementById('entropyVal').textContent=window.Math5.entropy(p).toFixed(3)+' bits per toss';document.getElementById('entropyExplain').textContent=p===.5?'Maximum average uncertainty: heads and tails are equally likely.':p===0||p===1?'No uncertainty: the outcome is certain.':'Unequal probabilities reduce average uncertainty below one bit.';V.table('historyEntropyTable',['Chance of heads','Chance of tails','Entropy (bits per toss)'],[0,.25,.5,.75,1,p].filter((x,i,a)=>a.indexOf(x)===i).sort((a,b)=>a-b).map(p=>[Math.round(100*p)+'%',Math.round(100*(1-p))+'%',window.Math5.entropy(p).toFixed(3)]));}
+range.addEventListener('input',updateEntropy);
+const nowBtn=document.getElementById('nowBtn'),lagBtn=document.getElementById('lagBtn');let delayed=false;
+function draw(){const f=window.Math5.feedback({delay:delayed?1:0,steps:10});V.chart('feedbackGraph',[{name:delayed?'One-step-old report':'Current report',color:delayed?'#a55c21':'#17677a',dashed:delayed,points:f.states.map((v,n)=>[n,v])}],{reference:70,ylabel:'Temperature (°F)',xlabel:'Completed hourly updates n',title:'Report age and greenhouse temperature',xmax:10,ymin:63,ymax:74.2});V.table('historyFeedbackTable',['State index','Temperature (°F)','Report used in the update that produced this state'],f.states.map((v,n)=>[n,V.fmt(v),n===0?'Starting state':V.fmt(f.rows[n-1].report)+'°F from index '+f.rows[n-1].reportIndex]));nowBtn.setAttribute('aria-pressed',String(!delayed));lagBtn.setAttribute('aria-pressed',String(delayed));document.getElementById('feedbackExplain').textContent=delayed?'At step 2 the state is already 70°F. The old 67°F report still calls for +1.5°F, giving 71.5°F at step 3. At step 4, a zero reported error leaves that overshoot unchanged.':'Current reports produce 64, 67, 68.5, 69.25, … . Each correction removes half of the remaining gap without crossing 70°F.';}
+nowBtn.addEventListener('click',()=>{delayed=false;draw();});lagBtn.addEventListener('click',()=>{delayed=true;draw();});draw();updateEntropy();update();
+// A guided link should reveal its target even if a previous filter hid it.
+document.querySelectorAll('.study-route a[href^="#"]').forEach(a=>a.addEventListener('click',()=>{cat=era='all';search.value='';pick('.cat',cat);pick('.era',era);update();}));
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();

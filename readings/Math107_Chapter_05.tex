@@ -1,281 +1,512 @@
-\documentclass[12pt]{book}
-\usepackage[utf8]{inputenc}
+\documentclass[11pt,letterpaper]{article}
 \usepackage[T1]{fontenc}
-\usepackage{amsmath,amssymb}
-\usepackage{geometry}
-\usepackage{tikz}
-\usepackage{xcolor}
-\usepackage{mdframed}
-\usepackage{enumitem}
-\usepackage{booktabs}
-\usepackage{array}
-\usepackage{fancyhdr}
-\usepackage{titlesec}
-\geometry{margin=1.1in,top=1.2in,bottom=1.2in}
-\definecolor{mathblue}{RGB}{30,90,160}
-\definecolor{mathgreen}{RGB}{30,140,80}
-\definecolor{mathred}{RGB}{180,40,40}
-\definecolor{lightgray}{RGB}{240,240,240}
-\titleformat{\chapter}[display]{\normalfont\large\bfseries}{\chaptertitlename\ \thechapter}{12pt}{\LARGE}
-\titleformat{\section}{\normalfont\large\bfseries}{{\thesection}}{1em}{}
-\setcounter{chapter}{4}
-\pagestyle{fancy}\fancyhf{}
-\fancyhead[LE]{\small\textit{Chapter \thechapter.\ Cybernetic Systems}}
-\fancyhead[RO]{\small\textit{Observing with Mathematical Perspectives}}
-\fancyfoot[C]{\small\thepage}\renewcommand{\headrulewidth}{0.4pt}
-\newcounter{exercise}[section]\renewcommand{\theexercise}{\thesection.\arabic{exercise}}
-\newenvironment{exercises}{\begin{mdframed}[backgroundcolor=lightgray,linewidth=0pt,innertopmargin=10pt,innerbottommargin=10pt]\noindent\textbf{Exercises \thesection}\begin{list}{\theexercise.}{\usecounter{exercise}\setlength{\leftmargin}{2em}\setlength{\itemsep}{6pt}}}{\end{list}\end{mdframed}}
-\newcounter{example}[section]\renewcommand{\theexample}{\thesection.\arabic{example}}
-\newenvironment{example}[1][]{\refstepcounter{example}\medskip\noindent\textbf{Example \theexample.}\ifx&#1&\else\ \textit{(#1)}\fi\quad}{\medskip}
-\newenvironment{definition}[1]{\begin{mdframed}[linecolor=mathblue,linewidth=1pt,innertopmargin=8pt,innerbottommargin=8pt]\noindent\textbf{Definition.} \textit{#1.}\quad}{\end{mdframed}\medskip}
+\usepackage{lmodern,microtype,amsmath,amssymb,graphicx,booktabs,tabularx,array,enumitem,xcolor,fancyhdr,titlesec,tcolorbox,caption}
+\tcbuselibrary{breakable}
+\usepackage[margin=.8in,headheight=15pt,headsep=18pt,footskip=25pt]{geometry}
+\usepackage[colorlinks=true,urlcolor=teal,linkcolor=olive]{hyperref}
+\definecolor{olive}{HTML}{536240}\definecolor{ink}{HTML}{293329}\definecolor{teal}{HTML}{17677A}\definecolor{gold}{HTML}{A55C21}\definecolor{soft}{HTML}{EEF3E8}\definecolor{warm}{HTML}{FBEFDF}
+\color{ink}\setlength{\parindent}{0pt}\setlength{\parskip}{7pt}
+\setlist{leftmargin=1.4em,itemsep=3pt,topsep=3pt}
+\renewcommand{\thesection}{5.\arabic{section}}
+\titleformat{\section}{\Large\bfseries\color{olive}}{\thesection}{.6em}{}
+\titleformat{\subsection}{\large\bfseries\color{teal}}{}{0pt}{}
+\titlespacing*{\section}{0pt}{4pt}{12pt}\titlespacing*{\subsection}{0pt}{11pt}{4pt}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\sffamily MATH\& 107 / WEEK 5}\fancyhead[R]{\small\sffamily Cybernetics and Feedback}\fancyfoot[L]{\small\sffamily Math in Society / Dr Lee}\fancyfoot[R]{\small\sffamily\thepage}\renewcommand{\headrulewidth}{.3pt}
+\tcbset{boxrule=.5pt,arc=2mm,left=10pt,right=10pt,top=7pt,bottom=7pt,before skip=9pt,after skip=9pt,colframe=olive!35,colback=soft,fonttitle=\bfseries,coltitle=teal,colbacktitle=soft}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\captionsetup{font=small,labelformat=empty,textfont={color=teal},skip=7pt}
+\hypersetup{pdftitle={Week 5: Cybernetics and Feedback},pdfauthor={MATH and 107 / Dr Lee}}
+\usepackage{needspace}
+\pdfinfoomitdate=1
+\pdftrailerid{}
+\pdfsuppressptexinfo=15
+\setlength{\emergencystretch}{2em}
+
+\widowpenalty=10000
+\clubpenalty=10000
+
 \begin{document}
-\chapter{Cybernetic Systems: Feedback, Information, and Control}
-A thermostat, a driver keeping a car near a chosen speed, a person learning from mistakes, and a recommendation system responding to clicks look very different. Yet each can be understood through the same simple idea: information about what just happened is used to influence what happens next.
+{\small\sffamily\color{olive}WEEK 5 / MATHEMATICS IN SOCIETY / FEEDBACK AND INFORMATION\par}
+\vspace{12pt}
+{\fontsize{31}{35}\selectfont\bfseries\color{olive}When information changes what happens next\par}
+\vspace{10pt}
+{\large Build a loop from familiar sequences. Follow the state, the report, the correction, and the next state.\par}
+\begin{center}\includegraphics[width=\linewidth,height=2.85in,keepaspectratio]{../assets/week5/immediate-delayed.pdf}\end{center}
+\begin{tcolorbox}[title={The setting for the week}]
+Two greenhouses start at $64^\circ$F and aim for $70^\circ$F. Both correct half of the reported difference each hourly step. One uses a current report; the other uses a one-hour-old report. The delayed path passes the target even though the controller is trying to correct a shortage.
+\end{tcolorbox}
+Cybernetics studies communication, feedback, and control in machines, living things, and social systems. We develop its basic questions using the recursive sequences of Week 1 and the measurements and variation of Weeks 3--4. No engineering or calculus is assumed.
 
-This chapter develops a mathematical language for that idea. The arithmetic is intentionally modest. The goal is not to turn every reader into an engineer. The goal is to make feedback visible.
+Try each short check before consulting its explanation in the solutions. The review includes numerical updates, interpretation, historical questions, and complete solutions. Optional information-theory questions use powers of two before logarithms.
 
-\section{From a Changing Quantity to a Feedback Loop}
-A changing quantity can be recorded as a sequence
-\[x_0,x_1,x_2,\ldots\]
-where the subscript marks the step in time. This notation already appeared in recursion. Cybernetics asks an additional question: \emph{does information about the current state affect the next step?}
+\medskip
+\href{https://bobovski66.github.io/MathInSociety/readings/week5_reading.html}{Online reading}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/demos/cybernetics.html}{Feedback explorer}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/labs/week5_lab.html}{Guided laboratory}
+\clearpage
 
-\begin{definition}{Cybernetic system}
-A \textbf{cybernetic system} uses information about its present or recent condition to guide later action.
-\end{definition}
 
-A simple feedback loop can be pictured as
-\[
-\boxed{\text{state}}\longrightarrow\boxed{\text{measurement}}\longrightarrow\boxed{\text{comparison}}\longrightarrow\boxed{\text{action}}\longrightarrow\boxed{\text{new state}}.
-\]
-The new state is measured again, so the path closes into a loop.
+\Needspace{6\baselineskip}\section{A subscript tells you when, not how much to multiply}
 
-\begin{example}[A thermostat]
-A room is at $64^\circ$F and the thermostat is set to $70^\circ$F. The thermostat measures the room, compares the measurement with $70$, and calls for heat. The warmer room is then measured again. The action changes the condition that supplies the next measurement.
-\end{example}
+A \emph{sequence} is an ordered list. A \emph{recursive rule} tells us how to use earlier values to find a new one. If \(a_0=10\) and \(a_{n+1}=a_n-2\), the list begins \(10,8,6,4,\ldots\). Starting at step 0, three updates take us to \(a_3=4\). There are four listed values but only three changes.
 
-\begin{example}[Driving]
-A driver wants to stay near $60$ mph. The speedometer reports $55$ mph, so the driver presses the accelerator. A moment later the speedometer reports a new speed. The driver does not need to predict every future speed in advance; repeated measurement allows repeated correction.
-\end{example}
 
-\begin{exercises}
-\item For each situation, identify the state being observed and one action that can change it: room temperature, water level in a tank, amount of inventory in a store, and a student's quiz score.
-\item Explain why a kitchen timer that simply counts down is not, by itself, a feedback controller.
-\item Draw the five-box loop above for a driver trying to maintain a chosen speed.
-\end{exercises}
+For our greenhouse, let \(x_n\) mean temperature in degrees Fahrenheit at step \(n\). We will treat each step as one hour. Thus \(x_0=64\) is the starting temperature, \(x_1\) is the temperature after one update, and \(x_2\) is the temperature after two updates. The subscript is a label for time. It is neither an exponent nor a multiplication.
 
-\section{Goals, Measurements, and Error}
-Many feedback systems compare what is happening with what is wanted. Let
-\[r=\text{desired value},\qquad x_n=\text{observed value at step }n.\]
-The difference
-\[e_n=r-x_n\]
-is called the \textbf{error}. Here, ``error'' does not mean a mistake. It means a difference between a reference value and an observation.
 
-\begin{example}[Reading an error signal]
-If a thermostat is set to $70$ and measures $64$, then
-\[e=70-64=6.\]
-The positive error says the room is $6^\circ$ below the target. If the room is $73$, then
-\[e=70-73=-3,\]
-so the sign tells us that the room is above the target.
-\end{example}
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=2.8in,keepaspectratio]{../assets/week5/subscript-timeline.pdf}
+\captionof*{figure}{Read the index first: previous, current, next. The history value x$_{-}$$_1$ is a temperature before the start, not a negative temperature.}
+\end{minipage}\par\medskip
 
-A very simple correction rule is
-\[x_{n+1}=x_n+k e_n,\]
-where $k$ is the \textbf{response strength}. Substituting $e_n=r-x_n$ gives
-\[x_{n+1}=x_n+k(r-x_n).\]
-The rule says: measure the difference from the target, take some fraction or multiple of that difference, and use it as the next correction.
+\begin{tcolorbox}[title={Translate the notation before calculating},breakable]
 
-\begin{example}[Half the remaining error]
-Suppose $r=70$, $x_0=64$, and $k=0.5$.
-\[
-\begin{array}{c|c|c|c}
-n&x_n&e_n=70-x_n&\text{correction }0.5e_n\\\hline
-0&64&6&3\\
-1&67&3&1.5\\
-2&68.5&1.5&0.75\\
-3&69.25&0.75&0.375
-\end{array}
-\]
-Each correction removes half of the remaining difference. The values approach $70$.
-\end{example}
+If we are at step \(n=2\), then \(x_{n-1}=x_1\) means the previous temperature, \(x_n=x_2\) means the current temperature, and \(x_{n+1}=x_3\) is the next one we want to find.
 
-\begin{exercises}
-\item A water tank has target level $100$ cm and current level $84$ cm. Find the error.
-\item Using $r=100$, $x_0=84$, and $k=0.25$, compute $x_1$ and $x_2$.
-\item A driver wants $55$ mph and observes $61$ mph. Find the error and explain the meaning of its sign.
-\end{exercises}
 
-\section{Negative Feedback and Stability}
-\begin{definition}{Negative feedback}
-\textbf{Negative feedback} acts against a departure from a reference value. When the state is too low it tends to push upward; when the state is too high it tends to push downward.
-\end{definition}
-The word \emph{negative} does not mean harmful. It describes the direction of the feedback: the response tends to reduce the deviation.
+\end{tcolorbox}
 
-For the correction rule
-\[x_{n+1}=x_n+k(r-x_n),\]
-the response strength $k$ changes the behavior dramatically.
+\begin{tcolorbox}[title={Pause and try 1},breakable]
+A sequence starts at \(a_0=5\) and uses \(a_{n+1}=2a_n\). List the first four values and count the updates.
+\end{tcolorbox}
 
-\begin{center}\begin{tabular}{cl}\toprule
-Response strength & Typical behavior in this simple model\\\midrule
-$0<k<1$ & approaches the target without crossing it\\
-$k=1$ & reaches the target in one step\\
-$1<k<2$ & overshoots, then oscillates toward the target\\
-$k=2$ & repeats equal-size overshoots\\
-$k>2$ & overshoots grow in size\\\bottomrule
-\end{tabular}\end{center}
 
-\begin{example}[Overshoot]
-Let $r=70$, $x_0=64$, and $k=1.5$.
-\[x_1=64+1.5(6)=73.\]
-Now the error is $70-73=-3$, so
-\[x_2=73+1.5(-3)=68.5.\]
-The system crosses the target, but the overshoot becomes smaller. This is a damped oscillation.
-\end{example}
+\Needspace{6\baselineskip}\section{A reading becomes feedback when it changes the next action}
 
-A useful word is \textbf{stability}. A stable feedback process stays near, or returns toward, a desired operating condition after a disturbance. An unstable process moves farther away or develops growing oscillations.
+A thermometer on a wall can display the temperature without controlling anything. A thermostat uses the reading to decide whether to change heating or cooling. That action changes the room, which changes the next reading. Information returns to influence the process that produced it. This returning influence is \emph{feedback}.
 
-\begin{exercises}
-\item Starting from $x_0=0$ with target $r=10$, compute three updates for $k=0.5$.
-\item Repeat with $k=1.5$. What new behavior appears?
-\item Without calculating many steps, predict what will happen for $k=2.5$ and explain why the prediction is reasonable.
-\item Give one everyday example in which too strong a correction can produce overshoot.
-\end{exercises}
 
-\section{Positive Feedback: When Change Amplifies Change}
-\begin{definition}{Positive feedback}
-\textbf{Positive feedback} reinforces a departure instead of correcting it. A change produces conditions that encourage more change in the same direction.
-\end{definition}
-Again, \emph{positive} does not mean good. A useful positive-feedback process may build momentum; a harmful one may run away.
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=2.8in,keepaspectratio]{../assets/week5/feedback-loop.pdf}
+\captionof*{figure}{The arrows form a loop: the action changes the condition that will supply the next observation.}
+\end{minipage}\par\medskip
 
-A simple amplification rule is
-\[x_{n+1}=(1+g)x_n,\]
-where $g>0$ is the fractional increase per step.
+\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYY@{}}\toprule
+Part & Meaning & Greenhouse example\\
+\midrule
+State & The condition that can change & Temperature now\\
+Sensor & What measures the condition & Thermometer\\
+Reference or target & The desired value & 70°F\\
+Controller & The rule or decision maker & Compare report with 70; choose correction\\
+Actuator & What carries out the action & Heater or cooling fan\\
+\bottomrule\end{tabularx}}\par\medskip
 
-\begin{example}[Repeated amplification]
-Suppose a message reaches $100$ people and each round increases exposure by $20\%$:
-\[x_{n+1}=1.2x_n.\]
-Then
-\[100,\ 120,\ 144,\ 172.8,\ldots\]
-The larger the exposure becomes, the larger the next increase becomes.
-\end{example}
+The \emph{state} and the \emph{measurement} need not agree. The state is the temperature actually present now; a measurement is a report about temperature. It might describe an earlier hour or contain an error. Our first model makes them agree so we can see one idea at a time.
 
-Examples of positive feedback can include microphone squeal, applause that encourages more applause, speculative buying that raises attention and attracts more buyers, and online content whose increased visibility generates more engagement and therefore still more visibility.
 
-\begin{exercises}
-\item Starting from $50$, apply a $10\%$ amplification for four steps.
-\item Explain why compound interest is naturally connected to positive feedback.
-\item Classify each as mainly corrective or amplifying: cruise control, a thermostat, microphone squeal, and a rumor that spreads faster as more people repeat it.
-\end{exercises}
+\begin{tcolorbox}[title={Pause and try 2},breakable]
+A sprinkler runs every morning at 6 a.m. A second sprinkler runs when a soil sensor reports dry ground. Which uses soil-moisture feedback?
+\end{tcolorbox}
 
-\section{A System Acts on Information, Not on the World Directly}
-A controller usually does not have direct access to the quantity it cares about. It receives a \textbf{measurement} or a \textbf{signal}.
-\[\boxed{\text{world}}\longrightarrow\boxed{\text{sensor}}\longrightarrow\boxed{\text{signal}}.\]
-The signal may be rounded, delayed, noisy, incomplete, or wrong. The quality of the feedback depends on the quality of the information entering the loop.
+\clearpage
 
-\begin{example}[Limited precision]
-A cheap temperature sensor reports only whole degrees. A true temperature of $69.6^\circ$F may be reported as $70^\circ$F. If the target is $70$, the controller may see zero error even though a small difference remains.
-\end{example}
+\Needspace{6\baselineskip}\section{Start here, measure a difference, make a correction}
 
-Some signals are represented using only two states, often written $0$ and $1$: off/on, closed/open, no alarm/alarm. Larger measurements can also be encoded as strings of such symbols. The important cybernetic question is not the notation itself, but what information the representation preserves and how reliably it reaches the decision process.
+Our invented greenhouse starts at 64°F and has target \(r=70\)°F. Its controller corrects half of the reported difference each hour. We assume the equipment can produce that exact net temperature change, in either direction. There is no sunlight, heat loss, equipment limit, or random measurement error in this model. These assumptions make the timing of feedback visible.
 
-One simple error check is \textbf{even parity}: an extra bit is chosen so that the transmitted block contains an even number of $1$s. If one bit flips, the receiver sees an odd count and knows that something went wrong. Parity does not repair the message; it gives the feedback system a way to notice some transmission errors.
 
-Information can also be connected to surprise. An event with probability $p=1/32=2^{-5}$ carries $5$ bits of information in the measure
-\[I=-\log_2(p).\]
-For this course, the important interpretation is simple: rarer observations can change what we know more strongly than routine observations.
+The \emph{control error} is target minus the report used for the decision. ``Error'' here means a signed difference, not an arithmetic mistake. A 64°F report gives \(70-64=+6\): the report is below target. A 73°F report gives \(70-73=-3\): the report is above target.
 
-\begin{exercises}
-\item A sensor rounds water level to the nearest $10$ cm. Explain one way this could affect a controller whose target is $100$ cm.
-\item A four-bit message is $1011$. Choose an even-parity bit.
-\item An alarm occurs with probability $1/8$. How many bits of information does the event carry using $I=-\log_2(p)$?
-\item Give an example in which a measurement is useful even though it is imperfect.
-\end{exercises}
+\[\text{correction}=k(\text{target}-\text{report}),\qquad \text{next}=\text{current}+\text{correction}.\]
+The \emph{response strength} \(k\) says how much of that difference we use. With \(k=0.5\), we use one-half of the reported difference. With a current report, the rule becomes
 
-\section{Delay: Correcting the Past}
-Feedback can become difficult when the measurement arrives late. A driver who steers using an old view of the road will overcorrect. A store that orders inventory using last month's demand may alternate between shortages and excess stock.
+\[x_{n+1}=x_n+0.5(70-x_n).\]
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=2.8in,keepaspectratio]{../assets/week5/error-correction.pdf}
+\captionof*{figure}{Correct half of the remaining difference at each step. The original 6°F gap is not reused forever.}
+\end{minipage}\par\medskip
 
-A one-step delay can be represented schematically by
-\[\text{action at step }n\ \text{uses a measurement from step }n-1.\]
-The arithmetic can still be elementary, but the behavior may change dramatically because the system is correcting a condition that has already changed.
+\begin{tcolorbox}[title={Write the first two updates in full},breakable]
 
-\begin{example}[Inventory with delayed information]
-A store wants $100$ units in stock. At the end of Monday it has $60$, but the ordering system still sees Sunday's report of $80$. If the rule orders half the reported shortage, it orders
-\[0.5(100-80)=10\]
-units rather than the $20$ units it would have ordered from the current measurement. Delay changes the action even though the arithmetic rule is unchanged.
-\end{example}
+First: \(x_1=64+0.5(70-64)=64+3=67\).
 
-\begin{exercises}
-\item In the inventory example, compute the order based on the current level $60$ and compare it with the delayed order.
-\item Explain why delayed feedback can create repeated overcorrection.
-\item Name one social or economic system in which decisions are commonly based on information that is already old by the time it arrives.
-\end{exercises}
 
-\section{Adaptation and Learning}
-A controller can do more than repeat the same response rule. It can change how it responds after seeing the results of earlier attempts. This is \textbf{adaptation}.
+Second: \(x_2=67+0.5(70-67)=67+1.5=68.5\).
 
-Consider a system that makes a prediction, compares it with a target, and then changes an adjustable weight:
-\[
-\boxed{\text{prediction}}\longrightarrow\boxed{\text{error}}\longrightarrow\boxed{\text{weight change}}\longrightarrow\boxed{\text{new prediction}}.
-\]
 
-\begin{example}[A tiny learning loop]
-Suppose an adjustable weight is $w=1$ and the system's simple prediction is twice the weight. The target is $6$.
-\[\widehat y=2w=2,\qquad e=6-2=4.\]
-Use the toy update rule
-\[w_{\text{new}}=w+0.25e.\]
-Then $w_{\text{new}}=2$, so the next prediction is $4$. The new error is $2$, giving $w=2.5$ and prediction $5$. Repeated correction moves the prediction toward the target.
-\end{example}
+The second correction is smaller because it uses the new temperature, 67. Continue by putting 68.5 into the same rule.
 
-Modern neural networks contain very many adjustable weights. During training, a prediction is compared with a target and an overall error is measured. \textbf{Backpropagation} is the bookkeeping process that works backward through the network to determine how the error is connected to the adjustable weights. A training rule then changes those weights. The detailed calculation is beyond this course, but the cybernetic structure is not:
-\[
-\text{attempt}\to\text{measure error}\to\text{change}\to\text{attempt again}.
-\]
-A trained network making a prediction is one pass from input to output. Training closes a larger loop around that pass.
 
-\begin{exercises}
-\item Continue the tiny learning loop above for two more updates.
-\item Explain in words why training is a feedback process.
-\item What is the difference between making one prediction and learning from the error in that prediction?
-\end{exercises}
+\end{tcolorbox}
 
-\section{Cybernetics in Human Systems}
-Cybernetic thinking applies whenever observations influence later actions. The same pattern appears in biological regulation, education, traffic control, markets, organizations, ecosystems, medicine, recommendation systems, and public administration.
+\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYYYY@{}}\toprule
+Update & Current (°F) & Report (°F) & Correction (°F) & Next (°F)\\
+\midrule
+0 $\to$ 1 & 64 & 64 & +3 & 67\\
+1 $\to$ 2 & 67 & 67 & +1.5 & 68.5\\
+2 $\to$ 3 & 68.5 & 68.5 & +0.75 & 69.25\\
+3 $\to$ 4 & 69.25 & 69.25 & +0.375 & 69.625\\
+\bottomrule\end{tabularx}}\par\medskip
 
-The mathematics gives us a powerful set of questions:
-\begin{itemize}
-\item What quantity is being observed?
-\item Who or what chooses the target?
-\item How is the difference between current and desired conditions measured?
-\item What action follows from that measurement?
-\item How strongly does the system respond?
-\item Is the feedback corrective or amplifying?
-\item Is the information noisy, delayed, or incomplete?
-\item Does the action change the environment that will generate the next measurement?
-\end{itemize}
+\begin{tcolorbox}[title={Pause and try 3},breakable]
+A water level starts at 84 cm, with target 100 cm and \(k=0.25\). Use current reports to find the first two new levels.
+\end{tcolorbox}
 
-The last question is especially important in human systems. A recommendation system observes what people click, changes what they see, and then measures the clicks produced by the changed environment. A school measures performance, changes instruction, and then measures new performance. The observer and the observed system can become part of the same loop.
 
-\begin{example}[A school feedback loop]
-A class completes a short assessment. The instructor sees that many students missed the same idea, changes the next lesson, and then observes a new set of student responses. The assessment is not only a record; it becomes information used to alter the future state of the class.
-\end{example}
+\Needspace{6\baselineskip}\section{The new state still starts from now}
 
-Cybernetic analysis does not automatically tell us what a target \emph{should} be. Mathematics can reveal how a feedback loop behaves, but human judgment is still required when goals, measurements, and consequences affect people.
+Keep the same target, starting temperature, and response strength. Change only the thermometer's delivery time. The report available at step \(n\) now describes step \(n-1\). The correction uses the older report, but it is added to the \emph{current} temperature:
 
-\begin{exercises}
-\item Choose one of these systems---education, traffic, social media, public health, or a workplace---and identify state, measurement, target, action, and feedback.
-\item Give one example in which optimizing a measured quantity might accidentally encourage undesirable behavior.
-\item Explain why ``positive feedback'' and ``negative feedback'' should not be interpreted as ``good'' and ``bad.''
-\end{exercises}
+\[x_{n+1}=x_n+0.5(70-x_{n-1}).\]
+The two subscripts do different jobs. At step 2, \(x_2\) is where we start the next change, while \(x_1\) supplies the report. We need an earlier history value to begin: assume \(x_{-1}=x_0=64\). This says the greenhouse was also 64°F one hour before our start.
 
+
+\begin{tcolorbox}[title={Watch the two numbers travel through the rule},breakable]
+
+At step 0: current 64, old report 64, correction +3, so \(x_1=67\).
+
+
+At step 1: current 67, old report still 64, correction +3, so \(x_2=70\).
+
+
+At step 2: current 70, old report 67, correction +1.5, so \(x_3=71.5\).
+
+
+The system has reached its target at step 2. The available report has not caught up, so the next correction carries it beyond 70.
+
+
+\end{tcolorbox}
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=2.8in,keepaspectratio]{../assets/week5/delay-decision.pdf}
+\captionof*{figure}{Delay changes the information used to decide; it does not move the starting point of the physical change back into the past.}
+\end{minipage}\par\medskip
+
+\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYYYY@{}}\toprule
+Update & Current (°F) & Old report (°F) & Correction (°F) & Next (°F)\\
+\midrule
+0 $\to$ 1 & 64 & 64 & +3 & 67\\
+1 $\to$ 2 & 67 & 64 & +3 & 70\\
+2 $\to$ 3 & 70 & 67 & +1.5 & 71.5\\
+3 $\to$ 4 & 71.5 & 70 & 0 & 71.5\\
+4 $\to$ 5 & 71.5 & 71.5 & $-$0.75 & 70.75\\
+5 $\to$ 6 & 70.75 & 71.5 & $-$0.75 & 70\\
+6 $\to$ 7 & 70 & 70.75 & $-$0.375 & 69.625\\
+\bottomrule\end{tabularx}}\par\medskip
+
+\begin{tcolorbox}[title={Pause and try 4},breakable]
+At step 3, the current temperature is 71.5°F but the old report is 70°F. What correction is made, and what temperature follows?
+\end{tcolorbox}
+
+
+\Needspace{6\baselineskip}\section{The graph shows when the direction changes}
+
+Put step number on the horizontal axis and temperature on the vertical axis. Each dot is a calculated state; connecting segments help your eye follow the sequence. They do not specify exactly how temperature changes within an hour. The dashed horizontal line marks 70°F.
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=2.8in,keepaspectratio]{../assets/week5/immediate-delayed.pdf}
+\captionof*{figure}{Both paths start at 64°F, use target 70°F and response strength 0.5. Report age is the only difference. The temperature axis begins at 63°F to make the small differences visible.}
+\end{minipage}\par\medskip
+
+\emph{Overshoot} means passing the target. \emph{Oscillation} means repeated back-and-forth variation. A \emph{damped oscillation} has a shrinking envelope of departures from the target: compare successive peaks or troughs. Not every single step has to move closer, and two consecutive states can be equal.
+
+
+In our delayed sequence, steps 3 and 4 are both 71.5, above the target. Steps 7 and 8 are both 69.625, below it. The sequence continues with smaller swings. The controller is responding to past shortages and excesses after the actual condition has changed.
+
+
+\begin{tcolorbox}[title={A graph is evidence about the displayed steps},breakable,colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35]
+
+Use the table to explain a particular overshoot. A finite plot alone does not prove what every later value will do. In this fixed mathematical example the oscillation does decay, but a similar-looking short beginning is not a universal guarantee.
+
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[title={Pause and try 5},breakable]
+Why does the delayed greenhouse keep heating after reaching 70°F? Name the actual report used.
+\end{tcolorbox}
+
+Reveal the paths one step at a time in the explorer $\to$
+
+
+
+\Needspace{6\baselineskip}\section{Current information can still produce an overreaction}
+
+A delay can cause a swing, but delay is not the only cause. With current reports and \(k=1.5\), the first correction is \(1.5(70-64)=9\). Starting at 64, the temperature jumps to 73. The next error is $-$3, the correction is $-$4.5, and the temperature becomes 68.5. The sequence begins \(64,73,68.5,70.75,\ldots\).
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=4.1in,keepaspectratio]{../assets/week5/strength-comparison.pdf}
+\captionof*{figure}{These four cases use current measurements. Compare panels on the same temperature scale; changing response strength alone can change the behavior.}
+\end{minipage}\par\medskip
+
+There is a short way to understand the immediate rule. If the old gap is \(r-x_n\), the correction removes \(k\) times that gap. The gap left afterward is \((1-k)(r-x_n)\). For \(k=0.5\), one-half of the gap remains on the same side. For \(k=1.5\), the remaining gap is $-$0.5 times the old one: half the size, on the other side.
+
+
+\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YY@{}}\toprule
+Strength k & Immediate rule, starting away from the target\\
+\midrule
+0 & No correction; the state stays where it starts\\
+0 \textless{} k \textless{} 1 & Approaches without crossing\\
+1 & Reaches the target in one update\\
+1 \textless{} k \textless{} 2 & Crosses repeatedly; departures shrink\\
+2 & Alternates between two equal departures\\
+k \textgreater{} 2 & Alternating departures grow\\
+\bottomrule\end{tabularx}}\par\medskip
+
+This table is about this particular rule with \emph{current} reports. Do not apply its thresholds unchanged to delayed controllers. If the state starts exactly at the target, zero error keeps it there under any of these strengths in the ideal model.
+
+
+\begin{tcolorbox}[title={Pause and try 6},breakable]
+With target 10, start 0, and current reports, calculate two updates using \(k=1.5\). Is this corrective or amplifying feedback?
+\end{tcolorbox}
+
+
+\Needspace{6\baselineskip}\section{A late reading and a noisy reading create different problems}
+
+A delayed report can be perfectly accurate about an earlier hour. A noisy report fluctuates around what it measures. A biased sensor consistently reads too high or too low. A rounded report loses some precision. More than one of these can occur at once.
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=2.8in,keepaspectratio]{../assets/week5/noise-vs-delay.pdf}
+\captionof*{figure}{Ask two separate questions: what time does this report describe, and how well does it describe that time?}
+\end{minipage}\par\medskip
+
+\begin{tcolorbox}[title={A z-score judges unusualness under a stated model},breakable]
+
+Suppose a steady 68°F environment produces approximately normal sensor readings with mean 68 and standard deviation 2°F. A reading of 72 has \(z=(72-68)/2=2\). It is two standard deviations above the mean. It is unusual under that model, but it does not by itself prove a temperature change or a broken sensor. Compare the report with other evidence.
+
+
+\end{tcolorbox}
+
+For independent, unbiased readings of the same steady condition, averaging \(m\) readings reduces the standard deviation of the average to \(\sigma/\sqrt{m}\). With individual standard deviation 2°F, averages of 1, 4, and 16 readings have standard deviations 2, 1, and 0.5°F. This is variability across repeated averages, not a promise that any particular average is exactly right.
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=2.8in,keepaspectratio]{../assets/week5/averaging.pdf}
+\captionof*{figure}{If one reading arrives each minute, a batch of m readings spans m $-$ 1 minutes. Precision improves under the steady, independent, unbiased model; the information also covers a longer past interval.}
+\end{minipage}\par\medskip
+
+Averaging cannot remove a shared bias, and correlated readings may provide less improvement. If the temperature is changing while we gather data, an average of past readings is not simply a precise measurement of the present. This creates a practical question: how much information can we gather before the action becomes late?
+
+
+\begin{tcolorbox}[title={Pause and try 7},breakable]
+A sensor always reads 2°F too high. Will averaging 16 of its readings remove that 2°F bias?
+\end{tcolorbox}
+
+Reference for the sampling-mean framework: \href{https://www.itl.nist.gov/div898/handbook/prc/section1/prc14.htm}{NIST Engineering Statistics Handbook}. The calculation here assumes independent readings of the same steady state.
+
+
+\clearpage
+
+\Needspace{6\baselineskip}\section{Correct, amplify, or adapt}
+
+\emph{Corrective}, or negative, feedback opposes a measured departure. \emph{Amplifying}, or positive, feedback reinforces a change. These words describe direction, not whether the result is good or bad. An \emph{adaptive} system changes its adjustable rule or parameters using information from earlier results. Adaptation is another feature of a system, rather than a third mutually exclusive sign of feedback.
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=2.8in,keepaspectratio]{../assets/week5/feedback-types.pdf}
+\captionof*{figure}{First ask what the loop does to a departure; then ask whether it can change how it responds.}
+\end{minipage}\par\medskip
+
+\Needspace{5\baselineskip}\subsection*{Amplification uses the updated amount}
+
+Suppose a hypothetical exposure index begins at 100 and grows by 20\% per round. The rule \(v_{n+1}=1.2v_n\) gives \(100,120,144,172.8,\ldots\). The second increase is 24, not 20, because the base is now 120. These are index values, so decimals are meaningful. A real count of people is whole, and an actual spreading process has a finite audience and other limits.
+
+
+\Needspace{5\baselineskip}\subsection*{A learning rule generates a sequence of weights}
+
+Let a toy predictor use \(\widehat y=2w\), where \(w\) is an adjustable number called a weight and \(\widehat y\) means prediction. The target output is 6. Choose the training rule \(w_{n+1}=w_n+0.25(6-2w_n)\), starting at \(w_0=1\).
+
+
+\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYYYY@{}}\toprule
+Attempt n & Weight w$_n$ & Prediction 2w$_n$ & Error 6 $-$ prediction & Next weight\\
+\midrule
+0 & 1 & 2 & 4 & 2\\
+1 & 2 & 4 & 2 & 2.5\\
+2 & 2.5 & 5 & 1 & 2.75\\
+3 & 2.75 & 5.5 & 0.5 & 2.875\\
+\bottomrule\end{tabularx}}\par\medskip
+
+The successful weight is 3 because \(2(3)=6\). Notice the units of the two goals: a weight of 3 gives a prediction of 6. They are not interchangeable. This one-example model shows how returned information can alter future predictions; it cannot establish success on other examples.
+
+
+\begin{tcolorbox}[title={Pause and try 8},breakable]
+The current weight is 2.5. Find the prediction, prediction error, and next weight using the rule above.
+\end{tcolorbox}
+
+Explore learning updates and their timing $\to$
+
+
+
+\Needspace{6\baselineskip}\section{A message can be represented, checked, and interpreted}
+
+The greenhouse thermometer sends a signal to its controller. A digital signal can represent a measurement as a string of bits, each 0 or 1. With 3 bits there are \(2^3=8\) possible patterns. The code must specify what each pattern means; the symbols alone do not supply the interpretation.
+
+
+Extra structure can help detect damaged messages. With \emph{even parity}, append a bit so the total number of 1s is even. The data 1011 has three 1s, so append 1 to get 10111. One flipped bit makes the total odd and signals an error. Two flipped bits can leave the count even. This check detects any single-bit change but does not identify or repair it.
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=2.8in,keepaspectratio]{../assets/week5/bit-parity.pdf}
+\captionof*{figure}{More information in the message can help check transmission. Passing this check does not establish that the original sensor reading was timely or accurate.}
+\end{minipage}\par\medskip
+
+Information theory also measures \emph{surprise relative to a probability model}. An event assigned probability \(p\) has surprisal \(I=-\log_2 p\) bits. You can use powers of two without knowing logarithm techniques: probabilities 1/2, 1/4, and 1/8 correspond to 1, 2, and 3 bits. A less probable event carries more surprise under that model. ``More bits'' does not by itself mean more truth, social value, or importance.
+
+
+\emph{Entropy} is average surprise across possible outcomes. A fair coin has two equally likely outcomes and entropy 1 bit per toss. A coin that always lands heads has entropy 0, since its outcome is certain. The timeline's coin experiment makes that distinction visible; the optional AI Mathematics page scores predictions for observed tokens.
+
+
+\begin{tcolorbox}[title={Pause and try 9},breakable]
+A signal is assigned probability 1/32. How many bits of surprise does its occurrence carry? Does this tell us whether the sensor was correct?
+\end{tcolorbox}
+
+\clearpage
+
+\Needspace{6\baselineskip}\section{Who sets the target, and who observes the observer?}
+
+A classroom may use assessment results to change instruction. Students respond to the new instruction and to the assessment itself. Their responses change what the instructor observes next. The observer's decisions become part of the situation being observed.
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=2.8in,keepaspectratio]{../assets/week5/observer-loop.pdf}
+\captionof*{figure}{In human systems, a measured score is a limited indicator of a larger goal. The choice of target and measurement deserves discussion.}
+\end{minipage}\par\medskip
+
+Norbert Wiener's 1948 \emph{Cybernetics} connected communication and control in machines and living systems. Claude Shannon's 1948 communication theory studied messages, uncertainty, noise, and reliable transmission. These are connected subjects with different central questions.
+
+
+Anthropologist Margaret Mead helped bring questions about culture and social organization into the interdisciplinary Macy Conferences. In a 1967 address published in 1968 as \emph{Cybernetics of Cybernetics}, she asked whether the American Society for Cybernetics could apply cybernetic ideas to its own organization. The people studying feedback could also examine their own feedback loops.
+
+
+The illustrated history preserves a broad cast: human computers, programmers, engineers, mathematicians, psychologists, and organizers. Follow the contributions of Mead, Janet Freed, Rózsa Péter, F. Jessie MacWilliams, Vera Pless, and other women alongside Wiener and Shannon. You are not expected to memorize all 63 entries. Use the guided routes to explain how one historical problem connects to this week's mathematics.
+
+
+\begin{tcolorbox}[title={A model can describe the consequences of a chosen goal},breakable,colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35]
+
+It cannot decide by itself whether that goal is fair, whether the measurement represents everything that matters, or whose experience is missing. In a school, a higher test score may be one useful observation; it is not a complete definition of learning.
+
+
+\end{tcolorbox}
+
+Historical sources: \href{https://mitpress.mit.edu/9780262537841/cybernetics-or-control-and-communication-in-the-animal-and-the-machine/}{Wiener's book, MIT Press}; \href{https://www.nokia.com/bell-labs/publications-and-media/publications/a-mathematical-theory-of-communication/}{Shannon's paper, Bell Labs}; \href{https://www.asc-cybernetics.org/CofC/}{Mead's address, American Society for Cybernetics}. The timeline links individual historical sources.
+
+
+\clearpage
+\section*{Two Further Worked Settings}
+\subsection*{A school receives progress reports one week late}
+A tutoring program's invented score model starts at 56 and aims for 80. Its rule is next score = current score $+0.5(80-\text{report})$. A step is one week. With delay, assume the pre-start score is also 56.
+
+{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYY@{}}\toprule
+Week & Current-report score & One-week-old-report score\\\midrule
+0 & 56 & 56\\
+1 & 68 & 68\\
+2 & 74 & 80\\
+3 & 77 & 86\\
+4 & 78.5 & 86\\
+5 & 79.25 & 83\\\bottomrule
+\end{tabularx}}
+
+At week 2, the delayed score is already 80, but the available report describes week 1's score of 68. The next correction is $0.5(80-68)=6$, giving 86. The following report is 80, so it calls for zero correction and leaves the state at 86.
+
+\begin{center}\includegraphics[width=\linewidth,height=2.9in,keepaspectratio]{../assets/week5/school-feedback.pdf}\end{center}
+This model isolates report timing. It does not claim that practice produces an exact score increase, that a single test measures all learning, or that scores have no bounds. Students also respond to how they are assessed. The measurement and the goal are choices to examine, not neutral facts supplied by the equation.
+
+\clearpage
+\subsection*{A text predictor assigns probabilities to the next token}
+A token is a model's unit of text; it may be a word, a word fragment, or punctuation. Suppose a predictor gives the token that actually occurs probability $p$. Its surprisal is $I=-\log_2 p$ bits. For $p=1/2^k$, the score is $k$ bits.
+
+\begin{center}\includegraphics[width=\linewidth,height=2.7in,keepaspectratio]{../assets/week5/information-bits.pdf}\end{center}
+For four observed tokens given probabilities $1/2,1/4,1/8,1/4$, the scores are 1, 2, 3, 2 bits. Total surprise is 8 bits; average surprise is 2 bits per token. This empirical mean negative log probability is commonly called cross-entropy loss for the observed sequence. Its perplexity is $2^2=4$, an effective uncertainty scale. It is not necessarily the number of choices offered at every position.
+
+Under an idealized coding model, 100 tokens averaging 2 bits per token correspond to about 200 bits, apart from coding overhead. Actual coding methods approach this scale over sequences; a fractional-bit score need not be a literal fractional stored bit for an isolated token.
+
+The score can supply information for a training update, but it is not a complete learning algorithm. Lower surprise on one observed token does not establish performance across a task, truthfulness, or usefulness. Entropy averages over possible source outcomes; empirical cross-entropy averages a model's surprise over observed outcomes. Natural-log software conventions give nats rather than bits without changing which probability has lower surprise.
+
+\begin{tcolorbox}[title={An endpoint matters}]
+If $p=1$, surprisal is 0. If a model assigns $p=0$ to an event that occurs, its surprise has no finite value. The finite surprise calculator requires $0<p\leq1$. In entropy calculations, the contribution $p\log p$ has limiting value 0 at $p=0$.
+\end{tcolorbox}
+
+\clearpage
 \section*{Chapter 5 Review}
-\addcontentsline{toc}{section}{Chapter 5 Review}
-\begin{enumerate}[label=\arabic*.,leftmargin=2em,itemsep=8pt]
-\item A greenhouse has target temperature $72^\circ$F and current temperature $66^\circ$F. Find the error. With response strength $k=0.5$, compute the next two temperatures using $x_{n+1}=x_n+k(72-x_n)$.
-\item Starting from $x_0=10$, apply the amplification rule $x_{n+1}=1.25x_n$ for four steps. Is this corrective or amplifying feedback?
-\item A controller has target $50$, current value $40$, and $k=1.5$. Compute the next two states and describe the overshoot.
-\item A sensor reports only multiples of $5$. Describe one consequence for a controller trying to hold a quantity exactly at $42$.
-\item Explain how delayed information can produce oscillation even when each individual correction seems reasonable.
-\item Draw a feedback loop for a student using quiz results to change study behavior.
-\item In two or three sentences, explain why neural-network training can be understood as a cybernetic process.
-\item Choose one human institution and identify one target, one measurement, and one possible unintended feedback effect.
+Show the report used in each update. Temperatures are in degrees Fahrenheit unless otherwise stated. Keep internal precision; round displayed values only when requested. A short graph supports a claim about its displayed steps; identify any stronger conclusion that needs additional reasoning.
+\begin{enumerate}
+\item A sequence starts at $a_0=7$ and uses $a_{n+1}=a_n+4$. List $a_0$ through $a_4$. How many updates produced the last value? Explain what $a_{n-1}$ means when $n=3$.
+\item Draw or describe a feedback loop for a water tank. Identify state, sensor, target, controller, actuator, and how the next measurement closes the loop. Contrast it with a valve opened on a fixed daily schedule.
+\item A water level has target 100 cm, start 84 cm, and current reports. With response strength 0.25, compute two updates, listing current state, report, error, correction, and next state. What fraction of the old gap remains after one update?
+\item The greenhouse has target 70, start 64, strength 0.5, and current reports. Find states $x_1$ through $x_4$. Explain why adding 3 at every step would describe a different rule.
+\item Change only the report age to one step, with $x_{-1}=x_0=64$. Find $x_1$ through $x_7$. At the updates producing $x_3$ and $x_4$, separately name the current state, report, and correction. Why is $x_3$ above target?
+\item A delayed inventory system has target 100 units, current stock 60, and a report of 80. It orders half the reported shortage. Compute the delayed order and compare with a current-report order. Name one real inventory effect missing from this update.
+\item For current reports, target 10, and start 0, calculate three updates using strengths 0.5, 1.5, 2, and 2.5. Explain their different behavior using the remaining-gap factor $1-k$. What if the starting state were exactly 10?
+\item A graph shows decreasing peaks over eight steps. What does that establish, and what does it not prove? Distinguish overshoot, oscillation, a shrinking envelope, and convergence.
+\newpage
+\item A sensor in a steady environment has approximately normal readings with mean 68 and standard deviation 2. Find z-scores for 72 and 65. Does either value alone prove a physical temperature change? Explain what assumption is being assessed.
+\item Independent unbiased readings of a steady state have standard deviation 2 degrees. Find the standard deviation of averages of 1, 4, and 16 readings. If readings arrive one minute apart and the newest is current, how old is the oldest in each batch? What changes if every reading has the same +2-degree bias?
+\item Classify the direction of feedback in a thermostat, microphone squeal, and an exposure index obeying $v_{n+1}=1.2v_n$. Starting with index 100, compute three updates. Explain why adaptive behavior is an additional feature rather than an opposite of corrective feedback.
+\item A predictor uses $\widehat y=2w$, target 6, start $w_0=1$, and update $w_{n+1}=w_n+0.25(6-2w_n)$. Find the first four new weights and their predictions. Identify the weight target and prediction target. What does fitting this one example leave untested?
+\item Keep that predictor but use step size 0.75 and current errors. Find two new weights and their predictions. Then return to step size 0.25 with a one-attempt-old error and history $w_{-1}=w_0=1$. Find the first three new weights. Explain one overshoot in each setting.
+\item The data message is 1011. Append an even-parity bit. Show an example of a single-bit change detected by this check and a two-bit change that passes. Can the check establish that the original measurement was correct and current? For an event given probability $1/32$, find its surprisal.
+\item Optional information extension: the observed tokens have model probabilities $1/2,1/4,1/8,1/4$. Compute total and average surprise and perplexity. Compare Models A and B assigning one observed token probabilities $1/2$ and $1/8$. Does the result rank all their abilities? Estimate the idealized bits for 100 tokens averaging 2 bits each.
+\item Compare the central questions of Shannon, Wiener, and Mead using a linked historical source. Then identify a target, measurement, action, and possible unintended effect in a classroom or another institution. Explain a way to include feedback from people being measured.
 \end{enumerate}
+
+\clearpage
+{\setlength{\parskip}{4pt}\setlist{itemsep=5pt,topsep=3pt}
+\section*{Solutions and Reasoning}
+
+\paragraph{Short check 1.}
+The values are \(5,10,20,40\), labeled \(a_0,a_1,a_2,a_3\). Reaching 40 takes three updates. Each update uses the most recently calculated value.
+
+
+\paragraph{Short check 2.}
+The second uses the measured outcome to choose its next action. The first follows a fixed schedule. A schedule can still be useful, but it does not check whether the soil needs water.
+
+
+\paragraph{Short check 3.}
+The first error is 16 cm, so the correction is 4 cm and the level becomes 88 cm. The next error is 12 cm, so the correction is 3 cm and the level becomes 91 cm. Correcting one-quarter of the remaining error leaves three-quarters each time.
+
+
+\paragraph{Short check 4.}
+The reported error is 70 $-$ 70 = 0, so the correction is 0 and the next temperature remains 71.5°F. Zero reported error does not mean the present temperature is at the target.
+
+
+\paragraph{Short check 5.}
+To calculate x$_3$, it starts at the current x$_2$ = 70 but uses the old x$_1$ = 67 report. Half of the reported 3°F shortage is +1.5°F. It is correcting a shortage that is already gone.
+
+
+\paragraph{Short check 6.}
+The states are \(0,15,7.5\). The response is corrective: it opposes the measured departure. It is strong enough to cross the target, so corrective feedback does not guarantee a path without overshoot.
+
+
+\paragraph{Short check 7.}
+No. Averaging can reduce independent random variation, but a shared +2°F bias remains. Checking or calibrating the sensor addresses a different problem.
+
+
+\paragraph{Short check 8.}
+The prediction is 5, the error is 1, and the weight correction is 0.25. The next weight is 2.75, so the next prediction will be 5.5. The prediction error is not added directly to the prediction; the chosen rule first changes the weight.
+
+
+\paragraph{Short check 9.}
+Since 32 = 2$^5$, the surprise is 5 bits. This is a probability-based score, not a check of the sensor's accuracy, age, or usefulness.
+
+
+\clearpage
+
+\subsection*{Chapter review: solutions}
+\begin{enumerate}
+\item The list is $7,11,15,19,23$, obtained by four updates. At $n=3$, $a_{n-1}=a_2=15$ is the preceding value. An index labels the term's place; it is not a power.
+\item A float or level sensor measures water depth. A controller compares its report with a chosen depth and opens or closes a valve or adjusts a pump. The changed level produces the next reading. A fixed schedule does not use a level measurement to choose its next action. Other sensible designs are possible if the return path is explicit.
+\item First row: current/report 84, error 16, correction 4, next 88 cm. Second: current/report 88, error 12, correction 3, next 91 cm. Each update removes one-quarter of the remaining gap and leaves three-quarters. The second correction is not another 4 cm.
+\item States are 67, 68.5, 69.25, 69.625. The corrections are 3, 1.5, 0.75, 0.375. Adding 3 repeatedly ignores the changing reported error and eventually passes the target; it is not the stated half-gap controller.
+\item States are 67, 70, 71.5, 71.5, 70.75, 70, 69.625. To produce $x_3$, current $x_2=70$ uses report $x_1=67$, error 3 and correction 1.5. To produce $x_4$, current $x_3=71.5$ uses report $x_2=70$, error and correction 0. The first correction acts on an earlier shortage that no longer describes the present.
+\item The delayed order is $0.5(100-80)=10$ units. The current report would give $0.5(100-60)=20$. The model omits effects such as sales during delivery, pending orders, delivery time, whole-unit and minimum-order constraints, and finite storage. Specify which effect your explanation uses.
+\item For $k=0.5$: $0,5,7.5,8.75$; half the gap remains on the same side. For 1.5: $0,15,7.5,11.25$; gaps switch side and halve. For 2: $0,20,0,20$; equal departures persist. For 2.5: $0,25,-12.5,43.75$; absolute gaps grow by factor 1.5. Starting exactly at 10 gives zero error and an unchanged state under all these ideal rules. The table's thresholds do not transfer unchanged to delayed rules.
+\item The displayed peaks decrease in those eight steps, assuming the graph was read accurately. That alone does not prove all later peaks shrink or that the sequence converges. Overshoot is passing a reference; oscillation is repeated back-and-forth variation. A damped oscillation has a shrinking envelope of departures; convergence means later values approach one limit. A persistent equal-amplitude oscillation does not converge.
+\newpage
+\item $z=(72-68)/2=2$; $z=(65-68)/2=-1.5$. They describe distance from the assumed mean in standard-deviation units. Neither alone proves a change or a failure. A reading can be unusual under a steady-state noise model without being impossible. Further observations and sensor checks can help distinguish explanations.
+\item Standard deviations of the averages are 2, 1, and 0.5 degrees. Oldest-reading ages are 0, 3, and 15 minutes. The shared +2-degree bias remains after averaging. Independence, unbiasedness, and a steady underlying state matter; correlated readings or a changing state require a different interpretation.
+\item Thermostat: corrective, opposing a reported departure. Microphone squeal: amplifying, when speaker sound re-enters the microphone and reinforces the signal. The exposure index is amplifying, with values 100, 120, 144, 172.8. Decimals are appropriate for an index, not literal fractional people. An adaptive system changes its response rule or parameters using results; it can also use corrective feedback. Real amplification faces physical or social limits.
+\item New weights are 2, 2.5, 2.75, 2.875, with predictions 4, 5, 5.5, 5.75. The weight target is 3, while the output target is 6. Success on this one fixed example does not test generalization, robustness, fairness, or performance on new data. Backpropagation and an optimization rule serve different roles in a larger network.
+\newpage
+\item With step size 0.75, first error 4 gives weight $1+0.75(4)=4$, prediction 8. The next error is $6-8=-2$, giving weight 2.5, prediction 5. The strong current response crosses the weight target 3. With delayed errors and step size 0.25, weights are 2, 3, 3.5. The third update uses the older weight 2 and its prediction 4, so a positive correction 0.5 is added when the current weight is already 3. The new prediction is 7, beyond output target 6.
+\item Append 1 to make 10111, with four 1s. A single third-bit flip gives 10011 with three 1s, so the check fails. Flipping the first two bits gives 01111 with four 1s, so this two-bit change passes. Parity does not identify or repair the damage and does not check sensor truth or report age. Since $1/32=2^{-5}$, surprisal is 5 bits under that probability model.
+\item Token scores are 1, 2, 3, 2 bits; total 8 and mean 2 bits per token. Perplexity is $2^2=4$. A has 1-bit surprise and B 3-bit surprise on the specified observed token, so A has lower loss there. This single comparison cannot rank their full-task performance or usefulness. The idealized coding scale is $100(2)=200$ bits, apart from overhead.
+\item Shannon formalized message uncertainty, channels, noise, and communication limits. Wiener connected communication to action and regulation in feedback systems. Mead asked how a society studying cybernetics could apply those ideas to its own organization. In a classroom, quiz results may guide changed instruction, but focusing only on scores might encourage narrow preparation or miss deeper understanding. Student explanations, reflection, discussion, and feedback on assessment design can add evidence. A strong response names its specific goal, observation, action, return path, and historical source.
+\end{enumerate}
+\subsection*{Further exploration and historical sources}
+The \href{https://bobovski66.github.io/MathInSociety/information_cybernetics_timeline.html}{illustrated history timeline} retains 63 milestones and offers guided routes on oscillation, reliable messages, and observers. It includes human computers, women in mathematics and information theory, Margaret Mead, and Janet Freed's organizational work at the Macy Conferences.
+
+Primary and institutional sources include \href{https://www.nokia.com/bell-labs/publications-and-media/publications/a-mathematical-theory-of-communication/}{Shannon's 1948 paper, Bell Labs}; \href{https://mitpress.mit.edu/9780262537841/cybernetics-or-control-and-communication-in-the-animal-and-the-machine/}{Wiener's Cybernetics, MIT Press}; \href{https://www.asc-cybernetics.org/CofC/}{Mead's address, American Society for Cybernetics}; and \href{https://doi.org/10.1038/323533a0}{Rumelhart, Hinton, and Williams on backpropagation (1986)}.
+
+Week 6 follows monetary balances through repeated updates. Keep the same habit: define the state and time unit, identify the report or base used, state the rule, and carry the result into the next update.
+}
 \end{document}

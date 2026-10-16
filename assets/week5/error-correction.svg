@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="742.79952pt" height="274.79952pt" viewBox="0 0 742.79952 274.79952" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 274.79952
+L 742.79952 274.79952
+L 742.79952 0
+L 0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="line2d_1">
+    <path d="M 31.604808 159.580045
+L 719.797116 159.580045
+" clip-path="url(#pa3d8e49dff)" style="fill: none; stroke: #d8ddcd; stroke-width: 3; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17677a" x="117.628846" y="195.875056" transform="rotate(-0 117.628846 195.875056)">Current: 64°F</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #536240" x="375.700962" y="195.875056" transform="rotate(-0 375.700962 195.875056)">Next: 67°F</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #b18a22" x="633.773078" y="195.875056" transform="rotate(-0 633.773078 195.875056)">Target: 70°F</text>
+   </g>
+   <g id="patch_2">
+    <path d="M 121.861413 74.891685
+Q 375.700901 74.891685 629.540388 74.891685
+" style="fill: none; stroke: #b18a22; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 127.461413 77.691685
+L 121.861413 74.891685
+L 127.461413 72.091685
+" style="fill: none; stroke: #b18a22; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 623.940388 72.091685
+L 629.540388 74.891685
+L 623.940388 77.691685
+" style="fill: none; stroke: #b18a22; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #b18a22" x="375.700962" y="51.501567" transform="rotate(-0 375.700962 51.501567)">Reported error = 70 − 64 = 6°F</text>
+   </g>
+   <g id="patch_3">
+    <path d="M 119.625345 131.350591
+Q 246.664812 131.350591 370.909194 131.350591
+" style="fill: none; stroke: #17677a; stroke-width: 2.5; stroke-linecap: round"/>
+    <path d="M 365.309194 128.550591
+L 370.909194 131.350591
+L 365.309194 134.150591
+" style="fill: none; stroke: #17677a; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17677a" x="246.664904" y="110.380141" transform="rotate(-0 246.664904 110.380141)">Correction = +3°F</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="375.700962" y="240.235625" transform="rotate(-0 375.700962 240.235625)">64 + 0.5(70 − 64) = 67.  The remaining gap is 3°F.</text>
+   </g>
+   <g id="PathCollection_1">
+    <defs>
+     <path id="m9ebec56c92" d="M 0 4.472136
+C 1.186024 4.472136 2.323632 4.000923 3.162278 3.162278
+C 4.000923 2.323632 4.472136 1.186024 4.472136 0
+C 4.472136 -1.186024 4.000923 -2.323632 3.162278 -3.162278
+C 2.323632 -4.000923 1.186024 -4.472136 0 -4.472136
+C -1.186024 -4.472136 -2.323632 -4.000923 -3.162278 -3.162278
+C -4.000923 -2.323632 -4.472136 -1.186024 -4.472136 0
+C -4.472136 1.186024 -4.000923 2.323632 -3.162278 3.162278
+C -2.323632 4.000923 -1.186024 4.472136 0 4.472136
+z
+" style="stroke: #17677a"/>
+    </defs>
+    <g clip-path="url(#pa3d8e49dff)">
+     <use xlink:href="#m9ebec56c92" x="117.628846" y="159.580045" style="fill: #17677a; stroke: #17677a"/>
+    </g>
+   </g>
+   <g id="PathCollection_2">
+    <defs>
+     <path id="md3a7a4b134" d="M 0 4.472136
+C 1.186024 4.472136 2.323632 4.000923 3.162278 3.162278
+C 4.000923 2.323632 4.472136 1.186024 4.472136 0
+C 4.472136 -1.186024 4.000923 -2.323632 3.162278 -3.162278
+C 2.323632 -4.000923 1.186024 -4.472136 0 -4.472136
+C -1.186024 -4.472136 -2.323632 -4.000923 -3.162278 -3.162278
+C -4.000923 -2.323632 -4.472136 -1.186024 -4.472136 0
+C -4.472136 1.186024 -4.000923 2.323632 -3.162278 3.162278
+C -2.323632 4.000923 -1.186024 4.472136 0 4.472136
+z
+" style="stroke: #536240"/>
+    </defs>
+    <g clip-path="url(#pa3d8e49dff)">
+     <use xlink:href="#md3a7a4b134" x="375.700962" y="159.580045" style="fill: #536240; stroke: #536240"/>
+    </g>
+   </g>
+   <g id="PathCollection_3">
+    <defs>
+     <path id="mabf18ab922" d="M 0 4.472136
+C 1.186024 4.472136 2.323632 4.000923 3.162278 3.162278
+C 4.000923 2.323632 4.472136 1.186024 4.472136 0
+C 4.472136 -1.186024 4.000923 -2.323632 3.162278 -3.162278
+C 2.323632 -4.000923 1.186024 -4.472136 0 -4.472136
+C -1.186024 -4.472136 -2.323632 -4.000923 -3.162278 -3.162278
+C -4.000923 -2.323632 -4.472136 -1.186024 -4.472136 0
+C -4.472136 1.186024 -4.000923 2.323632 -3.162278 3.162278
+C -2.323632 4.000923 -1.186024 4.472136 0 4.472136
+z
+" style="stroke: #b18a22"/>
+    </defs>
+    <g clip-path="url(#pa3d8e49dff)">
+     <use xlink:href="#mabf18ab922" x="633.773078" y="159.580045" style="fill: #b18a22; stroke: #b18a22"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pa3d8e49dff">
+   <rect x="14.4" y="14.4" width="713.99952" height="245.99952"/>
+  </clipPath>
+ </defs>
+</svg>

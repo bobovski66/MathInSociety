@@ -1,0 +1,620 @@
+{
+  "labs/week5_lab.html": [
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "printStudentName",
+        "type": "text",
+        "autocomplete": "name",
+        "placeholder": "Enter your name"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "p1state"
+      },
+      "options": [
+        [
+          "",
+          "choose…"
+        ],
+        [
+          "64",
+          "64°F"
+        ],
+        [
+          "70",
+          "70°F"
+        ],
+        [
+          "heat",
+          "the heater"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "p1ref"
+      },
+      "options": [
+        [
+          "",
+          "choose…"
+        ],
+        [
+          "64",
+          "64°F"
+        ],
+        [
+          "70",
+          "70°F"
+        ],
+        [
+          "heat",
+          "the heater"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "p1measure"
+      },
+      "options": [
+        [
+          "",
+          "choose…"
+        ],
+        [
+          "sensor",
+          "the temperature sensor"
+        ],
+        [
+          "target",
+          "the target itself"
+        ],
+        [
+          "wall",
+          "the wall"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "p1action"
+      },
+      "options": [
+        [
+          "",
+          "choose…"
+        ],
+        [
+          "heater",
+          "turning the heater on or off"
+        ],
+        [
+          "reading",
+          "reading the display"
+        ],
+        [
+          "clock",
+          "checking the clock"
+        ]
+      ]
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "p2e0",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "p2c0",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "p2x1",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "p2e1",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "p2c1",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "p2x2",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "p3old2",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "p3corr2",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "p3x3",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "p3old3",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "p3corr3",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "p3x4",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "p4x5",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "p4x6",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "p4x7",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "p4which"
+      },
+      "options": [
+        [
+          "",
+          "choose…"
+        ],
+        [
+          "delayed",
+          "the one-step-delayed system"
+        ],
+        [
+          "immediate",
+          "the immediate system"
+        ],
+        [
+          "both",
+          "both systems"
+        ]
+      ]
+    },
+    {
+      "tag": "textarea",
+      "attrs": {
+        "id": "p4why",
+        "placeholder": "Explain which earlier observation is used and why another correction is made."
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "p5z",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "p5proof"
+      },
+      "options": [
+        [
+          "",
+          "choose…"
+        ],
+        [
+          "no",
+          "No. It is unusual but possible."
+        ],
+        [
+          "yes",
+          "Yes. A high z-score proves a change."
+        ]
+      ]
+    },
+    {
+      "tag": "textarea",
+      "attrs": {
+        "id": "p5explain",
+        "placeholder": "Describe both the benefit of more measurements and the possible cost of delay."
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "p6thermo"
+      },
+      "options": [
+        [
+          "",
+          "choose…"
+        ],
+        [
+          "corrective",
+          "Corrective (negative) feedback"
+        ],
+        [
+          "amplifying",
+          "Amplifying (positive) feedback"
+        ],
+        [
+          "adaptive",
+          "Adaptive learning"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "p6viral"
+      },
+      "options": [
+        [
+          "",
+          "choose…"
+        ],
+        [
+          "corrective",
+          "Corrective (negative) feedback"
+        ],
+        [
+          "amplifying",
+          "Amplifying (positive) feedback"
+        ],
+        [
+          "adaptive",
+          "Adaptive learning"
+        ]
+      ]
+    },
+    {
+      "tag": "textarea",
+      "attrs": {
+        "id": "p6learn",
+        "placeholder": "Describe the attempt, information from the result, and the next change."
+      },
+      "options": []
+    },
+    {
+      "tag": "textarea",
+      "attrs": {
+        "id": "p6osc",
+        "placeholder": "Use the words old measurement or delay in your explanation."
+      },
+      "options": []
+    }
+  ],
+  "applications/week5_application.html": [
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "now1",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "now2",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "now3",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "late1",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "late2",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "late3",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "choice"
+      },
+      "options": [
+        [
+          "",
+          "choose…"
+        ],
+        [
+          "immediate",
+          "Immediate information"
+        ],
+        [
+          "delayed",
+          "One-step delay"
+        ]
+      ]
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "correction",
+        "type": "number",
+        "step": "any",
+        "placeholder": "Enter a signed number"
+      },
+      "options": []
+    },
+    {
+      "tag": "textarea",
+      "attrs": {
+        "id": "reason",
+        "placeholder": "Include what the controller knows and what has already changed."
+      },
+      "options": []
+    }
+  ],
+  "applications/week5_ai.html": [
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q1",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q2",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q3",
+        "type": "number",
+        "step": "any"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "q4"
+      },
+      "options": [
+        [
+          "",
+          "choose…"
+        ],
+        [
+          "feedback",
+          "Information about error changes later behavior."
+        ],
+        [
+          "fixed",
+          "The same output is repeated without comparison."
+        ],
+        [
+          "binary",
+          "All numbers must be written in binary."
+        ]
+      ]
+    }
+  ],
+  "applications/ai_week5.html": [
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q1a",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q1b",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q1c",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q2a",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q2b",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q3a",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q3b",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "q3c"
+      },
+      "options": [
+        [
+          "",
+          "choose…"
+        ],
+        [
+          "A",
+          "Model A"
+        ],
+        [
+          "B",
+          "Model B"
+        ]
+      ]
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q4",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q5",
+        "type": "number"
+      },
+      "options": []
+    }
+  ],
+  "discussions/week5_discussion.html": []
+}

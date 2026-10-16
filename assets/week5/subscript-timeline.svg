@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="742.79952pt" height="267.59952pt" viewBox="0 0 742.79952 267.59952" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 267.59952
+L 742.79952 267.59952
+L 742.79952 0
+L 0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="PathCollection_1">
+    <defs>
+     <path id="m9a3b955410" d="M 0 4.1833
+C 1.109424 4.1833 2.173559 3.742521 2.95804 2.95804
+C 3.742521 2.173559 4.1833 1.109424 4.1833 0
+C 4.1833 -1.109424 3.742521 -2.173559 2.95804 -2.95804
+C 2.173559 -3.742521 1.109424 -4.1833 0 -4.1833
+C -1.109424 -4.1833 -2.173559 -3.742521 -2.95804 -2.95804
+C -3.742521 -2.173559 -4.1833 -1.109424 -4.1833 0
+C -4.1833 1.109424 -3.742521 2.173559 -2.95804 2.95804
+C -2.173559 3.742521 -1.109424 4.1833 0 4.1833
+z
+" style="stroke: #b18a22"/>
+    </defs>
+    <g clip-path="url(#pe91eacfedc)">
+     <use xlink:href="#m9a3b955410" x="115.199932" y="143.351741" style="fill: #b18a22; stroke: #b18a22"/>
+    </g>
+   </g>
+   <g id="PathCollection_2">
+    <defs>
+     <path id="mb58c09a169" d="M 0 4.1833
+C 1.109424 4.1833 2.173559 3.742521 2.95804 2.95804
+C 3.742521 2.173559 4.1833 1.109424 4.1833 0
+C 4.1833 -1.109424 3.742521 -2.173559 2.95804 -2.95804
+C 2.173559 -3.742521 1.109424 -4.1833 0 -4.1833
+C -1.109424 -4.1833 -2.173559 -3.742521 -2.95804 -2.95804
+C -3.742521 -2.173559 -4.1833 -1.109424 -4.1833 0
+C -4.1833 1.109424 -3.742521 2.173559 -2.95804 2.95804
+C -2.173559 3.742521 -1.109424 4.1833 0 4.1833
+z
+" style="stroke: #17677a"/>
+    </defs>
+    <g clip-path="url(#pe91eacfedc)">
+     <use xlink:href="#mb58c09a169" x="283.199819" y="143.351741" style="fill: #17677a; stroke: #17677a"/>
+    </g>
+   </g>
+   <g id="PathCollection_3">
+    <g clip-path="url(#pe91eacfedc)">
+     <use xlink:href="#mb58c09a169" x="451.199706" y="143.351741" style="fill: #17677a; stroke: #17677a"/>
+    </g>
+   </g>
+   <g id="PathCollection_4">
+    <g clip-path="url(#pe91eacfedc)">
+     <use xlink:href="#mb58c09a169" x="619.199593" y="143.351741" style="fill: #17677a; stroke: #17677a"/>
+    </g>
+   </g>
+   <g id="patch_2">
+    <path d="M 33.202063 143.351741
+Q 367.200189 143.351741 698.962248 143.351741
+" style="fill: none; stroke: #536240; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 693.362248 140.551741
+L 698.962248 143.351741
+L 693.362248 146.151741
+" style="fill: none; stroke: #536240; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 23px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #b18a22" x="115.199932" y="108.96461" transform="rotate(-0 115.199932 108.96461)">x₋₁</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="115.199932" y="183.47006" transform="rotate(-0 115.199932 183.47006)">Earlier history</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 23px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17677a" x="283.199819" y="108.96461" transform="rotate(-0 283.199819 108.96461)">x₀</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="283.199819" y="183.47006" transform="rotate(-0 283.199819 183.47006)">Starting state</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 23px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17677a" x="451.199706" y="108.96461" transform="rotate(-0 451.199706 108.96461)">x₁</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="451.199706" y="183.47006" transform="rotate(-0 451.199706 183.47006)">After 1 update</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 23px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17677a" x="619.199593" y="108.96461" transform="rotate(-0 619.199593 108.96461)">x₂</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="619.199593" y="183.47006" transform="rotate(-0 619.199593 183.47006)">After 2 updates</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #536240" x="375.599757" y="233.14036" transform="rotate(-0 375.599757 233.14036)">At step n:  xₙ₋₁ = previous,  xₙ = current,  xₙ₊₁ = next</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pe91eacfedc">
+   <rect x="14.4" y="14.4" width="713.99952" height="238.79952"/>
+  </clipPath>
+ </defs>
+</svg>

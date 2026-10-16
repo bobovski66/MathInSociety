@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="742.79952pt" height="353.99952pt" viewBox="0 0 742.79952 353.99952" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 353.99952
+L 742.79952 353.99952
+L 742.79952 0
+L 0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 50.099976 150.92244
+L 264.299832 150.92244
+Q 275.009825 150.92244 275.009825 141.71868
+L 275.009825 95.69988
+Q 275.009825 86.49612 264.299832 86.49612
+L 50.099976 86.49612
+Q 39.389983 86.49612 39.389983 95.69988
+L 39.389983 141.71868
+Q 39.389983 150.92244 50.099976 150.92244
+z
+" clip-path="url(#p7f814d7d95)" style="fill: #f4f6ee; stroke: #17677a; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 467.789695 150.92244
+L 703.409537 150.92244
+Q 714.11953 150.92244 714.11953 141.71868
+L 714.11953 95.69988
+Q 714.11953 86.49612 703.409537 86.49612
+L 467.789695 86.49612
+Q 457.079702 86.49612 457.079702 95.69988
+L 457.079702 141.71868
+Q 457.079702 150.92244 467.789695 150.92244
+z
+" clip-path="url(#p7f814d7d95)" style="fill: #f4f6ee; stroke: #536240; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 217.889863 298.1826
+L 524.909657 298.1826
+Q 535.61965 298.1826 535.61965 288.97884
+L 535.61965 242.96004
+Q 535.61965 233.75628 524.909657 233.75628
+L 217.889863 233.75628
+Q 207.17987 233.75628 207.17987 242.96004
+L 207.17987 288.97884
+Q 207.17987 298.1826 217.889863 298.1826
+z
+" clip-path="url(#p7f814d7d95)" style="fill: #f4f6ee; stroke: #a55c21; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #17677a" transform="translate(89.541623 114.202046)">Assessment results</text>
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #17677a" transform="translate(94.902091 130.942764)">A partial measure</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #536240" transform="translate(523.72071 114.202046)">Teacher decisions</text>
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #536240" transform="translate(489.028053 130.942764)">Instruction and assessment</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #a55c21" transform="translate(309.691479 261.462206)">Students respond</text>
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #a55c21" transform="translate(265.143041 278.202924)">Learning, study, and feedback</text>
+   </g>
+   <g id="patch_5">
+    <path d="M 277.007326 118.70928
+Q 366.04473 118.70928 453.069673 118.70928
+" style="fill: none; stroke: #536240; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 447.469673 115.90928
+L 453.069673 118.70928
+L 447.469673 121.50928
+" style="fill: none; stroke: #536240; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 584.001354 153.655911
+Q 532.050605 192.645437 481.709432 230.426961
+" style="fill: none; stroke: #536240; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 487.869067 229.304953
+L 481.709432 230.426961
+L 484.507607 224.826049
+" style="fill: none; stroke: #536240; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 262.70157 231.636393
+Q 210.750821 192.646867 160.409648 154.865343
+" style="fill: none; stroke: #536240; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 163.207823 160.466255
+L 160.409648 154.865343
+L 166.569283 155.987351
+" style="fill: none; stroke: #536240; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #536240" x="371.39976" y="45.0792" transform="rotate(-0 371.39976 45.0792)">Who chooses the goal and what counts as evidence?</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="371.39976" y="324.873504" transform="rotate(-0 371.39976 324.873504)">Students can also comment on how learning is measured.</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p7f814d7d95">
+   <rect x="14.4" y="14.4" width="713.99952" height="325.19952"/>
+  </clipPath>
+ </defs>
+</svg>

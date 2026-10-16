@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="742.79952pt" height="382.79952pt" viewBox="0 0 742.79952 382.79952" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 382.79952
+L 742.79952 382.79952
+L 742.79952 -0
+L 0 -0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 57.239971 309.926385
+L 257.159837 309.926385
+Q 267.86983 309.926385 267.86983 300.444255
+L 267.86983 253.033605
+Q 267.86983 243.551475 257.159837 243.551475
+L 57.239971 243.551475
+Q 46.529978 243.551475 46.529978 253.033605
+L 46.529978 300.444255
+Q 46.529978 309.926385 57.239971 309.926385
+z
+" clip-path="url(#p4cf72f8d58)" style="fill: #f4f6ee; stroke: #536240; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 57.239971 174.015855
+L 257.159837 174.015855
+Q 267.86983 174.015855 267.86983 164.533725
+L 267.86983 117.123075
+Q 267.86983 107.640945 257.159837 107.640945
+L 57.239971 107.640945
+Q 46.529978 107.640945 46.529978 117.123075
+L 46.529978 164.533725
+Q 46.529978 174.015855 57.239971 174.015855
+z
+" clip-path="url(#p4cf72f8d58)" style="fill: #f4f6ee; stroke: #536240; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 485.639683 174.015855
+L 685.559549 174.015855
+Q 696.269542 174.015855 696.269542 164.533725
+L 696.269542 117.123075
+Q 696.269542 107.640945 685.559549 107.640945
+L 485.639683 107.640945
+Q 474.92969 107.640945 474.92969 117.123075
+L 474.92969 164.533725
+Q 474.92969 174.015855 485.639683 174.015855
+z
+" clip-path="url(#p4cf72f8d58)" style="fill: #f4f6ee; stroke: #536240; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 485.639683 309.926385
+L 685.559549 309.926385
+Q 696.269542 309.926385 696.269542 300.444255
+L 696.269542 253.033605
+Q 696.269542 243.551475 685.559549 243.551475
+L 485.639683 243.551475
+Q 474.92969 243.551475 474.92969 253.033605
+L 474.92969 300.444255
+Q 474.92969 309.926385 485.639683 309.926385
+z
+" clip-path="url(#p4cf72f8d58)" style="fill: #f4f6ee; stroke: #536240; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #536240" transform="translate(138.670685 272.231696)">State</text>
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #536240" transform="translate(68.67506 288.972414)">Greenhouse temperature</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #536240" transform="translate(133.205217 136.321166)">Sensor</text>
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #536240" transform="translate(85.668654 153.061884)">Thermometer report</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #536240" transform="translate(551.170553 136.321166)">Controller</text>
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #536240" transform="translate(511.424772 153.061884)">Compare and choose</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #536240" transform="translate(555.709616 272.231696)">Actuator</text>
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #536240" transform="translate(511.599772 288.972414)">Heater or cooling fan</text>
+   </g>
+   <g id="patch_6">
+    <path d="M 157.199904 241.237775
+Q 157.199904 208.783293 157.199904 178.341272
+" style="fill: none; stroke: #536240; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 154.399904 183.941272
+L 157.199904 178.341272
+L 159.999904 183.941272
+" style="fill: none; stroke: #536240; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 269.869782 140.8284
+Q 371.400032 140.8284 470.91782 140.8284
+" style="fill: none; stroke: #536240; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 465.31782 138.0284
+L 470.91782 140.8284
+L 465.31782 143.6284
+" style="fill: none; stroke: #536240; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="371.39976" y="125.17539" transform="rotate(-0 371.39976 125.17539)">reported temperature</text>
+   </g>
+   <g id="patch_8">
+    <path d="M 585.599616 176.329555
+Q 585.599616 208.784037 585.599616 239.226058
+" style="fill: none; stroke: #536240; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 588.399616 233.626058
+L 585.599616 239.226058
+L 582.799616 233.626058
+" style="fill: none; stroke: #536240; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 472.929738 276.73893
+Q 371.399488 276.73893 271.8817 276.73893
+" style="fill: none; stroke: #536240; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 277.4817 279.53893
+L 271.8817 276.73893
+L 277.4817 273.93893
+" style="fill: none; stroke: #536240; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="371.39976" y="300.910866" transform="rotate(-0 371.39976 300.910866)">net temperature change</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #b18a22" x="585.599616" y="55.48923" transform="rotate(-0 585.599616 55.48923)">Reference: 70°F</text>
+   </g>
+   <g id="patch_10">
+    <path d="M 585.599616 70.132593
+Q 585.599616 87.41074 585.599616 102.676425
+" style="fill: none; stroke: #536240; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 588.399616 97.076425
+L 585.599616 102.676425
+L 582.799616 97.076425
+" style="fill: none; stroke: #536240; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #536240" x="371.39976" y="349.43526" transform="rotate(-0 371.39976 349.43526)">The changed state supplies the next observation.</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p4cf72f8d58">
+   <rect x="14.4" y="14.4" width="713.99952" height="353.99952"/>
+  </clipPath>
+ </defs>
+</svg>
