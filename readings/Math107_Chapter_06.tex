@@ -1,827 +1,532 @@
-\documentclass[12pt]{book}
-\usepackage[utf8]{inputenc}
+\documentclass[11pt,letterpaper]{article}
 \usepackage[T1]{fontenc}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{geometry}
-\usepackage{tikz}
-\usepackage{pgfplots}
-\usepackage{xcolor}
-\usepackage{mdframed}
-\usepackage{enumitem}
-\usepackage{booktabs}
-\usepackage{array}
-\usepackage{fancyhdr}
-\usepackage{titlesec}
-\pgfplotsset{compat=1.18}
-\geometry{margin=1.1in, top=1.2in, bottom=1.2in}
+\usepackage{lmodern,microtype,amsmath,amssymb,graphicx,booktabs,tabularx,array,enumitem,xcolor,fancyhdr,titlesec,tcolorbox,caption}
+\tcbuselibrary{breakable}
+\usepackage[margin=.8in,headheight=15pt,headsep=18pt,footskip=25pt]{geometry}
+\usepackage[colorlinks=true,urlcolor=teal,linkcolor=olive]{hyperref}
+\definecolor{olive}{HTML}{536240}\definecolor{ink}{HTML}{293329}\definecolor{teal}{HTML}{17677A}\definecolor{gold}{HTML}{A55C21}\definecolor{soft}{HTML}{EEF3E8}\definecolor{warm}{HTML}{FBEFDF}
+\color{ink}\setlength{\parindent}{0pt}\setlength{\parskip}{7pt}
+\setlist{leftmargin=1.4em,itemsep=3pt,topsep=3pt}
+\renewcommand{\thesection}{6.\arabic{section}}
+\titleformat{\section}{\Large\bfseries\color{olive}}{\thesection}{.6em}{}
+\titleformat{\subsection}{\large\bfseries\color{teal}}{}{0pt}{}
+\titlespacing*{\section}{0pt}{4pt}{12pt}\titlespacing*{\subsection}{0pt}{11pt}{4pt}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\sffamily MATH\& 107 / WEEK 6}\fancyhead[R]{\small\sffamily Interest and Loans}\fancyfoot[L]{\small\sffamily Math in Society / Dr Lee}\fancyfoot[R]{\small\sffamily\thepage}\renewcommand{\headrulewidth}{.3pt}
+\tcbset{boxrule=.5pt,arc=2mm,left=10pt,right=10pt,top=7pt,bottom=7pt,before skip=9pt,after skip=9pt,colframe=olive!35,colback=soft,fonttitle=\bfseries,coltitle=teal,colbacktitle=soft}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\captionsetup{font=small,labelformat=empty,textfont={color=teal},skip=7pt}
+\hypersetup{pdftitle={Week 6: Interest and Loans},pdfauthor={MATH and 107 / Dr Lee}}
+\usepackage{needspace}
+\pdfinfoomitdate=1
+\pdftrailerid{}
+\pdfsuppressptexinfo=15
+\setlength{\emergencystretch}{2em}
 
-\definecolor{mathblue}{RGB}{30,90,160}
-\definecolor{mathgreen}{RGB}{30,140,80}
-\definecolor{mathred}{RGB}{180,40,40}
-\definecolor{lightgray}{RGB}{240,240,240}
-
-\titleformat{\chapter}[display]
-  {\normalfont\large\bfseries}
-  {\chaptertitlename\ \thechapter}{12pt}{\LARGE}
-\titleformat{\section}
-  {\normalfont\large\bfseries}{{\thesection}}{1em}{}
-\titleformat{\subsection}
-  {\normalfont\normalsize\bfseries}{{\thesubsection}}{1em}{}
-
-\setcounter{chapter}{5}
-
-\pagestyle{fancy}
-\setlength{\headheight}{14pt}
-\fancyhf{}
-\fancyhead[LE]{\small\textit{Chapter \thechapter.\
-  Continuous Math I: Interest and Loans}}
-\fancyhead[RO]{\small\textit{Observing with Mathematical Perspectives}}
-\fancyfoot[C]{\small\thepage}
-\renewcommand{\headrulewidth}{0.4pt}
-
-\newcounter{exercise}[section]
-\renewcommand{\theexercise}{\thesection.\arabic{exercise}}
-\newenvironment{exercises}{%
-  \begin{mdframed}[backgroundcolor=lightgray, linewidth=0pt,
-    innertopmargin=10pt, innerbottommargin=10pt]
-  \noindent\textbf{Exercises \thesection}
-  \begin{list}{\theexercise.}
-    {\usecounter{exercise}
-     \setlength{\leftmargin}{2em}
-     \setlength{\itemsep}{6pt}}
-}{%
-  \end{list}
-  \end{mdframed}
-}
-
-\newcounter{example}[section]
-\renewcommand{\theexample}{\thesection.\arabic{example}}
-\newenvironment{example}[1][]{%
-  \refstepcounter{example}
-  \medskip
-  \noindent\textbf{Example \theexample.}%
-  \ifx&#1&\else\ \textit{(#1)}\fi\quad
-}{%
-  \medskip
-}
-
-\newenvironment{definition}[1]{%
-  \begin{mdframed}[linecolor=mathblue, linewidth=1pt,
-    innertopmargin=8pt, innerbottommargin=8pt]
-  \noindent\textbf{Definition.} \textit{#1.}\quad
-}{%
-  \end{mdframed}\medskip
-}
+\widowpenalty=10000
+\clubpenalty=10000
 
 \begin{document}
+{\small\sffamily\color{olive}WEEK 6 / CONTINUOUS MATH I / INTEREST AND LOANS\par}
+\vspace{12pt}
+{\fontsize{31}{35}\selectfont\bfseries\color{olive}Following the balance\par}
+\vspace{10pt}
+{\large Start with one amount. State the period and the rule. Use the ending balance as the next input.\par}
+\begin{center}\includegraphics[width=\linewidth]{../assets/week6/growth-over-time.pdf}\end{center}
+\begin{tcolorbox}[title={The setting for the week}]
+A \$2,000 balance can grow through fixed dollar additions or a percentage of its current amount. A loan combines percentage growth with payments that subtract from the debt. Tables and graphs make the differences visible.
+\end{tcolorbox}
+This chapter develops the meaning of percentages, period rates, and repeated updates before using formulas. It distinguishes an ending balance from interest earned, a scheduled payment from principal reduction, and a simulation's stopping month from an actual payoff.
 
-%====================================================================
-\chapter{Continuous Math I: Interest and Loans}
-%====================================================================
-
-Money growing over time is governed by the same two recursions
-introduced in Chapter 1.
-Simple interest applies the additive recursion: the same
-fixed amount is added each period.
-Compound interest applies the multiplicative recursion: the
-balance is multiplied by the same factor each period, so
-interest earns interest.
-A loan places these two recursions in tension: compound
-interest accrues on the outstanding balance while fixed
-payments reduce it.
-This chapter develops each model, connects them to the
-recursion framework, and examines the financial consequences
-of each. Throughout, treat the balance as a changing state:
-ask what is added or multiplied, what acts against the change,
-and how that update shapes the next period.
-
-\begin{mdframed}[backgroundcolor=lightgray, linewidth=0pt,
-  innertopmargin=8pt, innerbottommargin=8pt]
-\textbf{A continuous view.} The calculations below update balances
-by year or month. A smooth exponential model expresses the same
-proportional-growth pattern continuously: the rate of change is
-proportional to the current balance, written $\frac{dB}{dt}=kB$ with
-solution $B(t)=B_0e^{kt}$.
-\end{mdframed}
-
-%--------------------------------------------------------------------
-\section{Simple Interest}
-%--------------------------------------------------------------------
-
-\begin{definition}{Simple interest}
-\textbf{Simple interest} is calculated on the original
-principal only.
-The interest earned over $t$ years at annual rate $r$ is:
-\[
-I = P \cdot r \cdot t,
-\]
-and the total amount after $t$ years is:
-\[
-A = P + I = P(1 + rt),
-\]
-where $P$ is the principal, $r$ is the annual interest
-rate expressed as a decimal, and $t$ is time in years.
-\end{definition}
-
-\noindent
-Simple interest is the additive recursion from Chapter 1.
-Each year, the same fixed amount $P \cdot r$ is added to
-the balance. In state-update notation,
-$B_{n+1}=B_n+Pr$. The current balance does not change that year's
-interest amount. This is additive change, represented by a straight
-line when graphed.
-
-\begin{example}
-You deposit \$2{,}000 in an account that pays $3\%$ simple
-interest per year.
-\begin{enumerate}[label=(\alph*), itemsep=4pt]
-  \item How much interest is earned each year?
-    \[ I_{\text{annual}} = 2000 \times 0.03 = \$60. \]
-
-  \item What is the balance after 5 years?
-    \[ A = 2000(1 + 0.03 \times 5) = 2000(1.15) = \$2{,}300. \]
-
-  \item Fill in the balance for each year.
-\end{enumerate}
-
-\begin{center}
-\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{cc}
-\toprule
-\textbf{Year} & \textbf{Balance} \\
-\midrule
-0 & \$2{,}000 \\
-1 & \$2{,}060 \\
-2 & \$2{,}120 \\
-3 & \$2{,}180 \\
-4 & \$2{,}240 \\
-5 & \$2{,}300 \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-Each row adds \$60: this is the additive recursion with step
-size \$60, starting from \$2{,}000.
-\end{example}
-
-\begin{example}[Finding the rate]
-An account grows from \$500 to \$560 in 4 years under simple
-interest.
-What is the annual interest rate?
-\[
-560 = 500(1 + r \times 4).
-\]
-\[
-\frac{560}{500} = 1 + 4r \;\Rightarrow\;
-1.12 = 1 + 4r \;\Rightarrow\;
-4r = 0.12 \;\Rightarrow\; r = 0.03 = 3\%.
-\]
-\end{example}
-
-\begin{example}[Finding the time]
-At what year does a \$1{,}000 account earning $5\%$ simple
-interest reach \$1{,}250?
-\[
-1250 = 1000(1 + 0.05t) \;\Rightarrow\;
-1.25 = 1 + 0.05t \;\Rightarrow\;
-0.05t = 0.25 \;\Rightarrow\; t = 5 \text{ years.}
-\]
-\end{example}
-
-\begin{exercises}
-  \item Compute the total amount $A$ for each situation.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
-      \item $P = \$1{,}500$, $r = 4\%$, $t = 3$ years
-      \item $P = \$800$, $r = 6\%$, $t = 5$ years
-      \item $P = \$3{,}000$, $r = 2.5\%$, $t = 8$ years
-    \end{enumerate}
-
-  \item An account earns $5\%$ simple interest per year.
-    The starting balance is \$1{,}200.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
-      \item Fill in the balance table for years 0 through 6.
-      \item By how much does the balance increase each year?
-      \item Write the balance at year $t$ as a formula.
-    \end{enumerate}
-
-  \item An account grows from \$4{,}000 to \$4{,}600 in
-    5 years under simple interest.
-    Find the annual interest rate.
-
-  \item At $4\%$ simple interest, how many years does it
-    take a \$2{,}500 account to reach \$3{,}000?
-\end{exercises}
-
-%--------------------------------------------------------------------
-\section{Compound Interest}
-%--------------------------------------------------------------------
-
-\begin{definition}{Compound interest}
-\textbf{Compound interest} is calculated on the current
-balance, including previously earned interest.
-The amount after $t$ years at annual rate $r$, compounded
-once per year, is:
-\[
-A = P(1 + r)^t,
-\]
-where $P$ is the principal and $r$ is the annual rate as
-a decimal.
-\end{definition}
-
-\noindent
-Compound interest is the multiplicative recursion from Chapter 1.
-Each year the current balance is multiplied by $(1 + r)$:
-$B_{n+1}=(1+r)B_n$. The current state feeds the next interest
-calculation, so each increase can make later increases larger.
-This is an amplifying feedback pattern and produces an upward-bending
-exponential curve.
-
-\begin{example}
-You deposit \$2{,}000 at $3\%$ interest, compounded annually.
-\begin{enumerate}[label=(\alph*), itemsep=4pt]
-  \item What is the balance after 5 years?
-    \[ A = 2000(1.03)^5 = 2000 \times 1.1593 \approx \$2{,}318.55. \]
-
-  \item Fill in the balance for each year by multiplying
-    the previous balance by $1.03$.
-\end{enumerate}
-
-\begin{center}
-\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{ccc}
-\toprule
-\textbf{Year} & \textbf{Balance} &
-\textbf{Interest earned} \\
-\midrule
-0 & \$2{,}000.00 & \\
-1 & \$2{,}060.00 & \$60.00 \\
-2 & \$2{,}121.80 & \$61.80 \\
-3 & \$2{,}185.45 & \$63.65 \\
-4 & \$2{,}251.02 & \$65.57 \\
-5 & \$2{,}318.55 & \$67.53 \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-The interest earned increases each year because the base
-on which it is calculated grows.
-This is the key distinction from simple interest, where the
-interest earned is the same every year.
-\end{example}
-
-\begin{example}[Long-term growth]
-Compare the two accounts from Example 6.1.1 and Example
-6.2.1, both starting at \$2{,}000 at $3\%$ over 30 years.
-\[
-A_{\text{simple}} = 2000(1 + 0.03 \times 30)
-= 2000(1.90) = \$3{,}800.
-\]
-\[
-A_{\text{compound}} = 2000(1.03)^{30}
-\approx 2000 \times 2.4273 = \$4{,}854.52.
-\]
-
-The compound account produces \$1{,}054.52 more over 30 years.
-
-\begin{center}
-\begin{tikzpicture}
-\begin{axis}[
-  width=10cm, height=6cm,
-  xlabel={Year},
-  ylabel={Balance (\$)},
-  xtick={0,5,10,15,20,25,30},
-  ytick={2000,2500,3000,3500,4000,4500,5000},
-  ymin=1800, ymax=5200,
-  grid=major, grid style=dotted,
-  legend style={at={(0.05,0.95)}, anchor=north west, font=\small},
-]
-\addplot[mathblue, very thick, mark=none,
-  domain=0:30, samples=31]
-  {2000*(1 + 0.03*x)};
-\addlegendentry{Simple interest}
-\addplot[mathred, very thick, mark=none,
-  domain=0:30, samples=31]
-  {2000*(1.03^x)};
-\addlegendentry{Compound interest}
-\end{axis}
-\end{tikzpicture}
-\end{center}
-\end{example}
-
-\subsection*{Compounding More Frequently}
-
-Interest can be compounded more than once per year.
-If interest is compounded $n$ times per year, each compounding
-period uses the rate $\frac{r}{n}$, and there are $nt$
-compounding periods in $t$ years.
-
-\begin{definition}{General compound interest formula}
-\[
-A = P\!\left(1 + \frac{r}{n}\right)^{nt}
-\]
-where $n$ is the number of compounding periods per year.
-\end{definition}
-
-\begin{example}
-\$1{,}000 at $6\%$ annual interest for 10 years under
-different compounding frequencies.
-
-\begin{center}
-\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{lcc}
-\toprule
-\textbf{Compounding} & $n$ &
-\textbf{Balance after 10 years} \\
-\midrule
-Annually    & 1   & \$1{,}790.85 \\
-Semi-annually & 2 & \$1{,}806.11 \\
-Quarterly   & 4   & \$1{,}814.40 \\
-Monthly     & 12  & \$1{,}819.40 \\
-Daily       & 365 & \$1{,}822.03 \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-More frequent compounding produces a higher balance, but the
-differences diminish as the frequency increases. The balance is
-updated more often, and each percentage is applied to the latest state.
-\end{example}
-
-\begin{exercises}
-  \item Compute the total amount $A$ for each situation.
-    Round to the nearest cent.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
-      \item $P = \$1{,}000$, $r = 5\%$, $t = 4$ years,
-        compounded annually
-      \item $P = \$500$, $r = 8\%$, $t = 3$ years,
-        compounded annually
-      \item $P = \$2{,}000$, $r = 4\%$, $t = 6$ years,
-        compounded monthly
-    \end{enumerate}
-
-  \item An account starts with \$3{,}000 at $4\%$
-    compounded annually.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
-      \item Fill in the balance table for years 0 through 5
-        by multiplying each year's balance by $1.04$.
-      \item Compare the interest earned in year 1 with the
-        interest earned in year 5.
-        Explain the difference in one sentence.
-    \end{enumerate}
-
-  \item \$1{,}500 is invested at $6\%$ for 10 years.
-    Compute the final balance under:
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
-      \item Simple interest
-      \item Compound interest, compounded annually
-      \item Compound interest, compounded monthly
-    \end{enumerate}
-    Rank the three results from smallest to largest.
-
-  \item A savings account compounds monthly at an annual
-    rate of $3\%$.
-    What is the effective annual yield?
-    Use the formula $A = P(1 + r/12)^{12}$ with $P = 1$
-    and $t = 1$, and subtract $1$ from the result.
-\end{exercises}
-
-%--------------------------------------------------------------------
-\section{The Rule of 72}
-%--------------------------------------------------------------------
-
-The Rule of 72 is an approximation for the doubling time
-of a compound interest account.
-
-\begin{definition}{Rule of 72}
-At an annual compound interest rate of $r\%$, money
-approximately doubles in:
-\[
-t \approx \frac{72}{r}\ \text{years.}
-\]
-\end{definition}
-
-\noindent
-The Rule of 72 applies equally to any quantity growing by
-a fixed percentage per period: savings, debt, population,
-or inflation. It gives a quick view of how a repeated multiplicative
-update amplifies a starting state over time.
-
-\begin{example}
-\begin{enumerate}[label=(\alph*), itemsep=5pt]
-  \item At $6\%$ annual interest, money doubles in
-    approximately $72 \div 6 = 12$ years.
-
-  \item At $9\%$, money doubles in approximately
-    $72 \div 9 = 8$ years.
-
-  \item A credit card charges $18\%$ annual interest.
-    An unpaid balance doubles in approximately
-    $72 \div 18 = 4$ years if no payments are made.
-
-  \item Inflation at $3\%$ per year halves the purchasing
-    power of money in approximately $72 \div 3 = 24$ years.
-\end{enumerate}
-\end{example}
-
-\begin{example}[Verifying the Rule]
-Using the compound interest formula to find the exact
-doubling time at $6\%$:
-\[
-2P = P(1.06)^t \;\Rightarrow\; 2 = (1.06)^t.
-\]
-The exact solution requires logarithms and gives
-$t \approx 11.9$ years.
-The Rule of 72 gives $72/6 = 12$ years, a close approximation.
-\end{example}
-
-\begin{exercises}
-  \item Use the Rule of 72 to estimate the doubling time
-    for each interest rate.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
-      \item $4\%$ \hfill
-      \item $8\%$ \hfill
-      \item $12\%$ \hfill
-      \item $2\%$ \hfill
-    \end{enumerate}
-
-  \item A student loan has an interest rate of $6\%$.
-    The student does not make payments for 12 years
-    while in graduate school.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
-      \item Use the Rule of 72 to estimate whether the
-        loan balance has doubled after 12 years.
-      \item If the original loan was \$30{,}000, estimate
-        the balance after 12 years.
-    \end{enumerate}
-
-  \item If money doubles in 9 years under compound interest,
-    what is the approximate annual interest rate?
-    Set up the Rule of 72 equation and solve for $r$.
-
-  \item An investment grows at $6\%$ per year.
-    Using the Rule of 72, estimate how many years it takes
-    to grow to four times its original value.
-    \textit{Hint: four times means two doublings.}
-\end{exercises}
-
-%--------------------------------------------------------------------
-\section{Loans}
-%--------------------------------------------------------------------
-
-A loan begins with a lender providing a principal $P$ to a
-borrower.
-Each period, two things happen.
-\begin{enumerate}[itemsep=3pt]
-  \item The outstanding balance increases by compound
-    interest.
-  \item The borrower makes a fixed payment that reduces
-    the balance.
-\end{enumerate}
-
-\noindent
-The monthly interest rate is $r_m = r_{\text{annual}} \div 12$.
-The balance is updated by two competing effects: interest uses the
-current balance and increases it; the scheduled payment is then
-subtracted. If the payment is no larger than the interest charged,
-the balance will not decrease.
+The core work uses arithmetic, powers, and simple equations. Try each short check before consulting its explanation. The review includes complete solutions and optional investigations of rounding and modeling assumptions.
 
 \medskip
-\noindent
-The balance after each payment is computed as:
-\[
-B_{n+1}=B_n(1+r_m)-M,
-\qquad
-\text{new balance}=(\text{current balance})(1+r_m)-\text{payment}.
-\]
+\href{https://bobovski66.github.io/MathInSociety/readings/week6_reading.html}{Online reading}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/demos/interest_loans.html}{Interest and loan explorer}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/labs/week6_lab.html}{Guided laboratory}
+\clearpage
 
-\begin{example}
-A \$4{,}000 loan at $6\%$ annual interest compounded monthly,
-with fixed monthly payments of \$200.
-Monthly interest rate: $r_m = 0.06 \div 12 = 0.005$.
 
-\begin{center}
-\renewcommand{\arraystretch}{1.6}
-\begin{tabular}{cccc}
-\toprule
-\textbf{Month} & \textbf{Balance} &
-\textbf{Interest} & \textbf{After payment} \\
+\Needspace{6\baselineskip}\section{A rate needs an amount to act on and a period to describe}
+
+\emph{Principal} means the initial amount deposited or borrowed. We use P for that starting amount and B for a balance as it changes. A \emph{period} is one update interval, such as a year or month. Year 0 records the initial balance, before any annual interest is added.
+
+
+A percentage means ``per hundred.'' To calculate 3\% of \$2,000, first write \(3\%=3/100=0.03\), then multiply: \(0.03(2000)=60\) dollars. To keep the original money and add that interest, multiply by \(1+0.03=1.03\).
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=2.9in,keepaspectratio]{../assets/week6/percent-and-factor.pdf}
+\captionof*{figure}{The rate 0.03 gives the interest portion. The factor 1.03 keeps the original balance and adds 3\% to it.}
+\end{minipage}\par\medskip
+
+\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYY@{}}\toprule
+Expression & Meaning & For a \$2,000 balance\\
 \midrule
-0 & \$4{,}000.00 & & \\
-1 & \$4{,}000.00 & $+\$20.00$ & \$3{,}820.00 \\
-2 & \$3{,}820.00 & $+\$19.10$ & \$3{,}639.10 \\
-3 & \$3{,}639.10 & $+\$18.20$ & \$3{,}457.30 \\
-4 & \$3{,}457.30 & $+\$17.29$ & \$3{,}274.59 \\
-5 & \$3{,}274.59 & $+\$16.37$ & \$3{,}090.96 \\
-\bottomrule
-\end{tabular}
-\end{center}
+0.03B & 3\% of the balance & Interest of \$60\\
+B + 0.03B & Keep the balance and add its interest & New balance \$2,060\\
+1.03B & The same update written as multiplication & New balance \$2,060\\
+\bottomrule\end{tabularx}}\par\medskip
 
-In month 1, \$20 of the \$200 payment goes to interest and
-\$180 reduces the principal.
-In month 5, only \$16.37 goes to interest, and \$183.63
-reduces the principal.
-As the balance falls, each payment retires a larger fraction
-of principal.
-\end{example}
+``3\% per year'' and ``3\% per month'' describe different updates. In a formula, use a decimal rate whose time unit matches the period. Also keep separate the \emph{interest amount} and the \emph{total balance}: earning \$60 does not mean the whole account is worth \$60.
 
-\begin{example}[Total cost of a loan]
-Continuing the loan from Example 6.4.1, 21 payments of
-\$200 leave a balance of about \$24.87 before month 22.
-After one more month of interest, the final payment is about
-\$24.99. Therefore,
-\[
-\text{Total paid}=21(\$200)+\$24.99=\$4{,}224.99,
-\]
-\[
-\text{Total interest}=\$4{,}224.99-\$4{,}000=\$224.99.
-\]
-The final payment is smaller than the regular payment because it
-only needs to clear the remaining balance.
 
-\begin{center}
-\begin{tikzpicture}
-\begin{axis}[
-  width=10cm, height=5.5cm,
-  xlabel={Month},
-  ylabel={Balance (\$)},
-  xtick={0,5,10,15,20,22},
-  xticklabels={0,5,10,15,20,paid},
-  ymin=0, ymax=4300,
-  grid=major, grid style=dotted,
-]
-\addplot[mathred, very thick, smooth]
-  coordinates {
-    (0,4000)(1,3820)(2,3639)(3,3457)(4,3275)
-    (5,3091)(6,2906)(7,2720)(8,2533)(9,2346)
-    (10,2158)(11,1969)(12,1779)(13,1588)
-    (14,1396)(15,1203)(16,1009)(17,814)
-    (18,618)(19,421)(20,223)(21,25)(22,0)};
-\end{axis}
-\end{tikzpicture}
-\end{center}
-\end{example}
+\begin{tcolorbox}[title={Example \textperiodcentered{} Read the notation before calculating},breakable]
 
-\begin{example}[Effect of payment size]
-The same \$4{,}000 loan at $6\%$ annual interest compounded
-monthly, under different payment amounts. The final payment may be
-smaller than the regular payment; totals below use cent-rounded
-monthly interest.
+\(B_0=2000\) names the starting balance. \(B_1\) means the balance after one update, and \(B_2\) after two. The small number is a period label, not a multiplier. The rule \(B_{k+1}=1.03B_k\) says ``multiply the current balance by 1.03 to get the next one.''
 
-\begin{center}
-\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{cccc}
-\toprule
-\textbf{Monthly payment} & \textbf{Months to pay off} &
-\textbf{Total paid} & \textbf{Total interest} \\
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[title={Pause and try 1},breakable]
+A \$500 balance earns 4\% for one period. What is the interest, the growth factor, and the new balance?
+\end{tcolorbox}
+
+\clearpage
+
+\Needspace{6\baselineskip}\section{Simple interest adds the same dollar amount each year}
+
+With \emph{simple interest}, interest is calculated on the original principal, not on the accumulated balance. Start at P=\$2,000 with annual rate r=0.03. Each year adds the same \(Pr=60\) dollars.
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=2.9in,keepaspectratio]{../assets/week6/simple-updates.pdf}
+\captionof*{figure}{The equal dollar steps make a straight-line pattern. The year-5 balance includes the original \$2,000 plus five \$60 additions.}
+\end{minipage}\par\medskip
+
+After t years, interest is \(I=Prt\), and total amount is
+
+\[A=P+Prt=P(1+rt).\]
+The formula collects the repeated additions into one calculation. With annual updates, we can also write \(B_{k+1}=B_k+Pr\): the constant step Pr is added to the current total, but calculated from the \emph{original} principal.
+
+
+\begin{tcolorbox}[title={Example \textperiodcentered{} Evaluate and solve backward},breakable]
+
+After five years, \(A=2000(1+0.03\cdot5)=2300\) dollars. The interest earned is \(2300-2000=300\) dollars.
+
+
+Suppose instead a simple-interest account grows from \$500 to \$560 in four years. The \$60 gain is \$15 per year. Dividing \$15 by the \$500 original amount gives \(r=0.03\), or 3\% per year. Algebra gives the same answer: \(560/500-1=4r\), so \(r=0.12/4=0.03\).
+
+
+\end{tcolorbox}
+
+If time is given in months while r is annual, convert months to years. Under a proportional simple-interest model, six months is t=0.5 year; \$2,000 at 3\% earns \(2000(0.03)(0.5)=30\) dollars over that time.
+
+
+\begin{tcolorbox}[title={Pause and try 2},breakable]
+An account starts at \$900 and earns 4\% simple annual interest. What is the fixed yearly increase and the total after three years?
+\end{tcolorbox}
+
+
+\Needspace{6\baselineskip}\section{Compound interest lets earlier interest earn interest}
+
+With \emph{compound interest}, each update calculates interest on the balance reached so far. At 3\% annually, \$2,000 becomes \$2,060 after one year. The second year's interest is \(0.03(2060)=61.80\), so the next balance is \$2,121.80.
+
+
+The annual rule is \(B_{k+1}=(1+r)B_k\). Applying it repeatedly gives
+
+\[B_1=P(1+r),\quad B_2=P(1+r)^2,\quad A=P(1+r)^t.\]
+The exponent counts repeated multiplications. For three years, multiply by 1.03 three times; do not replace this by adding 3\% of the original amount three times.
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=2.9in,keepaspectratio]{../assets/week6/compound-updates.pdf}
+\captionof*{figure}{The percentage stays at 3\%, while its dollar base grows. Table and chart values round for display; the compound formula keeps precision until the final answer.}
+\end{minipage}\par\medskip
+
+\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYY@{}}\toprule
+Year & Simple balance (\$) & Annual compound balance (\$)\\
 \midrule
-\$150 & 29 & \$4{,}303.84 & \$303.84 \\
-\$200 & 22 & \$4{,}224.99 & \$224.99 \\
-\$300 & 14 & \$4{,}150.01 & \$150.01 \\
-\bottomrule
-\end{tabular}
-\end{center}
+0 & 2,000.00 & 2,000.00\\
+1 & 2,060.00 & 2,060.00\\
+2 & 2,120.00 & 2,121.80\\
+3 & 2,180.00 & 2,185.45\\
+4 & 2,240.00 & 2,251.02\\
+5 & 2,300.00 & 2,318.55\\
+\bottomrule\end{tabularx}}\par\medskip
 
-Larger payments shorten the loan term and reduce total
-interest paid.
-\end{example}
+At the same positive annual rate, the two models agree after the first annual update. Later, compounding uses the earlier interest as part of its base. At 30 years, the simple model gives \$3,800, while the annual compound model gives about \$4,854.52.
 
-\begin{exercises}
-  \item A \$3{,}000 loan is charged $9\%$ annual interest
-    compounded monthly.
-    The monthly interest rate is $0.09 \div 12 = 0.0075$.
-    The monthly payment is \$150.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
-      \item Complete the loan table for the first four months.
 
-      \begin{center}
-      \renewcommand{\arraystretch}{1.7}
-      \begin{tabular}{cccc}
-      \toprule
-      \textbf{Month} & \textbf{Balance} &
-      \textbf{Interest} & \textbf{After payment} \\
-      \midrule
-      0 & \$3{,}000.00 & & \\
-      1 & \$3{,}000.00 & $\$3{,}000 \times 0.0075 =$ & \\
-      2 & & & \\
-      3 & & & \\
-      4 & & & \\
-      \bottomrule
-      \end{tabular}
-      \end{center}
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=2.9in,keepaspectratio]{../assets/week6/growth-over-time.pdf}
+\captionof*{figure}{Dots record balances at annual updates; connecting lines help compare the patterns. A gently increasing percentage process can accumulate a substantial difference over many periods.}
+\end{minipage}\par\medskip
 
-      \item In month 1, how much of the \$150 payment
-        goes toward interest, and how much toward
-        reducing the principal?
-    \end{enumerate}
+\begin{tcolorbox}[title={A curve and a schedule are different parts of a model},breakable,colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35]
 
-  \item A car loan of \$12{,}000 at $4.8\%$ annual interest
-    compounded monthly has a monthly payment of \$400.
-    Monthly rate: $0.048 \div 12 = 0.004$.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
-      \item Complete the loan table for the first three months.
-      \item After the third payment, what fraction of the
-        original principal has been repaid?
-    \end{enumerate}
+The balance table records specified crediting dates. A continuous curve can help us visualize the growth pattern between them, but the account's terms determine when interest is actually credited. Our explorer uses whole years and specified compounding periods, so the displayed endpoints are completed updates.
 
-  \item A student owes \$8{,}000 on a credit card charging
-    $18\%$ annual interest compounded monthly
-    (monthly rate $= 0.015$).
-    The minimum payment is \$160 per month.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
-      \item Compute the interest charge in month 1.
-      \item How much of the first payment reduces the
-        principal?
-      \item At this rate, explain in one sentence whether
-        the minimum payment is sufficient to eventually
-        pay off the debt.
-    \end{enumerate}
 
-  \item Explain in two complete sentences why the fraction
-    of each payment going toward interest decreases over
-    the life of a loan.
-    Use the loan balance as part of your explanation.
-\end{exercises}
+\end{tcolorbox}
 
-%--------------------------------------------------------------------
-\section{The Observer and the Loan}
-%--------------------------------------------------------------------
+\begin{tcolorbox}[title={Pause and try 3},breakable]
+Start with \$300 at 10\% compounded annually. Find the first and second yearly balances, and compare with two years of simple interest.
+\end{tcolorbox}
 
-A loan agreement contains a fixed set of numbers: principal,
-interest rate, payment amount, and term.
-The bank and the borrower extract different information from
-those same numbers because they are asking different questions.
+\clearpage
 
-\begin{center}
-\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{ll}
-\toprule
-\textbf{The bank asks} & \textbf{The borrower asks} \\
+\Needspace{6\baselineskip}\section{Monthly compounding changes both the rate and the count}
+
+Suppose a model quotes a nominal annual rate r=0.06 and compounds 12 times a year. The rate per monthly update is \(i=r/12=0.005\), which is 0.5\%, not 6\%. Over ten years there are \(12(10)=120\) monthly updates.
+
+
+For n equal compounding periods per year and t years, the formula is
+
+\[A=P\left(1+\frac{r}{n}\right)^{nt}.\]
+Read the inside and outside together: r/n is the rate for one step, and nt is the number of steps. Using a monthly rate with an annual count would model a different amount of time.
+
+
+\begin{tcolorbox}[title={Example \textperiodcentered{} Write the substituted expression first},breakable]
+
+For \$1,000 at 6\% nominal annual interest compounded monthly for ten years:
+
+
+\[A=1000\left(1+\frac{0.06}{12}\right)^{120}=1000(1.005)^{120}\approx1819.40.\]
+
+
+Use parentheses around the full factor and keep the calculator's precision through the exponent. The final interest earned is approximately \$819.40.
+
+
+\end{tcolorbox}
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=2.9in,keepaspectratio]{../assets/week6/compounding-frequency.pdf}
+\captionof*{figure}{The bars show interest earned, not the whole account balance. The comparison holds the nominal annual rate fixed. Daily means 365 equal periods in this constructed model.}
+\end{minipage}\par\medskip
+
+For these positive rates, more frequent compounding increases the final amount, with smaller extra gains as the frequencies increase. This comparison does not hold the effective annual yield fixed.
+
+
+\Needspace{5\baselineskip}\subsection*{The effective annual yield describes a whole year's growth}
+
+The \emph{effective annual yield} is the fraction gained over one year, including compounding. For a 3\% nominal annual rate compounded monthly,
+
+
+\[\left(1+\frac{0.03}{12}\right)^{12}-1\approx0.030416,\]
+
+
+or about 3.0416\%. The decimal 0.030416 and the percentage 3.0416\% describe the same yield. The nominal rate 3\% and the effective yield answer different questions about the update rule.
+
+
+\begin{tcolorbox}[title={Pause and try 4},breakable]
+For a nominal annual rate of 12\%, compounded monthly for two years, give the decimal monthly rate and the number of updates.
+\end{tcolorbox}
+
+
+\Needspace{6\baselineskip}\section{The Rule of 72 estimates repeated percentage growth}
+
+For a positive balance growing at a fixed positive annual compound rate, the \emph{Rule of 72} estimates the years needed to double:
+
+\[\text{doubling time}\approx\frac{72}{\text{annual rate written as a percentage number}}.\]
+At 6\%, use 72/6=12 years. Do not divide by 0.06. At 9\%, the estimate is eight years. These are estimates under a continuing growth rule, not guaranteed future returns.
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=2.9in,keepaspectratio]{../assets/week6/doubling-estimates.pdf}
+\captionof*{figure}{About 12 years produces one doubling, and about 24 produces two doublings. Two doublings multiply the starting amount by four, not by three.}
+\end{minipage}\par\medskip
+
+\begin{tcolorbox}[title={Example \textperiodcentered{} Check the estimate using powers},breakable]
+
+At 6\% annual compounding, \((1.06)^{11}\approx1.898\) and \((1.06)^{12}\approx2.012\). The first completed annual update reaching twice the starting balance is year 12. The Rule of 72 is a useful scale estimate; it is not an equation making the balance exactly double at year 12.
+
+
+\end{tcolorbox}
+
+The same reasoning works for invented compute capacity or another quantity following a fixed percentage rule. It does not describe simple interest, and it does not by itself describe a loan being reduced by payments. At a zero growth rate, a positive starting amount never doubles through this rule.
+
+
+\begin{tcolorbox}[title={Pause and try 5},breakable]
+Use the Rule of 72 to estimate doubling time at 8\% and quadrupling time at 6\%.
+\end{tcolorbox}
+
+
+\Needspace{6\baselineskip}\section{A payment subtracts from a balance that has just grown}
+
+In our loan model, interest is added once a month, then the scheduled payment is applied. Let B be the balance at the start of that month, i the monthly decimal rate, and M the regular payment in dollars.
+
+\[\text{interest}=iB,\qquad B_{\text{next}}=B+iB-M=(1+i)B-M.\]
+The annual rate r is divided by 12 \emph{under the stated monthly model}, so i=r/12. A \$4,000 loan at a 6\% nominal annual rate uses i=0.06/12=0.005, or 0.5\% per month. The first interest charge is \$20. In credit-card terminology, APR stands for \emph{annual percentage rate}; our card exercises explicitly specify the monthly conversion used in their simplified model.
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=2.9in,keepaspectratio]{../assets/week6/loan-one-month.pdf}
+\captionof*{figure}{The \$200 payment covers \$20 interest and reduces principal by \$180. The ending balance \$3,820 becomes the next month's starting balance.}
+\end{minipage}\par\medskip
+
+\begin{tcolorbox}[title={Example \textperiodcentered{} Repeat using the new balance},breakable]
+
+Month 1: \(4000(1.005)-200=3820\). Month 2 starts at \$3,820, so its interest is \(3820(0.005)=19.10\) dollars. After the next \$200 payment, the balance is \(3820+19.10-200=3639.10\).
+
+
+Using \$4,000 again in month 2 would incorrectly keep charging the original interest amount. The current balance is part of the rule.
+
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[title={The credit-card examples use a simplified schedule},breakable,colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35]
+
+Our activities use fixed rates, no new purchases or fees, and one interest calculation followed by one payment each month. The \href{https://www.consumerfinance.gov/ask-cfpb/how-does-my-credit-card-company-calculate-the-amount-of-interest-i-owe-en-51/}{Consumer Financial Protection Bureau explains} that many real card issuers use daily balance calculations. The monthly model makes the repeated arithmetic visible; actual statements follow their account terms.
+
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[title={Pause and try 6},breakable]
+A \$500 loan balance has 2\% interest for one period, then a \$60 payment. Find the interest, principal reduction, and ending balance.
+\end{tcolorbox}
+
+
+\Needspace{6\baselineskip}\section{Interest and principal reduction add up to the actual payment}
+
+For the decreasing loan above, the monthly payment stays \$200, but its parts change. A smaller starting balance generates less interest. More of the same payment can then reduce what is owed.
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=2.9in,keepaspectratio]{../assets/week6/payment-parts.pdf}
+\captionof*{figure}{The whole bar is the payment. Its interest portion is a cost of borrowing for that month; the remainder reduces the debt. These bars come from the \$4,000, 6\%, \$200-payment model.}
+\end{minipage}\par\medskip
+
+\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYYYY@{}}\toprule
+Month & Start balance (\$) & Interest (\$) & Payment (\$) & End balance (\$)\\
 \midrule
-What is the total interest collected? &
-  What is my monthly payment? \\
-What is the annual percentage yield? &
-  How long until I am debt-free? \\
-What is the default risk? &
-  How much of each payment is interest? \\
-What is the effective return on capital? &
-  What does this loan cost in total? \\
-\bottomrule
-\end{tabular}
-\end{center}
+1 & 4,000.00 & 20.00 & 200.00 & 3,820.00\\
+2 & 3,820.00 & 19.10 & 200.00 & 3,639.10\\
+3 & 3,639.10 & 18.20 & 200.00 & 3,457.30\\
+4 & 3,457.30 & 17.29 & 200.00 & 3,274.59\\
+\bottomrule\end{tabularx}}\par\medskip
 
-\noindent
-The loan terms and balance remain the same; the bank and borrower
-choose different quantities to calculate because they are asking
-different questions. The shared information can support several
-perspectives, and each perspective selects a different feature to
-interpret.
+A table of this repeated repayment calculation is often called an \emph{amortization schedule}. Check each row by adding interest to the start balance and subtracting the actual payment. The next row must begin with the previous row's ending balance.
 
-\medskip
-\noindent
-This structure also appears in the comparison between simple
-and compound interest.
-An observer asking ``what is the balance after one year?''
-gets the same answer from both models at a $3\%$ rate
-(both earn \$60 on a \$2{,}000 principal in year one).
-An observer asking ``what is the balance after 30 years?''
-gets very different answers.
-The question determines when the distinction matters.
 
-\begin{example}
-A borrower takes a \$10{,}000 loan at $5\%$ annual interest
-compounded monthly. The regular monthly payment is \$230.30 for
-47 months, followed by a final payment of about \$229.96 in month 48.
+\begin{tcolorbox}[title={State the rounding rule},breakable,colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35]
 
-The bank's perspective:
-\begin{itemize}[itemsep=3pt]
-  \item Total collected: $47 \times \$230.30 + \$229.96 = \$11{,}054.06$.
-  \item Total interest: $\$11{,}054.06 - \$10{,}000 = \$1{,}054.06$.
-  \item Total interest is about $10.54\%$ of the original principal over 4 years.
-\end{itemize}
+The loan table in this reading rounds each month's interest to the nearest cent before updating the balance. The application's long comparison keeps full internal precision and rounds only the displayed results, preserving its original calculation method. Both conventions are available in the explorer. Small total differences can come from rounding rather than from a different interest formula.
 
-The borrower's perspective:
-\begin{itemize}[itemsep=3pt]
-  \item The scheduled payment is about \$230.30 per month.
-  \item The loan is retired in 48 months.
-  \item Total cost above principal is \$1{,}054.06.
-\end{itemize}
-\end{example}
 
-\begin{exercises}
-  \item A \$6{,}000 loan at $7.2\%$ annual interest compounded
-    monthly has a regular payment of \$185.82 for 35 months and a
-    smaller final payment in month 36.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
-      \item Compute the total amount paid.
-      \item Compute the total interest paid.
-      \item Write one sentence describing this loan from
-        the borrower's perspective.
-      \item Write one sentence describing this loan from
-        the lender's perspective.
-    \end{enumerate}
+\end{tcolorbox}
 
-  \item Two loans both have a principal of \$5{,}000 and an
-    annual rate of $6\%$ compounded monthly.
-    Loan A has monthly payments of \$150.
-    Loan B has monthly payments of \$250.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
-      \item Without completing full tables, predict which
-        loan will cost more in total interest.
-        Explain in one sentence.
-      \item Compute the first month's interest charge for
-        each loan.
-      \item Explain why both loans have the same first
-        month interest charge despite different payments.
-    \end{enumerate}
-\end{exercises}
+\begin{tcolorbox}[title={Pause and try 7},breakable]
+In a month with \$16.37 interest and a \$200 actual payment, how much reduces principal? What would have to change for the next month's interest to be smaller?
+\end{tcolorbox}
 
-%--------------------------------------------------------------------
+
+\Needspace{6\baselineskip}\section{The final payment is the amount still due}
+
+Continue the \$4,000 loan at 6\% with \$200 monthly payments, rounding monthly interest to cents. After 21 regular payments, \$24.87 remains. Month 22 adds \$0.12 interest, so the final amount due is \$24.99. Paying that amount closes the loan.
+
+
+We do not subtract the full scheduled \$200 and report a negative debt. The actual last payment is the smaller of the regular payment and the amount due.
+
+
+\begin{tcolorbox}[title={Example \textperiodcentered{} Total paid and total interest},breakable]
+
+\[\text{total paid}=21(200)+24.99=4224.99,\]
+
+
+\[\text{total interest}=4224.99-4000=224.99.\]
+
+
+The total paid includes the \$4,000 originally borrowed. The amount above that principal is the interest in this model, since there are no other fees or charges.
+
+
+\end{tcolorbox}
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=2.9in,keepaspectratio]{../assets/week6/repayment-paths.pdf}
+\captionof*{figure}{The curves share the same starting balance and first-month interest rate. Different payments create different later balances, which change later interest.}
+\end{minipage}\par\medskip
+
+\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYYY@{}}\toprule
+Regular payment & Payoff month & Total paid (\$) & Total interest (\$)\\
+\midrule
+\$150 & 29 & 4,303.84 & 303.84\\
+\$200 & 22 & 4,224.99 & 224.99\\
+\$300 & 14 & 4,150.01 & 150.01\\
+\bottomrule\end{tabularx}}\par\medskip
+
+For these otherwise identical fixed-rate loans, larger payments reduce the balance faster and leave less balance on which later interest is charged. They also require more money each month. The table quantifies that tradeoff; it does not tell us what a household can afford.
+
+
+\begin{tcolorbox}[title={Pause and try 8},breakable]
+A loan starts at \$2,000. Its payments total \$2,180, including a smaller final payment. With no fees or new borrowing, how much interest was paid? Why is \$2,180 not all interest?
+\end{tcolorbox}
+
+
+\Needspace{6\baselineskip}\section{Growing, unchanged, and decreasing are different outcomes}
+
+A payment does not automatically make a debt smaller. From \(B_{\text{next}}-B=iB-M\), compare M with the interest iB. If the payment is larger, the balance falls. If it is equal, the balance stays the same. If it is smaller, the balance grows.
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=2.9in,keepaspectratio]{../assets/week6/payment-threshold.pdf}
+\captionof*{figure}{The first interest charge is \$10 for all three plans. A \$10 payment covers that interest exactly and leaves the original \$1,000 unchanged; it does not pay the loan off.}
+\end{minipage}\par\medskip
+
+With a fixed rate, fixed payment, and no new charges, a payment exceeding the initial monthly interest makes the balance decrease. Later interest is then no larger, so the same payment continues reducing the balance. In a fixed-rate model, this leads to eventual payoff; a calculator still needs enough periods to display the full path.
+
+
+If a simulation stops at a chosen horizon, such as 1,200 months, an outstanding balance means ``not paid within this horizon.'' It must not label the stopping month as payoff. At zero interest, a positive payment reduces the loan by a fixed amount each month; a zero payment leaves it unchanged.
+
+
+\begin{tcolorbox}[title={Pause and try 9},breakable]
+An \$8,000 balance has a 1.5\% monthly rate. Classify payments of \$100, \$120, and \$160 using the first interest charge.
+\end{tcolorbox}
+
+\clearpage
+
+\Needspace{6\baselineskip}\section{A useful comparison includes the path, the totals, and the assumptions}
+
+A monthly payment, payoff time, and total interest answer different questions. For a borrower, the payment describes the current monthly commitment and the total describes its long-run modeled cost. A lender can use the same schedule to calculate payments received and interest collected. The underlying arithmetic is shared.
+
+
+When comparing plans, name the starting principal, rate per period, timing of payments, rounding rule, and whether new purchases or fees are included. Then report what the model actually computes. Changing one assumption gives a new scenario, not a correction to a fact about every loan.
+
+
+\begin{tcolorbox}[title={Example \textperiodcentered{} A complete comparison statement},breakable]
+
+``For a \$4,000 balance at 6\% nominal annual interest with monthly updates, no additional charges, and cent-rounded monthly interest, \$300 payments give payoff in month 14 and \$150.01 total interest. With \$150 payments, payoff is month 29 and interest is \$303.84.'' This states both the result and the conditions supporting it.
+
+
+\end{tcolorbox}
+
+\begin{enumerate}
+\item Define the balance and the time unit.
+\item Match the decimal rate to that unit.
+\item Calculate one update by hand before using a formula or calculator.
+\item Trace enough periods to answer the question.
+\item Separate the ending balance, interest, payments, and total cost.
+\item State a comparison and an assumption worth checking.
+
+\end{enumerate}
+
+\begin{tcolorbox}[title={Prepare for Week 7},breakable,colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35]
+
+Week 7 compares costs, revenue, and profit for different possible quantities. The habit remains the same: define the input and units, name the outcome of interest, state the available choices, and interpret the result in context. Here the input is time; there it will often be quantity for one event or month.
+
+
+\end{tcolorbox}
+
+Practice in the laboratory, compare the two repayment plans, and explore hypothetical compute growth. The discussion asks you to show and explain a payment schedule.
+
+
+\clearpage
+\section*{Two Further Applications}
+\subsection*{A fixed repayment comparison with full precision}
+The online application starts with an \$8,000 balance, a nominal annual rate of 18\%, and monthly interest $i=0.015$. Interest is added first; fixed payments follow. There are no purchases, fees, or rate changes.
+
+Both plans incur \$120 first-month interest. A \$160 payment reduces principal by \$40 and ends at \$7,960. A \$300 payment reduces principal by \$180 and ends at \$7,820. In month 2, their interest charges are \$119.40 and \$117.30 because the starting balances now differ.
+
+{\small\renewcommand{\arraystretch}{1.4}\begin{tabularx}{\linewidth}{@{}YYYY@{}}\toprule
+Regular payment & Payoff month & Total paid & Total interest\\\midrule
+\$160 & 94 & \$14,897.89 & \$6,897.89\\
+\$300 & 35 & \$10,293.42 & \$2,293.42\\\bottomrule
+\end{tabularx}}
+
+This table keeps full internal precision and rounds displayed money to cents. The actual final payments are approximately \$17.89 and \$93.42. The larger scheduled payment saves 59 months and about \$4,604.46 of interest when the difference is calculated before display rounding. Subtracting the displayed rounded interest totals gives a one-cent difference.
+
+\begin{center}\includegraphics[width=\linewidth]{../assets/week6/card-repayment.pdf}\end{center}
+The comparison describes the consequences of two stated schedules. Monthly affordability requires information beyond these model inputs. The \href{https://www.consumerfinance.gov/ask-cfpb/how-does-my-credit-card-company-calculate-the-amount-of-interest-i-owe-en-51/}{CFPB's explanation of actual interest calculations} also describes why a real card's daily-balance method can differ from our simplified monthly model.
+
+\clearpage
+\subsection*{A resource index can follow the same growth mathematics}
+An invented computing-capacity index begins at 100 units. One plan adds 25 units each year: $A_k=100+25k$. A second grows by 25\%: $B_k=100(1.25)^k$.
+
+Both give 125 after one year. After two, the additive plan gives 150 but percentage growth gives 156.25. Its second increase is 31.25 because it acts on the updated base 125. These are resource-index values, not counts of whole machines or measurements of intelligence.
+
+Suppose a third plan grows by 25\% until a ceiling 400 is reached. Its rule is
+\[
+L_0=100,\qquad L_{k+1}=\min(400,1.25L_k).
+\]
+Here min means choose the smaller value. At year 6, the limited and uncapped percentage plans both have about 381.47. At year 7, the uncapped value is about 476.84 while the limited rule selects 400.
+
+\begin{center}\includegraphics[width=\linewidth]{../assets/week6/ai-growth-limits.pdf}\end{center}
+The ceiling changes the rule and thus the trajectory. It is an explicit hypothetical policy, not a forecast about any real AI operation. Learning, reliability, energy, and useful service each require suitable measures and observations.
+
+\clearpage
 \section*{Chapter 6 Review}
-%--------------------------------------------------------------------
-
-\addcontentsline{toc}{section}{Chapter 6 Review}
-
-\begin{enumerate}[itemsep=8pt,leftmargin=2em]
-
-  \item A \$5{,}000 investment earns $4\%$ simple interest
-    per year.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
-      \item Write the balance at year $t$ as a formula.
-      \item Fill in the balance for years 0 through 5.
-      \item How many years until the balance reaches
-        \$6{,}000?
-    \end{enumerate}
-
-  \item The same \$5{,}000 investment earns $4\%$ compound
-    interest per year.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
-      \item Fill in the balance for years 0 through 5 by
-        multiplying each year by $1.04$.
-      \item Compare the interest earned in year 1 and
-        year 5.
-      \item How much more does the compound account hold
-        after 5 years than the simple interest account?
-    \end{enumerate}
-
-  \item Use the Rule of 72 for each situation.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
-      \item At what annual rate does money double in
-        approximately 6 years?
-      \item A retirement account earns $7\%$ per year.
-        Approximately when will it double?
-        When will it quadruple?
-    \end{enumerate}
-
-  \item A \$2{,}500 loan at $12\%$ annual interest
-    compounded monthly (monthly rate $= 0.01$) has
-    monthly payments of \$120.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
-      \item Complete the loan table for months 1 through 4.
-      \item How much of the month-1 payment reduces the
-        principal?
-      \item Estimate how many months the loan will take
-        to pay off if the balance decreases by roughly
-        \$95 per month on average.
-    \end{enumerate}
-
-  \item A credit card charges $24\%$ annual interest
-    compounded monthly (monthly rate $= 0.02$).
-    A balance of \$3{,}000 accrues with no payments made.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
-      \item Use the Rule of 72 to estimate how many years
-        until the balance doubles.
-      \item Compute the balance after 12 months using the
-        compound interest formula.
-        Does this match the Rule of 72 estimate?
-    \end{enumerate}
-
-  \item Two accounts each start with \$1{,}000.
-    Account A earns $5\%$ simple interest.
-    Account B earns $4\%$ compounded annually.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
-      \item Fill in balances for both accounts at years
-        5, 10, 20, and 30.
-      \item At what approximate year does Account B
-        overtake Account A?
-      \item Explain in two sentences why the compound
-        account eventually exceeds the simple account,
-        even though it has a lower interest rate.
-    \end{enumerate}
-
-  \item A homebuyer takes a mortgage of \$200{,}000 at $4.5\%$
-    annual interest compounded monthly. It is to be repaid
-    over 30 years with monthly payments of \$1{,}013.37.
-    \begin{enumerate}[label=(\alph*), itemsep=4pt]
-      \item Compute the total amount paid over 30 years.
-      \item Compute the total interest paid.
-      \item Express the total interest as a percentage
-        of the original loan amount.
-      \item Write two sentences: one from the borrower's
-        perspective and one from the bank's perspective
-        on this mortgage.
-    \end{enumerate}
-
+Show units and at least one substituted expression or update. For savings formulas, keep precision until the final displayed answer. For loan tables, use monthly cent rounding unless the question explicitly says full precision. Assume no fees or new borrowing unless stated.
+\begin{enumerate}
+\item A \$5,000 account earns 4\% simple interest annually. Write its balance formula, give balances for years 0 through 5, and find the time to \$6,000. What is the fixed yearly interest? Also recover the simple annual rate when \$500 becomes \$560 in four years.
+\item The same \$5,000 instead earns 4\% compounded annually. Give balances for years 0 through 5, compare the interest in year 1 with year 5, and find how much more it holds after five years than the simple model. Explain the source of the extra gain.
+\item For \$1,000 at a 6\% nominal annual rate over ten years, compare annual, quarterly, monthly, and daily compounding. For daily, use 365 equal periods per year. Report balances, interest earned, and the monthly decimal rate and update count.
+\item A 6\% nominal annual rate is compounded quarterly for two years. Find the rate per quarter, the number of factors, and the final balance on \$1,000. Separately, find the effective annual yield for a 3\% nominal annual rate compounded monthly, as both a decimal and a percentage.
+\item Use the Rule of 72 to estimate (a) doubling at 12\% annually, (b) doubling at 7\%, (c) quadrupling at 7\%, and (d) the annual rate for doubling in six years. Explain why these are estimates under a continuing compound-growth rule.
+\item A hypothetical unpaid \$30,000 balance grows by 6\% compounded annually, with no other charges. Estimate its balance after 12 years using the Rule of 72, then compute the compound value. Check the factors at years 11 and 12 to locate the first completed annual update reaching twice the original amount. Do not assume a real loan necessarily follows this no-payment rule.
+\item A \$2,500 loan has monthly rate 0.01 and payment \$120. Build the first four monthly rows, with interest, actual payment, principal reduction, and ending balance. Compare a rough estimate based on a constant \$95 monthly principal reduction with the actual schedule's payoff in month 24. Why does the rough estimate differ?
+\item For the reading's \$4,000 loan at 6\% nominal annual interest and \$200 monthly payment, verify the first two rows and the last-payment calculation. Use monthly cent rounding. Find total paid and total interest. Why would multiplying 22 by \$200 overstate the amount paid?
+\newpage
+\item Two \$5,000 loans use a 6\% nominal annual rate with monthly payments \$150 and \$250. Compare first-month interest, first ending balances, and second-month interest, using cent rounding. Predict which fixed schedule has lower total interest and explain the balance mechanism.
+\item A \$1,000 debt has monthly rate 1\%. Classify fixed payments \$5, \$10, and \$50. Separately, how long does \$1,000 at zero interest take to repay with \$100 monthly payments? What if its payment is zero? What if the starting debt is zero?
+\item Account A starts at \$1,000 with 5\% simple annual interest. Account B starts at \$1,000 with 4\% annual compounding. Compare balances at years 5, 10, 20, and 30. Check years 11 and 12 to find when B first overtakes A at a completed annual update. Why can B eventually lead despite its smaller percentage rate?
+\item A hypothetical unpaid \$3,000 balance has a 24\% nominal annual rate divided across monthly updates. Find the monthly percentage. Apply the Rule of 72 in \emph{monthly periods} and compute balances after 12 and 36 months. Should the 12-month result already be double? Explain.
+\item In the \$8,000 application, use full internal precision to compare \$160 and \$300 payments at nominal annual rate 18\%. Give payoff months, final actual payments, total paid, and total interest. Explain the first-month agreement and later divergence. Why can subtracting rounded displayed totals differ by one cent from rounding their unrounded difference?
+\item Optional horizon investigation: a \$200,000 loan uses nominal annual rate 4.5\%, monthly interest, and a fixed payment rounded to \$1,013.37. Compute the budget estimate of 360 such payments, its amount above principal, and that excess as a percentage of principal. Then use cent rounding and a 360-month horizon in the explorer. Does the balance actually reach zero? Explain the residual and how a simulator must report it.
+\item Compare the reading's \$4,000, 6\%, \$200-payment schedule using cent-rounded monthly interest versus full internal precision. Give payoff month, final payment, and total interest under each convention. What explains a small difference? What information should accompany a reported total?
+\item A hypothetical capacity index begins at 100. Compare adding 25 per year, growing 25\% per year, and growing 25\% with a ceiling 400. Find all three values at year 2 and year 12, and locate the limited plan's first departure from the uncapped plan. Do equal endpoints establish identical paths? Name an important outcome this resource index does not measure.
 \end{enumerate}
 
+\clearpage
+{\setlength{\parskip}{4pt}\setlist{itemsep=5pt,topsep=3pt}
+\section*{Solutions and Reasoning}
+
+\paragraph{Short check 1.}
+The decimal rate is 0.04, interest is 0.04(500)=\$20, the factor is 1.04, and the new balance is \$520.
+
+
+\paragraph{Short check 2.}
+The increase is 900(0.04)=\$36 per year. After three years, the total is 900+3(36)=\$1,008. The \$108 gain is interest, not the total balance.
+
+
+\paragraph{Short check 3.}
+The balances are 300(1.10)=\$330 and 330(1.10)=\$363. Simple interest gives 300+2(30)=\$360. The extra \$3 comes from interest on the first year's \$30 interest.
+
+
+\paragraph{Short check 4.}
+The monthly rate is 0.12/12=0.01, or 1\%. There are 12(2)=24 updates, so the growth factor over the full time is (1.01)\textasciicircum{}24.
+
+
+\paragraph{Short check 5.}
+At 8\%, one doubling takes about 72/8=9 years. At 6\%, one doubling takes about 12 years, so quadrupling takes about 24 years if the rate and compounding assumptions continue.
+
+
+\paragraph{Short check 6.}
+Interest is 0.02(500)=\$10. The payment reduces principal by 60$-$10=\$50. Ending balance is 500+10$-$60=\$450.
+
+
+\paragraph{Short check 7.}
+Principal reduction is 200$-$16.37=\$183.63. Under a fixed positive rate, reducing the balance makes the next interest charge smaller; the rate itself does not need to change.
+
+
+\paragraph{Short check 8.}
+Total interest is 2180$-$2000=\$180. The other \$2,000 repays the principal originally borrowed.
+
+
+\paragraph{Short check 9.}
+The first interest is 8000(0.015)=\$120. A \$100 payment leaves the balance growing, \$120 leaves it unchanged, and \$160 reduces it by \$40 in month 1, under the fixed-rate monthly model.
+
+
+\clearpage
+
+\subsection*{Chapter review: solutions}
+\begin{enumerate}
+\item $A(t)=5000(1+0.04t)=5000+200t$. Balances are 5000, 5200, 5400, 5600, 5800, 6000 dollars, so \$6,000 is reached at year 5. Each year adds \$200 based on the original principal. For \$500 growing to \$560 in four simple-interest years, $r=(560/500-1)/4=0.03$, or 3\% annually.
+\item $B_t=5000(1.04)^t$ gives 5000.00, 5200.00, 5408.00, 5624.32, 5849.29, 6083.26 dollars. Year 1 earns \$200; year 5 earns approximately \$233.97. The extra balance over the simple model is approximately \$83.26. Earlier interest is included in later percentage calculations; the rate itself stays at 4\%.
+\item Final balances are approximately 1790.85 annually, 1814.02 quarterly, 1819.40 monthly, and 1822.03 daily. Subtract 1000 to get interest 790.85, 814.02, 819.40, and 822.03 dollars. The monthly decimal rate is 0.06/12=0.005 and the count is 120. The comparison fixes the nominal annual rate, starting amount, and duration.
+\item Quarterly rate is 0.06/4=0.015, or 1.5\%, with 8 factors. $1000(1.015)^8\approx1126.49$. The effective annual yield at 3\% nominal with monthly compounding is $(1+0.03/12)^{12}-1\approx0.030416$, or about 3.0416\%. Multiply the decimal yield by 100 to express it as a percentage.
+\item (a) $72/12=6$ years. (b) $72/7\approx10.29$ years. (c) About $2(72/7)\approx20.57$ years. (d) About 12\% annually. The Rule of 72 is an approximation for continuing percentage growth, not an equality identifying an exact balance on a particular crediting date.
+\item One estimated doubling gives approximately \$60,000. Direct calculation gives $30000(1.06)^{12}\approx60365.89$. Factors at years 11 and 12 are about 1.898 and 2.012. Thus the first completed annual update reaching twice the start is year 12. The small excess over two is consistent with the rule being an estimate.
+\item Interest/end-balance pairs for months 1--4 are (25.00,2405.00), (24.05,2309.05), (23.09,2212.14), and (22.12,2114.26), all dollars. Subtract each interest from 120 to get principal reductions 95.00, 95.95, 96.91, and 97.88. A constant \$95 reduction gives $2500/95\approx26.32$ months, or 27 whole payments to clear the amount under that simplified rule. The actual schedule finishes in 24 months because the declining balance reduces interest and increases the principal part of later payments.
+\item Month 1 is interest 20.00, payment 200, end 3820.00. Month 2 is interest 19.10, payment 200, end 3639.10. After 21 payments, 24.87 remains. Month 22 adds 0.12 interest, so actual payment is 24.99 and end is zero. Total paid is $21(200)+24.99=4224.99$; total interest is 224.99. Twenty-two full payments would count \$175.01 that is not owed under this schedule.
+\newpage
+\item Both first interest charges are \$25. With a \$150 payment the first end is \$4,875; with \$250 it is \$4,775. Second interest is \$24.38 versus \$23.88 after cent rounding. At the same fixed rate and without new charges, the larger payment leaves a smaller base for later interest, shortening the schedule and reducing total interest. The extra monthly commitment is a separate consideration.
+\item The first interest charge is \$10. Payment 5 leaves growing debt; 10 keeps it constant; 50 reduces it and eventually repays it under the fixed rule. At zero interest, ten \$100 payments repay \$1,000. With zero payment it stays owed unchanged. A zero starting debt needs no payments and incurs no interest in this model.
+\item A's balances are 1250, 1500, 2000, 2500 at years 5, 10, 20, 30. B's are approximately 1216.65, 1480.24, 2191.12, 3243.40. At year 11, A is 1550 while B is about 1539.45; at year 12, A is 1600 while B is about 1601.03. B first overtakes at year 12 among completed annual updates. Its dollar increases grow with its base, while A continues adding the fixed \$50.
+\item Monthly rate is 0.24/12=0.02, or 2\%. The Rule of 72 estimates $72/2=36$ \emph{months} per doubling. After 12 months, $3000(1.02)^{12}\approx3804.73$; after 36, $3000(1.02)^{36}\approx6119.66$. The first value is not yet near a full doubling because only one of the estimated three years has passed. The approximation is consistent with the roughly doubled 36-month value.
+\item The \$160 plan finishes in month 94 with a final payment about \$17.89, total paid \$14,897.89, and total interest \$6,897.89. The \$300 plan finishes in month 35 with final payment about \$93.42, total paid \$10,293.42, and interest \$2,293.42. Both first interest charges are \$120, calculated before payment. Their differing balances then produce different charges. Subtracting full-precision interest totals gives savings about \$4,604.46; subtracting the separately rounded displays gives \$4,604.47 because rounding is applied at a different stage.
+\item The budget estimate is $360(1013.37)=364813.20$. Its excess above principal is 164813.20, or 82.4066\% of 200000. This total is a calculation about 360 scheduled amounts, not proof of exact payoff. With monthly cent rounding, \$0.63 still remains after payment 360. A fixed-payment simulation reports an outstanding balance at that horizon. Under the same capped-payment rule, a 361st actual payment of \$0.63 clears it; total paid is then \$364,813.83. An adjusted final closing payment would be another explicit schedule choice.
+\item Both finish in month 22. Monthly cent rounding gives final payment \$24.99 and total interest \$224.99. Keeping full internal precision gives a final payment about \$25.00 and total interest about \$225.00. The one-cent displayed difference arises from the stages at which rounding occurs. Report the rate, timing, and rounding convention with the totals.
+\item At year 2, additive gives 150; uncapped and limited percentage growth give 156.25. At year 12, additive gives 400, uncapped growth about 1455.19, and limited growth 400. The limited plan first differs in year 7: its cap gives 400 instead of the uncapped 476.84. Matching year-12 endpoints for the additive and limited plans do not imply matching earlier values. Learning, reliability, useful service, and energy impact require separate definitions and observations.
+\end{enumerate}
+\subsection*{Further reading}
+\href{https://www.investor.gov/additional-resources/information/youth/teachers-classroom-resources/what-compound-interest}{Investor.gov: What is compound interest?} introduces compounding and the Rule of 72. The \href{https://www.investor.gov/financial-tools-calculators/calculators/compound-interest-calculator}{Investor.gov compound-interest calculator} can also include later contributions; this chapter's basic growth comparison uses none. The CFPB source linked in the loan application explains daily-balance calculations that can differ from our classroom monthly model.
+
+}
 \end{document}

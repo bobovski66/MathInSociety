@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="742.79952pt" height="281.99952pt" viewBox="0 0 742.79952 281.99952" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 281.99952
+L 742.79952 281.99952
+L 742.79952 0
+L 0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 21.539995 191.639664
+L 207.17987 191.639664
+L 207.17987 96.689844
+L 21.539995 96.689844
+z
+" clip-path="url(#p928da15ba8)" style="fill: #eef3e8; stroke: #536240; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 278.579822 191.639664
+L 464.219698 191.639664
+L 464.219698 96.689844
+L 278.579822 96.689844
+z
+" clip-path="url(#p928da15ba8)" style="fill: #eef3e8; stroke: #a55c21; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 535.61965 191.639664
+L 721.259525 191.639664
+L 721.259525 96.689844
+L 535.61965 96.689844
+z
+" clip-path="url(#p928da15ba8)" style="fill: #eef3e8; stroke: #17677a; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #536240" x="114.359933" y="125.17479" transform="rotate(-0 114.359933 125.17479)">Starting balance</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 24px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #536240" x="114.359933" y="166.319712" transform="rotate(-0 114.359933 166.319712)">$4,000</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #a55c21" x="371.39976" y="125.17479" transform="rotate(-0 371.39976 125.17479)">After interest</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 24px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #a55c21" x="371.39976" y="166.319712" transform="rotate(-0 371.39976 166.319712)">$4,020</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17677a" x="628.439587" y="125.17479" transform="rotate(-0 628.439587 125.17479)">After payment</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 24px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17677a" x="628.439587" y="166.319712" transform="rotate(-0 628.439587 166.319712)">$3,820</text>
+   </g>
+   <g id="patch_5">
+    <path d="M 209.18015 147.329748
+Q 242.878215 147.329748 274.563818 147.329748
+" style="fill: none; stroke: #293329; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 268.963818 144.529748
+L 274.563818 147.329748
+L 268.963818 150.129748
+" style="fill: none; stroke: #293329; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #293329" transform="translate(217.902971 61.097511)">Add $20</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #293329" transform="translate(219.865159 74.534886)">interest</text>
+   </g>
+   <g id="patch_6">
+    <path d="M 466.219977 147.329748
+Q 499.918042 147.329748 531.603646 147.329748
+" style="fill: none; stroke: #293329; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 526.003646 144.529748
+L 531.603646 147.329748
+L 526.003646 150.129748
+" style="fill: none; stroke: #293329; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #293329" transform="translate(457.175299 61.097511)">Subtract $200</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #293329" transform="translate(473.191549 74.534886)">payment</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #536240" x="371.39976" y="245.444562" transform="rotate(-0 371.39976 245.444562)">$200 payment = $20 interest + $180 principal reduction</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p928da15ba8">
+   <rect x="14.4" y="14.4" width="713.99952" height="253.19952"/>
+  </clipPath>
+ </defs>
+</svg>
