@@ -1,993 +1,545 @@
-\documentclass[12pt]{book}
-\usepackage[utf8]{inputenc}
+\documentclass[11pt,letterpaper]{article}
 \usepackage[T1]{fontenc}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{geometry}
-\usepackage{tikz}
-\usepackage{pgfplots}
-\usepackage{xcolor}
-\usepackage{mdframed}
-\usepackage{enumitem}
-\usepackage{booktabs}
-\usepackage{array}
-\usepackage{fancyhdr}
-\usepackage{titlesec}
-\pgfplotsset{compat=1.18}
-\geometry{margin=1.1in, top=1.2in, bottom=1.2in}
+\usepackage{lmodern,microtype,amsmath,amssymb,graphicx,booktabs,tabularx,array,enumitem,xcolor,fancyhdr,titlesec,tcolorbox,caption}
+\tcbuselibrary{breakable}
+\usepackage[margin=.8in,headheight=15pt,headsep=18pt,footskip=25pt]{geometry}
+\usepackage[colorlinks=true,urlcolor=teal,linkcolor=olive]{hyperref}
+\definecolor{olive}{HTML}{536240}\definecolor{ink}{HTML}{293329}\definecolor{teal}{HTML}{17677A}\definecolor{gold}{HTML}{A55C21}\definecolor{soft}{HTML}{EEF3E8}\definecolor{warm}{HTML}{FBEFDF}
+\color{ink}\setlength{\parindent}{0pt}\setlength{\parskip}{7pt}
+\setlist{leftmargin=1.4em,itemsep=3pt,topsep=3pt}
+\renewcommand{\thesection}{7.\arabic{section}}
+\titleformat{\section}{\Large\bfseries\color{olive}}{\thesection}{.6em}{}
+\titleformat{\subsection}{\large\bfseries\color{teal}}{}{0pt}{}
+\titlespacing*{\section}{0pt}{4pt}{12pt}\titlespacing*{\subsection}{0pt}{11pt}{4pt}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\sffamily MATH\& 107 / WEEK 7}\fancyhead[R]{\small\sffamily Choosing What Best Means}\fancyfoot[L]{\small\sffamily Math in Society / Dr Lee}\fancyfoot[R]{\small\sffamily\thepage}\renewcommand{\headrulewidth}{.3pt}
+\tcbset{boxrule=.5pt,arc=2mm,left=10pt,right=10pt,top=7pt,bottom=7pt,before skip=9pt,after skip=9pt,colframe=olive!35,colback=soft,fonttitle=\bfseries,coltitle=teal,colbacktitle=soft}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\captionsetup{font=small,labelformat=empty,textfont={color=teal},skip=7pt}
+\hypersetup{pdftitle={Week 7: Choosing What Best Means},pdfauthor={MATH and 107 / Dr Lee}}
+\usepackage{needspace}
+\pdfinfoomitdate=1
+\pdftrailerid{}
+\pdfsuppressptexinfo=15
+\setlength{\emergencystretch}{2em}
 
-\definecolor{mathblue}{RGB}{30,90,160}
-\definecolor{mathgreen}{RGB}{30,140,80}
-\definecolor{mathred}{RGB}{180,40,40}
-\definecolor{lightgray}{RGB}{240,240,240}
-
-\titleformat{\chapter}[display]
-  {\normalfont\large\bfseries}
-  {\chaptertitlename\ \thechapter}{12pt}{\LARGE}
-\titleformat{\section}
-  {\normalfont\large\bfseries}{{\thesection}}{1em}{}
-\titleformat{\subsection}
-  {\normalfont\normalsize\bfseries}{{\thesubsection}}{1em}{}
-
-\setcounter{chapter}{6}
-
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[LE]{\small\textit{Chapter \thechapter.\
-  Optimization: Choosing What Best Means}}
-\fancyhead[RO]{\small\textit{Observing with Mathematical Perspectives}}
-\fancyfoot[C]{\small\thepage}
-\renewcommand{\headrulewidth}{0.4pt}
-
-\newcounter{exercise}[section]
-\renewcommand{\theexercise}{\thesection.\arabic{exercise}}
-\newenvironment{exercises}{%
-  \begin{mdframed}[backgroundcolor=lightgray, linewidth=0pt,
-    innertopmargin=10pt, innerbottommargin=10pt]
-  \noindent\textbf{Exercises \thesection}
-  \begin{list}{\theexercise.}
-    {\usecounter{exercise}
-     \setlength{\leftmargin}{2em}
-     \setlength{\itemsep}{6pt}}
-}{%
-  \end{list}
-  \end{mdframed}
-}
-
-\newcounter{example}[section]
-\renewcommand{\theexample}{\thesection.\arabic{example}}
-\newenvironment{example}[1][]{%
-  \refstepcounter{example}
-  \medskip
-  \noindent\textbf{Example \theexample.}%
-  \ifx&#1&\else\ \textit{(#1)}\fi\quad
-}{%
-  \medskip
-}
-
-\newenvironment{definition}[1]{%
-  \begin{mdframed}[linecolor=mathblue, linewidth=1pt,
-    innertopmargin=8pt, innerbottommargin=8pt]
-  \noindent\textbf{Definition.} \textit{#1.}\quad
-}{%
-  \end{mdframed}\medskip
-}
+\widowpenalty=10000
+\clubpenalty=10000
 
 \begin{document}
-
-%====================================================================
-\chapter{Optimization: Choosing What Best Means}
-%====================================================================
-
-This chapter asks how mathematics can help compare possible
-choices. In optimization, a decision variable represents a
-choice, and an objective function assigns a numerical value to
-that choice. The objective might be something to maximize, such
-as profit or output, or something to minimize, such as travel
-time or energy use.
-
-We use a business as our main example. The number of units
-produced and sold is the decision variable, and profit is the
-objective. Cost and revenue models let us build that objective;
-break-even and marginal analysis help interpret it. A good
-decision also depends on which choices are actually available
-and what the model assumes.
-
-%--------------------------------------------------------------------
-\section{From Decisions to Objectives}
-
-An \textbf{objective function} measures an outcome for each
-possible choice. To optimize means to choose an available option
-that makes the objective as large or as small as the goal requires.
-The choice is represented by a \textbf{decision variable}.
-
-\begin{center}
-\renewcommand{\arraystretch}{1.35}
-\begin{tabular}{lll}
-\toprule
-Setting & Decision variable & Objective \\
-\midrule
-Business & $q$, units produced and sold & Maximize profit $P(q)$ \\
-Trip planning & $r$, route selected & Minimize travel time $T(r)$ \\
-Energy use & $s$, system setting & Minimize energy $E(s)$ \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-In each case, the goal must be stated before the choices can be
-compared. The objective assigns a value; it does not decide which
-goal matters most. This chapter develops profit as a familiar,
-concrete objective. The same way of thinking applies when the
-objective is cost, time, output, or another measurable benefit.
-
-%--------------------------------------------------------------------
-\section{Cost Functions}
-%--------------------------------------------------------------------
-
-The total cost of operating a business depends on two
-components: costs that are fixed regardless of production
-volume, and costs that vary with the number of units produced.
-
-\begin{definition}{Fixed cost}
-\textbf{Fixed cost} $F$ is the total cost incurred
-regardless of the quantity produced.
-Examples include rent, insurance, equipment, and
-administrative salaries.
-\end{definition}
-
-\begin{definition}{Variable cost}
-\textbf{Variable cost} is the cost per unit of production,
-denoted $v$.
-The total variable cost at quantity $q$ is $v \cdot q$.
-\end{definition}
-
-\begin{definition}{Total cost function}
-The \textbf{total cost function} is:
-\[
-C(q) = F + v \cdot q,
-\]
-where $F$ is fixed cost, $v$ is variable cost per unit,
-and $q$ is quantity produced.
-\end{definition}
-
-\noindent
-The graph of $C(q)$ is a straight line with slope $v$
-and vertical intercept $F$. This reflects the fact that each
-additional unit adds the same amount, $v$, to the total cost.
-
-\begin{example}
-A candle maker pays \$180 per month in fixed costs and
-spends \$4 per candle in materials.
-\[
-C(q) = 180 + 4q.
-\]
-
-\begin{center}
-\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{cc}
-\toprule
-\textbf{Candles} $q$ & \textbf{Total cost} $C(q)$ \\
-\midrule
-0   & \$180 \\
-20  & \$260 \\
-40  & \$340 \\
-60  & \$420 \\
-80  & \$500 \\
-100 & \$580 \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-Each row adds \$80 to the cost, corresponding to
-20 additional candles at \$4 each.
-\end{example}
-
-\begin{example}[Identifying cost components]
-A food truck has the following weekly expenses:
-truck payment \$300, insurance \$50, ingredients \$3.50
-per meal, packaging \$0.50 per meal.
-
-Fixed cost: $F = 300 + 50 = \$350$.\\
-Variable cost: $v = 3.50 + 0.50 = \$4.00$ per meal.\\
-Total cost function: $C(q) = 350 + 4q$.
-
-At $q = 200$ meals:
-\[
-C(200) = 350 + 4(200) = 350 + 800 = \$1{,}150.
-\]
-\end{example}
-
-\begin{exercises}
-  \item Write the cost function $C(q)$ for each situation
-    and compute the cost at the given quantity.
-    \begin{enumerate}[label=(\alph*), itemsep=5pt]
-      \item Fixed cost \$500, variable cost \$8 per unit,
-        $q = 75$ units.
-      \item Fixed cost \$1{,}200, variable cost \$15 per
-        unit, $q = 40$ units.
-      \item Monthly rent \$600, utilities \$100, ingredients
-        \$2.50 per serving, $q = 300$ servings.
-    \end{enumerate}
-
-  \item A bakery has fixed costs of \$250 per week and
-    a variable cost of \$1.50 per loaf.
-    \begin{enumerate}[label=(\alph*), itemsep=2pt]
-      \item Write the cost function.
-      \item Fill in the cost table for
-        $q = 0, 50, 100, 150, 200$.
-      \item By how much does the cost increase for each
-        additional 50 loaves?
-        What does this amount represent?
-    \end{enumerate}
-
-  \item A company's total cost at $q = 100$ units is
-    \$1{,}800 and at $q = 200$ units is \$2{,}600.
-    Assume the cost function is linear.
-    \begin{enumerate}[label=(\alph*), itemsep=2pt]
-      \item Find the variable cost per unit.
-      \item Find the fixed cost.
-      \item Write the cost function $C(q)$.
-    \end{enumerate}
-
-  \item A cost function is $C(q) = 400 + 6q$.
-    \begin{enumerate}[label=(\alph*), itemsep=2pt]
-      \item Identify the fixed cost and variable cost per unit.
-      \item Compute $C(0)$ and explain what it represents.
-      \item At what quantity does the total cost first
-        exceed \$1{,}000?
-    \end{enumerate}
-\end{exercises}
-
-%--------------------------------------------------------------------
-\section{Revenue Functions}
-%--------------------------------------------------------------------
-
-\begin{definition}{Revenue function}
-The \textbf{revenue function} gives the total income from
-selling $q$ units at price $p$ per unit:
-\[
-R(q) = p \cdot q.
-\]
-\end{definition}
-
-\noindent
-Revenue is also an additive recursion.
-Each additional unit sold adds exactly $p$ to revenue,
-starting from $R(0) = 0$.
-The graph of $R(q)$ is a straight line through the origin
-with slope $p$.
-
-\begin{example}
-The candle maker from Example 7.1.1 sells each candle for
-\$10.
-\[
-R(q) = 10q.
-\]
-
-\begin{center}
-\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{cc}
-\toprule
-\textbf{Candles} $q$ & \textbf{Revenue} $R(q)$ \\
-\midrule
-0   & \$0    \\
-20  & \$200  \\
-40  & \$400  \\
-60  & \$600  \\
-80  & \$800  \\
-100 & \$1{,}000 \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-Each row adds \$200 to revenue, corresponding to 20
-additional candles at \$10 each.
-\end{example}
-
-\begin{example}[Finding the price from data]
-A lemonade stand takes in \$0 when it sells nothing and
-\$120 when it sells 40 cups.
-What is the price per cup, and what is the revenue function?
-\[
-p = \frac{R(q)}{q} = \frac{120}{40} = \$3.00 \text{ per cup.}
-\]
-\[
-R(q) = 3q.
-\]
-\end{example}
-
-\begin{exercises}
-  \item Write the revenue function $R(q)$ for each
-    situation and compute revenue at the given quantity.
-    \begin{enumerate}[label=(\alph*), itemsep=2pt]
-      \item Price \$25 per unit, $q = 60$ units.
-      \item Price \$4.50 per item, $q = 200$ items.
-      \item Price \$85 per service, $q = 12$ services.
-    \end{enumerate}
-
-  \item A food truck earns \$560 selling 80 meals.
-    \begin{enumerate}[label=(\alph*), itemsep=2pt]
-      \item Find the price per meal.
-      \item Write the revenue function.
-      \item At what quantity does revenue reach \$1{,}400?
-    \end{enumerate}
-
-  \item Two products are sold at different prices.
-    Product A sells for \$12 per unit.
-    Product B sells for \$20 per unit.
-    In one week, 30 units of A and 15 units of B are sold.
-    \begin{enumerate}[label=(\alph*), itemsep=2pt]
-      \item Compute total revenue from each product.
-      \item Compute total revenue from both products combined.
-    \end{enumerate}
-
-  \item A revenue function is $R(q) = 18q$.
-    A cost function is $C(q) = 240 + 10q$.
-    At $q = 40$:
-    \begin{enumerate}[label=(\alph*), itemsep=2pt]
-      \item Compute $R(40)$ and $C(40)$.
-      \item Is revenue greater or less than cost at
-        this quantity?
-    \end{enumerate}
-\end{exercises}
-
-%--------------------------------------------------------------------
-\section{Profit and Break-Even}
-%--------------------------------------------------------------------
-
-\begin{definition}{Profit function}
-The \textbf{profit function} is revenue minus cost:
-\[
-P(q) = R(q) - C(q) = pq - (F + vq) = (p - v)q - F.
-\]
-When $P(q) > 0$, the business is profitable. When $P(q) < 0$,
-the business is operating at a loss. When $P(q) = 0$, the business
-breaks even.
-\end{definition}
-
-\noindent
-\begin{definition}{Break-even point}
-The \textbf{break-even point} is the quantity $q^*$ at which
-profit equals zero: $R(q^*) = C(q^*)$. Assume $p > v$, so each
-unit contributes a positive amount toward covering fixed costs.
-Under this condition,
-\[
-pq^* = F + vq^* \;\Rightarrow\;
-(p - v)q^* = F \;\Rightarrow\;
-q^* = \frac{F}{p - v}.
-\]
-If $F > 0$ and $p \le v$, there is no nonnegative break-even
-quantity: each unit contributes no positive amount toward covering
-the fixed cost.
-\end{definition}
-
-\begin{example}
-The candle maker: $F = 180$, $v = 4$, $p = 10$.
-\[
-P(q) = (10 - 4)q - 180 = 6q - 180.
-\]
-
-\begin{center}
-\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{cccc}
-\toprule
-$q$ & $C(q)$ & $R(q)$ & $P(q)$ \\
-\midrule
-0   & \$180 & \$0   & $-\$180$ \\
-20  & \$260 & \$200 & $-\$60$  \\
-30  & \$300 & \$300 & \$0      \\
-40  & \$340 & \$400 & \$60     \\
-60  & \$420 & \$600 & \$180    \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-Break-even: $q^* = 180 / 6 = 30$ candles.
-At 30 candles the maker covers all costs exactly.
-At fewer than 30, a loss results.
-At more than 30, a profit results.
-
-Suppose a venue allows the maker to choose only among
-$q=20$, $q=30$, and $q=40$ candles. Their profits are
-$-\$60$, $\$0$, and $\$60$, respectively. If the goal is to
-maximize profit among these available choices, $q=40$ is best.
-The break-even quantity marks where profit changes sign; it does
-not by itself identify the most profitable available choice.
-\end{example}
-
-\begin{example}
-A food truck: $F = 350$, $v = 4$, $p = 8$.
-\[
-P(q) = (8 - 4)q - 350 = 4q - 350.
-\]
-\[
-q^* = \frac{350}{8 - 4} = \frac{350}{4} = 87.5.
-\]
-Since the truck cannot sell half a meal, the break-even
-quantity rounds up to $q^* = 88$ meals.
-At 88 meals:
-\[
-P(88) = 4(88) - 350 = 352 - 350 = \$2 \text{ profit.}
-\]
-\end{example}
-
-\begin{center}
-\begin{tikzpicture}
-\begin{axis}[
-  width=10cm, height=7cm,
-  xlabel={Candles $q$},
-  ylabel={Dollars},
-  xtick={0,10,20,30,40,50,60},
-  ytick={-200,-100,0,100,200,300,400,500,600},
-  ymin=-210, ymax=650,
-  xmin=0, xmax=65,
-  grid=major, grid style=dotted,
-  legend style={at={(0.05,0.95)}, anchor=north west, font=\small},
-]
-% Cost line C(q) = 180 + 4q
-\addplot[mathred, very thick, domain=0:62]
-  {180 + 4*x};
-\addlegendentry{$C(q) = 180 + 4q$}
-
-% Revenue line R(q) = 10q
-\addplot[mathblue, very thick, domain=0:62]
-  {10*x};
-\addlegendentry{$R(q) = 10q$}
-
-% Break-even point
-\filldraw[mathgreen] (axis cs:30,300) circle (4pt);
-\node[above right, mathgreen, font=\small\bfseries]
-  at (axis cs:30,300) {break-even $(30, \$300)$};
-
-% Profit shading (approximate)
-\addplot[mathgreen!20, fill opacity=0.35]
-  coordinates {(30,300)(62,620)(62,428)(30,300)};
-
-% Zero profit line
-\draw[black, dashed, thin] (axis cs:0,0)--(axis cs:62,0);
-\end{axis}
-\end{tikzpicture}
-\end{center}
-
-\begin{exercises}
-  \item For each situation, write the profit function,
-    find the break-even quantity, and compute the profit
-    or loss at the given quantity.
-    \begin{enumerate}[label=(\alph*), itemsep=5pt]
-      \item $F = \$300$, $v = \$5$, $p = \$11$,
-        find $P(80)$.
-      \item $F = \$600$, $v = \$8$, $p = \$14$,
-        find $P(120)$.
-      \item $F = \$1{,}000$, $v = \$12$, $p = \$20$,
-        find $P(100)$.
-    \end{enumerate}
-
-  \item A student sells handmade greeting cards at a craft
-    fair.
-    The table fee is \$48 and each card costs \$1.50 to make.
-    Cards sell for \$6 each.
-    \begin{enumerate}[label=(\alph*), itemsep=2pt]
-      \item Write $C(q)$, $R(q)$, and $P(q)$.
-      \item Find the break-even quantity.
-      \item Complete the profit table for
-        $q = 0, 8, 10, 12, 16, 20$.
-      \item How much profit is earned at $q = 20$?
-    \end{enumerate}
-
-  \item A company's profit function is $P(q) = 7q - 420$.
-    \begin{enumerate}[label=(\alph*), itemsep=2pt]
-      \item Find the break-even quantity.
-      \item Identify the fixed cost and the profit per unit
-        beyond break-even.
-      \item At what quantity does profit reach \$280?
-    \end{enumerate}
-
-  \item A business has fixed costs of \$500 and earns
-    \$5 profit on each unit sold beyond break-even.
-    At $q = 120$ units the business earns a profit of
-    \$100.
-    \begin{enumerate}[label=(\alph*), itemsep=2pt]
-      \item Find the break-even quantity.
-      \item Find the price per unit and variable cost per
-        unit, given that $p - v = \$5$.
-        \textit{Hint: use the formula for $q^*$.}
-    \end{enumerate}
-\end{exercises}
-
-%--------------------------------------------------------------------
-\section{Marginal Analysis}
-%--------------------------------------------------------------------
-
-\begin{definition}{Marginal cost}
-The \textbf{marginal cost} is the cost of producing one
-additional unit.
-For the linear cost function $C(q) = F + vq$, the marginal
-cost equals the variable cost per unit $v$.
-\end{definition}
-
-\begin{definition}{Marginal revenue}
-The \textbf{marginal revenue} is the revenue from selling
-one additional unit.
-For the linear revenue function $R(q) = pq$, the marginal
-revenue equals the price $p$.
-\end{definition}
-
-\begin{definition}{Marginal profit}
-The \textbf{marginal profit} is the profit gained from
-selling one additional unit.
-\[
-\text{Marginal profit} = p - v.
-\]
-\end{definition}
-
-\noindent
-The marginal profit is the step size of the profit recursion.
-Each additional unit sold beyond break-even adds exactly
-$p - v$ to profit.
-This is the additive recursion from Chapter 1, now describing
-profit growth.
-
-\begin{example}
-For the candle maker: $p = 10$, $v = 4$.
-\[
-\text{Marginal profit} = 10 - 4 = \$6 \text{ per candle.}
-\]
-Every candle sold beyond the break-even point of 30
-adds \$6 to profit.
-
-At $q = 50$: the business is $50 - 30 = 20$ candles beyond
-break-even.
-\[
-P(50) = 6 \times 20 = \$120.
-\]
-Verification: $P(50) = 6(50) - 180 = 300 - 180 = \$120$.
-\checkmark
-\end{example}
-
-\begin{example}[Marginal analysis at the boundary]
-A print shop has $C(q) = 500 + 2q$ and $R(q) = 6q$.
-\[
-\text{Marginal cost} = \$2, \quad
-\text{Marginal revenue} = \$6, \quad
-\text{Marginal profit} = \$4.
-\]
-Break-even: $q^* = 500 / 4 = 125$ prints.
-
-At $q = 124$: one unit below break-even.
-\[
-P(124) = 4(124) - 500 = 496 - 500 = -\$4.
-\]
-
-At $q = 125$: break-even.
-\[
-P(125) = 4(125) - 500 = 0.
-\]
-
-At $q = 126$: one unit above break-even.
-\[
-P(126) = 4(126) - 500 = \$4.
-\]
-
-Each unit past break-even adds exactly \$4 of profit,
-confirming that \$4 is the step size of the profit recursion.
-\end{example}
-
-\begin{example}[Comparing two pricing strategies]
-A market vendor considers two pricing options for handmade
-soap.
-
-\begin{center}
-\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{lcc}
-\toprule
-& \textbf{Strategy A} & \textbf{Strategy B} \\
-\midrule
-Price per bar       & \$8  & \$12 \\
-Variable cost       & \$3  & \$3  \\
-Fixed cost          & \$200 & \$200 \\
-Marginal profit     & \$5  & \$9  \\
-Break-even quantity & 40   & 22.2 $\approx$ 23 \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-Strategy B reaches break-even faster.
-At $q = 40$:
-\[
-P_A(40) = 5(40) - 200 = \$0, \quad
-P_B(40) = 9(40) - 200 = \$160.
-\]
-
-Strategy B produces substantially more profit at the same
-volume.
-However, the higher price may reduce the number of buyers.
-Marginal analysis quantifies the profit per unit sold;
-it does not predict how many units will sell.
-\end{example}
-
-\begin{exercises}
-  \item Find the marginal cost, marginal revenue, and
-    marginal profit for each situation.
-    \begin{enumerate}[label=(\alph*), itemsep=2pt]
-      \item $C(q) = 300 + 7q$, $R(q) = 15q$
-      \item $C(q) = 800 + 20q$, $R(q) = 35q$
-      \item $F = \$450$, $v = \$9$, $p = \$14$
-    \end{enumerate}
-
-  \item A craft fair vendor has marginal profit of \$6
-    per item and fixed costs of \$240.
-    \begin{enumerate}[label=(\alph*), itemsep=2pt]
-      \item Find the break-even quantity.
-      \item How much profit is earned at 10 items beyond
-        break-even?
-      \item At what quantity does profit reach \$120?
-    \end{enumerate}
-
-  \item Two businesses have the same fixed cost of \$600.
-    Business A has marginal profit \$10 per unit.
-    Business B has marginal profit \$15 per unit.
-    \begin{enumerate}[label=(\alph*), itemsep=2pt]
-      \item Find the break-even quantity for each.
-      \item At $q = 80$ units, compute the profit for each.
-      \item Which business benefits more from selling
-        10 additional units beyond $q = 80$?
-        Compute the difference.
-    \end{enumerate}
-
-  \item Explain in two complete sentences the connection
-    between marginal profit and the additive recursion
-    introduced in Chapter 1.
-    Use a specific numerical example to support your
-    explanation.
-\end{exercises}
-
-%--------------------------------------------------------------------
-\section{Graphical Analysis}
-%--------------------------------------------------------------------
-
-The cost and revenue functions are both straight lines.
-Their graph reveals the complete structure of the profit
-situation at a glance.
-
-\begin{enumerate}[itemsep=5pt]
-  \item The \textbf{vertical intercept} of the cost line
-    is the fixed cost $F$.
-    The cost line never passes through the origin unless
-    $F = 0$.
-
-  \item The \textbf{revenue line} always passes through
-    the origin: at $q = 0$, revenue is zero.
-
-  \item The \textbf{break-even point} is the intersection
-    of the two lines.
-
-  \item For quantities \textbf{to the left} of the
-    break-even point, the cost line is above the revenue
-    line: the business is at a loss.
-
-  \item For quantities \textbf{to the right} of the
-    break-even point, the revenue line is above the cost
-    line: the business is profitable.
-
-  \item The \textbf{slope} of the revenue line is the
-    price $p$.
-    The \textbf{slope} of the cost line is the variable
-    cost $v$.
-    The profit per additional unit is the difference in
-    slopes: $p - v$.
-\end{enumerate}
-
-\begin{example}
-Graph the cost and revenue functions for a tutoring service:
-$F = \$200$, $v = \$5$ per hour, $p = \$25$ per hour.
-\[
-C(q) = 200 + 5q, \quad R(q) = 25q.
-\]
-Break-even: $q^* = 200 / 20 = 10$ hours.
-
-\begin{center}
-\begin{tikzpicture}
-\begin{axis}[
-  width=10cm, height=7cm,
-  xlabel={Hours $q$},
-  ylabel={Dollars},
-  xtick={0,5,10,15,20},
-  ytick={0,100,200,300,400,500},
-  ymin=-10, ymax=530,
-  xmin=0, xmax=22,
-  grid=major, grid style=dotted,
-  legend style={at={(0.05,0.95)}, anchor=north west, font=\small},
-]
-\addplot[mathred, very thick, domain=0:20]
-  {200 + 5*x};
-\addlegendentry{$C(q) = 200 + 5q$}
-\addplot[mathblue, very thick, domain=0:20]
-  {25*x};
-\addlegendentry{$R(q) = 25q$}
-\filldraw[mathgreen] (axis cs:10,250) circle (4pt);
-\node[right, mathgreen, font=\small\bfseries]
-  at (axis cs:10,250) {$(10, \$250)$};
-\end{axis}
-\end{tikzpicture}
-\end{center}
-
-The revenue line rises more steeply than the cost line
-because $p > v$.
-Beyond the intersection at $q = 10$ hours, revenue exceeds
-cost and the tutor earns a profit.
-\end{example}
-
-\begin{example}[Reading the graph]
-A graph shows two lines.
-The cost line has vertical intercept \$400 and passes
-through the point $(50, \$650)$.
-The revenue line passes through the origin and the point
-$(50, \$750)$.
-
-From the cost line:
-\[
-v = \frac{650 - 400}{50 - 0} = \frac{250}{50} = \$5 \text{ per unit.}
-\]
-\[
-C(q) = 400 + 5q.
-\]
-
-From the revenue line:
-\[
-p = \frac{750}{50} = \$15 \text{ per unit.}
-\]
-\[
-R(q) = 15q.
-\]
-
-Break-even:
-\[
-q^* = \frac{400}{15 - 5} = \frac{400}{10} = 40 \text{ units.}
-\]
-\end{example}
-
-\begin{exercises}
-  \item For each pair of functions, identify the fixed cost,
-    variable cost, price, and break-even quantity by
-    reading the equations.
-    Then sketch the graph, labeling both lines and the
-    break-even point.
-    \begin{enumerate}[label=(\alph*), itemsep=6pt]
-      \item $C(q) = 150 + 3q$, $\quad R(q) = 9q$
-      \item $C(q) = 400 + 10q$, $\quad R(q) = 18q$
-      \item $C(q) = 600 + 12q$, $\quad R(q) = 20q$
-    \end{enumerate}
-
-  \item A graph of cost and revenue functions shows the
-    following:
-    \begin{itemize}[itemsep=2pt]
-      \item The cost line crosses the vertical axis at
-        \$300.
-      \item The cost line passes through $(60, \$660)$.
-      \item The revenue line passes through $(60, \$900)$.
-    \end{itemize}
-    \begin{enumerate}[label=(\alph*), itemsep=2pt]
-      \item Write $C(q)$ and $R(q)$.
-      \item Find the break-even quantity.
-      \item Find the profit at $q = 80$.
-    \end{enumerate}
-
-  \item Two businesses sell the same product at the same
-    price of \$20 per unit.
-    Business A has fixed costs of \$800 and variable
-    costs of \$8 per unit.
-    Business B has fixed costs of \$400 and variable
-    costs of \$12 per unit.
-    \begin{enumerate}[label=(\alph*), itemsep=2pt]
-      \item Write the profit function for each business.
-      \item Find the break-even quantity for each.
-      \item At $q = 60$, which business is more profitable?
-        By how much?
-      \item Sketch both profit functions on the same axes.
-        At what quantity do they produce equal profit?
-    \end{enumerate}
-\end{exercises}
-
-%--------------------------------------------------------------------
-\section{The Observer and the Business}
-%--------------------------------------------------------------------
-
-A cost, revenue, and profit analysis describes the same
-operation from the perspective of the numbers alone.
-Different observers read different quantities from that
-analysis because they are asking different questions.
-
-\begin{center}
-\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{ll}
-\toprule
-\textbf{Observer} & \textbf{Primary question} \\
-\midrule
-Business owner &
-  How many units must I sell to cover costs? \\
-Investor &
-  At what volume does this become profitable? \\
-Operations manager &
-  What does each additional unit cost to produce? \\
-Pricing strategist &
-  How does a price change affect break-even? \\
-Customer &
-  What is the price per unit? \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\noindent
-Each question is answered by a different quantity extracted
-from the same three functions.
-The break-even quantity answers the owner's question.
-The marginal profit answers the investor's question about
-per-unit profitability.
-The variable cost answers the operations manager's question.
-The price answers the customer's question.
+{\small\sffamily\color{olive}WEEK 7 / OPTIMIZATION / COST, REVENUE, AND PROFIT\par}
+\vspace{12pt}
+{\fontsize{30}{35}\selectfont\bfseries\color{olive}Choosing what ``best'' means\par}
+\vspace{10pt}
+{\large Begin with a choice. Build a model of its consequences. Compare outcomes only after stating the goal and the available options.\par}
+\begin{center}\includegraphics[width=\linewidth]{../assets/week7/cost-revenue-gap.pdf}\end{center}
+\begin{tcolorbox}[title={A concrete setting for the week}]
+A candle maker pays \$180 for a monthly stall and equipment, plus \$4 per candle made. Each candle sells for \$10. We will distinguish money received, money spent, money left over, and the change caused by one additional sale.
+\end{tcolorbox}
+This chapter assumes no previous business mathematics or calculus. Function notation, units, and graph reading are developed alongside the calculations. Work the short checks as you read; explanations appear at the end, followed by complete review solutions.
+
+Week 6 studied balances changing over time. Here, quantity is the input: different sales plans for one month or event. Week 8 will extend these ideas to two production quantities and resource constraints.
 
 \medskip
-\noindent
-A change in any one parameter propagates through all three
-functions.
-Raising the price $p$ increases marginal profit, lowers
-the break-even quantity, and increases profit at every
-$q > q^*$.
-Raising the fixed cost $F$ raises the break-even quantity
-without changing marginal profit.
-An observer focused on only one output may miss consequences
-visible to another.
+\href{https://bobovski66.github.io/MathInSociety/readings/week7_reading.html}{Online reading}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/demos/business_models.html}{Profit explorer}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/labs/week7_lab.html}{Guided laboratory}
+\clearpage
 
-\begin{example}
-A food cart currently operates with:
-$F = \$350$, $v = \$4$, $p = \$9$.
-\[
-q^* = \frac{350}{9 - 4} = 70 \text{ meals.}
-\]
-At $q = 100$: $P(100) = 5(100) - 350 = \$150$.
 
-The owner considers two changes.
+\Needspace{6\baselineskip}\section{What does C(40) ask us to do?}
 
-\textbf{Option A}: raise the price to \$11.
-\[
-q^*_A = \frac{350}{11 - 4} = 50 \text{ meals.} \quad
-P_A(100) = 7(100) - 350 = \$350.
-\]
+Let \(q\) be the number of candles made \emph{and sold during one month}. In our first model, every candle made is sold. The letter q stands for quantity. It is the \emph{decision variable}: changing q describes a different plan.
 
-\textbf{Option B}: reduce fixed cost to \$250 by moving
-to a smaller location.
-\[
-q^*_B = \frac{250}{9 - 4} = 50 \text{ meals.} \quad
-P_B(100) = 5(100) - 250 = \$250.
-\]
 
-Both options lower the break-even point to 50 meals.
-At $q = 100$, Option A produces more profit (\$350 vs.
-\$250) because the marginal profit is higher.
-The investor asking about per-unit profitability would
-prefer Option A.
-The operations manager asking about overhead would prefer
-Option B.
-The customer asking about price would prefer neither.
-\end{example}
+A \emph{function} is a rule that assigns one output to each allowed input. We use \(C(q)\) for total cost, \(R(q)\) for revenue, and \(P(q)\) for profit, all in dollars for that same month. The notation \(C(40)\) means ``the cost when q is 40.'' It does not mean C multiplied by 40.
 
-\begin{exercises}
-  \item A business has $C(q) = 420 + 6q$ and $R(q) = 14q$.
-    \begin{enumerate}[label=(\alph*), itemsep=2pt]
-      \item Find the break-even quantity and profit at
-        $q = 80$.
-      \item The owner raises the price to \$18.
-        Find the new break-even quantity and profit at
-        $q = 80$.
-      \item The owner instead reduces fixed costs by \$120.
-        Find the new break-even quantity and profit at
-        $q = 80$ (using the original price of \$14).
-      \item Write one sentence comparing the two options
-        from the perspective of the break-even quantity.
-      \item Write one sentence comparing the two options
-        from the perspective of profit at $q = 80$.
-    \end{enumerate}
 
-  \item A nonprofit sells event tickets to cover operating
-    costs.
-    Fixed costs are \$1{,}200.
-    Variable costs are \$8 per attendee.
-    Ticket price is \$20 per attendee.
-    \begin{enumerate}[label=(\alph*), itemsep=2pt]
-      \item Find the break-even attendance.
-      \item The nonprofit wants to reduce the ticket price
-        to \$15 to attract more attendees.
-        Find the new break-even attendance.
-      \item Write one sentence explaining what the
-        nonprofit must consider when choosing between
-        the two ticket prices.
-    \end{enumerate}
-\end{exercises}
+\begin{tcolorbox}[title={Example \textperiodcentered{} Substitute one choice into the rule},breakable]
 
-%--------------------------------------------------------------------
-\section*{Chapter 7 Review}
-%--------------------------------------------------------------------
+If \(C(q)=180+4q\), replace q with 40:
 
-\addcontentsline{toc}{section}{Chapter 7 Review}
 
-\begin{enumerate}[label=\arabic*., leftmargin=2em, itemsep=3pt, topsep=2pt, parsep=0pt]
+\[C(40)=180+4(40)=180+160=340.\]
 
-  \item A small printing company has monthly fixed costs
-    of \$800 and a variable cost of \$3 per pamphlet.
-    Pamphlets sell for \$8 each.
-    \begin{enumerate}[label=(\alph*), itemsep=2pt]
-      \item Write $C(q)$, $R(q)$, and $P(q)$.
-      \item Find the break-even quantity.
-      \item Complete the table for $q = 0, 80, 160, 200,
-        240$.
-      \item Compute the profit at $q = 240$.
-    \end{enumerate}
 
-  \item A mobile car wash has fixed costs of \$600 and
-    charges \$25 per car.
-    Supplies cost \$7 per car.
-    \begin{enumerate}[label=(\alph*), itemsep=2pt]
-      \item Write all three functions and find the
-        break-even quantity.
-      \item Find the marginal profit and explain what it
-        means in context.
-      \item How many cars must be washed to earn a
-        \$360 profit?
-    \end{enumerate}
+The input is 40 candles; the output is \$340 of modeled cost. The corresponding point on a cost graph is (40,340). At the same quantity, a different function can have a different output.
 
-  \item A cost function is $C(q) = 900 + 12q$ and a
-    revenue function is $R(q) = 21q$.
-    \begin{enumerate}[label=(\alph*), itemsep=2pt]
-      \item Find the break-even quantity.
-      \item Sketch the graph, labeling the vertical
-        intercept, the break-even point, and the slopes
-        of both lines.
-      \item What is the profit at $q = 150$?
-    \end{enumerate}
 
-  \item A freelance designer charges \$80 per hour
-    and has fixed monthly costs of \$320.
-    The designer's time costs \$20 per hour (opportunity
-    cost and materials).
-    \begin{enumerate}[label=(\alph*), itemsep=2pt]
-      \item Write the profit function.
-      \item Find the break-even number of hours.
-      \item How many hours must be billed to earn
-        \$1{,}000 profit per month?
-    \end{enumerate}
+\end{tcolorbox}
 
-  \item A business currently sells a product for \$16
-    with variable cost \$7 and fixed cost \$540.
-    A competitor enters the market, forcing the price
-    down to \$13.
-    \begin{enumerate}[label=(\alph*), itemsep=2pt]
-      \item Find the original break-even quantity
-        and profit at $q = 80$.
-      \item Find the new break-even quantity and
-        profit at $q = 80$ with the lower price.
-      \item By how much does the break-even quantity
-        increase as a result of the price decrease?
-    \end{enumerate}
+For candles, sensible quantities are nonnegative whole numbers: 0, 1, 2, and so on. A graph may draw a continuous line between them to make the pattern visible. For services sold by the hour, fractional quantities may make sense. The story determines which inputs are allowed.
 
-  \item Two bakeries both sell bread for \$7 per loaf.
-    Bakery A: $F = \$400$, $v = \$2$.
-    Bakery B: $F = \$200$, $v = \$4$.
-    \begin{enumerate}[label=(\alph*), itemsep=2pt]
-      \item Write the profit function for each.
-      \item Find the break-even quantity for each.
-      \item At what quantity do the two bakeries earn
-        equal profit?
-        (Set $P_A(q) = P_B(q)$ and solve.)
-      \item Which bakery is more profitable at high volume?
-        Explain using marginal profit.
-    \end{enumerate}
 
-  \item Explain in three complete sentences how the
-    cost, revenue, and profit functions in this chapter
-    are each examples of the additive recursion from
-    Chapter 1.
-    Identify the starting value and step size for each.
+
+\begin{tcolorbox}[title={Pause and try 1},breakable]
+If q is candles per month, what do R(25) and P(25) mean? Are their units candles or dollars?
+\end{tcolorbox}
+
+\clearpage
+
+\Needspace{6\baselineskip}\section{Fixed cost is the starting amount; variable cost adds with quantity}
+
+A \emph{fixed cost} does not change with the quantity in the period and range we are modeling. A stall fee is paid even if the stall sells nothing. A \emph{variable cost per unit} is the amount added for each item made: wax, a jar, and a wick might total \$4 per candle.
+
+
+We write \(F\) for fixed cost and \(v\) for variable cost per item. The \emph{total} variable cost is \(vq\), so
+
+\[C(q)=F+vq.\]
+
+\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYY@{}}\toprule
+Symbol & Meaning in the candle model & Units\\
+\midrule
+q & Candles made and sold this month & candles\\
+F = 180 & Stall and equipment cost for this month & dollars\\
+v = 4 & Cost added per candle & dollars per candle\\
+C(q) & Total modeled cost for the month & dollars\\
+\bottomrule\end{tabularx}}\par\medskip
+
+
+The units tell us why the formula works: dollars per candle multiplied by candles gives dollars. We can add that result to the fixed cost because both are money amounts.
+
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=3.0in,keepaspectratio]{../assets/week7/cost-components.pdf}
+\captionof*{figure}{The fixed portion stays at \$180. Each additional 20 candles adds \$80 of variable cost; total cost is not just the per-candle amount.}
+\end{minipage}\par\medskip
+
+
+\begin{tcolorbox}[title={Example \textperiodcentered{} Identify the parts before calculating},breakable]
+
+A food booth pays \$300 for equipment and \$50 for insurance. Ingredients cost \$3.50 per meal, and packaging costs \$0.50 per meal. Thus \(F=300+50=350\) dollars and \(v=3.50+0.50=4\) dollars per meal. Its model is \(C(q)=350+4q\), and \(C(200)=1150\) dollars.
+
+
+\end{tcolorbox}
+
+``Fixed'' is relative to the decision and time period. Renting a larger stall next month may change F. Today's model holds F constant while we compare quantities for the chosen stall. Also, zero production in this model still incurs the fixed expense; not opening at all may be a different option with different costs.
+
+
+
+\begin{tcolorbox}[title={Pause and try 2},breakable]
+A bakery pays \$250 per week plus \$1.50 per loaf. Write C(q), then find C(100).
+\end{tcolorbox}
+
+
+\Needspace{6\baselineskip}\section{Revenue is not profit}
+
+\emph{Revenue} is money received from sales. At a constant price \(p\) dollars per item, selling q items gives \(R(q)=pq\). For candles at \$10 each, \(R(q)=10q\). At 40 sales, revenue is \$400, but that money must also cover the \$340 cost.
+
+
+\emph{Profit} is revenue minus the costs included in the model:
+
+\[P(q)=R(q)-C(q)=pq-(F+vq)=(p-v)q-F.\]
+The parentheses matter: subtract both the variable cost and the fixed cost. For the candles, \(P(q)=10q-(180+4q)=6q-180\). A negative result means a loss relative to the modeled expenses.
+
+
+
+\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYYY@{}}\toprule
+Candles q & Cost C(q) & Revenue R(q) & Profit P(q)\\
+\midrule
+0 & \$180 & \$0 & $-$\$180\\
+20 & \$260 & \$200 & $-$\$60\\
+30 & \$300 & \$300 & \$0\\
+40 & \$340 & \$400 & \$60\\
+60 & \$420 & \$600 & \$180\\
+\bottomrule\end{tabularx}}\par\medskip
+
+
+At 20 candles, money still comes in: revenue is \$200. The loss of \$60 means that revenue falls \$60 short of the \$260 cost. It does not mean customers paid a negative amount. At 40 candles, the \$60 profit is what remains after the modeled costs.
+
+
+\begin{tcolorbox}[title={What is included in ``profit''?},breakable,colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35]
+
+If the model leaves out the maker's time, taxes, or delivery, the result has not accounted for those expenses. State what the cost model includes before treating the result as money available to spend. Our examples compare simplified plans, not complete business accounts.
+
+
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[title={Pause and try 3},breakable]
+At 50 candles, find C(50), R(50), and P(50). Which result is money received before costs?
+\end{tcolorbox}
+
+\clearpage
+
+\Needspace{6\baselineskip}\section{Profit is a vertical difference at the same quantity}
+
+The horizontal axis below measures candles for the month. The vertical axis measures dollars. To compare revenue and cost at 50 candles, stay above q=50 and read both heights. Revenue is \$500 and cost is \$380; their vertical difference is \$120.
+
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=3.0in,keepaspectratio]{../assets/week7/cost-revenue-gap.pdf}
+\captionof*{figure}{Use the same quantity for both heights. The intersection (30,\$300) says 30 candles bring in \$300 and cost \$300. The second coordinate is not profit.}
+\end{minipage}\par\medskip
+
+
+The cost line starts at \$180 when q=0; this is its \emph{vertical intercept}. Revenue starts at zero. For every one-unit step to the right, cost rises \$4 and revenue rises \$10. Those changes are the slopes. A steeper revenue line eventually catches a cost line that started higher.
+
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=3.0in,keepaspectratio]{../assets/week7/profit-line.pdf}
+\captionof*{figure}{A profit graph uses the same quantity axis but plots R$-$C directly. Break-even is (30,\$0) here; it was (30,\$300) on the cost-and-revenue graph.}
+\end{minipage}\par\medskip
+
+
+Below the profit graph's horizontal zero line are losses; above it are positive profits. Do not confuse ``the graph is rising'' with ``profit is already positive.'' From 0 to 20 candles, the loss shrinks, but the profit remains negative.
+
+
+
+\begin{tcolorbox}[title={Pause and try 4},breakable]
+At q=20, the revenue graph is higher than at q=0. Does that prove the plan earns a profit?
+\end{tcolorbox}
+
+
+\Needspace{6\baselineskip}\section{Exact break-even and the first whole item avoiding a loss}
+
+A plan \emph{breaks even} when revenue equals cost, so profit is exactly zero. For the candle model, solve \(6q-180=0\): add 180, then divide by 6, giving q=30 candles. This is an exact break-even quantity.
+
+
+In general, if \(p>v\), each sale contributes the positive amount \(p-v\) toward the fixed expense. Setting profit to zero gives
+
+\[(p-v)q-F=0\quad\Longrightarrow\quad q^*=\frac{F}{p-v}.\]
+The star simply labels the threshold. Units provide another check: dollars divided by dollars per item gives items.
+
+
+\begin{tcolorbox}[title={Example \textperiodcentered{} A fractional threshold does not describe a whole sale},breakable]
+
+At a craft fair, cards cost \$1.50 to make, sell for \$6, and require a \$48 table fee. Then \(P(q)=4.5q-48\) and \(q^*=48/4.5=10\tfrac23\). This is the exact crossing of the continuous lines.
+
+
+At 10 cards, profit is $-$\$3. At 11, profit is \$1.50. Thus 11 is the smallest whole number avoiding a loss, but 11 is \emph{not} an exact break-even sale count. No whole number of cards gives profit exactly zero in this model.
+
+
+\end{tcolorbox}
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=3.0in,keepaspectratio]{../assets/week7/whole-item-threshold.pdf}
+\captionof*{figure}{Rounding the threshold up identifies the first whole-item quantity with nonnegative profit. It does not move the exact zero of the function.}
+\end{minipage}\par\medskip
+
+
+For an exact whole-number threshold such as 30 candles, 30 avoids a loss and 31 is the first whole count with \emph{strictly positive} profit. For a fractional threshold such as \(10\tfrac23\), 11 does both. Read whether the question asks for exact equality, nonnegative profit, or positive profit.
+
+
+\begin{tcolorbox}[title={Before dividing, check the margin},breakable,colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35]
+
+If F is positive and \(p=v\), every sale only covers its own variable cost; the fixed expense remains uncovered. If \(p<v\), each sale adds to the loss. Neither case has a nonnegative break-even quantity. With F=0, q=0 breaks even; if p=v as well, every quantity breaks even.
+
+
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[title={Pause and try 5},breakable]
+A food truck has F=\$350, v=\$4, p=\$8. Find the exact threshold and the first whole-meal count avoiding a loss.
+\end{tcolorbox}
+
+
+\Needspace{6\baselineskip}\section{One more sale changes profit by the margin}
+
+\emph{Marginal} asks what changes when quantity increases by one. For our linear models, one additional candle raises cost by \$4, revenue by \$10, and profit by \$6. These are marginal cost, marginal revenue, and marginal profit.
+
+\[P(q+1)-P(q)=p-v.\]
+This difference is the same before and after break-even. Going from 20 to 21 candles changes profit from $-$\$60 to $-$\$54: an increase of \$6, while the business still has a loss. Going from 40 to 41 changes it from \$60 to \$66.
+
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=3.0in,keepaspectratio]{../assets/week7/marginal-steps.pdf}
+\captionof*{figure}{Marginal profit describes a change. Total profit describes the outcome at one quantity. A positive change can make a loss smaller without removing it.}
+\end{minipage}\par\medskip
+
+
+This is Week 1's additive recursion in a new setting: start at \(P(0)=-180\), then repeatedly add 6. Cost starts at 180 and adds 4; revenue starts at 0 and adds 10. The input counts items rather than elapsed years.
+
+
+\begin{tcolorbox}[title={Example \textperiodcentered{} A larger change},breakable]
+
+Increasing sales from 40 to 55 candles adds 15 sales, so profit increases by \(15(6)=90\) dollars. Check the totals: \(P(40)=60\) and \(P(55)=150\); their difference is \$90.
+
+
+\end{tcolorbox}
+
+The margin \$6 per candle is also called \emph{contribution per unit}. It is not the average total profit per candle: at 40 candles, that average is \(60/40=1.50\) dollars because the fixed cost still affects the total. In a nonlinear model, the extra profit from one more item may vary; constant margin is an assumption of this week's simple model.
+
+
+
+\begin{tcolorbox}[title={Pause and try 6},breakable]
+A print shop has C(q)=500+2q and R(q)=6q. Find the marginal profit and compare P(124), P(125), and P(126).
+\end{tcolorbox}
+
+
+\Needspace{6\baselineskip}\section{Break-even is a threshold; an optimum is a best available outcome}
+
+An \emph{objective function} assigns an outcome to each choice. To \emph{maximize} means to select the largest allowed value; to \emph{minimize} means to select the smallest. Here we often maximize P(q), but cost, access, time, or waste could be other objectives.
+
+
+The candle profit \(6q-180\) rises with every sale. If the maker can produce and sell at most 60 candles this month, the allowed whole quantities are 0 through 60. The largest profit is \(P(60)=180\) dollars. Selling 30 breaks even, but 60 maximizes modeled profit within that limit.
+
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=3.0in,keepaspectratio]{../assets/week7/capacity-and-best.pdf}
+\captionof*{figure}{A best available plan can still have a loss. At capacity 25, even the best allowed quantity cannot cover the fixed cost. At capacity 60, the same model can earn a positive profit.}
+\end{minipage}\par\medskip
+
+
+Without an upper limit or a demand model, a positive-margin linear profit has no largest value: choosing a larger q always gives a larger prediction. That is a sign that the model needs more context, not a recommendation to produce infinitely many candles.
+
+
+On a fixed interval from 0 to a capacity, positive margin favors the largest quantity; negative margin favors zero; zero margin makes every quantity tie. These conclusions assume the fixed expense applies to all choices, including q=0. A separate ``do not open'' option may avoid that expense and needs its own comparison.
+
+
+\begin{tcolorbox}[title={Example \textperiodcentered{} A table compares only its listed options},breakable]
+
+Suppose a model predicts profits \$90, \$140, \$150, and \$120 for quantities 30, 40, 50, and 60. Quantity 50 is best \emph{among those four options}. The table alone does not tell us the result at 49, 51, or every other possible quantity. A best-of-list claim needs fewer assumptions than a best-over-all-choices claim.
+
+
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[title={Pause and try 7},breakable]
+If the candle capacity is 24, what plan maximizes P(q)=6q$-$180, and is it profitable?
+\end{tcolorbox}
+
+
+\Needspace{6\baselineskip}\section{Lower overhead and larger margin can favor different volumes}
+
+Two shops sell the same product for \$20. Shop A has \$800 of fixed cost and \$8 per item of variable cost. Shop B has \$400 of fixed cost and \$12 per item. Their profit functions are \(P_A(q)=12q-800\) and \(P_B(q)=8q-400\).
+
+
+At q=60, A loses \$80 while B earns \$80. At q=140, A earns \$880 while B earns \$720. B's smaller fixed expense helps at low volume; A's larger margin helps at high volume.
+
+
+\begin{tcolorbox}[title={Example \textperiodcentered{} Find the crossover},breakable]
+
+Set the two profits equal: \(12q-800=8q-400\). Subtract 8q and add 800 to get \(4q=400\), hence q=100. Both profits are \$400 there.
+
+
+This equality is a \emph{crossover between two plans}. It is not either shop's break-even point, which would require its own profit to equal zero. B breaks even at 50; A's continuous threshold is \(66\tfrac23\).
+
+
+\end{tcolorbox}
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=3.0in,keepaspectratio]{../assets/week7/business-crossover.pdf}
+\captionof*{figure}{Equal profit between two businesses need not mean zero profit. Compare the same monthly quantity and the same cost categories before interpreting the lines.}
+\end{minipage}\par\medskip
+
+
+A parameter change also has a recognizable effect. Increasing F shifts the cost line up and profit line down without changing their slopes. Increasing v lowers the margin. Increasing p raises the margin when other assumptions and the number sold stay fixed. These statements compare model outputs; they do not establish what demand will do.
+
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=3.0in,keepaspectratio]{../assets/week7/parameter-effects.pdf}
+\captionof*{figure}{An extra \$60 of fixed cost lowers profit by \$60 at every quantity. An extra \$2 of price raises modeled profit by \$2 times the quantity, if the number sold stays unchanged.}
+\end{minipage}\par\medskip
+
+
+\begin{tcolorbox}[title={Pause and try 8},breakable]
+A business has P(q)=7q$-$420. Can you recover its fixed cost and margin? Can you recover its selling price and variable cost separately?
+\end{tcolorbox}
+
+
+\Needspace{6\baselineskip}\section{A higher price per item does not tell us how many items will sell}
+
+A soap seller has F=\$200 and v=\$3. At a price of \$8 the margin is \$5; at \$12 it is \$9. If both plans sell exactly 40 bars, their profits are \$0 and \$160. That comparison answers a precise conditional question: \emph{what if the quantities are the same?}
+
+
+Now suppose a separate, invented demand estimate predicts 70 sales at \$8 but only 30 at \$12. The profits become \(5(70)-200=150\) dollars and \(9(30)-200=70\) dollars. The lower-price plan now has the larger modeled profit.
+
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=3.0in,keepaspectratio]{../assets/week7/price-and-demand.pdf}
+\captionof*{figure}{The formulas did not contradict themselves. We changed the quantities used to compare the pricing plans. Demand estimates are additional assumptions, not consequences of the profit formula.}
+\end{minipage}\par\medskip
+
+
+If price depends on quantity, write it as \(p(q)\), so \(R(q)=q\,p(q)\). Revenue need not remain a straight line. We do not need a new formula to recognize the issue: changing price can change the number sold, and that relationship requires observations or a stated hypothetical model.
+
+
+A smaller break-even threshold is measured in items, not in days. It does not mean a business will reach that threshold sooner in time. That would require information about the rate of sales. Likewise, a larger margin alone cannot determine total profit without a sales quantity and fixed cost.
+
+
+
+\begin{tcolorbox}[title={Pause and try 9},breakable]
+An \$8 plan earns \$150 by selling 70 bars. At a \$12 price with margin \$9 and fixed cost \$200, what whole-bar sales count would first exceed that profit?
+\end{tcolorbox}
+
+\clearpage
+
+\Needspace{6\baselineskip}\section{A useful recommendation names its assumptions}
+
+For the original candle model, a complete conclusion is: ``If every candle made can be sold for \$10, costs stay at \$180 plus \$4 per candle, and capacity is 60 this month, choose 60 candles to maximize modeled profit at \$180.'' The quantity and the objective value are different parts of the answer.
+
+
+Then identify what could change that conclusion. Unsold inventory separates production from sales. Limited labor can cap production. A delivery charge can add a new expense. A community group might accept a lower surplus to keep prices affordable. The arithmetic can compare outcomes after we state the goal and the available choices.
+
+
+\begin{tcolorbox}[title={Example \textperiodcentered{} When production and sales are different},breakable]
+
+Suppose 60 candles are made but only 40 sell. The cost is \(180+4(60)=420\) dollars, while revenue is \(10(40)=400\) dollars. Profit is $-$\$20. Substituting q=40 into the original profit rule would instead give \$60, because that rule assumes only 40 were made.
+
+
+With no other inventory value or costs, a revised model uses two counts: \(P=10s-4n-180\), where n were made and s were sold, with \(0\leq s\leq n\). Naming a missing assumption is a mathematical improvement, not a failure of mathematics.
+
+
+\end{tcolorbox}
+
+\begin{enumerate}
+\item Name the choice, time period, and units.
+\item State the goal and allowed quantities.
+\item Build the cost and revenue rules, then subtract.
+\item Check a threshold or compare the available choices.
+\item Report a plan, its outcome, and an assumption worth checking.
 
 \end{enumerate}
 
+\begin{tcolorbox}[title={From Week 7 to Week 8},breakable,colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35]
+
+Week 8 will put two production quantities on a coordinate plane. Resource limits will define the feasible region, and an objective will give each feasible plan a score. The contribution p$-$v developed here becomes the coefficient attached to each product. If a fixed expense is the same for all plans, subtracting it changes profit values without changing which plan is best.
+
+
+\end{tcolorbox}
+
+Continue with the guided laboratory, apply the model to a food stand, and examine competing goals for an AI tutoring service. The pricing discussion asks you to communicate a comparison and its limits.
+
+
+\clearpage
+\section*{Further Worked Models}
+\subsection*{Rebuild a linear cost rule from two observations}
+Suppose a company's modeled cost is \$1,800 at 100 items and \$2,600 at 200 items, for the same month and operation. We are told to assume the cost relationship is linear.
+
+The quantity increases by 100 while total cost increases by \$800. Therefore the variable cost is
+\[
+v=\frac{2600-1800}{200-100}=\$8\text{ per item}.
+\]
+Substitute into $C(q)=F+8q$: $1800=F+8(100)$, so $F=1000$. The cost rule is $C(q)=1000+8q$.
+
+Check the second value: $C(200)=1000+1600=2600$. The fixed expense is the extrapolated cost at q=0 under the stated linear assumption. Two observations alone do not establish that a real cost rule is linear outside the range; the model supplied that assumption.
+
+\subsection*{What a profit formula does not identify}
+If $P(q)=7q-420$, then fixed cost is \$420 and the margin is \$7 per item. But the price and variable cost are not separately determined. Both $p=12,v=5$ and $p=15,v=8$ produce that same margin and profit rule.
+
+The extra statement $P(80)=140$ would not distinguish them: it already follows from $7(80)-420=140$. To recover price and variable cost separately, we need new information such as the sale price or a cost observation.
+
+\begin{tcolorbox}[title={Information and assumptions}]
+An equation can answer the question its data determine. A missing price cannot be recovered merely by rearranging the difference $p-v$ in a second way. Recognizing missing information is part of solving a model correctly.
+\end{tcolorbox}
+
+\clearpage
+\subsection*{Same break-even quantity, different profit at a chosen volume}
+A food cart has $F=350$, $v=4$, and $p=9$ for one event. Its profit is $P(q)=5q-350$, exact break-even is 70 meals, and profit at 100 sales is \$150.
+
+Compare two changes separately. Option A raises price to \$11 without changing the other costs. Option B reduces fixed cost to \$250 while keeping the original price.
+
+{\small\renewcommand{\arraystretch}{1.4}\begin{tabularx}{\linewidth}{@{}YYYY@{}}\toprule
+Plan & Profit rule & Exact threshold & Profit at 100 sales\\\midrule
+Original & $5q-350$ & 70 & \$150\\
+A: price \$11 & $7q-350$ & 50 & \$350\\
+B: fixed cost \$250 & $5q-250$ & 50 & \$250\\\bottomrule
+\end{tabularx}}
+
+Both changes give a 50-meal threshold, but A has a larger profit at 100 sales because it has a larger margin. The threshold alone does not describe the complete comparison. We also held the sales count fixed; a price increase or a smaller location could change actual sales.
+
+\subsection*{An additional observation can change the recommendation}
+Suppose a separate, invented sales estimate predicts 70 meals under A and 100 under B. Then A's profit is $7(70)-350=140$, while B's remains \$250. Under those estimates, B has the larger profit.
+
+The estimates do not follow from the algebra. They are additional inputs that can be tested against observations. The calculation makes the consequences of each estimate visible.
+
+\begin{tcolorbox}[title={A conclusion with its conditions}]
+``At 100 sales under either plan, A gives \$100 more profit than B'' is supported by the first comparison. ``A is always the better real business decision'' is a stronger claim that the fixed-sales model does not establish.
+\end{tcolorbox}
+
+\clearpage
+\section*{Chapter 7 Review}
+Use the stated period and units. Unless a question separates production from sales, assume every item made is sold. For whole items, distinguish the exact continuous threshold from the first usable whole-item count. Show enough work to make the comparison checkable.
+\begin{enumerate}
+\item A printing company has monthly fixed cost \$800 and variable cost \$3 per pamphlet. Pamphlets sell for \$8 each. Write C, R, and P. Find exact break-even. Make a table of all three outputs at $q=0,80,160,200,240$. Explain P(240).
+\item A mobile car wash has fixed cost \$600 per month, price \$25 per car, and supplies cost \$7 per car. Write all three functions and find the margin. Find exact break-even and the first whole-car count avoiding a loss. What whole-car count first gives a profit of at least \$360?
+\item For $C(q)=900+12q$ and $R(q)=21q$, find exact break-even and profit at q=150. Sketch both lines and label the intercepts, slopes, and intersection. On a separate profit graph, what is the vertical coordinate at break-even?
+\item A freelance designer charges \$80 per billed hour and has fixed monthly cost \$320. The model includes \$20 per hour in materials and time cost. Write the modeled profit, find exact break-even hours, and find the hours needed for \$1,000 profit. Fractional hours are allowed.
+\item A product sells for \$16, has variable cost \$7, and fixed cost \$540. Find exact break-even and profit at q=80. Repeat after lowering price to \$13, holding quantity and costs fixed. By how much does the threshold increase? What additional information is needed to compare actual pricing outcomes?
+\item Two bakeries sell bread for \$7 per loaf. A has $F=400,v=2$; B has $F=200,v=4$. Write both profits, find exact thresholds, and find their equal-profit quantity. Which is better at q=60 and at q=140? Explain using both fixed cost and margin.
+\item Describe the additive recursions for C, R, and P at whole quantities. Give the starting value and step for each in terms of F, v, and p. Why is the input here not automatically elapsed time?
+\item A linear cost model gives C(100)=1800 and C(200)=2600. Recover v, F, and C(q), then verify both values. If you know only P(q)=7q\ensuremath{-}420, which parameters can you recover and which cannot be recovered separately?
+\newpage
+\item Cards have F=48, v=1.50, and p=6. Find the exact threshold and the smallest whole count avoiding a loss. Find P(10), P(11), and P(12). Does any whole count break even exactly?
+\item Classify break-even when (a) F=100, p=v=4; (b) F=100, p=3, v=4; (c) F=0, p=v=4; (d) F=0, p=3, v=4. Avoid dividing by zero or interpreting a negative crossing as a usable sale count.
+\item A candle maker has P(q)=6q\ensuremath{-}180 and capacity 25 this month. Find the best quantity and profit among whole counts from 0 to 25. Compare with the exact threshold. What changes if an explicitly separate option of not opening avoids all costs?
+\item A table gives P(30)=90, P(40)=140, P(50)=150, P(60)=120. What best-choice claim is justified from these values alone? Can you conclude that 49 or 51 cannot do better? Explain what information is missing.
+\item A candle seller has F=180 and v=4. Compare price \$10 with 60 sales against price \$12 with 35 sales. Which plan has greater modeled profit? At the \$12 price, what whole sales count would first exceed the other plan's profit?
+\item A food stand has F=240 and v=3.50 for every meal prepared. Each sold meal brings \$9.50. If 80 are prepared and 60 are sold, find cost, revenue, and profit, assuming unsold meals have no further value. Compare with using q=60 in P(q)=6q\ensuremath{-}240; explain the difference.
+\item The AI-service example has $C(q)=6000+0.40q$ and $R(q)=2.40q$. With whole counts from 4,000 through 5,000, compare profit maximization, session maximization, and cost minimization. What if the minimum commitment rises to 5,001 while capacity remains 5,000? Name a learning outcome the dollar model does not measure.
+\item A nonprofit has fixed event cost \$1,200 and variable cost \$8 per attendee. Compare exact break-even at ticket prices \$20 and \$15. At the lower price, what whole attendance first avoids a loss? Check the cost, revenue, and profit there. Explain one reason the nonprofit might consider more than profit.
+\end{enumerate}
+
+\clearpage
+{\setlength{\parskip}{4pt}\setlist{itemsep=5pt,topsep=3pt}
+\section*{Solutions and Reasoning}
+
+\paragraph{Short check 1.}
+R(25) is revenue from selling 25 candles that month. P(25) is the profit for that same plan. Both outputs are dollars; 25 candles is the input.
+
+
+\paragraph{Short check 2.}
+C(q)=250+1.5q. At 100 loaves, cost is 250+150=\$400. The \$250 is not multiplied by the number of loaves.
+
+
+\paragraph{Short check 3.}
+C(50)=180+4(50)=\$380. R(50)=10(50)=\$500. P(50)=500$-$380=\$120. Revenue, \$500, is money received before subtracting costs.
+
+
+\paragraph{Short check 4.}
+No. R(20)=\$200 but C(20)=\$260. Profit is $-$\$60. A rise in revenue alone does not establish that revenue exceeds cost.
+
+
+\paragraph{Short check 5.}
+P(q)=4q$-$350, so the exact crossing is q*=87.5. At 87 meals P=$-$\$2; at 88 P=\$2. Thus 88 is the first whole-meal count avoiding a loss, not an exact zero-profit count.
+
+
+\paragraph{Short check 6.}
+Marginal profit is 6$-$2=\$4 per print. P(q)=4q$-$500 gives $-$\$4, \$0, and \$4. Each additional print changes profit by \$4.
+
+
+\paragraph{Short check 7.}
+Choose q=24, giving P(24)=144$-$180=$-$\$36. It is the least loss among the allowed quantities 0 through 24 under the stated fixed-cost model. ``Best'' does not automatically mean positive profit.
+
+
+\paragraph{Short check 8.}
+F=\$420 and p$-$v=\$7 per item. The separate p and v are not determined: p=12, v=5 and p=15, v=8 both give the same margin. More data are needed to distinguish them.
+
+
+\paragraph{Short check 9.}
+Solve 9q$-$200\textgreater{}150, giving q\textgreater{}350/9, about 38.889. At least 39 bars are needed to exceed \$150. At 39 the profit is \$151; the demand estimate of 30 would not be enough.
+
+
+\clearpage
+
+\subsection*{Chapter review: solutions}
+\begin{enumerate}
+\item $C(q)=800+3q$, $R(q)=8q$, and $P(q)=5q-800$. Exact break-even is 160 pamphlets. For q-values 0, 80, 160, 200, 240, costs are 800, 1040, 1280, 1400, 1520; revenues are 0, 640, 1280, 1600, 1920; profits are $-800,-400,0,200,400$. At 240 sales, \$400 remains after the costs included in this model.
+\item $C=600+7q$, $R=25q$, $P=18q-600$; margin is \$18 per car. The exact crossing is $600/18=33\tfrac13$, so 34 cars first avoid a loss. For profit at least \$360, solve $18q-600\geq360$, obtaining $q\geq53\tfrac13$. The first whole count is 54, with P(54)=372; P(53)=354 is insufficient.
+\item Margin is 9 and threshold is 100. P(150)=450. Cost begins at (0,900) and has slope 12 dollars per item; revenue begins at (0,0) and has slope 21. Their intersection is (100,2100). On the profit graph, break-even is (100,0); the zero is profit, not the common cost and revenue.
+\item $P(q)=60q-320$. Exact break-even is $320/60=16/3$ hours. For \$1,000 profit, solve $60q-320=1000$, obtaining q=22 billed hours. The modeled profit includes the listed time cost; costs not named are not automatically included.
+\item Originally P=9q\ensuremath{-}540, the threshold is 60 and P(80)=180. At the lower price, P=6q\ensuremath{-}540, the threshold is 90 and P(80)=\ensuremath{-}60. The threshold increases by 30 items. The fixed-sales comparison does not predict whether lower price attracts enough additional sales; a demand observation or explicit estimate is needed.
+\item $P_A=5q-400$, $P_B=3q-200$. Their exact thresholds are 80 and $66\tfrac23$. Equality gives $2q=200$, so q=100 and both profits are \$100. At 60, A gives \ensuremath{-}\$100 and B \ensuremath{-}\$20, so B has the smaller loss. At 140, A gives \$300 and B \$220, so A is higher. A has a larger fixed expense but a larger margin; the crossover is not a zero-profit crossing.
+\item $C(0)=F$ and $C(q+1)=C(q)+v$. $R(0)=0$ and $R(q+1)=R(q)+p$. $P(0)=-F$ and $P(q+1)=P(q)+(p-v)$. The input counts units made and sold in one period; it compares possible volumes rather than automatically tracking days or months.
+\item The cost change is \$800 for 100 extra items, so v=8. Then F=1800\ensuremath{-}8(100)=1000 and C=1000+8q. Substitution gives 1800 and 2600 at the stated quantities. From P=7q\ensuremath{-}420, F=420 and p\ensuremath{-}v=7; p and v separately require additional information.
+\item $P=4.5q-48$, with exact threshold $32/3=10\tfrac23$. The first whole count avoiding loss is 11. P(10)=\ensuremath{-}3, P(11)=1.50, and P(12)=6 dollars. No whole count makes P exactly zero because the unique zero is not an integer.
+\newpage
+\item (a) P=\ensuremath{-}100 at every quantity, so none break even. (b) P=\ensuremath{-}q\ensuremath{-}100 is negative for every nonnegative q, so none break even. (c) P=0 at every nonnegative q, so every quantity breaks even. (d) P=\ensuremath{-}q, so only q=0 breaks even; positive quantities lose money.
+\item Positive margin makes the largest allowed quantity best: q=25, P=\ensuremath{-}30. The exact threshold q=30 is beyond capacity. Under the original fixed-cost model even the best plan loses \$30. The explicitly separate no-opening option gives profit 0 if it avoids all costs, and would outperform that loss. We must not silently remove a fixed expense from one of the original plans.
+\item Quantity 50 gives the largest profit among the four listed options. The table does not determine profit at 49, 51, or unlisted choices, so it cannot establish a global maximum. We need more allowed-choice values or a justified function and domain.
+\item At \$10 with 60 sales, P=6(60)\ensuremath{-}180=180. At \$12 with 35 sales, P=8(35)\ensuremath{-}180=100. The lower-price plan is higher under these particular sales assumptions. To exceed 180 at the higher price, $8q-180>180$, so q>45. At least 46 whole sales are needed; 45 only ties.
+\item Cost is 240+3.5(80)=520, revenue 9.5(60)=570, profit \$50. The one-count formula at 60 gives \$120 because it charges variable cost for only 60 prepared meals. The 20 additional prepared but unsold meals cost 20(3.5)=70 dollars, explaining the difference. Sales do not erase production costs.
+\item Profit and session maximization choose q=5000, giving cost 8000, revenue 12000, profit 4000 dollars. Cost minimization chooses q=4000, giving cost 7600, revenue 9600, profit 2000. The two maximizing goals coincide here because margin is positive and all paid sessions have the same modeled revenue and cost. A minimum of 5001 with capacity 5000 is infeasible. Learning, accuracy, and affordability need separate evidence and criteria.
+\item At \$20, margin is 12 and exact break-even is 100 attendees. At \$15, margin is 7 and the crossing is $1200/7=171\tfrac37$; 172 first avoid a loss. At 172, cost is 1200+8(172)=2576, revenue is 15(172)=2580, and profit is \$4. Access, mission, attendance, and service quality may also matter; the formula does not choose their priority.
+\end{enumerate}
+\subsection*{Continue with constraints}
+Week 8 asks which combinations of two production quantities are feasible. Use the same habits: define variables and units, identify every limit, state the objective, compare only allowable plans, and return the result to the situation.
+}
 \end{document}
