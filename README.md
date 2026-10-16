@@ -2,7 +2,7 @@
 
 Static, browser-based course site modeled on the Precalculus course shell.
 
-Current revision: **v0.12 — print-friendly lab submissions**
+Current revision: **v0.13 — illustrated Week 10 investigations**
 
 All ten weeks now have full exercise-based lab/application passes.
 
@@ -34,3 +34,13 @@ The Week 6 module frames simple interest as additive change, compound interest a
 
 All ten HTML labs can now be submitted directly on paper without first creating a PDF. At the bottom of each lab, students can enter their name and choose **Print Completed Lab**. Before the browser print dialog opens, the page converts typed inputs and selected dropdown choices into static print-only answer text, so completed responses do not depend on how a particular browser renders form controls. Students may select a physical printer or choose **Save as PDF** from the same print dialog. The student name is remembered locally on that browser for the next lab.
 
+
+## Week 10 materials
+
+The Week 10 reading, explorer, laboratory, fish forecast, AI application, discussion, and chapter PDF form one illustrated unit on complexity and the limits of prediction. Worked examples distinguish update counts from recorded values, finite evidence from proof, geometric complexity from chaos, and measurement scale from physical growth.
+
+The explorer provides logistic comparisons (including fixed points, cycles, a periodic window, and an exceptional orbit), a Collatz step tracer, exact Koch and Sierpinski constructions, and scale-dependent survey measurements. Each graph has a numerical table or a detailed companion description. Lab and application responses receive individual feedback, save in the browser, and become static answer text when printed. Previous Week 10 response keys are read when a newer save does not exist; the five existing quiz IDs and answer contracts remain unchanged.
+
+The chapter is maintained as `readings/Math107_Chapter_10.tex` with its compiled PDF at the existing course URL. Compile from `readings/` with `pdflatex -interaction=nonstopmode -halt-on-error Math107_Chapter_10.tex` (twice after outline changes). Exact figures live in `assets/week10/`; regenerate the SVG/PDF pairs with `python scripts/build_week10_figures.py` (Matplotlib and NumPy).
+
+Verification: `python scripts/verify_week10.py` checks links, labels, math delimiters, and assessment compatibility. `node scripts/test_week10.js` checks known mathematical results, geometric lengths and areas, and DOM interactions for responses, saved work, legacy responses, printing, tabs, Collatz tracing, forecasts, and AI branching.
