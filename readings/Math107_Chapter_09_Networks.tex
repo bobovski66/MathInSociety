@@ -1,407 +1,734 @@
-\documentclass[11pt]{book}
-\usepackage[utf8]{inputenc}
+\documentclass[11pt,letterpaper]{article}
 \usepackage[T1]{fontenc}
-\usepackage{amsmath,amssymb}
-\usepackage[margin=0.82in]{geometry}
-\usepackage{enumitem}
-\usepackage{booktabs}
-\usepackage{array}
-\usepackage{xcolor}
-\usepackage{tikz}
-\usepackage{fancyhdr}
-\usepackage{titlesec}
-\definecolor{mathblue}{RGB}{30,90,160}
-\definecolor{mathgreen}{RGB}{30,140,80}
-\definecolor{mathgold}{RGB}{170,125,25}
-\titleformat{\chapter}[display]{\normalfont\large\bfseries}{Chapter \thechapter}{12pt}{\LARGE}
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[L]{MATH\& 107: Math in Society}
-\fancyhead[R]{Networks and Collective Systems}
-\fancyfoot[C]{\thepage}
-\newcommand{\term}[1]{\textbf{#1}}
-\newcommand{\idea}[1]{\begin{quote}\color{mathblue}\textbf{Key idea.} #1\end{quote}}
+\usepackage{lmodern,microtype,amsmath,amssymb,graphicx,booktabs,tabularx,array,enumitem,xcolor,fancyhdr,titlesec,tcolorbox,caption}
+\tcbuselibrary{breakable}
+\usepackage[margin=.8in,headheight=15pt,headsep=18pt,footskip=25pt]{geometry}
+\usepackage[colorlinks=true,urlcolor=teal,linkcolor=olive]{hyperref}
+\definecolor{olive}{HTML}{536240}\definecolor{ink}{HTML}{293329}\definecolor{teal}{HTML}{17677A}\definecolor{gold}{HTML}{A55C21}\definecolor{soft}{HTML}{EEF3E8}\definecolor{warm}{HTML}{FBEFDF}
+\color{ink}\setlength{\parindent}{0pt}\setlength{\parskip}{7pt}
+\setlist{leftmargin=1.4em,itemsep=3pt,topsep=3pt}
+\renewcommand{\thesection}{9.\arabic{section}}
+\titleformat{\section}{\Large\bfseries\color{olive}}{\thesection}{.6em}{}
+\titleformat{\subsection}{\large\bfseries\color{teal}}{}{0pt}{}
+\titlespacing*{\section}{0pt}{4pt}{12pt}\titlespacing*{\subsection}{0pt}{11pt}{4pt}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\sffamily MATH\& 107 / WEEK 9}\fancyhead[R]{\small\sffamily Networks and Collective Systems}\fancyfoot[L]{\small\sffamily Math in Society / Dr Lee}\fancyfoot[R]{\small\sffamily\thepage}\renewcommand{\headrulewidth}{.3pt}
+\tcbset{boxrule=.5pt,arc=2mm,left=10pt,right=10pt,top=7pt,bottom=7pt,before skip=9pt,after skip=9pt,colframe=olive!35,colback=soft,fonttitle=\bfseries,coltitle=teal,colbacktitle=soft}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\captionsetup{font=small,labelformat=empty,textfont={color=teal},skip=7pt}
+\hypersetup{pdftitle={Week 9: Networks and Collective Systems},pdfauthor={MATH and 107 / Dr Lee}}
+\usepackage{needspace}
+\pdfinfoomitdate=1
+\pdftrailerid{}
+\pdfsuppressptexinfo=15
+\setlength{\emergencystretch}{2em}
+
 \begin{document}
-\setcounter{chapter}{8}
-\chapter{Networks and Collective Systems}
-\begin{center}
-\large Connections shape what a system can do.
-\end{center}
+{\small\sffamily\color{olive}CHAPTER 9 / NETWORKS AND COLLECTIVE SYSTEMS\par}
+\vspace{10pt}
+{\fontsize{31}{35}\selectfont\bfseries\color{olive}Small connections.\\Collective effects.\par}
+\vspace{8pt}
+{\large Follow a community alert through seven locations. Discover how direct contacts, alternate routes, and local decisions shape the whole system.\par}
+\begin{center}\includegraphics[width=\linewidth]{../assets/week9/community-network.pdf}\end{center}
+\begin{tcolorbox}[title={The question for the week}]
+A community has seven locations and nine direct communication links. Can an alert reach everyone? How many rounds does it need? Which one-link improvement helps it survive an outage?
+\end{tcolorbox}
+This chapter begins with the meaning of a dot and a line, then builds a language for neighbors, paths, vulnerability, and spread. It uses arithmetic, fractions, averages, and repeated updates from Weeks 1--8. No earlier study of networks is assumed.
 
-A list of parts does not completely describe a system. We also need to know how the parts are connected. A city with many roads behaves differently from a city with only one road between neighborhoods. A social group with several independent lines of communication behaves differently from one in which every message must pass through one person. A computer network, a supply chain, a neural network, and an ecosystem can all be studied by asking the same structural questions: \emph{what is connected to what, how far apart are two parts, where are the bottlenecks, and how can an effect spread?}
+\medskip
+\href{https://bobovski66.github.io/MathInSociety/readings/week9_reading.html}{Online reading}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/demos/network_systems.html}{Network explorer}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/labs/week9_lab.html}{Guided laboratory}
 
-This chapter develops a small mathematical language for those questions. The goal is not to turn every real situation into a graph and declare the problem solved. The goal is to learn what the graph makes visible, what it hides, and how local connections can create system-level behavior.
+\clearpage
 
-\section{Networks as mathematical models}
-A \term{network}, or \term{graph}, is written
-\[
-G=(V,E),
-\]
-where $V$ is a set of \term{vertices} (or nodes) and $E$ is a set of \term{edges} (or links). The nodes represent the objects we care about. The edges represent a relationship that we decide is important.
 
-For example, suppose
-\[
-V=\{A,B,C,D,E,F\}
-\]
-and
-\[
-E=\{AB,AC,BC,BD,CD,DE,EF\}.
-\]
-One drawing of this network is shown below.
+\Needspace{6\baselineskip}\section*{Start here: connections change what a community can do}
 
-\begin{center}
-\begin{tikzpicture}[every node/.style={circle,draw=mathblue,fill=blue!6,minimum size=9mm},thick]
-\node(A) at (0,0){A};
-\node(B) at (2,1.3){B};
-\node(C) at (2,-1.3){C};
-\node(D) at (4,0){D};
-\node(E) at (6,0){E};
-\node(F) at (8,0){F};
-\draw(A)--(B) (A)--(C) (B)--(C) (B)--(D) (C)--(D) (D)--(E) (E)--(F);
-\end{tikzpicture}
-\end{center}
 
-The same picture can model very different situations. The nodes might be buildings and the edges walkways. They might be people and the edges communication links. They might be warehouses and the edges shipping routes. The mathematics is the same only after the meaning of an edge has been stated clearly.
+A county has seven places that can relay a public alert: a coordinator, library, clinic, school, shelter, residential block, and community center. The county knows which places can contact one another directly. Will an alert reach everyone? How long could it take? What happens if one communication link fails?
 
-\idea{A graph is a model of relationships. Before doing any calculation, say what a node represents and what an edge means.}
 
-\subsection{Undirected, directed, and weighted edges}
-In an \term{undirected} network, an edge $AB$ means that A is connected to B and B is connected to A. Friendships and two-way roads are often simplified this way.
 
-Some relationships have direction. In a \term{directed graph}, an arrow $A\to B$ may mean that A sends information to B, that A follows B, or that a resource can move from A to B. The direction matters: $A\to B$ does not automatically give $B\to A$.
+These questions concern \emph{relationships}. Counting the seven locations gives part of the story. Recording how they connect gives the rest. A \emph{network} is a mathematical model that keeps those connections visible.
 
-Edges can also carry numbers called \term{weights}. A road might be weighted by travel time, a social connection by interaction frequency, and a neural-network connection by the strength of its signal. In a weighted network, the shortest route may mean the route with the smallest total weight rather than the route with the fewest edges.
 
-\section{Degree: the first local measurement}
-The \term{degree} of a node is the number of edges incident to it. We write $\deg(v)$ for the degree of a node $v$. In the network above,
-\[
-\deg(A)=2,\qquad \deg(B)=3,\qquad \deg(D)=3,\qquad \deg(F)=1.
-\]
-Degree measures direct connectivity. A node with high degree has many immediate neighbors.
 
-A useful normalized version is \term{degree centrality}. In a network with $n$ nodes,
-\[
-C_D(v)=\frac{\deg(v)}{n-1}.
-\]
-The denominator $n-1$ is the largest possible degree in a simple network, because a node can connect to every other node but not to itself. If a node has degree 3 in a 6-node network, then
-\[
-C_D(v)=\frac{3}{5}=0.60.
-\]
-This makes degree easier to compare between networks of different sizes.
+You already have the tools to begin. From Weeks 1--4, we will use counting, fractions, percentages, and averages. From Weeks 5--6, we will use a rule repeatedly, keeping track of the current state. From Weeks 7--8, we will ask what we are trying to improve and which choices are allowed. No previous study of networks is assumed.
 
-\subsection{A global check: the handshake rule}
-Every undirected edge touches exactly two nodes. Therefore the sum of all node degrees counts every edge twice:
-\[
-\sum_{v\in V}\deg(v)=2|E|.
-\]
-This is sometimes called the \term{handshake theorem}. If the network has 7 edges, the degrees must add to 14.
 
-For the example network,
-\[
-2+3+3+3+2+1=14=2(7).
-\]
-This gives us a quick error check when counting degrees.
 
-\section{Density: how much of the possible network is present?}
-A network with $n$ nodes could have as many as
-\[
-\binom{n}{2}=\frac{n(n-1)}{2}
-\]
-undirected edges. If it actually has $m$ edges, its \term{density} is
-\[
-D=\frac{m}{\binom{n}{2}}=\frac{2m}{n(n-1)}.
-\]
-Density ranges from 0 to 1. A density near 0 means that relatively few possible links are present. A density near 1 means that nearly every pair is directly connected.
+\Needspace{5\baselineskip}\subsection*{By the end, you can\ldots{}}
 
-\textbf{Example.} A six-node network with seven edges has density
-\[
-D=\frac{2(7)}{6(5)}=\frac{14}{30}\approx0.467.
-\]
-About 46.7\% of all possible undirected links are present.
+\begin{itemize}
+\item Translate a real situation into nodes and links.
+\item Count direct neighbors and measure the network's density.
+\item Trace routes and identify separated groups.
 
-Density is a global measurement. Degree describes one node; density describes the network as a whole.
+\end{itemize}
 
-\section{Paths, distance, and reachability}
-A \term{path} is a sequence of nodes joined by edges. The \term{length} of a path is the number of edges used. For example,
-\[
-A\to B\to D\to E
-\]
-has length 3.
+\Needspace{5\baselineskip}\subsection*{\ldots{}and explain why it matters.}
 
-The \term{distance} $d(u,v)$ between two nodes is the length of a shortest path joining them. In the example network,
-\[
-d(A,D)=2,\qquad d(A,E)=3,\qquad d(A,F)=4.
-\]
-There may be several different shortest paths. From A to D we can travel A--B--D or A--C--D. Both have length 2.
+\begin{itemize}
+\item Find a vulnerable link and test an alternate route.
+\item Trace a message or a threshold rule round by round.
+\item Distinguish a model's calculation from a real decision.
 
-Distance is one of the most useful ideas in network mathematics because it turns a picture into a numerical geometry. We can ask which nodes are close, which are far away, and how quickly information could possibly travel if one edge can be crossed per round.
+\end{itemize}
 
-\subsection{Average distance and closeness}
-Suppose a node $v$ can reach every other node. Add the distances from $v$ to all other nodes and divide by $n-1$:
-\[
-\text{average distance from }v=\frac{1}{n-1}\sum_{u\ne v}d(v,u).
-\]
-A node with a small average distance is centrally located in the network even if it does not have the largest degree.
 
-One common version of \term{closeness centrality} reverses that average:
-\[
-C_C(v)=\frac{n-1}{\sum_{u\ne v}d(v,u)}.
-\]
-Large closeness means that, in terms of shortest paths, the node is only a few steps from the rest of the network.
+Read the worked examples before opening the short checks. The explorer lets you test the same network. The illustrated PDF includes the explanations, a review, and solutions. Extra centrality formulas are marked as extensions.
 
-\idea{High degree means ``many neighbors.'' High closeness means ``few steps from everyone.'' These are different kinds of centrality.}
 
-\section{Connectedness and components}
-A network is \term{connected} if every pair of nodes can be joined by a path. If a network is not connected, it breaks into \term{connected components}. Within a component, nodes can reach one another. Nodes in different components cannot.
 
-This distinction is crucial in practical systems. A communication network can contain many functioning devices and still fail as a system if those devices split into disconnected groups.
+\clearpage
 
-Consider the edges
-\[
-AB,\ BC,\ AC,\ DE.
-\]
-The nodes A, B, and C form one component. D and E form another. The network contains edges, but the network is not connected.
+\Needspace{6\baselineskip}\section{A dot is a place. A line is a direct connection.}
 
-\section{Bottlenecks, bridges, and articulation points}
-Some links matter much more than their number suggests. A \term{bridge} is an edge whose removal increases the number of connected components. In the six-node example, $EF$ is a bridge. If it is removed, F becomes isolated from the rest of the network.
 
-A node can play a similar role. An \term{articulation point} is a node whose removal disconnects a previously connected network. In the path
-\[
-A-B-C-D-E,
-\]
-B, C, and D are articulation points.
+Each dot in a network drawing is a \emph{node}. A node represents one object we choose to study. Each line is an \emph{edge}, or link, joining two nodes. In our alert model, a node is a location, and an edge means that the two locations have an established two-way communication channel.
 
-Bridges and articulation points identify structural vulnerabilities. A link may connect only two nodes and still be more important for resilience than a link inside a tightly connected cluster.
 
-\subsection{Redundancy and alternate paths}
-A network is more resilient when important destinations can be reached by more than one independent route. In the example network, D can be reached from A through B or C. The triangle-like structure around A, B, C, and D creates redundancy. By contrast, F has only one route to the rest of the system, through E.
 
-Adding the edge $DF$ would create an alternate route to F. The new network would no longer depend on the single bridge $EF$ for access to F.
+Mathematicians also call a network a \emph{graph} and a node a \emph{vertex} (plural: vertices). This use of ``graph'' differs from a graph of temperature against time. A network drawing shows relationships; its horizontal and vertical positions need not be measured quantities.
 
-This gives a simple intervention principle:
-\[
-\text{resilience often increases when critical nodes gain alternate paths.}
-\]
-But there can be costs. New links may require money, time, maintenance, trust, bandwidth, or attention. Network design is therefore often an optimization problem under constraints, connecting this chapter directly to the previous module.
 
-\section{Centrality: several meanings of ``important''}
-There is no single mathematical definition of an important node. Different questions lead to different measurements.
 
-\begin{center}
-\begin{tabular}{p{0.23\textwidth}p{0.31\textwidth}p{0.34\textwidth}}
-\toprule
-\textbf{Measure} & \textbf{What it notices} & \textbf{Question it helps answer}\\
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=3.2in,keepaspectratio]{../assets/week9/community-network.pdf}
+\captionof*{figure}{Read the lines as available direct contacts. A can contact B and C directly. To contact G, A must use other locations as relays. The gold D--E link is the only connection between the two regions.}
+\end{minipage}\par\medskip
+
+\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYY@{}}\toprule
+Node & Location & Direct neighbors\\
 \midrule
-Degree & Immediate neighbors & Who can directly contact many others?\\
-Closeness & Total shortest-path distance & Who can reach the network in relatively few steps?\\
-Betweenness & Shortest paths passing through a node & Who lies between groups or controls routes?\\
-Bridge/articulation role & Loss of connectivity after removal & Which link or node is structurally critical?\\
-\bottomrule
-\end{tabular}
-\end{center}
+A & Emergency coordinator & B, C\\
+B & Library & A, C, D\\
+C & Clinic & A, B, D\\
+D & School & B, C, E\\
+E & Shelter & D, F, G\\
+F & North Block & E, G\\
+G & Community Center & E, F\\
+\bottomrule\end{tabularx}}\par\medskip
 
-\subsection{Betweenness as a bottleneck idea}
-A node has high \term{betweenness} when many shortest paths between other nodes pass through it. We will not need the full formula, but the idea is important.
 
-Imagine two dense friend groups connected by one person, Maya. Maya may have only four friends, while other students each have ten. Yet if most shortest paths between the two groups pass through Maya, then Maya occupies a powerful structural position. Degree alone would miss this.
+\Needspace{5\baselineskip}\subsection*{How to read this mathematical world}
 
-This is one reason network mathematics is useful: it distinguishes popularity, accessibility, and brokerage rather than treating all of them as the same thing.
-
-\section{Adjacency tables and matrices}
-A drawing is useful for small networks, but large networks need systematic data structures. One possibility is an \term{adjacency matrix}. For nodes $v_1,\ldots,v_n$, define
-\[
-A_{ij}=\begin{cases}
-1,&\text{if }v_i\text{ and }v_j\text{ are connected},\\
-0,&\text{otherwise.}
-\end{cases}
-\]
-For the small network with edges $AB,AC,BC,BD$, the matrix is
-\[
-A=\begin{pmatrix}
-0&1&1&0\\
-1&0&1&1\\
-1&1&0&0\\
-0&1&0&0
-\end{pmatrix}.
-\]
-Each row records the neighbors of one node. Adding the entries in a row gives that node's degree.
-
-This is also a bridge to computing. Social-network software, route planners, recommendation systems, and machine-learning systems often store network structure in arrays or sparse tables rather than pictures.
-
-\subsection{An optional mathematical glimpse}
-Matrix multiplication contains path information. For an unweighted adjacency matrix, entries of $A^2$ count two-step walks, entries of $A^3$ count three-step walks, and so on. We will not use this computationally in this course, but it is a beautiful example of algebra encoding network structure.
-
-\section{Diffusion: how something spreads}
-A network tells us which transfers are possible. A \term{diffusion rule} tells us how a state actually moves through those connections.
-
-Suppose A initially has a message. If every informed node shares with all neighbors once per round, then the informed set grows in layers of network distance.
-
-For the six-node example:
 \begin{itemize}
-\item Round 0: A is informed.
-\item Round 1: B and C become informed.
-\item Round 2: D becomes informed.
-\item Round 3: E becomes informed.
-\item Round 4: F becomes informed.
+\item \emph{Only drawn links count.} A and D may look close, but there is no direct A--D edge.
+\item \emph{The drawing is not a map to scale.} A longer line does not mean a slower or longer trip. Moving a dot without changing its connections leaves this network unchanged.
+\item \emph{A crossing is not automatically a junction.} You can transfer from one edge to another at a node. Lines that happen to cross without a marked node do not create another location.
+
 \end{itemize}
 
-The network geometry determines the earliest possible arrival time in this simple model: a node at distance $k$ cannot be reached in fewer than $k$ rounds.
 
-\subsection{Why real diffusion is more complicated}
-Real spread is rarely automatic. A person may ignore a message. A disease may fail to transmit. A social behavior may require several friends to adopt it before someone changes. A server may be overloaded. A road may be closed.
+We can record the same network with an \emph{edge list}: AB, AC, BC, BD, CD, DE, EF, EG, FG. ``AB'' names the link between A and B; it does not mean multiplication. Because the links work both ways, AB and BA describe the same edge, counted once.
 
-A model might therefore use a probability of transmission or a threshold rule.
 
-\subsection{Threshold behavior}
-Suppose a node adopts a behavior only when at least half of its neighbors have adopted it. If a node has four neighbors, at least two must be active. If it has three neighbors, at least two must be active.
 
-This can produce a surprising effect: a high-degree node may be harder to activate because it requires more active neighbors. More connections can increase exposure but also raise the threshold needed for a majority.
+\begin{tcolorbox}[title={Assumptions we will keep using},breakable,colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35]
 
-Threshold models help explain why collective behavior can remain stable for a long time and then suddenly change after one more local adoption pushes several nodes past their thresholds.
+The main network is \emph{undirected}: every link works both ways. It is \emph{unweighted}: all links count equally. It is also \emph{simple}: there are no links from a node to itself and at most one link per pair. Those assumptions determine which formulas apply.
 
-\section{Cascades and collective effects}
-A \term{cascade} occurs when one local change triggers another, which triggers another, and the effect propagates through the network. Cascades may be beneficial, harmful, or simply descriptive.
 
-Examples include:
-\begin{itemize}
-\item a warning spreading through an emergency communication network,
-\item a bank failure creating stress for connected financial institutions,
-\item a popular post receiving more visibility, which creates more engagement,
-\item a power-grid failure shifting load to neighboring components,
-\item a rumor spreading through overlapping communities.
-\end{itemize}
+The seven locations and their links are an invented teaching example, not a description of an actual county emergency system.
 
-The important point is that the response of the whole system is not determined by one node alone. It emerges from the interaction between local rules and network structure.
 
-\section{Networks and feedback}
-Module 5 introduced feedback loops: a system observes outcomes, compares them with some condition or target, acts, and then observes again. Networks answer a different question: \emph{who can influence whom?}
+\end{tcolorbox}
 
-Put the two ideas together and a collective system appears:
-\[
-\text{state}\to\text{signals through network}\to\text{responses}\to\text{new state}\to\cdots
-\]
-A recommendation system is a familiar example. People interact with content. Those interactions affect what the system recommends. Recommendations change what people see. What people see changes later interactions. The network of users and items carries influence while feedback repeatedly updates the state.
 
-Positive feedback can amplify a network effect. More attention can lead to more sharing, which leads to more attention. Corrective feedback can reduce a network effect, as when a routing system redirects traffic away from an overloaded road.
+\begin{tcolorbox}[title={Pause and try 1},breakable]
+A community center can call a shelter, but the shelter cannot call back using that channel. Would an ordinary two-way line accurately represent this relationship?
+\end{tcolorbox}
 
-\idea{A network describes the structure of possible influence. A feedback rule describes how the system changes after influence occurs. Together they create dynamics.}
 
-\section{Directed and weighted networks in practice}
-The simple graphs used so far treat every edge as equal and two-way. Many real systems need more detail.
 
-\subsection{Direction}
-In a directed network, each node can have an \term{in-degree} and an \term{out-degree}. In-degree counts incoming edges; out-degree counts outgoing edges. On a social platform, a person may follow thousands of accounts but be followed by only a few. Those are very different structural roles.
+\Needspace{6\baselineskip}\section{Degree means the number of direct neighbors}
 
-\subsection{Weight}
-If a road network uses travel times as weights, the best route minimizes total time rather than number of roads. A two-edge route taking 40 minutes may be worse than a four-edge route taking 18 minutes.
 
-If a neural network uses weights, a large positive weight, a small positive weight, and a negative weight represent different strengths and directions of influence. The edge is no longer merely present or absent.
+The \emph{degree} of a node counts the edges that touch it. In this simple network, that is also the number of its direct neighbors. ``Degree'' here is a count, not an angle or a temperature.
 
-\section{A practical network-analysis workflow}
-When facing a new situation, use the following sequence.
 
-\begin{enumerate}[label=\arabic*.]
-\item \textbf{Define the model.} What are the nodes? What exactly does an edge mean? Is the network directed or weighted?
-\item \textbf{Record the structure.} Draw the network or list the edges.
-\item \textbf{Measure locally.} Compute degrees and identify unusually connected nodes.
-\item \textbf{Measure routes.} Find paths, shortest paths, and distances.
-\item \textbf{Check the whole system.} Is the network connected? What is its density?
-\item \textbf{Look for vulnerability.} Identify bridges, articulation points, and destinations with only one route.
-\item \textbf{Study spread.} Choose an explicit diffusion rule and trace several rounds.
-\item \textbf{Consider intervention.} Add, remove, strengthen, or redirect a link and compare the result.
-\item \textbf{State limitations.} What does the network leave out: timing, uncertainty, trust, capacity, geography, cost, or changing behavior?
-\end{enumerate}
 
-\section{Worked example: a community alert network}
-Suppose six locations are connected by
-\[
-CL,\ CC,\ LS,\ CS,\ SH,\ HN,
-\]
-where C is a coordinator, L a library, Cc a clinic, S a school, H a shelter, and N the north block. To avoid using C twice in notation, let us rename the clinic K. The edges are therefore
-\[
-CL,\ CK,\ LS,\ KS,\ SH,\ HN.
-\]
+\begin{tcolorbox}[title={Example \textperiodcentered{} Count the school's contacts},breakable]
 
-The degrees are
-\[
-\deg(C)=2,\quad \deg(L)=2,\quad \deg(K)=2,\quad \deg(S)=3,\quad \deg(H)=2,\quad \deg(N)=1.
-\]
-There are six nodes and six edges, so the density is
-\[
-D=\frac{2(6)}{6(5)}=0.4.
-\]
-The shortest route from C to N has length 4:
-\[
-C-L-S-H-N
-\]
-or
-\[
-C-K-S-H-N.
-\]
-The edge $HN$ is a bridge. If it fails, N becomes disconnected. Adding an edge $SN$ would create an alternate path and remove that single point of failure.
+The edges touching D are BD, CD, and DE. Its neighbors are B, C, and E, so the degree of D is 3. We write \(\deg(D)=3\). The notation means ``the degree of node D.'' A can eventually reach D, but A is not a direct neighbor and does not count toward D's degree.
 
-Notice that S has the highest degree, but H is also structurally important because every original path to N passes through H. The most connected node and the most strategically placed node need not be the same.
 
-\section{Worked example: a threshold cascade}
-Consider a node X with four neighbors A, B, C, and D. X adopts a behavior when at least half of its neighbors have adopted.
+\end{tcolorbox}
 
-If only A is active, then the active fraction around X is
-\[
-\frac{1}{4}=0.25,
-\]
-so X does not adopt. If A and B are active, then
-\[
-\frac{2}{4}=0.50,
-\]
-so X adopts. X may then become one of the active neighbors of another node, pushing that node over its own threshold. A local change can therefore initiate a larger cascade.
 
-This does not mean every social process follows a 50\% threshold. The point is to see how a precise local rule can generate collective behavior when repeated through a network.
+\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYYYYYYY@{}}\toprule
+Node & A & B & C & D & E & F & G\\
+\midrule
+Degree & 2 & 3 & 3 & 3 & 3 & 2 & 2\\
+\bottomrule\end{tabularx}}\par\medskip
 
-\section{What network models leave out}
-Network diagrams are powerful because they simplify. That is also their danger.
 
-An edge may hide differences in strength, reliability, trust, distance, or timing. A static graph may ignore the fact that relationships change. A social network may represent interactions but not motives. A supply-chain edge may exist on paper but have limited capacity. A neural-network picture may suppress millions or billions of parameters.
+\Needspace{5\baselineskip}\subsection*{Count the same links from two viewpoints}
 
-A good network analysis therefore ends with two statements:
+Add the degrees: \(2+3+3+3+3+2+2=18\). Yet the edge list has only 9 links. Why twice as many? Each link has two ends. AB contributes 1 to A's count and 1 to B's count.
+
+
+sum of degrees = 2 $\times$ number of edges
+
+This is the \emph{handshake rule}. Imagine counting how many handshakes each person had: every handshake appears in two people's totals. With 9 edges, the degree sum must be \(2(9)=18\). This gives us a useful check on our counting.
+
+
+
+We can also use the average from Week 3: the mean degree is \(18/7\approx2.57\). No individual location needs to have degree 2.57. An average summarizes the group; every actual degree here is a whole number.
+
+
+
+\begin{tcolorbox}[title={Pause and try 2},breakable]
+A different simple undirected network has 12 edges. What must the sum of all its degrees be? If you counted 23, what would that tell you?
+\end{tcolorbox}
+
+
+\clearpage
+
+\Needspace{6\baselineskip}\section{Density compares what exists with what could exist}
+
+
+Nine edges sounds like a lot until we ask how many are possible. Among seven locations, each one could have six other locations as neighbors. Counting \(7\times6=42\) lists every pair twice: once as AB and again as BA. Divide by 2 to get 21 distinct possible links.
+
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=3.2in,keepaspectratio]{../assets/week9/density-pairs.pdf}
+\captionof*{figure}{Keep the node count fixed when making this comparison. The network contains 9 of the 21 possible pairs. The extra line crossings in the complete drawing are not additional nodes.}
+\end{minipage}\par\medskip
+
+
+The \emph{density} of this simple undirected network is the fraction of possible links that are present:
+
+\[\text{density}=\frac{\text{actual edges}}{\text{possible edges}}=\frac{9}{21}=\frac{3}{7}\approx0.429.\]
+
+As a percentage, that is about 42.9\%. It means 42.9\% of the possible \emph{pairs of locations} have direct links. It does not mean that 42.9\% of the locations are connected, or that any given message has a 42.9\% chance of arriving. We have not introduced a probability of transmission.
+
+
+
+\begin{tcolorbox}[title={Example \textperiodcentered{} Read the general formula},breakable]
+
+Let \(n\) mean the number of nodes and \(m\) the number of edges. The letters are placeholders for counts. Then
+
+
+\[\text{possible edges}=\frac{n(n-1)}{2},\qquad D=\frac{m}{n(n-1)/2}=\frac{2m}{n(n-1)}.\]
+
+
+For seven nodes and nine edges, substitute \(n=7\) and \(m=9\). You get \(18/(7\cdot6)=18/42=0.428571\ldots\). The letter \(D\) in the formula stands for density; it is separate from the location named D.
+
+
+\end{tcolorbox}
+
+
+A density of 1 means every pair has a direct link. A density of 0 means no links exist. Adding a new link to our example raises density to \(10/21\approx0.476\). Where that link goes still matters: a new link inside one region and a new link between regions increase the count equally but can have different effects on reliability.
+
+
+
+\begin{tcolorbox}[title={Pause and try 3},breakable]
+Five nodes have four undirected edges. How many distinct pairs are possible, and what is the density?
+\end{tcolorbox}
+
+
+
+\Needspace{6\baselineskip}\section{A path counts the links you actually use}
+
+
+A \emph{path} is a route that follows edges from one node to another without repeating nodes. In an unweighted network, its \emph{length} is the number of edges used. The \emph{distance} between two nodes is the length of a shortest path.
+
+
+
+\begin{tcolorbox}[title={Example \textperiodcentered{} Get an alert from A to G},breakable]
+
+One route is \(A\to B\to D\to E\to G\). Check each step against the edge list: AB, BD, DE, and EG all exist. The route names five nodes but uses four links, so its length is 4. The arrows here show the direction we travel along two-way links.
+
+
+Another shortest route is \(A\to C\to D\to E\to G\), also length 4. There need not be just one shortest path. A route that names A--D--G is invalid: neither AD nor DG exists in the original network.
+
+
+\end{tcolorbox}
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=3.2in,keepaspectratio]{../assets/week9/path-layers.pdf}
+\captionof*{figure}{Start at A with distance 0. B and C are one edge away; D is two away; E is three away; F and G are four away. These distance labels also become earliest arrival rounds under the spread rule introduced below.}
+\end{minipage}\par\medskip
+
+\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYYYYYYY@{}}\toprule
+Destination & A & B & C & D & E & F & G\\
+\midrule
+Shortest distance from A & 0 & 1 & 1 & 2 & 3 & 4 & 4\\
+\bottomrule\end{tabularx}}\par\medskip
+
+
+\Needspace{5\baselineskip}\subsection*{Connected does not mean directly connected}
+
+The network is \emph{connected} because every pair of nodes can be joined by some path. A and G do not need a direct link for the whole network to be connected.
+
+
+A \emph{connected component} is a whole group of nodes that can reach one another, with no path to nodes outside the group. Our original network has one component containing all seven nodes. If D--E is removed, there are two components: \{A, B, C, D\} and \{E, F, G\}. The braces simply mean ``the group containing these nodes.''
+
+
+
+An isolated node, with no incident edges, is a component of one. If no path exists between two locations, their distance is \emph{unreachable}, not zero. Zero is the distance from a node to itself.
+
+
+
+\begin{tcolorbox}[title={Pause and try 4},breakable]
+For edges PQ, QR, and ST, using nodes P, Q, R, S, T, how many components are there? What is the distance from P to R?
+\end{tcolorbox}
+
+
+
+\Needspace{6\baselineskip}\section{One vulnerable link can separate an entire region}
+
+
+A \emph{bridge} is an edge whose removal increases the number of connected components. It need not look like a physical bridge. It is a link with a particular structural role.
+
+
+
+D--E is a bridge: removing it changes our connected network from one component to two. By contrast, removing B--C does not disconnect the network. B can still reach C through A or D, so alternate routes remain.
+
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=3.2in,keepaspectratio]{../assets/week9/failure-repair.pdf}
+\captionof*{figure}{Test the failure explicitly. In the repaired drawing, A can reach G through A--B--D--F--G without using D--E. The dashed line represents the failed link, not a usable connection.}
+\end{minipage}\par\medskip
+
+
+\begin{tcolorbox}[title={Example \textperiodcentered{} Spend the budget on an alternate route},breakable]
+
+Suppose the county can add one new link. Adding A--D shortens a local route but leaves D--E as the only cross-region link. Adding D--F creates a second way into the right region. If D--E fails, the route A--B--D--F--G still works.
+
+
+This is \emph{redundancy}: another route can serve when one link is lost. The new network is more resilient to that failure. In fact, with D--F added, no individual edge is a bridge; every edge has an alternate route around it.
+
+
+\end{tcolorbox}
+
+
+\Needspace{5\baselineskip}\subsection*{A link failure and a location failure are different tests}
+
+Removing a node also removes every edge touching it. A node whose removal increases the number of components is an \emph{articulation point}. D and E are articulation points in the original network.
+
+
+Adding D--F protects against the loss of D--E, but both cross-region routes still depend on D. If the school itself goes offline, B and C lose both connections through D. The repaired network is still vulnerable to the loss of that node. A claim about resilience should name the failure being tested.
+
+
+
+\begin{tcolorbox}[title={Pause and try 5},breakable]
+In the three-node path P--Q--R, which edges are bridges? Which node is an articulation point?
+\end{tcolorbox}
+
+
+
+\Needspace{6\baselineskip}\section{``Important'' can mean several different things}
+
+
+B, C, D, and E all have degree 3. Yet they do different jobs. B and C have alternate routes around them. D and E sit at the only passage between regions. Their equal degrees do not imply equal vulnerability or equal roles.
+
+
+
+\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYY@{}}\toprule
+Idea & What you measure & Question it helps answer\\
+\midrule
+Degree & Number of direct neighbors & Who can contact many others in one step?\\
+Closeness & Shortest-path distances to the other nodes & Who is relatively few steps from everyone?\\
+Betweenness & How often shortest paths between other nodes pass through a node & Who lies along many short routes between groups?\\
+Bridge or articulation role & Whether removing a link or node splits a component & Where can one failure separate the system?\\
+\bottomrule\end{tabularx}}\par\medskip
+
+
+You do not need a betweenness formula this week. Trace routes between the two regions: every such path must pass through D and E. That gives a reason for their structural importance beyond counting neighbors. A bottleneck position is not a measurement of a person's worth or the value of a neighborhood.
+
+
+
+\begin{tcolorbox}[title={Extension \textperiodcentered{} Turn ``few steps away'' into an average},breakable]
+
+From A, the distances to the six \emph{other} nodes are 1, 1, 2, 3, 4, 4. Their sum is 15. The average distance is \(15/6=2.5\) edges. From D, the distances to A, B, C, E, F, G are 2, 1, 1, 1, 2, 2, whose sum is 9 and average is \(9/6=1.5\). So D is closer on average to the rest of this network.
+
+
+One common \emph{closeness centrality} score reverses that average: \((n-1)/(\text{sum of distances})\). Thus A scores \(6/15=0.400\), while D scores \(6/9\approx0.667\). Larger scores mean shorter average distances. The explorer displays a dash if a node cannot reach the whole network; this particular formula assumes all those distances exist.
+
+
+\end{tcolorbox}
+
+
+Another optional score, \emph{degree centrality}, divides degree by the largest possible degree, \(n-1\). For D this is \(3/6=0.5\): D is directly linked to half of the six other locations. It describes a fraction of possible neighbors, not a probability of success.
+
+
+
+\begin{tcolorbox}[title={Pause and try 6},breakable]
+If the objective is to reach the school directly from A, should you add A--D or D--F? If the objective is surviving loss of D--E, does the answer change?
+\end{tcolorbox}
+
+
+
+\Needspace{6\baselineskip}\section{An adjacency table answers ``Is there a direct link?''}
+
+
+\emph{Adjacent} means directly connected by an edge. An \emph{adjacency matrix} is simply a square table with one row and one column for each node. A 1 records a direct connection. A 0 records its absence.
+
+
+Choose the row for the starting node and the column for the other node. At row B, column D, you find 1 because BD is an edge. At row A, column D, you find 0, even though A can reach D using two links. The table records direct adjacency, not every possible path.
+
+
+
+\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYYYYYYY@{}}\toprule
+From / to & A & B & C & D & E & F & G\\
+\midrule
+A & 0 & 1 & 1 & 0 & 0 & 0 & 0\\
+B & 1 & 0 & 1 & 1 & 0 & 0 & 0\\
+C & 1 & 1 & 0 & 1 & 0 & 0 & 0\\
+D & 0 & 1 & 1 & 0 & 1 & 0 & 0\\
+E & 0 & 0 & 0 & 1 & 0 & 1 & 1\\
+F & 0 & 0 & 0 & 0 & 1 & 0 & 1\\
+G & 0 & 0 & 0 & 0 & 1 & 1 & 0\\
+\bottomrule\end{tabularx}}\par\medskip
+
+
+Look at three features. The diagonal from top left to bottom right is all zeros because no node links to itself. The entries mirror one another across that diagonal because the links work both ways. The sum of a row is its node's degree: D's row has three 1s.
+
+
+
+\begin{tcolorbox}[title={Why learn a second representation?},breakable,colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35]
+
+A drawing helps us see clusters and routes. A table lets us check entries systematically and store a network in a computer. They describe the same connections. You can read the matrix as an ordinary table; matrix algebra is not required.
+
+
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[title={Pause and try 7},breakable]
+Does the 0 at row A, column G mean an alert can never get from A to G?
+\end{tcolorbox}
+
+
+\clearpage
+
+\Needspace{6\baselineskip}\section{A network shows the routes. A rule determines the spread.}
+
+
+\emph{Diffusion} means something spreading through connections. To calculate it, we need more than a picture. We need an initial state and a rule for updating that state, just as we needed a starting balance and an interest rule in Week 6.
+
+
+
+\begin{tcolorbox}[title={The alert rule, stated precisely},breakable]
+
 \begin{enumerate}
-\item what the graph allows us to conclude, and
-\item what additional information would be needed before making a real decision.
+\item At round 0, only A has the alert. Round 0 is the starting state, before any sending.
+\item During each round, every location that was informed \emph{at the start of that round} sends to all its direct neighbors.
+\item New recipients may begin sending in the following round. All updates use the same previous snapshot.
+\item Once informed, a location stays informed. Every available transmission succeeds.
+
 \end{enumerate}
 
-\section*{Practice}
-Use the network with edges
-\[
-AB,\ AC,\ BC,\ BD,\ CD,\ DE,\ EF.
-\]
+One round is one model time step. We have not said it equals a minute. That would require information about real transmission times.
+
+
+\end{tcolorbox}
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=4.1in,keepaspectratio]{../assets/week9/diffusion-rounds.pdf}
+\captionof*{figure}{Read ``new'' as first arrivals in that round. B and C receive the alert together in round 1. They wait until round 2 to relay it onward. Nothing travels across two links within one round.}
+\end{minipage}\par\medskip
+
+\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYYY@{}}\toprule
+Round & Newly informed & All informed & Total\\
+\midrule
+0 & A (the initial source) & A & 1\\
+1 & B, C & A, B, C & 3\\
+2 & D & A, B, C, D & 4\\
+3 & E & A, B, C, D, E & 5\\
+4 & F, G & A, B, C, D, E, F, G & 7\\
+\bottomrule\end{tabularx}}\par\medskip
+
+
+Round 1 has 2 newly informed nodes and 3 informed nodes in total. Those are different counts. If B and C both send to D, D is still only one new recipient. We count locations, not message copies.
+
+
+
+Under this exact rule, a node first receives the alert at the round equal to its shortest-path distance from A. A four-link path needs at least four rounds, and sending along a shortest path achieves that time. With D--E removed, no number of rounds can deliver A's alert to F or G because no path remains.
+
+
+
+Real alerts can be delayed, ignored, misunderstood, or blocked by an outage. The model's timing is conditional on the rule. A deterministic spread calculation does not establish a real-world arrival guarantee.
+
+
+
+\begin{tcolorbox}[title={Pause and try 8},breakable]
+At round 2, how many nodes are newly informed and how many are informed in total? If B and C both contact D, why do we not count two new nodes?
+\end{tcolorbox}
+
+
+\clearpage
+
+\Needspace{6\baselineskip}\section{Sometimes one informed neighbor is not enough}
+
+
+An emergency relay might pass on an alert immediately. A person deciding whether to adopt a new practice may wait for support from several neighbors. A \emph{threshold model} gives a simple way to describe that different situation. ``Active'' now means a location or person has adopted the behavior; it does not merely mean a message arrived.
+
+
+
+Use this rule: an inactive node becomes active in the next round if \emph{at least half} its neighbors are active now. Active nodes stay active. Starting active nodes are called \emph{seeds}. We again update all nodes from the same previous snapshot.
+
+
+
+\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYYYYYY@{}}\toprule
+Number of neighbors & 1 & 2 & 3 & 4 & 5 & 6\\
+\midrule
+Minimum active neighbors needed & 1 & 1 & 2 & 2 & 3 & 3\\
+\bottomrule\end{tabularx}}\par\medskip
+
+
+For 3 neighbors, half is 1.5. Since we cannot have 1.5 active neighbors, at least 2 must be active. The fraction \(2/3\) passes one-half, while \(1/3\) does not. For an isolated node, this model leaves it inactive unless it is a seed; there is no neighbor influence to observe.
+
+
+
+\begin{tcolorbox}[title={Example \textperiodcentered{} Why the cascade stops},breakable]
+
+Start with B and C active. In the next round, A activates because both its neighbors are active; D activates because 2 of its 3 neighbors are active. The active set is now A, B, C, D.
+
+
+E has neighbors D, F, G. Only D is active, giving \(1/3<1/2\), so E waits. F and G have no active neighbors. No one new activates in the following round. The process stops with four active nodes, although the network is connected.
+
+
+\end{tcolorbox}
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=4.1in,keepaspectratio]{../assets/week9/threshold-cascade.pdf}
+\captionof*{figure}{Top: the half-neighbor threshold blocks spread at E. Bottom: F is also a seed, so G activates in round 1. At the start of round 2, E sees active D, F, and G, so E activates. Gold rings mark seeds or new activations.}
+\end{minipage}\par\medskip
+
+
+\begin{tcolorbox}[title={Example \textperiodcentered{} One extra seed changes the outcome},breakable]
+
+Start instead with B, C, and F active. In round 1, A and D activate as before. G also activates: its neighbors are E and F, so the one active neighbor F reaches the half-neighbor threshold. E still waits in round 1 because only F was active among its neighbors at round 0.
+
+
+At the start of round 2, E has three active neighbors: D, F, G. E activates, so all seven nodes are now active. The network and the rule stayed the same; adding F to the starting set changed the collective outcome.
+
+
+\end{tcolorbox}
+
+
+A \emph{cascade} is a sequence in which one activation helps trigger later activations. This is one meaning of a \emph{collective effect}: the result belongs to interactions across the group. A cascade can stop, spread partly, or reach everyone. It is not automatically good or bad; the meaning depends on what is spreading.
+
+
+
+The half-neighbor rule is an invented model, not a measured law of human behavior. People may use different thresholds, and adoption can reverse. Its value here is that we can state it precisely and see what follows.
+
+
+
+\begin{tcolorbox}[title={Pause and try 9},breakable]
+A node has five neighbors and a 60\% threshold. How many active neighbors does it need? Does that tell you whether the entire network will activate?
+\end{tcolorbox}
+
+
+\clearpage
+
+\Needspace{6\baselineskip}\section{Arrows and weights add information}
+
+
+A \emph{directed} edge is drawn with an arrow. If \(A\to B\) means ``A can send to B,'' it does not also mean that B can send to A. For \(A\to B\to C\), A can reach C but C cannot return to A using those arrows. A path must obey every direction.
+
+
+\emph{Out-degree} counts outgoing arrows; \emph{in-degree} counts incoming arrows. In that chain, B has one incoming and one outgoing arrow. These describe different roles. We must define what an arrow means before interpreting its direction.
+
+
+
+A \emph{weight} is a number attached to an edge. It might represent minutes, dollars, capacity, or a multiplier. Its meaning determines how we use it.
+
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=3.2in,keepaspectratio]{../assets/week9/weighted-routes.pdf}
+\captionof*{figure}{For this travel-time model, add the minutes along a route. A--B--D uses fewer links, but A--C--E--D takes less time. The line lengths on the drawing do not measure the travel times.}
+\end{minipage}\par\medskip
+
+
+In the AI application, a weight means a multiplier applied to a numerical signal. A negative weight can subtract from the next node's sum. That is different from a negative travel time, which would not fit the road example. A weight has meaning only in its mathematical setting.
+
+
+
+\clearpage
+
+\Needspace{6\baselineskip}\section{Structure, updates, and choices belong together}
+
+
+The network is the \emph{structure}: who can interact with whom. The current informed or active set is the \emph{state}. The spread or threshold rule creates \emph{dynamics}: how that state changes over successive rounds. These words describe things you have already calculated.
+
+
+Week 5's feedback systems combined observations with responses. A network adds the routes through which those observations and responses can travel. More sharing can produce more recipients, who then share further: an amplifying feedback process. A failed communication link can prevent a corrective message from arriving at all.
+
+
+
+\begin{tcolorbox}[title={Example \textperiodcentered{} A constrained design decision},breakable]
+
+Weeks 7--8 asked us to choose an objective and describe allowed choices. Here the constraint is ``add one new link.'' If the objective is direct contact from A to D, A--D succeeds. If the objective is continued access across regions after D--E fails, D--F succeeds. Each adds one link and gives density 10/21, but the consequences differ.
+
+
+We could test all allowed links for a chosen criterion. That would optimize the stated model; it would not decide what a community ought to value. Costs, staffing, accessibility, trust, privacy, and unequal outage risks may change the real decision.
+
+
+\end{tcolorbox}
+
+
+\Needspace{5\baselineskip}\subsection*{A practical routine for a new network}
 
 \begin{enumerate}
-\item Find the degree of every node and verify the handshake rule.
-\item Compute the density of the network.
-\item Find $d(A,D)$, $d(A,E)$, and $d(B,F)$.
-\item Give two different shortest paths from A to D.
-\item Which edge is a bridge? Explain what becomes disconnected when it is removed.
-\item Which node is an articulation point separating F from A, B, and C?
-\item If A begins a deterministic one-edge-per-round spread, list the newly reached nodes after rounds 1, 2, 3, and 4.
-\item Add one edge that would make access to F more resilient. Explain why.
-\item Compare B and E. Which has greater degree? Which is more important for reaching F from the left side of the graph?
-\item Give a real example in which edges should be directed rather than undirected.
-\item Give a real example in which edge weights would matter.
-\item A node has five neighbors and uses a 60\% adoption threshold. How many active neighbors are required before it adopts?
+\item State what each node and edge represents, including direction and weights.
+\item Write an edge list or a neighbor table so the drawing can be checked.
+\item Choose a question: direct contacts, travel, vulnerability, or spread.
+\item Calculate with the appropriate rule and show a route, count, or sequence of states.
+\item Test a proposed change against the original objective.
+\item Explain one feature the model leaves out and what further information would help.
+
 \end{enumerate}
 
-\section*{Key ideas}
-\begin{itemize}
-\item A graph $G=(V,E)$ records entities and relationships.
-\item Degree measures direct connectivity; density measures how much of the possible network is present.
-\item Paths create a geometry of distance and reachability.
-\item Connected components describe which parts of a network can reach one another.
-\item Bridges and articulation points reveal structural vulnerability.
-\item Degree, closeness, and betweenness describe different kinds of centrality.
-\item Diffusion requires both network structure and a rule for how states move or change.
-\item Threshold rules can create cascades and other collective effects.
-\item Networks describe possible influence; feedback turns that influence into dynamics.
-\item Every network model should state what its nodes and edges mean and what the model leaves out.
-\end{itemize}
 
+For Week 10, keep this habit: a precise local rule can generate a result that is hard to guess from a quick glance. Networks gave us cascades across locations. Next week, repeated number and shape rules will give us other surprising patterns.
+
+
+
+\clearpage
+\section{AI connection: signals along weighted arrows}
+Imagine a small program combining two indoor sensor scores. The heat score is $x_1=2$ and the motion score is $x_2=4$. The subscripts identify two different inputs. These invented scores are rescaled to numbers from 0 to 6; they are not temperatures or probabilities.
+
+The diagram is a tiny \emph{linear signal network}. Every arrow has a multiplier called a weight. Each receiving node adds its incoming weighted signals. The intermediate nodes $H_1,H_2$ form a hidden layer: a set of calculations between the inputs and output. ``Hidden'' means intermediate, not secret.
+\begin{center}\includegraphics[width=\linewidth,height=3.2in,keepaspectratio]{../assets/week9/neural-signals.pdf}\end{center}
+\begin{tcolorbox}[title={Worked calculation: multiply, then add}]
+At the first hidden node,
+\[
+H_1=0.50x_1+0.25x_2=0.50(2)+0.25(4)=1+1=2.
+\]
+At the other hidden node, one contribution is negative:
+\[
+H_2=-0.50x_1+0.75x_2=-0.50(2)+0.75(4)=-1+3=2.
+\]
+Now send those values through the two arrows to the output:
+\[
+O=1.50H_1-0.50H_2=1.50(2)-0.50(2)=3-1=2.
+\]
+The sign of a weight changes a contribution; the arrow determines the direction. A weight is a multiplier, not a transmission probability.
+\end{tcolorbox}
+
+\clearpage
+\subsection*{A connected input can have no net effect}
+Hold $x_1$ fixed and increase $x_2$ by 1. The path through $H_1$ adds $0.25(1.50)=0.375$ to the output. The path through $H_2$ adds $0.75(-0.50)=-0.375$. The effects cancel exactly. Changing the motion score changes both hidden values but leaves the output unchanged.
+
+In fact, substituting the hidden formulas into the output gives
+\[
+O=1.50(0.50x_1+0.25x_2)-0.50(-0.50x_1+0.75x_2)=x_1.
+\]
+This algebra is an extension; the two path contributions already explain the cancellation. Connections show where influence \emph{can} travel. The weights determine how those influences combine.
+
+\begin{tcolorbox}[title={Remove one edge and test again}]
+With the original inputs 2 and 4, remove the arrow $x_2\to H_1$. The new hidden values are $H_1=0.50(2)=1$ and $H_2=2$. Thus $O=1.50(1)-0.50(2)=0.5$. The other motion-score path remains, so the earlier cancellation is broken.
+\end{tcolorbox}
+
+\subsection*{An activation rule adds another transformation}
+The original model only multiplies by constants and adds. Combining such linear calculations still gives a linear relationship. Neural networks commonly add \emph{activation functions}, rules that transform a node's sum before sending it onward.
+
+For example, ReLU keeps a nonnegative sum and replaces a negative sum by zero. With $x_1=4,x_2=0$, the raw hidden sums are 2 and $-2$. Without the extra rule, the output is $1.50(2)-0.50(-2)=4$. With ReLU at the hidden nodes only, the sent values are 2 and 0, so the output is 3. This introduces a nonlinear relationship. Real models also commonly add adjustable constants called biases; our model sets them to zero.
+
+\subsection*{A forward pass is different from training}
+A \emph{forward pass} uses current inputs and weights to calculate an output. Training uses examples with targets, compares outputs with those targets, and changes parameters in response to errors. That makes training a feedback process.
+
+For the original prediction 2 and an invented target 3, define signed error as target minus prediction: $3-2=1$. If we change only the $H_1$-to-output weight from 1.50 to 2.00, the new output is $2.00(2)-0.50(2)=3$. This hand-chosen change matches one target; it does not establish accuracy on other examples. Backpropagation and an optimization method organize parameter updates in larger models.
+
+The weights, scores, and targets here are invented and have not been fitted to sensor data. The output is a toy score. The online AI application lets you change inputs, remove an edge, and compare the two node rules.
+
+\clearpage
+\section*{Chapter Review}
+Use the seven-node base network with edges AB, AC, BC, BD, CD, DE, EF, EG, FG unless a question changes it. Links are two-way and unweighted. Show a count, route, or update sequence to support each answer. No centrality formula is required.
+\begin{enumerate}
+\item Find all seven degrees. Check the sum against the number of edges, then calculate the mean degree.
+\item How many simple undirected links are possible among seven nodes? Find the base network's density as a fraction, decimal, and percentage. Explain what that percentage describes.
+\item Find two different shortest paths from A to G. State their lengths. Find the distances from B to F and from D to every other node.
+\item What are the connected components after DE is removed? Is the distance from A to F then zero, very large, or unreachable? Explain.
+\item Which base-network edges are bridges? Which nodes are articulation points? Explain the difference between the two tests.
+\item Add DF. Give an A-to-G route that survives loss of DE. Does this addition also protect against loss of D itself?
+\item Compare adding AD with adding DF. With all links working, at which round is everyone informed from A under automatic sending? Which proposal meets the goal of surviving failure of DE?
+\item In the adjacency table, find row A/column D, row D/column E, and row E/column E. What is the sum of row D? Explain why a zero at A/G does not mean G is unreachable from A.
+\item A alone is informed at round 0. List the newly informed and total informed nodes after rounds 1--4 under the automatic rule. Explain why two senders contacting D do not count as two new locations.
+\item Use the half-neighbor adoption rule. With seeds B,C, list the active sets at rounds 0,1,2. Repeat with seeds B,C,F. Which first-round activation makes the second case different on the right side?
+\item A node has five neighbors and a 60\% threshold. How many active neighbors are required? Does that local count determine the outcome of the whole network?
+\item For arrows $P\to Q$, $Q\to R$, can R reach P? State Q's in-degree and out-degree. Then compare a two-link trip of 12+12 minutes with a three-link trip of 4+4+4 minutes.
+\item For the AI network with inputs 2 and 4, find $H_1,H_2,O$. Remove $x_2\to H_1$ and recalculate. Why does changing $x_2$ have no net effect in the original sum-only model?
+\item With target 3 and prediction 2, use signed error = target minus prediction. Change only the $H_1$-to-output weight to 2.00 and recalculate. What does matching this one target establish, and what does it leave unknown?
+\item Choose a real network. Define nodes, edges, a useful question, and one limitation of a simple undirected, unweighted representation.
+\end{enumerate}
+\medskip
+\begin{tcolorbox}[title={A reliable explanation has four parts}]
+State the model and question. Show a route or calculation. Interpret the result in the setting. Name an assumption that limits the conclusion.
+\end{tcolorbox}
+
+\clearpage
+{\setlength{\parskip}{3pt}\setlist{itemsep=3pt,topsep=3pt}\titlespacing*{\paragraph}{0pt}{5pt}{.75em}
+\section*{Solutions and Further Reading}
+
+\paragraph{Short check 1.}
+No. Use a directed arrow from the community center to the shelter, or explain a different model. A two-way line would incorrectly permit travel in both directions.
+
+
+\paragraph{Short check 2.}
+The sum must be 24. A total of 23 signals a counting or recording error under these assumptions. Every edge contributes exactly 2.
+
+
+\paragraph{Short check 3.}
+There are 5(4)/2 = 10 possible pairs. Density is 4/10 = 0.4, or 40\%. Count possible pairs before taking the fraction.
+
+
+\paragraph{Short check 4.}
+There are two components: \{P,Q,R\} and \{S,T\}. The path P--Q--R has length 2. There is no path from P to S.
+
+
+\paragraph{Short check 5.}
+Both PQ and QR are bridges: removing either isolates one end. Q is the articulation point: removing it leaves P and R separate. A bridge does not have to be the ``middle'' edge of a longer path.
+
+
+\paragraph{Short check 6.}
+Add A--D for direct A-to-school contact. Add D--F for an alternate cross-region route. ``Best'' depends on the objective, just as in Weeks 7--8.
+
+
+\paragraph{Short check 7.}
+No. It says there is no direct A--G link. The four-edge route A--B--D--E--G still exists. Adjacency and reachability answer different questions.
+
+
+\paragraph{Short check 8.}
+D is the one new node; four nodes are informed in total. Two messages to the same location do not create two distinct informed locations.
+
+
+\paragraph{Short check 9.}
+It needs 3 because 60\% of 5 is 3. That is only a local requirement. The network structure, the other thresholds, and the starting seeds determine whether a larger cascade occurs.
+
+
+
+\subsection*{Chapter Review: solutions and reasoning}
+\begin{enumerate}
+\item In order A--G, degrees are $2,3,3,3,3,2,2$. Their sum is 18, which equals $2(9)$. The mean is $18/7\approx2.57$ neighbors.
+\item There are $7(6)/2=21$ pairs. Density is $9/21=3/7\approx0.429$, about $42.9\%$. It is the fraction of possible \emph{pairs} with direct links, not a transmission probability.
+\item A--B--D--E--G and A--C--D--E--G each use 4 edges. B-to-F distance is 3 via B--D--E--F. From D to A,B,C,E,F,G the distances are $2,1,1,1,2,2$; their sum is 9 and mean is 1.5.
+\item The components are $\{A,B,C,D\}$ and $\{E,F,G\}$. F is unreachable from A. Waiting cannot create a missing path. Zero is the distance from A to itself.
+\item DE is the only bridge. D and E are articulation points. An edge test removes one connection; a node test removes the location and every connection touching it.
+\item A--B--D--F--G survives loss of DE. But removing D itself leaves $\{A,B,C\}$ separate from $\{E,F,G\}$ even with DF added. Both cross-region links depended on D.
+\item AD gives complete delivery by round 3 with all links working; DF gives complete delivery by round 4. DF, unlike AD, supplies a cross-region route after DE fails. Both give 10 edges and density $10/21$ before failures.
+\item The entries are 0,1,0; row D sums to 3. A zero at A/G only rules out a direct link; paths using intermediate locations still exist.
+\item New nodes by rounds 1--4: $\{B,C\},\{D\},\{E\},\{F,G\}$. Cumulative totals: 3,4,5,7, including the initial A. Multiple message copies arriving at D inform the same one location.
+\item Seeds BC give $BC\to ABCD\to ABCD$; the process stalls because E sees only one of its three neighbors active. Seeds BCF give $BCF\to ABCDFG\to ABCDEFG$. G activates in round 1 because F is one of its two neighbors. E uses the new D and G states beginning in round 2.
+\item Three active neighbors, since $0.60(5)=3$. The outcome also depends on other thresholds, the network, and seeds.
+\item No, R has no outgoing route to P. Q has one incoming and one outgoing arrow. The two-link trip takes 24 minutes; the three-link trip takes 12. Fewest links and least time need not agree.
+\item $H_1=2,H_2=2,O=2$. After removal, $H_1=1,H_2=2,O=0.5$. The original two paths from $x_2$ contribute $+0.375$ and $-0.375$ per input unit, so their net effect is zero.
+\item Error is 1. The new output is $2.00(2)-0.50(2)=3$, giving error 0 for this example. It matches one target; performance on other examples remains untested.
+\item Answers vary. For a transit network, nodes might be stops and edges direct routes between stops. A useful question is whether a closure separates a neighborhood. An unweighted graph omits waiting and travel times; an undirected graph omits one-way service.
+\end{enumerate}
+\subsection*{Optional background}
+\begin{itemize}
+\item NIST, \href{https://xlinux.nist.gov/dads/HTML/graph.html}{\emph{Graph}} and \href{https://xlinux.nist.gov/dads/HTML/bridge.html}{\emph{Bridge}}, Dictionary of Algorithms and Data Structures.
+\item Google Machine Learning Crash Course, \href{https://developers.google.com/machine-learning/crash-course/neural-networks/nodes-hidden-layers}{\emph{Nodes and hidden layers}} and \href{https://developers.google.com/machine-learning/crash-course/neural-networks/activation-functions}{\emph{Activation functions}}.
+\end{itemize}
+All networks, sensor weights, and scenarios in the exercises are constructed teaching examples. The mathematical calculations follow their stated assumptions.
+}
 \end{document}
-% Build the companion course PDF from this source.
