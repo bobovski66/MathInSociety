@@ -1,13 +1,239 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Compare nearby trajectories, trace every Collatz update, and watch length and area respond to repeated geometric rules."><title>Week 10 Explorer — A workshop for simple rules | Math in Society</title><link rel="stylesheet" href="../assets/week10/week10.css">
-<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week10/week10.js"></script></head>
-<body><a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html">Reading</a><a href="../demos/fractal_recursion.html" aria-current="page">Explorer</a><a href="../labs/week10_lab.html">Laboratory</a><a href="../applications/week10_application.html">Fish forecast</a><a href="../applications/week10_ai.html">AI application</a><a href="../discussions/week10_discussion.html">Discussion</a></nav><main class="wrap" id="main"><header class="hero"><div class="eyebrow">Week 10 / Explorer</div><h1>A workshop for simple rules</h1><p class="lead">Compare nearby trajectories, trace every Collatz update, and watch length and area respond to repeated geometric rules.</p><div class="meta"><span class="tag">Four investigations</span><span class="tag">Graphs + numerical tables</span></div></header>
-<section class="card"><h2>Predict first. Change one thing. Compare.</h2><p>Choose an investigation below. Each one includes labeled graphics and a numerical table. A plotted pattern is evidence about the calculation shown; use the reading to distinguish a numerical experiment from a general mathematical claim.</p><p class="small">In every sequence, the starting value is at update 0. Decimals in tables are rounded for display; calculations retain full stored precision.</p></section>
-<div class="tablist" role="tablist" aria-label="Choose an investigation"><button id="tab-log" role="tab" type="button" aria-selected="true" aria-controls="panel-log" tabindex="0">Logistic trajectories</button><button id="tab-col" role="tab" type="button" aria-selected="false" aria-controls="panel-col" tabindex="-1">Collatz routes</button><button id="tab-frac" role="tab" type="button" aria-selected="false" aria-controls="panel-frac" tabindex="-1">Fractal workshop</button><button id="tab-scale" role="tab" type="button" aria-selected="false" aria-controls="panel-scale" tabindex="-1">Rulers &amp; scale</button></div>
-<section class="card" id="panel-log" role="tabpanel" aria-labelledby="tab-log"><div class="kicker">Investigation 1</div><h2>One formula, two starting measurements</h2><div class="formula">\(x_{n+1}=r x_n(1-x_n)\)</div><p>The solid line starts at A. The dashed line starts at B = A + the initial gap. The rule and parameter are identical for both. Before choosing a preset, predict whether the trajectories will settle together, settle into a cycle, or separate substantially.</p><div class="actions"><button class="secondary" type="button" data-log-preset="2.8,0.4,0.0001" data-note="At r = 2.8, these starts approach the same fixed point, about 0.642857.">Fixed point · r = 2.8</button><button class="secondary" type="button" data-log-preset="3.2,0.4,0.0001" data-note="At r = 3.2, these starts approach a repeating two-cycle.">Two-cycle · r = 3.2</button><button class="secondary" type="button" data-log-preset="3.9,0.4,0.0001" data-note="At r = 3.9, compare how the gap changes. It need not grow at every update.">Sensitive pair · r = 3.9</button><button class="secondary" type="button" data-log-preset="3.83,0.4,0.0001" data-note="At r = 3.83, these starts approach a three-cycle. Periodic windows interrupt chaotic parameter ranges.">Three-cycle · r = 3.83</button><button class="secondary" type="button" data-log-preset="4,0.5,0.001" data-note="The exact start 0.5 gives 0.5 → 1 → 0 → 0. Not every starting value in a chaotic map has an irregular orbit.">Exceptional start · r = 4</button></div><p id="logPresetNote" class="small" role="status">Try the fixed-point and sensitive-pair presets first.</p><div class="controls"><div><label for="logR">Parameter r (0 to 4)</label><input id="logR" type="number" min="0" max="4" step="any" value="3.9"></div><div><label for="logStart">Starting state A</label><input id="logStart" type="number" min="0" max="1" step="any" value="0.4"></div><div><label for="logDelta">Initial gap (B − A)</label><input id="logDelta" type="number" min="0" max="1" step="any" value="0.0001"></div><div><label for="logN">Updates (1 to 100)</label><input id="logN" type="number" min="1" max="100" step="1" value="40"></div></div><p id="logError" class="chart-error" role="status"></p><div class="stats"><div class="stat"><span>Starting states A / B</span><output id="logStartRead"></output></div><div class="stat"><span>First absolute gap above 0.05</span><output id="logCross"></output></div><div class="stat"><span>Gap at final displayed update</span><output id="logEndGap"></output></div></div><div class="legend"><span class="a">Starting state A</span><span class="b">Starting state B</span></div><div class="chart" id="logPlot"></div><details><summary>Show the trajectory table</summary><div class="trace table-wrap" id="logTable"></div></details><div class="insight"><h3>Notice</h3><p>A large final gap does not say the gap grew at every step. Nor does a short irregular plot, by itself, prove chaos. Compare several parameters and inspect the actual values.</p></div></section>
-<section class="card" id="panel-col" role="tabpanel" aria-labelledby="tab-col" hidden><div class="kicker">Investigation 2</div><h2>Follow the Collatz number machine</h2><p>For an even integer, divide by 2. For an odd integer, multiply by 3 and add 1. We stop recording when the trajectory first reaches 1, and count the arrows from the starting number.</p><div class="actions"><button type="button" class="secondary" data-col-preset="6">Compare 6 &amp; 7</button><button type="button" class="secondary" data-col-preset="26">Compare 26 &amp; 27</button><button type="button" class="secondary" data-col-preset="31">Compare 31 &amp; 32</button></div><div class="controls"><div><label for="colStart">Starting integer (1 to 1,000,000)</label><input id="colStart" type="number" min="1" max="1000000" step="1" value="26"></div><div><label for="colCompare"><input id="colCompare" type="checkbox" checked> Also compare the next integer</label></div></div><p id="colError" class="chart-error" role="status"></p><div class="stats"><div class="stat"><span>Updates to first 1, first start</span><output id="colSteps"></output></div><div class="stat"><span>Peak, first start</span><output id="colPeak"></output></div><div class="stat"><span>Next starting integer</span><output id="colOther"></output></div></div><div class="legend"><span class="a" id="colLegendA"></span><span class="b" id="colLegendB"></span></div><div class="chart" id="colPlot"></div><p class="small">The vertical axis is logarithmic: 1, 10, 100, 1,000… have equal spacing. Curves end at their first 1; they are not extended artificially.</p><h3>Inspect one update at a time</h3><div class="controls"><div class="wide"><label for="colStep">Move through the first trajectory</label><input id="colStep" type="range" min="0" max="10" value="0" step="1"></div><button type="button" id="colNext">Next update</button></div><p class="readout" id="colStepRead" aria-live="polite"></p><details><summary>Show all recorded values</summary><div class="trace table-wrap" id="colTable"></div></details><div class="insight"><h3>Notice</h3><p>Try 31 and 32. Does a larger start require more updates? These experiments test particular integers. They do not settle the conjecture for all positive integers.</p></div></section>
-<section class="card" id="panel-frac" role="tabpanel" aria-labelledby="tab-frac" hidden><div class="kicker">Investigation 3</div><h2>Build the next stage; account for every piece</h2><p>Slide from stage 0 to stage 6. The Koch starting segment has length 1; the Sierpinski starting triangle has area 1. Predict each next count before moving the slider.</p><div class="controls"><div class="wide"><label for="fracStage">Construction stage: <output id="fracRead">0</output></label><input id="fracStage" type="range" min="0" max="6" value="0" step="1"></div></div><div class="grid"><div><h3>Koch curve</h3><div class="fractal-visual" id="kochPlot"></div><div class="stats"><div class="stat"><span>Segment count · 4ⁿ</span><output id="kochCount"></output></div><div class="stat"><span>Total length · (4/3)ⁿ</span><output id="kochLength"></output></div></div><p class="small">Each old segment becomes four segments of one-third its length.</p></div><div><h3>Sierpinski triangle</h3><div class="fractal-visual" id="sierpinskiPlot"></div><div class="stats"><div class="stat"><span>Filled triangles · 3ⁿ</span><output id="sierCount"></output></div><div class="stat"><span>Area fraction · (3/4)ⁿ</span><output id="sierArea"></output></div></div><p class="small">Each old filled triangle becomes three triangles, each with one-quarter its area.</p></div></div><details><summary>Show all seven stage calculations</summary><div class="table-wrap" id="fracTable"></div></details><div class="insight"><h3>Notice</h3><p>The Koch route gets longer while its endpoints stay fixed. The Sierpinski piece count rises while total area falls. Which quantity are you observing?</p></div></section>
-<section class="card" id="panel-scale" role="tabpanel" aria-labelledby="tab-scale" hidden><div class="kicker">Investigation 4</div><h2>One coastline, four reported lengths</h2><p>These invented survey counts illustrate how smaller rulers can follow more boundary detail. The bars all use the same length scale.</p><div class="controls"><div><label for="scaleChoice">Choose a ruler</label><select id="scaleChoice"><option value="0">100 meters</option><option value="1">50 meters</option><option value="2">25 meters</option><option value="3">12.5 meters</option></select></div></div><p class="readout" id="scaleRead" aria-live="polite"></p><div class="chart" id="scalePlot"></div>
-<div class="table-wrap"><table><thead><tr><th scope="col">Ruler</th><th scope="col">Placements</th><th scope="col">Length in meters</th><th scope="col">Length in kilometers</th></tr></thead><tbody><tr><td>100 m</td><td>80</td><td>8,000</td><td>8.00</td></tr><tr><td>50 m</td><td>200</td><td>10,000</td><td>10.00</td></tr><tr><td>25 m</td><td>520</td><td>13,000</td><td>13.00</td></tr><tr><td>12.5 m</td><td>1,340</td><td>16,750</td><td>16.75</td></tr></tbody></table></div>
-<div class="insight"><h3>Notice</h3><p>The reported length changes because the measurement resolves different detail. The coastline is not growing while it is measured. Natural coastlines only resemble ideal fractals over limited scales.</p></div></section>
-<div class="next"><a href="../index.html">← Course home</a><a class="button" href="../labs/week10_lab.html">Begin the laboratory →</a></div><footer class="footer"><span>MATH&amp; 107 · Complexity and the Limits of Prediction</span><span>Simple rules · Patterns · Observation</span></footer></main></body></html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Compare nearby trajectories, trace every Collatz update, and watch length and area respond to repeated geometric rules.">
+<title>Week 10 Explorer — A workshop for simple rules | Math in Society</title>
+<link rel="stylesheet" href="../assets/week10/week10.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week10/week10.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html">Reading</a><a href="../demos/fractal_recursion.html" aria-current="page">Explorer</a><a href="../labs/week10_lab.html">Laboratory</a><a href="../applications/week10_application.html">Fish forecast</a><a href="../applications/week10_ai.html">AI application</a><a href="../discussions/week10_discussion.html">Discussion</a></nav><main class="wrap" id="main"><header class="hero"><div class="eyebrow">Week 10 / Explorer</div>
+<h1>A workshop for simple rules</h1>
+<p class="lead">Compare nearby trajectories, trace every Collatz update, and watch length and area respond to repeated geometric rules.</p>
+<div class="meta">
+<span class="tag">Four investigations</span><span class="tag">Graphs + numerical tables</span>
+</div></header>
+<section class="card"><h2>Predict first. Change one thing. Compare.</h2>
+<p>Choose an investigation below. Each one includes labeled graphics and a numerical table. A plotted pattern is evidence about the calculation shown; use the reading to distinguish a numerical experiment from a general mathematical claim.</p>
+<p class="small">In every sequence, the starting value is at update 0. Decimals in tables are rounded for display; calculations retain full stored precision.</p>
+<h3>A first route through the workshop</h3>
+<ol class="steps">
+<li>Begin with <em>Logistic trajectories</em>. Use the fixed-point preset to see two forecasts settle together.</li>
+<li>Try the two-cycle preset, then the sensitive-pair preset. Look for the difference between settling, repeating, and separating.</li>
+<li>Visit <em>Collatz routes</em> to study an arithmetic rule, then <em>Fractal workshop</em> to study a geometric replacement rule.</li>
+<li>Finish with <em>Rulers &amp; scale</em>, where the ruler changes while the boundary stays the same.</li>
+</ol>
+<p>“State” means the model’s current value; “update” means one use of its rule. The reading introduces each idea before the laboratory asks you to use it.</p>
+</section>
+<div class="tablist" role="tablist" aria-label="Choose an investigation">
+<button id="tab-log" role="tab" type="button" aria-selected="true" aria-controls="panel-log" tabindex="0">Logistic trajectories</button><button id="tab-col" role="tab" type="button" aria-selected="false" aria-controls="panel-col" tabindex="-1">Collatz routes</button><button id="tab-frac" role="tab" type="button" aria-selected="false" aria-controls="panel-frac" tabindex="-1">Fractal workshop</button><button id="tab-scale" role="tab" type="button" aria-selected="false" aria-controls="panel-scale" tabindex="-1">Rulers &amp; scale</button>
+</div>
+<section class="card" id="panel-log" role="tabpanel" aria-labelledby="tab-log"><div class="kicker">Investigation 1</div>
+<h2>One formula, two starting measurements</h2>
+<p>Imagine a population written as a fraction of a reference population. A state of 0.40 means 40% of that reference; a state of 0.80 means 80%. One update can represent one breeding season. This is a simplified setting for exploring the rule, not a fitted forecast for a real population.</p>
+<p>The letter \(r\) is the model’s response setting. \(x_n\) is the current population fraction, and \(1-x_n\) is a limiting factor. With \(r=2\) and \(x_n=0.2\), for example, the next fraction is \(2(0.2)(0.8)=0.32\).</p>
+<div class="formula">\(x_{n+1}=r x_n(1-x_n)\)</div>
+<p>The solid line starts at A. The dashed line starts at B = A + the initial gap. The rule and parameter are identical for both. Before choosing a preset, predict whether the trajectories will settle together, settle into a cycle, or separate substantially.</p>
+<div class="actions">
+<button class="secondary" type="button" data-log-preset="2.8,0.4,0.0001" data-note="At r = 2.8, these starts approach the same fixed point, about 0.642857.">Fixed point · r = 2.8</button><button class="secondary" type="button" data-log-preset="3.2,0.4,0.0001" data-note="At r = 3.2, these starts approach a repeating two-cycle.">Two-cycle · r = 3.2</button><button class="secondary" type="button" data-log-preset="3.9,0.4,0.0001" data-note="At r = 3.9, compare how the gap changes. It need not grow at every update.">Sensitive pair · r = 3.9</button><button class="secondary" type="button" data-log-preset="3.83,0.4,0.0001" data-note="At r = 3.83, these starts approach a three-cycle. Periodic windows interrupt chaotic parameter ranges.">Three-cycle · r = 3.83</button><button class="secondary" type="button" data-log-preset="4,0.5,0.001" data-note="The exact start 0.5 gives 0.5 → 1 → 0 → 0. Not every starting value in a chaotic map has an irregular orbit.">Special starting value · r = 4</button>
+</div>
+<p id="logPresetNote" class="small" role="status">Start here: at r = 2.8 these nearby forecasts settle toward the same value. Then try the two-cycle and sensitive-pair presets.</p>
+<div class="example">
+<h3>What each control changes</h3>
+<ul>
+<li>
+<em>Parameter r:</em> the setting used at every update of both forecasts.</li>
+<li>
+<em>Starting state A:</em> the first estimate of the starting fraction.</li>
+<li>
+<em>Initial gap:</em> the amount added to A to make starting state B. With A = 0.4000 and a gap of 0.0001, B = 0.4001.</li>
+<li>
+<em>Updates:</em> how many times to apply the rule. Row 0 in the table is the starting information.</li>
+</ul>
+<p>The first-gap readout uses a cutoff of 0.05: five percentage points of the reference population. It reports the first update when the two predicted fractions differ by more than that amount. “None in 40 updates” describes the displayed run.</p>
+</div>
+<div class="controls">
+<div>
+<label for="logR">Parameter r (0 to 4)</label><input id="logR" type="number" min="0" max="4" step="any" value="2.8">
+</div>
+<div>
+<label for="logStart">Starting state A</label><input id="logStart" type="number" min="0" max="1" step="any" value="0.4">
+</div>
+<div>
+<label for="logDelta">Initial gap (B − A)</label><input id="logDelta" type="number" min="0" max="1" step="any" value="0.0001">
+</div>
+<div>
+<label for="logN">Updates (1 to 100)</label><input id="logN" type="number" min="1" max="100" step="1" value="40">
+</div>
+</div>
+<p id="logError" class="chart-error" role="status"></p>
+<div class="stats">
+<div class="stat">
+<span>Starting states A / B</span><output id="logStartRead"></output>
+</div>
+<div class="stat">
+<span>First absolute gap above 0.05</span><output id="logCross"></output>
+</div>
+<div class="stat">
+<span>Gap at final displayed update</span><output id="logEndGap"></output>
+</div>
+</div>
+<p>Read left to right through the update numbers. The vertical axis is a fraction from 0 to 1. The solid and dashed lines represent the two starting estimates. When the lines overlap, their predictions are close; when separated, compare their heights at the same update. Open the table to read the actual gap.</p>
+<div class="example">
+<h3>Use the presets as three experiments</h3>
+<p><em>Fixed point:</em> inspect the last ten values; they approach one common value. <em>Two-cycle:</em> inspect the last ten values for an alternating high-low pattern. <em>Sensitive pair:</em> watch initially close forecasts later separate while both still follow the same rule.</p>
+<p>A fixed point is unchanged by an update; a cycle repeats. The word “chaotic” in the reading concerns deterministic dynamics that can strongly amplify uncertainty about the start. An irregular-looking line alone is not enough to establish that property.</p>
+</div>
+<div class="legend">
+<span class="a">Starting state A</span><span class="b">Starting state B</span>
+</div>
+<div class="chart" id="logPlot"></div>
+<details><summary>Show the trajectory table</summary><div class="trace table-wrap" id="logTable"></div></details><div class="insight">
+<h3>Notice</h3>
+<p>A large final gap does not say the gap grew at every step. Nor does a short irregular plot, by itself, prove chaos. Compare several parameters and inspect the actual values.</p>
+</div></section>
+<section class="card" id="panel-col" role="tabpanel" aria-labelledby="tab-col" hidden><div class="kicker">Investigation 2</div>
+<h2>Follow the Collatz number machine</h2>
+<p>For an even integer, divide by 2. For an odd integer, multiply by 3 and add 1. We stop recording when the trajectory first reaches 1, and count the arrows from the starting number.</p>
+<p>This tab studies whole numbers rather than population fractions. “Peak” is the largest integer on the recorded route. “Updates” counts its arrows: \(5\to16\to8\to4\to2\to1\) has five updates and peak 16.</p>
+<div class="actions">
+<button type="button" class="secondary" data-col-preset="6">Compare 6 &amp; 7</button><button type="button" class="secondary" data-col-preset="26">Compare 26 &amp; 27</button><button type="button" class="secondary" data-col-preset="31">Compare 31 &amp; 32</button>
+</div>
+<div class="controls">
+<div>
+<label for="colStart">Starting integer (1 to 1,000,000)</label><input id="colStart" type="number" min="1" max="1000000" step="1" value="26">
+</div>
+<div><label for="colCompare"><input id="colCompare" type="checkbox" checked> Also compare the next integer</label></div>
+</div>
+<p id="colError" class="chart-error" role="status"></p>
+<div class="stats">
+<div class="stat">
+<span>Updates to first 1, first start</span><output id="colSteps"></output>
+</div>
+<div class="stat">
+<span>Peak, first start</span><output id="colPeak"></output>
+</div>
+<div class="stat">
+<span>Next starting integer</span><output id="colOther"></output>
+</div>
+</div>
+<div class="legend">
+<span class="a" id="colLegendA"></span><span class="b" id="colLegendB"></span>
+</div>
+<p>The horizontal position tells how many updates have occurred. The vertical labels go 1, 10, 100, 1,000…: each equal upward interval multiplies the value by 10. This logarithmic scale makes both small and large values visible. Use the table to check a value rather than estimating it from the line’s height.</p>
+<div class="chart" id="colPlot"></div>
+<p class="small">The vertical axis is logarithmic: 1, 10, 100, 1,000… have equal spacing. Curves end at their first 1; they are not extended artificially.</p>
+<h3>Inspect one update at a time</h3>
+<div class="controls">
+<div class="wide">
+<label for="colStep">Move through the first trajectory</label><input id="colStep" type="range" min="0" max="10" value="0" step="1">
+</div>
+<button type="button" id="colNext">Next update</button>
+</div>
+<p class="readout" id="colStepRead" aria-live="polite"></p>
+<details><summary>Show all recorded values</summary><div class="trace table-wrap" id="colTable"></div></details><div class="insight">
+<h3>Notice</h3>
+<p>Try 31 and 32. Does a larger start require more updates? These experiments test particular integers. They do not settle the conjecture for all positive integers.</p>
+</div></section>
+<section class="card" id="panel-frac" role="tabpanel" aria-labelledby="tab-frac" hidden><div class="kicker">Investigation 3</div>
+<h2>Build the next stage; account for every piece</h2>
+<p>Slide from stage 0 to stage 6. The Koch starting segment has length 1; the Sierpinski starting triangle has area 1. Predict each next count before moving the slider.</p>
+<div class="example">
+<h3>What changes at a stage?</h3>
+<p>A stage is one complete replacement of every piece in the current drawing. For Koch, stage 1 has four pieces, each one-third of the original length: total length \(4/3\). Stage 2 has sixteen pieces of length \(1/9\): total length \(16/9\).</p>
+<p>For Sierpinski, stage 1 keeps three triangles of area \(1/4\), totaling \(3/4\). At the next stage, nine triangles of area \(1/16\) total \(9/16\). A rising piece count can accompany a falling total area because each new piece is smaller.</p>
+</div>
+<div class="controls"><div class="wide">
+<label for="fracStage">Construction stage: <output id="fracRead">0</output></label><input id="fracStage" type="range" min="0" max="6" value="0" step="1">
+</div></div>
+<div class="grid">
+<div>
+<h3>Koch curve</h3>
+<div class="fractal-visual" id="kochPlot"></div>
+<div class="stats">
+<div class="stat">
+<span>Segment count · 4ⁿ</span><output id="kochCount"></output>
+</div>
+<div class="stat">
+<span>Total length · (4/3)ⁿ</span><output id="kochLength"></output>
+</div>
+</div>
+<p class="small">Each old segment becomes four segments of one-third its length.</p>
+</div>
+<div>
+<h3>Sierpinski triangle</h3>
+<div class="fractal-visual" id="sierpinskiPlot"></div>
+<div class="stats">
+<div class="stat">
+<span>Filled triangles · 3ⁿ</span><output id="sierCount"></output>
+</div>
+<div class="stat">
+<span>Area fraction · (3/4)ⁿ</span><output id="sierArea"></output>
+</div>
+</div>
+<p class="small">Each old filled triangle becomes three triangles, each with one-quarter its area.</p>
+</div>
+</div>
+<details><summary>Show all seven stage calculations</summary><div class="table-wrap" id="fracTable"></div></details><div class="insight">
+<h3>Notice</h3>
+<p>The Koch route gets longer while its endpoints stay fixed. The Sierpinski piece count rises while total area falls. Which quantity are you observing?</p>
+</div></section>
+<section class="card" id="panel-scale" role="tabpanel" aria-labelledby="tab-scale" hidden><div class="kicker">Investigation 4</div>
+<h2>One coastline, four reported lengths</h2>
+<p>These invented survey counts illustrate how smaller rulers can follow more boundary detail. The bars all use the same length scale.</p>
+<p>Picture a ruler placed end to end along a winding shoreline on a map. The number of placements counts how many ruler lengths are needed. The estimate is ruler length × placements. A shorter ruler can follow more turns, so its placement count can increase enough to give a longer total.</p>
+<p>For example, 30 placements of a 20-meter ruler give 600 meters. The bars below use kilometers, with 1,000 meters in one kilometer. Changing the selection highlights a calculation; it does not change the example’s shoreline.</p>
+<div class="controls"><div>
+<label for="scaleChoice">Choose a ruler</label><select id="scaleChoice"><option value="0">100 meters</option>
+<option value="1">50 meters</option>
+<option value="2">25 meters</option>
+<option value="3">12.5 meters</option></select>
+</div></div>
+<p class="readout" id="scaleRead" aria-live="polite"></p>
+<div class="chart" id="scalePlot"></div>
+<div class="table-wrap"><table>
+<thead><tr>
+<th scope="col">Ruler</th>
+<th scope="col">Placements</th>
+<th scope="col">Length in meters</th>
+<th scope="col">Length in kilometers</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>100 m</td>
+<td>80</td>
+<td>8,000</td>
+<td>8.00</td>
+</tr>
+<tr>
+<td>50 m</td>
+<td>200</td>
+<td>10,000</td>
+<td>10.00</td>
+</tr>
+<tr>
+<td>25 m</td>
+<td>520</td>
+<td>13,000</td>
+<td>13.00</td>
+</tr>
+<tr>
+<td>12.5 m</td>
+<td>1,340</td>
+<td>16,750</td>
+<td>16.75</td>
+</tr>
+</tbody>
+</table></div>
+<div class="insight">
+<h3>Notice</h3>
+<p>The reported length changes because the measurement resolves different detail. The coastline is not growing while it is measured. Natural coastlines only resemble ideal fractals over limited scales.</p>
+</div></section>
+<div class="next">
+<a href="../index.html">← Course home</a><a class="button" href="../labs/week10_lab.html">Begin the laboratory →</a>
+</div>
+<footer class="footer"><span>MATH&amp; 107 · Complexity and the Limits of Prediction</span><span>Simple rules · Patterns · Observation</span></footer></main>
+</body>
+</html>

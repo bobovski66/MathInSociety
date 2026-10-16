@@ -1,0 +1,20 @@
+\section*{Chapter Review}
+\begin{enumerate}
+\item Follow Collatz from 11. Record its update count and peak. If another trajectory later reaches 11, what happens to its remaining route?
+\item At Koch stage 4, with an original segment of length 1, find the segment count, length per segment, and total length. How does the total change if the original length is 9 meters?
+\item At Sierpinski stage 4, find the filled-triangle count and remaining area fraction. How can these move in different directions?
+\item For $r=2.8$, start at 0.2. Calculate the first update and the nonzero fixed point. Why are they different quantities?
+\item For $r=3.8$ with starts 0.40 and 0.41, calculate the first update at which the absolute gap exceeds 0.05. Retain full stored precision between updates.
+\item In the $r=3.9$ example, let a model population be $N_n=100{,}000x_n$ fish. How many fish do the starting states 0.4000 and 0.4001 represent? At which generations does their gap first exceed 1,000 fish and 10,000 fish?
+\item A 50-meter ruler requires 260 placements and a 25-meter ruler requires 580. Report both measured coastline lengths with their scales.
+\item A computer verifies Collatz for every integer in a finite interval. What conclusion is justified? Give a family of infinitely many starting integers whose convergence can be proved directly.
+\item In a toy AI model, $P(\text{moving})=0.45$ and $P(\text{slowly}\mid\text{moving})=0.60$, while $P(\text{flickering})=0.35$ and $P(\text{faintly}\mid\text{flickering})=0.80$. Compare the two path probabilities. Does either probability establish what an actual light in a forest was doing?
+\end{enumerate}
+\begin{tcolorbox}[title={Optional connection / A boundary can grow while area stays finite},breakable]
+The following area calculation is optional. For an equilateral triangle with side length $s$, you may use $A=(\sqrt3/4)s^2$ without deriving it. The main point is to compare what happens to length with what happens to area.
+
+Begin with a rectangle 10 units wide and 5 units high, of area 50. Replace its top edge by outward-pointing Koch bumps. At stage 1, the added triangle has side $10/3$ and area $25\sqrt3/9\approx4.8113$. At stage 2, four triangles of side $10/9$ add $100\sqrt3/81\approx2.1383$. Thus the area is approximately 56.9496, while the perimeter is $20+10(4/3)^2\approx37.7778$.
+
+At later stages, each added area is $4/9$ of the preceding addition, so their sum converges while the top-edge length diverges. Infinite ideal boundary length does not imply undefined area. Such a boundary also changes the feasible-set model; the original linear inequalities and corner list no longer describe it.
+\end{tcolorbox}
+

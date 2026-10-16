@@ -1,14 +1,132 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Use a small probability tree to see how recursive text generation branches—and why a likely continuation still needs factual verification."><title>Week 10 AI Application — One token changes the next question. | Math in Society</title><link rel="stylesheet" href="../assets/week10/week10.css">
-<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week10/week10.js"></script></head>
-<body><a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html">Reading</a><a href="../demos/fractal_recursion.html">Explorer</a><a href="../labs/week10_lab.html">Laboratory</a><a href="../applications/week10_application.html">Fish forecast</a><a href="../applications/week10_ai.html" aria-current="page">AI application</a><a href="../discussions/week10_discussion.html">Discussion</a></nav><main class="wrap" id="main" data-answer-store="math107_ai_module_10_v5" data-legacy-store="math107_ai_module_10_v4"><header class="hero"><div class="eyebrow">Week 10 / AI Application</div><h1>One token changes the next question.</h1><p class="lead">Use a small probability tree to see how recursive text generation branches—and why a likely continuation still needs factual verification.</p><div class="meta"><span class="tag">Autoregression</span><span class="tag">Conditional probability</span><span class="tag">Prediction &amp; evidence</span></div></header><div class="student-bar no-print"><div><label for="studentName">Student name</label><input id="studentName" type="text" autocomplete="name"></div><button type="button" data-print-work>Print completed work / Save PDF</button><p id="printStatus" class="small" role="status"></p></div><div id="printName" class="print-name"></div><p id="saveStatus" class="small save-status" role="status"></p>
-<section class="card"><div class="kicker">The connection</div><h2>The output becomes the next input</h2><p>In the logistic map, a new state is calculated from the current state. A language model also works step by step: it uses the current context to calculate a next-token distribution, chooses a token, appends it, and computes another distribution using the updated context. This is <em>autoregressive generation</em>.</p><div class="formula">context → next-token probabilities → chosen token → enlarged context → repeat</div><p>There is a key difference from our logistic calculations. A language model can select a token by probabilistic sampling. Two runs can then branch even from an identical prompt. Under a fixed deterministic decoding procedure, identical inputs and computations give the same output instead.</p></section>
-<section class="card"><div class="kicker">An invented word-level model</div><h2>The light in the forest was…</h2><p>We will treat each listed word or punctuation mark as one toy token. Actual tokenizers can split text differently. The probabilities below are invented for this exercise; they are not measurements from a particular AI model.</p>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Use a small probability tree to see how recursive text generation branches—and why a likely continuation still needs factual verification.">
+<title>Week 10 AI Application — One token changes the next question. | Math in Society</title>
+<link rel="stylesheet" href="../assets/week10/week10.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week10/week10.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html">Reading</a><a href="../demos/fractal_recursion.html">Explorer</a><a href="../labs/week10_lab.html">Laboratory</a><a href="../applications/week10_application.html">Fish forecast</a><a href="../applications/week10_ai.html" aria-current="page">AI application</a><a href="../discussions/week10_discussion.html">Discussion</a></nav><main class="wrap" id="main" data-answer-store="math107_ai_module_10_v5" data-legacy-store="math107_ai_module_10_v4"><header class="hero"><div class="eyebrow">Week 10 / AI Application</div>
+<h1>One token changes the next question.</h1>
+<p class="lead">Use a small probability tree to see how recursive text generation branches—and why a likely continuation still needs factual verification.</p>
+<div class="meta">
+<span class="tag">Autoregression</span><span class="tag">Conditional probability</span><span class="tag">Prediction &amp; evidence</span>
+</div></header><div class="student-bar no-print">
+<div>
+<label for="studentName">Student name</label><input id="studentName" type="text" autocomplete="name">
+</div>
+<button type="button" data-print-work>Print completed work / Save PDF</button><p id="printStatus" class="small" role="status"></p>
+</div>
+<div id="printName" class="print-name"></div>
+<p id="saveStatus" class="small save-status" role="status"></p>
+<section class="card"><div class="kicker">The connection</div>
+<h2>The output becomes the next input</h2>
+<p>Earlier AI applications described tokens as the pieces of text used by a language model, and probabilities as weights on possible next pieces. We will combine those ideas with Week 10’s repeated updates.</p>
+<p>The <em>context</em> is the text available to the model at the current step. If the context ends in “The light in the forest was,” then choosing a word such as “moving” changes that context to “The light in the forest was moving.” The next prediction now begins from that updated text.</p>
+<p>In the logistic map, a new state is calculated from the current state. A language model also works step by step: it uses the current context to calculate a next-token distribution, chooses a token, appends it, and computes another distribution using the updated context. This is <em>autoregressive generation</em>.</p>
+<div class="formula">context → next-token probabilities → chosen token → enlarged context → repeat</div>
+<p>The choice rule matters. One possible rule always selects the most probable next token, using a fixed rule for ties. With identical inputs and computations, that choice rule repeats its output. Sampling instead makes a random choice using the probabilities, so two runs can take different branches from the same prompt.</p></section>
+<section class="card"><div class="kicker">An invented word-level model</div>
+<h2>The light in the forest was…</h2>
+<p>We will treat each listed word or punctuation mark as one toy token. Actual tokenizers can split text differently. The probabilities below are invented for this exercise; they are not measurements from a particular AI model.</p>
+<div class="example">
+<h3>How to read a probability tree</h3>
+<p>Begin at the prompt on the left and move right along one arrow at a time. The first arrows describe the first token. After a token is chosen, use only the arrows leaving that choice to read the next-token probabilities.</p>
+<p>A probability of 0.45 means 45%, or 45 out of 100 in a relative-frequency picture. Imagine the model used many times: “moving” would have an expected share of 45%, “flickering” 35%, and “Venus” 20%. Actual sampled counts vary. The probabilities at a given choice add to 1 because one of the listed alternatives is selected in this toy model.</p>
+</div>
 <figure class="figure"><img src="../assets/week10/ai-branches.svg" alt="An invented two-step probability tree: moving .45 followed by slowly .60 or away .40; flickering .35 followed by faintly .80 or brightly .20; Venus .20 followed by a period .90 or again .10. Joint path probabilities are products." loading="lazy"><figcaption>Probabilities on the first branches sum to 1. Probabilities after each chosen first token also sum to 1. Multiply along a path; add probabilities across mutually exclusive paths.</figcaption></figure>
-<div class="example"><h3>Example · A branch changes the next question</h3><p>The first distribution gives \(P(\text{moving})=0.45\). After selecting <em>moving</em>, the context ends in “was moving,” and the next distribution gives \(P(\text{away}\mid\text{moving})=0.40\).</p><p>The probability of that two-token path is \(0.45\cdot0.40=0.18\). After selecting <em>flickering</em> instead, the next distribution is different because the context is different.</p></div><h3>Choose a path or sample it</h3><p class="small">Choosing a button inspects a branch. Sampling uses the displayed toy probabilities. This experiment does not call an AI service.</p><div class="actions" id="aiChoose" aria-label="Choose the first token"></div><div class="actions"><button type="button" id="aiSampleFirst">Sample a first token</button><button type="button" id="aiReset" class="secondary">Reset</button></div><div class="readout"><p id="aiContext" aria-live="polite">The light in the forest was …</p><p class="small" id="aiJoint" role="status">Choose a first token, or let the toy model sample one.</p></div><div class="actions" id="aiNext" aria-label="Choose the next token"></div><button type="button" id="aiSampleNext" disabled>Sample the next token</button></section>
-<div class="progress no-print"><span id="progressText">0 / 2 sections checked</span><div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div></div>
-<section class="card" data-check-group="1"><div class="kicker">Part 1 / Probabilities and context</div><h2>Connect the pieces</h2>
-<div class="question"><label for="q1">What is P(flickering or Venus) in the first-token distribution? Enter a decimal.</label><input id="q1" type="text" inputmode="decimal" autocomplete="off" data-answer="0.55" data-tolerance="0.001" data-hint="These are mutually exclusive first tokens, so add .35 and .20." data-success="Correct." aria-describedby="q1-feedback"><span class="field-feedback" id="q1-feedback" aria-live="polite"></span></div><div class="question"><label for="q2">A toy context contains 12 tokens. Seven tokens are appended, with no truncation. How many tokens are now in the context?</label><input id="q2" type="text" inputmode="decimal" autocomplete="off" data-answer="19" data-tolerance="0" data-hint="Count the original 12 and the 7 added tokens." data-success="Correct." aria-describedby="q2-feedback"><span class="field-feedback" id="q2-feedback" aria-live="polite"></span></div><div class="question"><label for="q3">Why can two sampled generations from the same prompt develop differently?</label><select id="q3" data-answer="Different sampled tokens create different later contexts." data-hint="Each chosen token becomes part of the next step’s input." data-success="Correct." aria-describedby="q3-feedback"><option value="">Choose a response…</option><option value="Different sampled tokens create different later contexts.">Different sampled tokens create different later contexts.</option><option value="stored">The model must be revealing two stored complete answers.</option><option value="ids">Token IDs change their meanings during the response.</option></select><span class="field-feedback" id="q3-feedback" aria-live="polite"></span></div><div class="question"><label for="q4">Which statement about the model’s most probable continuation is justified?</label><select id="q4" data-answer="A high-probability continuation is not automatically a true statement about the world." data-hint="The probabilities concern continuations in a model; observations and sources are needed to establish factual claims." data-success="Correct." aria-describedby="q4-feedback"><option value="">Choose a response…</option><option value="A high-probability continuation is not automatically a true statement about the world.">A high-probability continuation is not automatically a true statement about the world.</option><option value="true">The most probable continuation must be factually true.</option><option value="source">Fluent wording proves a source was checked.</option></select><span class="field-feedback" id="q4-feedback" aria-live="polite"></span></div><div class="actions no-print"><button type="button" data-check>Check this section</button></div><p class="section-feedback" role="status"></p></section>
-<section class="card" data-check-group="2"><div class="kicker">Part 2 / Whole paths</div><h2>Does the likeliest first word give the likeliest path?</h2><p>Use the tree above. To find a two-token path probability, multiply its first-token probability by the probability of the second token <em>given that first token</em>.</p><div class="grid"><div class="question"><label for="q5">P(moving then slowly), as a decimal</label><input id="q5" type="text" inputmode="decimal" autocomplete="off" data-answer="0.27" data-tolerance="0.001" data-hint="Multiply .45 by .60." data-success="Correct." aria-describedby="q5-feedback"><span class="field-feedback" id="q5-feedback" aria-live="polite"></span></div><div class="question"><label for="q6">P(flickering then faintly), as a decimal</label><input id="q6" type="text" inputmode="decimal" autocomplete="off" data-answer="0.28" data-tolerance="0.001" data-hint="Multiply .35 by .80." data-success="Correct." aria-describedby="q6-feedback"><span class="field-feedback" id="q6-feedback" aria-live="polite"></span></div></div><div class="question"><label for="q7">Which of those two-token paths is more probable in this toy model?</label><select id="q7" data-answer="flickering" data-hint="Compare the two products, not just the first-token probabilities." data-success="Correct. The most probable first token need not begin the most probable complete path." aria-describedby="q7-feedback"><option value="">Choose a response…</option><option value="flickering">flickering then faintly</option><option value="moving">moving then slowly</option><option value="equal">They have equal probability.</option></select><span class="field-feedback" id="q7-feedback" aria-live="polite"></span></div><div class="actions no-print"><button type="button" data-check>Check this section</button></div><p class="section-feedback" role="status"></p></section>
-<div class="card"><h2>Three distinctions to carry forward</h2><ul><li><em>Recursion:</em> the context changes as output is appended.</li><li><em>Sampling:</em> a random choice can select among possible continuations.</li><li><em>Verification:</em> the plausibility of a continuation does not establish the truth of its claims.</li></ul><p>A change in a prompt can change a later response, but that observation alone does not establish mathematical chaos. Our useful connection here is repeated updating, branching, and the difference between prediction and evidence.</p></div>
-<div class="card no-print"><h2>Keep a copy of your work</h2><p>Your responses save in this browser. To submit them, enter your name above, choose <em>Print completed work / Save PDF</em>, and use the browser’s printer or PDF option. Follow the submission instructions in Canvas.</p><button type="button" data-print-work>Print completed work / Save PDF</button></div><div class="sources"><p>Technical background, optional: A. Vaswani et al. (2017), <a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a>, describes an autoregressive decoder whose next output depends on previously generated output.</p></div><div class="next"><a href="../index.html">← Course home</a><a class="button" href="../discussions/week10_discussion.html">Open the discussion →</a></div><footer class="footer"><span>MATH&amp; 107 · Complexity and the Limits of Prediction</span><span>Simple rules · Patterns · Observation</span></footer></main></body></html>
+<h3>“Given” tells us which group we are in</h3>
+<p>The notation \(P(\text{away}\mid\text{moving})\) is read “the probability of away, <em>given</em> that moving was selected.” The vertical bar means “given” here. It differs from the paired bars used to take an absolute difference.</p>
+<p>For an arithmetic picture, imagine 100 hypothetical runs divided in the model’s stated proportions. Forty-five first choose “moving.” If 40% of those then choose “away,” that makes \(45(0.40)=18\) runs out of the original 100. This is why the whole-path probability is \(0.45(0.40)=0.18\).</p>
+<div class="example">
+<h3>Example · A branch changes the next question</h3>
+<p>The first distribution gives \(P(\text{moving})=0.45\). After selecting <em>moving</em>, the context ends in “was moving,” and the next distribution gives \(P(\text{away}\mid\text{moving})=0.40\).</p>
+<p>The probability of that two-token path is \(0.45\cdot0.40=0.18\). After selecting <em>flickering</em> instead, the next distribution is different because the context is different.</p>
+</div>
+<h3>Choose a path or sample it</h3>
+<p><em>Sampling</em> means making a random choice according to the stated probabilities. An option with probability 0.45 has a 45% chance of being selected on a draw. Choosing the same option yourself lets you inspect that branch directly.</p>
+<p class="small">Choosing a button inspects a branch. Sampling uses the displayed toy probabilities. This experiment does not call an AI service.</p>
+<div class="actions" id="aiChoose" aria-label="Choose the first token"></div>
+<div class="actions">
+<button type="button" id="aiSampleFirst">Sample a first token</button><button type="button" id="aiReset" class="secondary">Reset</button>
+</div>
+<div class="readout">
+<p id="aiContext" aria-live="polite">The light in the forest was …</p>
+<p class="small" id="aiJoint" role="status">Choose a first token, or let the toy model sample one.</p>
+</div>
+<div class="actions" id="aiNext" aria-label="Choose the next token"></div>
+<button type="button" id="aiSampleNext" disabled>Sample the next token</button></section>
+<div class="progress no-print">
+<span id="progressText">0 / 2 sections checked</span><div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<section class="card" data-check-group="1"><div class="kicker">Part 1 / Probabilities and context</div>
+<h2>Connect the pieces</h2>
+<p>For the first question, “or” combines two different first-token alternatives. A run cannot choose both as its first token, so add their probabilities, just as you add frequencies of separate categories. For the context-length question, count the original tokens and the appended tokens together.</p>
+<div class="question">
+<label for="q1">What is P(flickering or Venus) in the first-token distribution? Enter a decimal.</label><input id="q1" type="text" inputmode="decimal" autocomplete="off" data-answer="0.55" data-tolerance="0.001" data-hint="These are mutually exclusive first tokens, so add .35 and .20." data-success="Correct." aria-describedby="q1-feedback"><span class="field-feedback" id="q1-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="q2">A toy context contains 12 tokens. Seven tokens are appended and all original tokens are kept. How many tokens are now in the context?</label><input id="q2" type="text" inputmode="decimal" autocomplete="off" data-answer="19" data-tolerance="0" data-hint="Count the original 12 and the 7 added tokens." data-success="Correct." aria-describedby="q2-feedback"><span class="field-feedback" id="q2-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="q3">Why can two sampled generations from the same prompt develop differently?</label><select id="q3" data-answer="Different sampled tokens create different later contexts." data-hint="Each chosen token becomes part of the next step’s input." data-success="Correct." aria-describedby="q3-feedback"><option value="">Choose a response…</option>
+<option value="Different sampled tokens create different later contexts.">Different sampled tokens create different later contexts.</option>
+<option value="stored">The model must be revealing two stored complete answers.</option>
+<option value="ids">Token IDs change their meanings during the response.</option></select><span class="field-feedback" id="q3-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="q4">Which statement about the model’s most probable continuation is justified?</label><select id="q4" data-answer="A high-probability continuation is not automatically a true statement about the world." data-hint="The probabilities concern continuations in a model; observations and sources are needed to establish factual claims." data-success="Correct." aria-describedby="q4-feedback"><option value="">Choose a response…</option>
+<option value="A high-probability continuation is not automatically a true statement about the world.">A high-probability continuation is not automatically a true statement about the world.</option>
+<option value="true">The most probable continuation must be factually true.</option>
+<option value="source">Fluent wording proves a source was checked.</option></select><span class="field-feedback" id="q4-feedback" aria-live="polite"></span>
+</div>
+<div class="actions no-print"><button type="button" data-check>Check this section</button></div>
+<p class="section-feedback" role="status"></p></section>
+<section class="card" data-check-group="2"><div class="kicker">Part 2 / Whole paths</div>
+<h2>Does the likeliest first word give the likeliest path?</h2>
+<p>Use the tree above. To find a two-token path probability, multiply its first-token probability by the probability of the second token <em>given that first token</em>.</p>
+<p>“Then” follows two choices in sequence. A second-token probability applies only after its own first token has been chosen. For example, the first branch to “flickering” has probability 0.35; the 0.80 branch to “faintly” belongs to that context. Do not add the two labels along a path.</p>
+<p>After calculating both products, compare the whole paths. The largest first-token probability and the largest two-token path probability answer different questions.</p>
+<div class="grid">
+<div class="question">
+<label for="q5">P(moving then slowly), as a decimal</label><input id="q5" type="text" inputmode="decimal" autocomplete="off" data-answer="0.27" data-tolerance="0.001" data-hint="Multiply .45 by .60." data-success="Correct." aria-describedby="q5-feedback"><span class="field-feedback" id="q5-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="q6">P(flickering then faintly), as a decimal</label><input id="q6" type="text" inputmode="decimal" autocomplete="off" data-answer="0.28" data-tolerance="0.001" data-hint="Multiply .35 by .80." data-success="Correct." aria-describedby="q6-feedback"><span class="field-feedback" id="q6-feedback" aria-live="polite"></span>
+</div>
+</div>
+<div class="question">
+<label for="q7">Which of those two-token paths is more probable in this toy model?</label><select id="q7" data-answer="flickering" data-hint="Compare the two products, not just the first-token probabilities." data-success="Correct. The most probable first token need not begin the most probable complete path." aria-describedby="q7-feedback"><option value="">Choose a response…</option>
+<option value="flickering">flickering then faintly</option>
+<option value="moving">moving then slowly</option>
+<option value="equal">They have equal probability.</option></select><span class="field-feedback" id="q7-feedback" aria-live="polite"></span>
+</div>
+<div class="actions no-print"><button type="button" data-check>Check this section</button></div>
+<p class="section-feedback" role="status"></p></section>
+<div class="card">
+<h2>Three distinctions to carry forward</h2>
+<ul>
+<li>
+<em>Recursion:</em> the context changes as output is appended.</li>
+<li>
+<em>Sampling:</em> a random choice can select among possible continuations.</li>
+<li>
+<em>Verification:</em> the plausibility of a continuation does not establish the truth of its claims.</li>
+</ul>
+<p>A change in a prompt can change a later response, but that observation alone does not establish mathematical chaos. Our useful connection here is repeated updating, branching, and the difference between prediction and evidence.</p>
+</div>
+<div class="card no-print">
+<h2>Keep a copy of your work</h2>
+<p>Your responses save in this browser. To submit them, enter your name above, choose <em>Print completed work / Save PDF</em>, and use the browser’s printer or PDF option. Follow the submission instructions in Canvas.</p>
+<button type="button" data-print-work>Print completed work / Save PDF</button>
+</div>
+<div class="sources"><p>Technical background, optional: A. Vaswani et al. (2017), <a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a>, describes an autoregressive decoder whose next output depends on previously generated output.</p></div>
+<div class="next">
+<a href="../index.html">← Course home</a><a class="button" href="../discussions/week10_discussion.html">Open the discussion →</a>
+</div>
+<footer class="footer"><span>MATH&amp; 107 · Complexity and the Limits of Prediction</span><span>Simple rules · Patterns · Observation</span></footer></main>
+</body>
+</html>

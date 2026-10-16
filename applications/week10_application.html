@@ -1,12 +1,194 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Two starting estimates differ by ten fish. Use the same deterministic rule to discover when their model forecasts become substantially different."><title>Week 10 Application — How far can ten fish change a forecast? | Math in Society</title><link rel="stylesheet" href="../assets/week10/week10.css">
-<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week10/week10.js"></script></head>
-<body><a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html">Reading</a><a href="../demos/fractal_recursion.html">Explorer</a><a href="../labs/week10_lab.html">Laboratory</a><a href="../applications/week10_application.html" aria-current="page">Fish forecast</a><a href="../applications/week10_ai.html">AI application</a><a href="../discussions/week10_discussion.html">Discussion</a></nav><main class="wrap" id="main" data-answer-store="math107_week10_application_v3" data-legacy-store="math107_week10_application_v2"><header class="hero"><div class="eyebrow">Week 10 / Application</div><h1>How far can ten fish change a forecast?</h1><p class="lead">Two starting estimates differ by ten fish. Use the same deterministic rule to discover when their model forecasts become substantially different.</p><div class="meta"><span class="tag">Logistic model</span><span class="tag">Units &amp; uncertainty</span><span class="tag">Interactive forecasts</span></div></header><div class="student-bar no-print"><div><label for="studentName">Student name</label><input id="studentName" type="text" autocomplete="name"></div><button type="button" data-print-work>Print completed work / Save PDF</button><p id="printStatus" class="small" role="status"></p></div><div id="printName" class="print-name"></div><p id="saveStatus" class="small save-status" role="status"></p>
-<section class="card"><div class="kicker">The situation</div><h2>A difference of ten fish</h2><p>A field team is studying a lake population using a deliberately simplified model. They choose a reference population of \(K=100{,}000\) fish and write the current population as a fraction \(x=N/K\).</p><div class="formula">\(x_{n+1}=3.9x_n(1-x_n),\qquad N_n=100{,}000x_n.\)</div><p>The survey is consistent with either \(x_0=0.4000\) or \(y_0=0.4001\). Those are nearby estimates of the same starting population. The model’s parameter remains 3.9 in both calculations.</p><div class="insight"><h3>What this model lets us investigate</h3><p>This is a mathematical experiment about measurement uncertainty. The reference population gives the fractions a scale; it does not establish a real lake’s ecological carrying capacity. No field data have been fitted here.</p></div><div class="example"><h3>Example · Convert the model’s units</h3><p>A state of 0.25 represents \(0.25(100{,}000)=25{,}000\) fish. A difference of 0.01 represents 1,000 fish. The phrase “1% of the reference population” means this fixed difference, not 1% of whichever population happens to occur later.</p></div></section>
-<section class="card"><h2>Follow both forecasts</h2><p>Move the marker through 25 generations. The values below are model populations rounded to the nearest fish. The trajectory calculations retain full stored precision.</p><div class="controls"><div class="wide"><label for="fishN">Generation: <output id="fishGeneration">0</output></label><input id="fishN" type="range" min="0" max="25" step="1" value="0"></div></div><div class="stats"><div class="stat"><span>Forecast A · fish</span><output id="fishA"></output></div><div class="stat"><span>Forecast B · fish</span><output id="fishB"></output></div><div class="stat"><span>Absolute gap · fish</span><output id="fishGap"></output></div></div><div class="legend"><span class="a">Start A = 0.4000</span><span class="b">Start B = 0.4001</span></div><div class="chart" id="fishPlot"></div><details><summary>Show the generation-by-generation table</summary><p class="small">Fractions are displayed to six decimal places. Use the stored trajectories, not these rounded cells, for subsequent updates.</p><div class="table-wrap trace" id="fishTable"></div></details></section>
-<div class="progress no-print"><span id="progressText">0 / 3 sections checked</span><div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div></div>
-<section class="card" data-check-group="1"><div class="kicker">Part 1 / Starting population</div><h2>Translate fractions into fish</h2><div class="grid"><div class="question"><label for="a1">Initial population from x₀ = 0.4000, in fish</label><input id="a1" type="text" inputmode="decimal" autocomplete="off" data-answer="40000" data-tolerance="0" data-hint="Multiply .4000 by 100,000." data-success="Correct." aria-describedby="a1-feedback"><span class="field-feedback" id="a1-feedback" aria-live="polite"></span></div><div class="question"><label for="a2">Initial population from y₀ = 0.4001, in fish</label><input id="a2" type="text" inputmode="decimal" autocomplete="off" data-answer="40010" data-tolerance="0" data-hint="Multiply .4001 by 100,000." data-success="Correct." aria-describedby="a2-feedback"><span class="field-feedback" id="a2-feedback" aria-live="polite"></span></div></div><div class="actions no-print"><button type="button" data-check>Check this section</button></div><p class="section-feedback" role="status"></p></section>
-<section class="card" data-check-group="2"><div class="kicker">Part 2 / One update</div><h2>Use the same formula twice</h2><p>For each start, substitute its own value into \(3.9x(1-x)\). Report the resulting fraction, rather than the fish count. Give the second result to at least six decimal places.</p><div class="grid"><div class="question"><label for="a3">x₁ from the start x₀ = 0.4000</label><input id="a3" type="text" inputmode="decimal" autocomplete="off" data-answer="0.936" data-tolerance="1e-06" data-hint="Compute 3.9 × .4000 × .6000." data-success="Correct." aria-describedby="a3-feedback"><span class="field-feedback" id="a3-feedback" aria-live="polite"></span></div><div class="question"><label for="a4">y₁ from the start y₀ = 0.4001</label><input id="a4" type="text" inputmode="decimal" autocomplete="off" data-answer="0.936077961" data-tolerance="5e-07" data-hint="Compute 3.9 × .4001 × .5999. Do not round the starting value to .400." data-success="Correct." aria-describedby="a4-feedback"><span class="field-feedback" id="a4-feedback" aria-live="polite"></span></div></div><div class="actions no-print"><button type="button" data-check>Check this section</button></div><p class="section-feedback" role="status"></p></section>
-<section class="card" data-check-group="3"><div class="kicker">Part 3 / Forecast horizons</div><h2>When does the gap matter?</h2><p>The two thresholds below are decision tolerances for this experiment. A first crossing remains the first crossing even if the gap later shrinks again.</p><div class="question"><label for="a5">First generation with |xₙ − yₙ| > 0.01 (more than 1,000 fish)</label><input id="a5" type="text" inputmode="decimal" autocomplete="off" data-answer="8" data-tolerance="0" data-hint="Find the first table row whose absolute fractional gap exceeds .01. Start checking at n = 0." data-success="Correct." aria-describedby="a5-feedback"><span class="field-feedback" id="a5-feedback" aria-live="polite"></span></div><div class="question"><label for="a6">First generation with |xₙ − yₙ| > 0.10 (more than 10,000 fish)</label><input id="a6" type="text" inputmode="decimal" autocomplete="off" data-answer="14" data-tolerance="0" data-hint="Continue through the first row whose absolute fractional gap exceeds .10." data-success="Correct." aria-describedby="a6-feedback"><span class="field-feedback" id="a6-feedback" aria-live="polite"></span></div><div class="question"><label for="a7">Absolute population difference at that first > 0.10 generation, rounded to the nearest fish</label><input id="a7" type="text" inputmode="decimal" autocomplete="off" data-answer="19074" data-tolerance="1" data-hint="Use |xₙ − yₙ| × 100,000 at the generation in the preceding question. Round only at the end." data-success="Correct." aria-describedby="a7-feedback"><span class="field-feedback" id="a7-feedback" aria-live="polite"></span></div><div class="question"><label for="a8">Which conclusion is supported?</label><select id="a8" data-answer="right" data-hint="Distinguish a two-trajectory comparison from a full uncertainty interval or a random update." data-success="Correct." aria-describedby="a8-feedback"><option value="">Choose a response…</option><option value="right">The deterministic model can amplify a small uncertainty in the measured starting population.</option><option value="random">The formula must secretly add random numbers.</option><option value="guaranteed">The two curves give guaranteed bounds for every possible real population.</option></select><span class="field-feedback" id="a8-feedback" aria-live="polite"></span></div><div class="actions no-print"><button type="button" data-check>Check this section</button></div><p class="section-feedback" role="status"></p></section>
-<div class="card"><h2>Use the result carefully</h2><p>The first gap above 1,000 fish occurs sooner than the first gap above 10,000 fish. That is why a useful forecast horizon must name a tolerance. Monitoring again can reduce current uncertainty and restart the comparison, although it cannot make an incomplete model exact.</p><p>Even after exact long-range trajectories become unreliable, questions about ranges, typical behavior, or short-term responses can remain useful. The right question depends on the decision.</p></div>
-<div class="card no-print"><h2>Keep a copy of your work</h2><p>Your responses save in this browser. To submit them, enter your name above, choose <em>Print completed work / Save PDF</em>, and use the browser’s printer or PDF option. Follow the submission instructions in Canvas.</p><button type="button" data-print-work>Print completed work / Save PDF</button></div><div class="next"><a href="../index.html">← Course home</a><a class="button" href="../applications/week10_ai.html">Explore the AI connection →</a></div><footer class="footer"><span>MATH&amp; 107 · Complexity and the Limits of Prediction</span><span>Simple rules · Patterns · Observation</span></footer></main></body></html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Two starting estimates differ by ten fish. Use the same deterministic rule to discover when their model forecasts become substantially different.">
+<title>Week 10 Application — How far can ten fish change a forecast? | Math in Society</title>
+<link rel="stylesheet" href="../assets/week10/week10.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week10/week10.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html">Reading</a><a href="../demos/fractal_recursion.html">Explorer</a><a href="../labs/week10_lab.html">Laboratory</a><a href="../applications/week10_application.html" aria-current="page">Fish forecast</a><a href="../applications/week10_ai.html">AI application</a><a href="../discussions/week10_discussion.html">Discussion</a></nav><main class="wrap" id="main" data-answer-store="math107_week10_application_v3" data-legacy-store="math107_week10_application_v2"><header class="hero"><div class="eyebrow">Week 10 / Application</div>
+<h1>How far can ten fish change a forecast?</h1>
+<p class="lead">Two starting estimates differ by ten fish. Use the same deterministic rule to discover when their model forecasts become substantially different.</p>
+<div class="meta">
+<span class="tag">Logistic model</span><span class="tag">Units &amp; uncertainty</span><span class="tag">Interactive forecasts</span>
+</div></header><div class="student-bar no-print">
+<div>
+<label for="studentName">Student name</label><input id="studentName" type="text" autocomplete="name">
+</div>
+<button type="button" data-print-work>Print completed work / Save PDF</button><p id="printStatus" class="small" role="status"></p>
+</div>
+<div id="printName" class="print-name"></div>
+<p id="saveStatus" class="small save-status" role="status"></p>
+<section class="card"><div class="kicker">The situation</div>
+<h2>A difference of ten fish</h2>
+<p>Return to the model-setting questions: what are we measuring, what is one update, and what forecast do we need? Here we measure an estimated number of fish. One update means one breeding season, also called a generation in this model. Our question is how long two nearby starting estimates produce similar predictions.</p>
+<p>A field team is studying a lake population using a deliberately simplified model. They choose a reference population of \(K=100{,}000\) fish and write the current population as a fraction \(x=N/K\).</p>
+<div class="example">
+<h3>Why change a fish count into a fraction?</h3>
+<p>The reference population makes a convenient common scale. Dividing by 100,000 converts fish into a fraction; multiplying by 100,000 converts the fraction back into fish. This is the same relationship between a part and a whole used for relative frequencies in Week 2.</p>
+<div class="table-wrap"><table>
+<thead><tr>
+<th scope="col">Fish estimate</th>
+<th scope="col">Fraction of 100,000</th>
+<th scope="col">Percentage</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>20,000</td>
+<td>0.20</td>
+<td>20%</td>
+</tr>
+<tr>
+<td>50,000</td>
+<td>0.50</td>
+<td>50%</td>
+</tr>
+<tr>
+<td>100,000</td>
+<td>1.00</td>
+<td>100%</td>
+</tr>
+</tbody>
+</table></div>
+<p>The letters \(x_n\) and \(y_n\) name two forecast sequences. They describe alternative estimates of the same lake, not two different lakes. The subscript \(n\) counts breeding seasons from the initial survey.</p>
+</div>
+<div class="formula">\(x_{n+1}=3.9x_n(1-x_n),\qquad N_n=100{,}000x_n.\)</div>
+<p>Read the update as “next fraction = 3.9 × current fraction × (1 − current fraction).” The setting 3.9 is held fixed. The limiting factor \(1-x_n\) changes with the population, so the whole multiplier changes from season to season. To obtain a second generation, insert the first result into the formula.</p>
+<p>The survey is consistent with either \(x_0=0.4000\) or \(y_0=0.4001\). Those are nearby estimates of the same starting population. The model’s parameter remains 3.9 in both calculations.</p>
+<div class="insight">
+<h3>What this model lets us investigate</h3>
+<p>This is a mathematical experiment about measurement uncertainty. The reference population gives the fractions a scale; it does not establish a real lake’s ecological carrying capacity. No field data have been fitted here.</p>
+</div>
+<div class="example">
+<h3>Example · Convert the model’s units</h3>
+<p>A state of 0.25 represents \(0.25(100{,}000)=25{,}000\) fish. A difference of 0.01 represents 1,000 fish. The phrase “1% of the reference population” means this fixed difference, not 1% of whichever population happens to occur later.</p>
+</div></section>
+<section class="card"><h2>Follow both forecasts</h2>
+<p>Move the marker through 25 generations. The values below are model populations rounded to the nearest fish. The trajectory calculations retain full stored precision.</p>
+<div class="example">
+<h3>Read a generation before moving to the next</h3>
+<ol class="steps">
+<li>At generation 0, compare the two starting estimates shown in the readouts.</li>
+<li>Move to generation 1. Each forecast has been updated once using its own previous fraction.</li>
+<li>At any generation, compare the two curves at the same horizontal position. Their heights are fractions, while the readouts convert them to fish.</li>
+<li>Open the table to find exact rows. A gap can grow at one generation and shrink at the next.</li>
+</ol>
+</div>
+<div class="controls"><div class="wide">
+<label for="fishN">Generation: <output id="fishGeneration">0</output></label><input id="fishN" type="range" min="0" max="25" step="1" value="0">
+</div></div>
+<div class="stats">
+<div class="stat">
+<span>Forecast A · fish</span><output id="fishA"></output>
+</div>
+<div class="stat">
+<span>Forecast B · fish</span><output id="fishB"></output>
+</div>
+<div class="stat">
+<span>Absolute gap · fish</span><output id="fishGap"></output>
+</div>
+</div>
+<div class="legend">
+<span class="a">Start A = 0.4000</span><span class="b">Start B = 0.4001</span>
+</div>
+<div class="chart" id="fishPlot"></div>
+<details><summary>Show the generation-by-generation table</summary><p class="small">Fractions are displayed to six decimal places. Use the stored trajectories, not these rounded cells, for subsequent updates.</p>
+<div class="table-wrap trace" id="fishTable"></div></details></section>
+<div class="progress no-print">
+<span id="progressText">0 / 3 sections checked</span><div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<section class="card" data-check-group="1"><div class="kicker">Part 1 / Starting population</div>
+<h2>Translate fractions into fish</h2>
+<div class="grid">
+<div class="question">
+<label for="a1">Initial population from x₀ = 0.4000, in fish</label><input id="a1" type="text" inputmode="decimal" autocomplete="off" data-answer="40000" data-tolerance="0" data-hint="Multiply .4000 by 100,000." data-success="Correct." aria-describedby="a1-feedback"><span class="field-feedback" id="a1-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="a2">Initial population from y₀ = 0.4001, in fish</label><input id="a2" type="text" inputmode="decimal" autocomplete="off" data-answer="40010" data-tolerance="0" data-hint="Multiply .4001 by 100,000." data-success="Correct." aria-describedby="a2-feedback"><span class="field-feedback" id="a2-feedback" aria-live="polite"></span>
+</div>
+</div>
+<div class="actions no-print"><button type="button" data-check>Check this section</button></div>
+<p class="section-feedback" role="status"></p></section>
+<section class="card" data-check-group="2"><div class="kicker">Part 2 / One update</div>
+<h2>Use the same formula twice</h2>
+<div class="example">
+<h3>Practice the substitution on a different start</h3>
+<p>If the current fraction were 0.25, the next fraction would be \(3.9(0.25)(1-0.25)=3.9(0.25)(0.75)=0.73125\). The subtraction in parentheses comes first. This answer is a fraction; multiplying it by 100,000 would convert it to the model’s fish count.</p>
+<p>For the two starts below, do the same calculation separately. Keep both starting decimals exactly as written.</p>
+</div>
+<p>For each start, substitute its own value into \(3.9x(1-x)\). Report the resulting fraction, rather than the fish count. Give the second result to at least six decimal places.</p>
+<div class="grid">
+<div class="question">
+<label for="a3">x₁ from the start x₀ = 0.4000</label><input id="a3" type="text" inputmode="decimal" autocomplete="off" data-answer="0.936" data-tolerance="1e-06" data-hint="Compute 3.9 × .4000 × .6000." data-success="Correct." aria-describedby="a3-feedback"><span class="field-feedback" id="a3-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="a4">y₁ from the start y₀ = 0.4001</label><input id="a4" type="text" inputmode="decimal" autocomplete="off" data-answer="0.936077961" data-tolerance="5e-07" data-hint="Compute 3.9 × .4001 × .5999. Do not round the starting value to .400." data-success="Correct." aria-describedby="a4-feedback"><span class="field-feedback" id="a4-feedback" aria-live="polite"></span>
+</div>
+</div>
+<div class="actions no-print"><button type="button" data-check>Check this section</button></div>
+<p class="section-feedback" role="status"></p></section>
+<section class="card" data-check-group="3"><div class="kicker">Part 3 / Forecast horizons</div>
+<h2>When does the gap matter?</h2>
+<p>A <em>tolerance</em> says how much disagreement is acceptable for a particular question. A <em>threshold</em> is the cutoff used to check it. In this investigation, we use fixed cutoffs measured against the reference population.</p>
+<div class="table-wrap"><table>
+<thead><tr>
+<th scope="col">Fractional gap</th>
+<th scope="col">Gap as percentage of the reference</th>
+<th scope="col">Difference in fish</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>0.01</td>
+<td>1%</td>
+<td>1,000</td>
+</tr>
+<tr>
+<td>0.10</td>
+<td>10%</td>
+<td>10,000</td>
+</tr>
+</tbody>
+</table></div>
+<div class="example">
+<h3>How to find the first crossing</h3>
+<p>Read the absolute-gap column from generation 0 downward. For the 0.01 question, ignore rows at or below 0.01 and stop at the first row above it. Repeat separately for the 0.10 question. The generations need not be the same.</p>
+<p>At the first row above 0.10, multiply that row’s fractional gap by 100,000 and round to the nearest fish. This asks for the size of the difference at that generation, rather than either forecast’s total population.</p>
+</div>
+<p>The two thresholds below are decision tolerances for this experiment. A first crossing remains the first crossing even if the gap later shrinks again.</p>
+<div class="question">
+<label for="a5">First generation with |xₙ − yₙ| &gt; 0.01 (more than 1,000 fish)</label><input id="a5" type="text" inputmode="decimal" autocomplete="off" data-answer="8" data-tolerance="0" data-hint="Find the first table row whose absolute fractional gap exceeds .01. Start checking at n = 0." data-success="Correct." aria-describedby="a5-feedback"><span class="field-feedback" id="a5-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="a6">First generation with |xₙ − yₙ| &gt; 0.10 (more than 10,000 fish)</label><input id="a6" type="text" inputmode="decimal" autocomplete="off" data-answer="14" data-tolerance="0" data-hint="Continue through the first row whose absolute fractional gap exceeds .10." data-success="Correct." aria-describedby="a6-feedback"><span class="field-feedback" id="a6-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="a7">Absolute population difference at that first &gt; 0.10 generation, rounded to the nearest fish</label><input id="a7" type="text" inputmode="decimal" autocomplete="off" data-answer="19074" data-tolerance="1" data-hint="Use |xₙ − yₙ| × 100,000 at the generation in the preceding question. Round only at the end." data-success="Correct." aria-describedby="a7-feedback"><span class="field-feedback" id="a7-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="a8">Which conclusion is supported?</label><select id="a8" data-answer="right" data-hint="Distinguish a two-trajectory comparison from a full uncertainty interval or a random update." data-success="Correct." aria-describedby="a8-feedback"><option value="">Choose a response…</option>
+<option value="right">The deterministic model can amplify a small uncertainty in the measured starting population.</option>
+<option value="random">The formula must secretly add random numbers.</option>
+<option value="guaranteed">The two curves give guaranteed bounds for every possible real population.</option></select><span class="field-feedback" id="a8-feedback" aria-live="polite"></span>
+</div>
+<div class="actions no-print"><button type="button" data-check>Check this section</button></div>
+<p class="section-feedback" role="status"></p></section>
+<div class="card">
+<h2>Use the result carefully</h2>
+<p>This is called <em>sensitivity to initial conditions</em>: the calculated future can depend strongly on a small difference in the starting information. The model is still <em>deterministic</em>, meaning the same exact input always has the same next result. We changed the starting estimate, not the formula.</p>
+<p>The first gap above 1,000 fish occurs sooner than the first gap above 10,000 fish. That is why a useful forecast horizon must name a tolerance. Monitoring again can reduce current uncertainty and restart the comparison, although it cannot make an incomplete model exact.</p>
+<p>Even after exact long-range trajectories become unreliable, questions about ranges, typical behavior, or short-term responses can remain useful. The right question depends on the decision.</p>
+</div>
+<div class="card no-print">
+<h2>Keep a copy of your work</h2>
+<p>Your responses save in this browser. To submit them, enter your name above, choose <em>Print completed work / Save PDF</em>, and use the browser’s printer or PDF option. Follow the submission instructions in Canvas.</p>
+<button type="button" data-print-work>Print completed work / Save PDF</button>
+</div>
+<div class="next">
+<a href="../index.html">← Course home</a><a class="button" href="../applications/week10_ai.html">Explore the AI connection →</a>
+</div>
+<footer class="footer"><span>MATH&amp; 107 · Complexity and the Limits of Prediction</span><span>Simple rules · Patterns · Observation</span></footer></main>
+</body>
+</html>

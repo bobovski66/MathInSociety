@@ -54,7 +54,8 @@ for(const file of Object.keys(snapshots)){
 // Legacy data is loaded without assuming unchecked responses are complete.
 let old=open('labs/week10_lab.html',{math107_week10_lab_v2:JSON.stringify({p1a:'35',p1b:'35.1',p1c:'.1',p1d:'7.29',p1e:'right',done:[true,true,true,true,true]})});assert.equal(old.$('p1a').value,'35');assert.equal(old.$('progressText').textContent,'1 / 5 sections checked');
 let app=open('applications/week10_application.html');assert.equal(app.$('fishGap').textContent,'10');app.$('fishN').value='14';app.$('fishN').dispatch('input');assert.equal(app.$('fishGap').textContent,'19,074');
-let explorer=open('demos/fractal_recursion.html');assert.equal(explorer.$('colSteps').textContent,'10');assert.equal(explorer.$('colPeak').textContent,'40');assert.equal(explorer.$('logCross').textContent,'n = 13'); // threshold .05 for this pair
+let explorer=open('demos/fractal_recursion.html');assert.equal(explorer.$('colSteps').textContent,'10');assert.equal(explorer.$('colPeak').textContent,'40');assert.equal(explorer.$('logCross').textContent,'None in 40 updates'); // begin with the fixed-point experiment
+explorer.document.querySelectorAll('[data-log-preset]')[2].click();assert.equal(explorer.$('logCross').textContent,'n = 13'); // sensitive-pair preset still uses the original experiment
 explorer.$('tab-frac').click();assert.equal(explorer.$('panel-frac').hidden,false);assert.equal(explorer.$('panel-log').hidden,true);
 explorer.$('fracStage').value='4';explorer.$('fracStage').dispatch('input');assert.equal(explorer.$('kochCount').textContent,'256');assert.equal(explorer.$('sierCount').textContent,'81');
 explorer.$('colStart').value='27';explorer.$('colStart').dispatch('input');assert.equal(explorer.$('colSteps').textContent,'111');assert.equal(explorer.$('colPeak').textContent,'9,232');explorer.$('colStep').value='111';explorer.$('colStep').dispatch('input');assert.ok(explorer.$('colStepRead').textContent.includes('reached 1'));

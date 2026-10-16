@@ -2,7 +2,7 @@
 
 Static, browser-based course site modeled on the Precalculus course shell.
 
-Current revision: **v0.13 — illustrated Week 10 investigations**
+Current revision: **v0.14 — guided explanations for Week 10**
 
 All ten weeks now have full exercise-based lab/application passes.
 
@@ -44,3 +44,9 @@ The explorer provides logistic comparisons (including fixed points, cycles, a pe
 The chapter is maintained as `readings/Math107_Chapter_10.tex` with its compiled PDF at the existing course URL. Compile from `readings/` with `pdflatex -interaction=nonstopmode -halt-on-error Math107_Chapter_10.tex` (twice after outline changes). Exact figures live in `assets/week10/`; regenerate the SVG/PDF pairs with `python scripts/build_week10_figures.py` (Matplotlib and NumPy).
 
 Verification: `python scripts/verify_week10.py` checks links, labels, math delimiters, and assessment compatibility. `node scripts/test_week10.js` checks known mathematical results, geometric lengths and areas, and DOM interactions for responses, saved work, legacy responses, printing, tabs, Collatz tracing, forecasts, and AI branching.
+
+### Week 10 explanatory pass
+
+The unit introduces its mathematical settings before using specialized vocabulary. Model quantities, update intervals, subscripts, absolute and relative gaps, normalization, state-dependent multipliers, fixed points, cycles, sensitivity, thresholds, and graph scales are explained through concrete examples. The activities add worked setup and precise explorer/table directions without adding graded questions or changing saved response contracts. The explorer begins with the fixed-point preset before students compare cycles and sensitive trajectories.
+
+The HTML reading is the shared explanatory source for the chapter body. Run `python scripts/build_week10_chapter.py` to refresh its complete LaTeX source, then compile from `readings/`. The templates `scripts/week10_chapter_preamble.tex` and `scripts/week10_chapter_review.tex` preserve the established typography and review. The generated `.tex` remains independently compilable.

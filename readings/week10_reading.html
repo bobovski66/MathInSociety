@@ -1,52 +1,646 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Follow a number through a maze, build a curve that keeps getting longer, and discover why an exact rule can still leave a forecast uncertain."><title>Week 10 Reading — Simple rules. Surprising worlds. | Math in Society</title><link rel="stylesheet" href="../assets/week10/week10.css">
-<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week10/week10.js"></script></head>
-<body><a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html" aria-current="page">Reading</a><a href="../demos/fractal_recursion.html">Explorer</a><a href="../labs/week10_lab.html">Laboratory</a><a href="../applications/week10_application.html">Fish forecast</a><a href="../applications/week10_ai.html">AI application</a><a href="../discussions/week10_discussion.html">Discussion</a></nav><main class="wrap" id="main"><header class="hero"><div class="eyebrow">Week 10 / Reading</div><h1>Simple rules. Surprising worlds.</h1><p class="lead">Follow a number through a maze, build a curve that keeps getting longer, and discover why an exact rule can still leave a forecast uncertain.</p><div class="meta"><span class="tag">Collatz</span><span class="tag">Fractals</span><span class="tag">Logistic dynamics</span><span class="tag">Measurement &amp; prediction</span></div></header>
-<div class="card"><div class="kicker">The question for the week</div><h2>If we know the rule, do we know the future?</h2><p>A computer can follow a short instruction perfectly and still produce a result that surprises us. That surprise can have several causes. A number sequence can take an unexpectedly long route. A shape can acquire finer detail forever. A prediction can depend on a starting measurement more precisely than we can make it.</p><p>This week, we will keep those ideas separate while looking for the thread that connects them: <em>the outcome depends on a rule, a starting state, and the scale at which we observe.</em></p><div class="grid"><div><h3>By the end, you can…</h3><ul><li>Trace a recursion and distinguish a value from an update count.</li><li>Explain what a tested example can and cannot prove.</li><li>Calculate fractal counts, lengths, and area fractions.</li></ul></div><div><h3>…and make sense of the result.</h3><ul><li>Recognize fixed points, cycles, and sensitive trajectories.</li><li>Compare forecasts without rounding away the difference.</li><li>Report a measurement together with its observation scale.</li></ul></div></div></div>
-<nav class="toc" aria-label="Reading contents"><div class="kicker">Read in order; try the short checks</div><ol><li><a href="#recursion">One rule, many updates</a></li><li><a href="#collatz">The Collatz number machine</a></li><li><a href="#evidence">Evidence and proof</a></li><li><a href="#fractals">Build a fractal; keep the accounts</a></li><li><a href="#logistic">Growth, limits, and the logistic map</a></li><li><a href="#prediction">How far can a forecast travel?</a></li><li><a href="#scale">What does a shorter ruler reveal?</a></li><li><a href="#connections">The observation thread</a></li></ol></nav>
-<section class="card" id="recursion"><div class="kicker">01 / Recursion</div><h2>One rule, many updates</h2><p>A <em>recursion</em> uses a current value to calculate the next value. A <em>trajectory</em> is the sequence of values it produces. The starting value has index 0; the result after one update has index 1.</p><div class="formula">\(\text{starting value }a_0 \quad\longrightarrow\quad a_1\quad\longrightarrow\quad a_2\quad\longrightarrow\cdots\)</div><div class="example"><h3>Example 1 · Read the subscript as a step counter</h3><p>Start with \(a_0=10\) and apply \(a_{n+1}=a_n+5\). The values are \(10,15,20,25,30,35\). The value after five updates is \(a_5=35\). There are <em>six recorded values</em>, including the start.</p></div><h3>Compare two nearby starts</h3><p>“The difference gets bigger” does not yet tell us what kind of behavior we have. We need to say which difference we mean.</p><div class="formula">\(\text{absolute difference}=|b_n-a_n|\qquad \text{relative difference}=\dfrac{|b_n-a_n|}{|a_n|}\)</div><p class="small">The relative difference above uses the first trajectory as its reference and requires \(a_n\ne0\). Multiply by 100 to express it as a percentage.</p>
-<div class="table-wrap"><table><thead><tr><th scope="col">Rule and starts</th><th scope="col">After the updates</th><th scope="col">What happened?</th></tr></thead><tbody><tr><td>Add 5; start at 10 and 10.1</td><td>After 5 updates: 35 and 35.1</td><td>Absolute gap stays 0.1.</td></tr><tr><td>Multiply by 3; start at 1 and 1.01</td><td>After 6 updates: 729 and 736.29</td><td>Gap is 7.29, but relative gap stays 1%.</td></tr><tr><td>Multiply by 0.5; start at 10 and 10.1</td><td>After 5 updates: 0.3125 and 0.315625</td><td>Absolute gap shrinks to 0.003125.</td></tr></tbody></table></div>
-<div class="insight"><h3>Growing apart does not automatically mean chaos</h3><p>In the multiplication example, both values grow by the same factor, so the gap is exactly predictable: \(0.01\cdot3^n\). A large absolute gap alone is not enough to identify chaotic behavior.</p></div>
-<div class="quick-check"><p>Start at 4 and 4.1. Double both values three times. What are the absolute and relative differences?</p><details><summary>Check your reasoning</summary><p>The values become 32 and 32.8. The absolute gap is 0.8. Relative to 32, the gap is \(0.8/32=0.025=2.5\%\), exactly the initial relative gap.</p></details></div>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Follow a number through a maze, build a curve that keeps getting longer, and discover why an exact rule can still leave a forecast uncertain.">
+<title>Week 10 Reading — Simple rules. Surprising worlds. | Math in Society</title>
+<link rel="stylesheet" href="../assets/week10/week10.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week10/week10.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html" aria-current="page">Reading</a><a href="../demos/fractal_recursion.html">Explorer</a><a href="../labs/week10_lab.html">Laboratory</a><a href="../applications/week10_application.html">Fish forecast</a><a href="../applications/week10_ai.html">AI application</a><a href="../discussions/week10_discussion.html">Discussion</a></nav><main class="wrap" id="main"><header class="hero"><div class="eyebrow">Week 10 / Reading</div>
+<h1>Simple rules. Surprising worlds.</h1>
+<p class="lead">Follow a number through a maze, build a curve that keeps getting longer, and discover why an exact rule can still leave a forecast uncertain.</p>
+<div class="meta">
+<span class="tag">Collatz</span><span class="tag">Fractals</span><span class="tag">Logistic dynamics</span><span class="tag">Measurement &amp; prediction</span>
+</div></header>
+<div class="card">
+<div class="kicker">The question for the week</div>
+<h2>If we know the rule, do we know the future?</h2>
+<p>A computer can follow a short instruction perfectly and still produce a result that surprises us. That surprise can have several causes. A number sequence can take an unexpectedly long route. A shape can acquire finer detail forever. A prediction can depend on a starting measurement more precisely than we can make it.</p>
+<p>This week, we will keep those ideas separate while looking for the thread that connects them: <em>the outcome depends on a rule, a starting state, and the scale at which we observe.</em></p>
+<div class="grid">
+<div>
+<h3>By the end, you can…</h3>
+<ul>
+<li>Trace a recursion and distinguish a value from an update count.</li>
+<li>Explain what a tested example can and cannot prove.</li>
+<li>Calculate fractal counts, lengths, and area fractions.</li>
+</ul>
+</div>
+<div>
+<h3>…and make sense of the result.</h3>
+<ul>
+<li>Recognize fixed points, cycles, and sensitive trajectories.</li>
+<li>Compare forecasts without rounding away the difference.</li>
+<li>Report a measurement together with its observation scale.</li>
+</ul>
+</div>
+</div>
+</div>
+<section class="card" id="start-here"><div class="kicker">Start here / The mathematical setting</div>
+<h2>A quantity, a rule, and a question</h2>
+<p>In Week 6, a savings balance became the input for the next interest calculation. In Week 5, a temperature reading affected the next heating adjustment. Each example began with a quantity, described how it changed, and asked what would happen after several updates. We will use that same approach here.</p>
+<p>A <em>mathematical model</em> is a deliberately simplified description of a situation. We choose what to keep track of and write a rule relating the quantities. For example, a savings model might include interest and omit fees. A population model might include crowding and omit migration. A calculated answer describes what the model predicts under those assumptions.</p>
+<div class="example">
+<h3>Set up the mathematical world before calculating</h3>
+<ol class="steps">
+<li>
+<em>Choose the quantity.</em> A balance might be measured in dollars; a population might be measured in fish.</li>
+<li>
+<em>Choose what one update means.</em> For a balance it could be one month. For a population it could be one breeding season. For a drawing, an update means one construction stage.</li>
+<li>
+<em>Choose the starting information and the rule.</em> These tell us where to begin and how to obtain the next value.</li>
+<li>
+<em>Choose the question.</em> Are we asking for the next value, a long-run pattern, the largest value, or the difference between two forecasts?</li>
+</ol>
+</div>
+<p>The word <em>state</em> means the current condition represented by the model: a balance, temperature, population, or other quantity. The <em>initial state</em> is its starting condition. <em>Dynamics</em> means how that state changes as we apply updates.</p>
+<p>Some examples this week are models of situations, such as a changing population. Others are mathematical constructions we invent and study, such as a number rule or a repeating drawing instruction. In each case, defining the setting makes the calculation meaningful.</p>
+<h3>What do “complexity” and “chaos” mean here?</h3>
+<p>We will use <em>complexity</em> broadly for behavior or structure with many details: a long number route, an intricate boundary, or a changing forecast. We will give the more specific word <em>chaos</em> a mathematical meaning by comparing nearby forecasts later in the reading. We begin with familiar arithmetic and build toward that idea.</p>
+<p class="small">You will use arithmetic, percentages, repeated multiplication, tables, and graph reading from earlier weeks. The explorer handles long calculations. The optional dimension extension is for curiosity; logarithm calculations are not needed for the core activities.</p></section>
+<nav class="toc" aria-label="Reading contents"><div class="kicker">Read in order; try the short checks</div>
+<p><a href="#start-here">Begin with the mathematical setting: a quantity, a rule, and a question.</a></p>
+<ol>
+<li><a href="#recursion">One rule, many updates</a></li>
+<li><a href="#collatz">The Collatz number machine</a></li>
+<li><a href="#evidence">Evidence and proof</a></li>
+<li><a href="#fractals">Build a fractal; keep the accounts</a></li>
+<li><a href="#logistic">Growth, limits, and the logistic map</a></li>
+<li><a href="#prediction">How far can a forecast travel?</a></li>
+<li><a href="#scale">What does a shorter ruler reveal?</a></li>
+<li><a href="#connections">The observation thread</a></li>
+</ol></nav>
+<section class="card" id="recursion"><div class="kicker">01 / Recursion</div>
+<h2>One rule, many updates</h2>
+<p>A <em>recursion</em> uses a current value to calculate the next value. A <em>trajectory</em> is the sequence of values it produces. The starting value has index 0; the result after one update has index 1.</p>
+<div class="example">
+<h3>Read the formula as an instruction</h3>
+<p>In \(a_{n+1}=a_n+5\), the letter \(a\) names the sequence. The small subscript tells us <em>which step</em> we are reading:</p>
+<div class="table-wrap"><table>
+<thead><tr>
+<th scope="col">Symbol</th>
+<th scope="col">Read it as</th>
+<th scope="col">Meaning</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>\(n\)</td>
+<td>update number</td>
+<td>0 at the start; then 1, 2, 3, …</td>
+</tr>
+<tr>
+<td>\(a_n\)</td>
+<td>“a at step n”</td>
+<td>the current value</td>
+</tr>
+<tr>
+<td>\(a_{n+1}\)</td>
+<td>“a at the next step”</td>
+<td>the new value after one more update</td>
+</tr>
+<tr>
+<td>\(a_{n+1}=a_n+5\)</td>
+<td>“next value equals current value plus 5”</td>
+<td>an instruction we can repeat</td>
+</tr>
+</tbody>
+</table></div>
+<p>The subscript in \(a_0\) labels the starting value; it does not mean “multiply \(a\) by zero.” Similarly, the \(n+1\) in the subscript labels the next step. The amount added to the current value is the 5 on the right side.</p>
+</div>
+<div class="formula">\(\text{starting value }a_0 \quad\longrightarrow\quad a_1\quad\longrightarrow\quad a_2\quad\longrightarrow\cdots\)</div>
+<div class="example">
+<h3>Example 1 · Read the subscript as a step counter</h3>
+<p>Start with \(a_0=10\) and apply \(a_{n+1}=a_n+5\). The values are \(10,15,20,25,30,35\). The value after five updates is \(a_5=35\). There are <em>six recorded values</em>, including the start.</p>
+</div>
+<h3>Compare two nearby starts</h3>
+<p>Imagine two measurements of the same starting quantity: 10 and 10.1. Rather than deciding immediately which measurement is exact, we can apply the same rule to both. This gives two possible forecasts. We then ask how far apart their predictions are at the same update number.</p>
+<p>“The difference gets bigger” does not yet tell us what kind of behavior we have. We need to say which difference we mean.</p>
+<div class="example">
+<h3>A difference in units and a difference in percent</h3>
+<p>Suppose two model balances are $50 and $52. They are $2 apart. Relative to the first balance, that gap is \(2/50=0.04=4\%\).</p>
+<p><em>Absolute difference</em> asks “how many units apart?” <em>Relative difference</em> asks “how large is that gap compared with the reference value?” The bars in \(|b_n-a_n|\) mean take the nonnegative size of the difference. For example, both \(|52-50|\) and \(|50-52|\) equal 2.</p>
+</div>
+<div class="formula">\(\text{absolute difference}=|b_n-a_n|\qquad \text{relative difference}=\dfrac{|b_n-a_n|}{|a_n|}\)</div>
+<p class="small">The relative difference above uses the first trajectory as its reference and requires \(a_n\ne0\). Multiply by 100 to express it as a percentage. The condition on the reference says it cannot be zero, because division by zero is undefined.</p>
+<div class="table-wrap"><table>
+<thead><tr>
+<th scope="col">Rule and starts</th>
+<th scope="col">After the updates</th>
+<th scope="col">What happened?</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Add 5; start at 10 and 10.1</td>
+<td>After 5 updates: 35 and 35.1</td>
+<td>Absolute gap stays 0.1.</td>
+</tr>
+<tr>
+<td>Multiply by 3; start at 1 and 1.01</td>
+<td>After 6 updates: 729 and 736.29</td>
+<td>Gap is 7.29, but relative gap stays 1%.</td>
+</tr>
+<tr>
+<td>Multiply by 0.5; start at 10 and 10.1</td>
+<td>After 5 updates: 0.3125 and 0.315625</td>
+<td>Absolute gap shrinks to 0.003125.</td>
+</tr>
+</tbody>
+</table></div>
+<div class="insight">
+<h3>A growing gap can still have a simple explanation</h3>
+<p>Under multiplication by 3, the gap also multiplies by 3 at each update. We can explain its growth exactly: \(0.01\cdot3^n\). This is a useful comparison for later. It shows why “the forecasts are farther apart” needs an explanation of <em>how</em> they separate.</p>
+</div>
+<div class="quick-check">
+<p>Start at 4 and 4.1. Double both values three times. What are the absolute and relative differences?</p>
+<details><summary>Check your reasoning</summary><p>The values become 32 and 32.8. The absolute gap is 0.8. Relative to 32, the gap is \(0.8/32=0.025=2.5\%\), exactly the initial relative gap.</p></details>
+</div>
 </section>
-<section class="card" id="collatz"><div class="kicker">02 / The Collatz number machine</div><h2>Two instructions. One enormous question.</h2><p>Choose a positive whole number. If it is even, divide it by 2. If it is odd, multiply it by 3 and add 1. Use the result as the next input.</p><div class="formula">\[a_{n+1}=\begin{cases}a_n/2,&a_n\text{ is even},\\3a_n+1,&a_n\text{ is odd}.\end{cases}\]</div>
-<figure class="figure"><img src="../assets/week10/collatz-rule.svg" alt="Collatz rule: test whether the current positive integer is even; divide by two if yes, otherwise multiply by three and add one. Repeat." loading="lazy"><figcaption>The parity test chooses the branch. No coin is tossed; each next value is determined by the current integer.</figcaption></figure>
-<div class="example"><h3>Example 2 · Trace the route from 6</h3><p>First, 6 is even, so \(6/2=3\). Then 3 is odd, so \(3(3)+1=10\). Continue by checking the <em>new</em> value each time.</p><div class="route" aria-label="6, 3, 10, 5, 16, 8, 4, 2, 1"><span>6</span><i aria-hidden="true">→</i><span>3</span><i aria-hidden="true">→</i><span>10</span><i aria-hidden="true">→</i><span>5</span><i aria-hidden="true">→</i><span>16</span><i aria-hidden="true">→</i><span>8</span><i aria-hidden="true">→</i><span>4</span><i aria-hidden="true">→</i><span>2</span><i aria-hidden="true">→</i><span>1</span></div><p>There are 8 arrows, so the trajectory first reaches 1 after <em>8 updates</em>. Its largest value, or <em>peak</em>, is 16. If we continue after 1, we get the repeating cycle \(1\to4\to2\to1\).</p></div><h3>Nearby starts can take very different routes</h3>
-<figure class="figure"><img src="../assets/week10/collatz-comparison.svg" alt="Starting at 26 reaches 1 after 10 updates with peak 40. Starting at 27 reaches 1 after 111 updates with peak 9232. The vertical axis uses a logarithmic scale." loading="lazy"><figcaption>Read the horizontal axis as an update count. On the logarithmic vertical axis, equal spacing represents multiplication by 10, so both the short and the tall trajectory remain visible.</figcaption></figure><div class="table-wrap"><table><thead><tr><th scope="col">Start</th><th scope="col">Updates to first 1</th><th scope="col">Peak</th></tr></thead><tbody><tr><td>6</td><td>8</td><td>16</td></tr><tr><td>7</td><td>16</td><td>52</td></tr><tr><td>26</td><td>10</td><td>40</td></tr><tr><td>27</td><td>111</td><td>9,232</td></tr></tbody></table></div>
-<p>“Larger start” does not reliably mean “longer journey.” For example, 32 reaches 1 in just five updates because \(32\to16\to8\to4\to2\to1\). The explorer lets you trace an entire route and compare neighboring starts.</p><div class="insight"><h3>A connection to networks</h3><p>Imagine each positive integer as a node, with an arrow to its next Collatz value. If two trajectories meet at the same number, their remaining routes agree exactly. Starting at 6 and 7, both routes eventually meet at 10. This is a directed network generated by a rule.</p></div>
-<div class="quick-check"><p>Starting at 5, record the trajectory to its first 1. How many updates are there? What is the peak?</p><details><summary>Check your reasoning</summary><p>\(5\to16\to8\to4\to2\to1\): 5 updates, peak 16. Count arrows, not recorded numbers.</p></details></div>
+<section class="card" id="collatz"><div class="kicker">02 / The Collatz number machine</div>
+<h2>Two instructions. One enormous question.</h2>
+<p>Here the mathematical world is the positive integers: 1, 2, 3, and so on. We are not modeling fish or money yet. We are exploring what a particular arithmetic instruction does to a whole number. One update means applying the instruction once.</p>
+<p>Choose a positive whole number. If it is even, divide it by 2. If it is odd, multiply it by 3 and add 1. Use the result as the next input.</p>
+<p>An <em>even</em> integer divides by 2 without a remainder, such as 6 or 10. An <em>odd</em> integer does not, such as 3 or 5. The displayed formula below simply puts those two verbal instructions into one statement. The brace says “choose the appropriate row.”</p>
+<div class="formula">\[a_{n+1}=\begin{cases}a_n/2,&amp;a_n\text{ is even},\\3a_n+1,&amp;a_n\text{ is odd}.\end{cases}\]</div>
+<figure class="figure"><img src="../assets/week10/collatz-rule.svg" alt="Collatz rule: test whether the current positive integer is even; divide by two if yes, otherwise multiply by three and add one. Repeat." loading="lazy"><figcaption>The even/odd test chooses the branch. No coin is tossed; each next value is determined by the current integer.</figcaption></figure>
+<div class="example">
+<h3>Example 2 · Trace the route from 6</h3>
+<p>First, 6 is even, so \(6/2=3\). Then 3 is odd, so \(3(3)+1=10\). Continue by checking the <em>new</em> value each time.</p>
+<div class="route" aria-label="6, 3, 10, 5, 16, 8, 4, 2, 1">
+<span>6</span><i aria-hidden="true">→</i><span>3</span><i aria-hidden="true">→</i><span>10</span><i aria-hidden="true">→</i><span>5</span><i aria-hidden="true">→</i><span>16</span><i aria-hidden="true">→</i><span>8</span><i aria-hidden="true">→</i><span>4</span><i aria-hidden="true">→</i><span>2</span><i aria-hidden="true">→</i><span>1</span>
+</div>
+<p>There are 8 arrows, so the trajectory first reaches 1 after <em>8 updates</em>. Its largest value, or <em>peak</em>, is 16. If we continue after 1, we get the repeating cycle \(1\to4\to2\to1\).</p>
+</div>
+<h3>Nearby starts can take very different routes</h3>
+<div class="example">
+<h3>Read this graph before comparing the routes</h3>
+<p>The horizontal axis counts updates: a point above 20 describes the value after 20 instructions. The vertical axis gives the current integer.</p>
+<p>That vertical axis uses a <em>logarithmic scale</em>. Read its labels: 1, 10, 100, 1,000, 10,000. Moving up one equal-sized interval multiplies the value by 10. This lets a peak of 40 and a peak of 9,232 appear on the same graph. The labels, rather than the visual height alone, tell us the values.</p>
+<p>First compare the horizontal endpoints to see which route lasts longer. Then use the vertical labels and the table to compare peaks.</p>
+</div>
+<figure class="figure"><img src="../assets/week10/collatz-comparison.svg" alt="Starting at 26 reaches 1 after 10 updates with peak 40. Starting at 27 reaches 1 after 111 updates with peak 9232. The vertical axis uses a logarithmic scale." loading="lazy"><figcaption>Read the horizontal axis as an update count. On the logarithmic vertical axis, equal spacing represents multiplication by 10, so both the short and the tall trajectory remain visible.</figcaption></figure><div class="table-wrap"><table>
+<thead><tr>
+<th scope="col">Start</th>
+<th scope="col">Updates to first 1</th>
+<th scope="col">Peak</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>6</td>
+<td>8</td>
+<td>16</td>
+</tr>
+<tr>
+<td>7</td>
+<td>16</td>
+<td>52</td>
+</tr>
+<tr>
+<td>26</td>
+<td>10</td>
+<td>40</td>
+</tr>
+<tr>
+<td>27</td>
+<td>111</td>
+<td>9,232</td>
+</tr>
+</tbody>
+</table></div>
+<p>“Larger start” does not reliably mean “longer journey.” For example, 32 reaches 1 in just five updates because \(32\to16\to8\to4\to2\to1\). The explorer lets you trace an entire route and compare neighboring starts.</p>
+<div class="insight">
+<h3>A connection to networks</h3>
+<p>Imagine each positive integer as a node, with an arrow to its next Collatz value. If two trajectories meet at the same number, their remaining routes agree exactly. Starting at 6 and 7, both routes eventually meet at 10. This is a directed network generated by a rule.</p>
+</div>
+<div class="quick-check">
+<p>Starting at 5, record the trajectory to its first 1. How many updates are there? What is the peak?</p>
+<details><summary>Check your reasoning</summary><p>\(5\to16\to8\to4\to2\to1\): 5 updates, peak 16. Count arrows, not recorded numbers.</p></details>
+</div>
 </section>
-<section class="card" id="evidence"><div class="kicker">03 / Evidence and proof</div><h2>A million successful trials still leave a question</h2><p>The <em>Collatz conjecture</em> says that every positive integer eventually reaches 1. Extensive computer searches support the conjecture, but a proof for every positive integer is still unknown. The exact rule is easy to state; the universal claim is difficult to establish.</p><div class="example"><h3>Example 3 · A family we really can prove</h3><p>If the starting number is a power of 2, say \(2^k\), each even step halves it:</p><div class="math">\[2^k\to2^{k-1}\to\cdots\to2\to1.\]</div><p>It reaches 1 after exactly \(k\) updates. This argument works for <em>every</em> nonnegative integer \(k\), so it covers infinitely many starts. It does not cover all positive integers: 7 and 27, for example, are not powers of 2.</p></div><p>A finite computation can settle a stated finite range. A universal proof must explain why no positive integer outside that range can escape. Conversely, a single positive integer proved never to reach 1 would refute the conjecture.</p><div class="insight"><h3>Do not confuse two kinds of difficulty</h3><p>Collatz gives surprising integer trajectories and an unresolved mathematical question. Comparing 26 and 27 does not establish chaos in the usual continuous-state sense. Later, the logistic map will give us a different question: what happens to an <em>approximate measurement</em> under repeated updates?</p></div>
-<div class="quick-check"><p>A program tests every starting integer from 1 through 10,000, and they all reach 1. Which statement is justified?</p><details><summary>Check your reasoning</summary><p>The conjecture holds for those 10,000 starting integers. The experiment provides evidence for the universal conjecture; it does not prove it for all positive integers.</p></details></div>
+<section class="card" id="evidence"><div class="kicker">03 / Evidence and proof</div>
+<h2>A million successful trials still leave a question</h2>
+<p>A <em>conjecture</em> is a proposed mathematical statement that has not yet been proved. A <em>proof</em> is an argument that covers every case described by the statement. The words “every positive integer” ask for much more than a large collection of successful examples.</p>
+<p>The <em>Collatz conjecture</em> says that every positive integer eventually reaches 1. Extensive computer searches support the conjecture, but a proof for every positive integer is still unknown. The exact rule is easy to state; the universal claim is difficult to establish.</p>
+<div class="example">
+<h3>Example 3 · A family we really can prove</h3>
+<p>Recall that a power counts repeated multiplications: \(2^3=2\cdot2\cdot2=8\), and \(2^4=16\). Starting from 8 gives \(8\to4\to2\to1\); starting from 16 gives one extra halving first. The same reasoning works however many factors of 2 we start with.</p>
+<p>If the starting number is a power of 2, say \(2^k\), each even step halves it:</p>
+<div class="math">\[2^k\to2^{k-1}\to\cdots\to2\to1.\]</div>
+<p>It reaches 1 after exactly \(k\) updates. This argument works for <em>every</em> nonnegative integer \(k\), so it covers infinitely many starts. It does not cover all positive integers: 7 and 27, for example, are not powers of 2.</p>
+</div>
+<p>A finite computation can settle a stated finite range. A universal proof must explain why no positive integer outside that range can escape. Conversely, a single positive integer proved never to reach 1 would refute the conjecture.</p>
+<div class="insight">
+<h3>Two different questions about prediction</h3>
+<p>For any chosen Collatz integer, the next arithmetic step is straightforward. The unresolved question concerns every possible starting integer. In the population examples ahead, our question changes: how useful is a forecast when we only know the starting population approximately?</p>
+</div>
+<div class="quick-check">
+<p>A program tests every starting integer from 1 through 10,000, and they all reach 1. Which statement is justified?</p>
+<details><summary>Check your reasoning</summary><p>The conjecture holds for those 10,000 starting integers. The experiment provides evidence for the universal conjecture; it does not prove it for all positive integers.</p></details>
+</div>
 </section>
-<section class="card" id="fractals"><div class="kicker">04 / Fractal construction</div><h2>Keep the rule. Change the scale.</h2><p>A self-similar object contains smaller copies of its overall pattern. We can build ideal fractals by repeating a geometric instruction at finer and finer scales. A displayed stage is a finite approximation; the ideal fractal is the limit of all stages.</p><h3>The Koch curve: more pieces, longer total</h3><ol class="steps"><li>Begin with a straight segment of length 1.</li><li>Divide it into thirds. Replace the middle third with the two sides of an equilateral triangular bump.</li><li>Apply that replacement to <em>every</em> segment of the new curve.</li></ol>
+<section class="card" id="fractals"><div class="kicker">04 / Fractal construction</div>
+<h2>Keep the rule. Change the scale.</h2>
+<p>Now one update changes a drawing rather than a single population or balance. Think of a drawing program with a replacement instruction. Stage 0 is the original drawing. Stage 1 applies the instruction once to every original piece. Stage 2 applies it once to every piece produced at stage 1.</p>
+<p>A self-similar object contains smaller copies of its overall pattern. We can build ideal fractals by repeating a geometric instruction at finer and finer scales. A displayed stage is a finite approximation; the ideal fractal is the limit of all stages.</p>
+<p>For these examples, <em>self-similar</em> means a smaller part is an exact scaled copy of the whole limiting pattern. A <em>fractal</em> has structure that remains intricate as we inspect finer scales. We can draw only finitely many stages, but we can ask what the measurements do as the number of stages increases.</p>
+<h3>The Koch curve: more pieces, longer total</h3>
+<p>The distance straight across between two endpoints is different from the distance along a route between them. A winding trail can be much longer than the straight path with the same endpoints. The Koch construction makes that distinction visible and calculable.</p>
+<ol class="steps">
+<li>Begin with a straight segment of length 1.</li>
+<li>Divide it into thirds. Replace the middle third with the two sides of an equilateral triangular bump.</li>
+<li>Apply that replacement to <em>every</em> segment of the new curve.</li>
+</ol>
 <figure class="figure"><img src="../assets/week10/koch-stages.svg" alt="Koch stages 0 through 3: segment counts 1, 4, 16, 64 and total lengths 1, 1.333, 1.778, 2.370. Each drawing has the same endpoint separation." loading="lazy"><figcaption>The endpoints stay the same distance apart. The route between them gets longer because each old segment becomes four segments, each one-third as long.</figcaption></figure>
+<div class="example">
+<h3>Two accounts to keep: how many, and how long?</h3>
+<p>After the first Koch replacement there are <em>four</em> pieces. Each piece is only <em>one-third</em> as long as the original. So four pieces do not make a total length of 4; their total is \(4\cdot(1/3)=4/3\).</p>
+<p>After the second replacement, each of those four pieces becomes four smaller pieces: \(4\cdot4=16\) in all. Each new piece is one-third of one-third of the original: \((1/3)(1/3)=1/9\). Total length is therefore \(16\cdot(1/9)=16/9\).</p>
+<p>The formulas below abbreviate these repeated multiplications. \(N_n\) counts segments, \(\ell_n\) is the length of one segment, and \(L_n\) is the total length. The expression \((4/3)^n\) means multiply by \(4/3\) once for each stage.</p>
+</div>
 <div class="formula">\[N_n=4^n,\qquad \ell_n=\left(\frac13\right)^n,\qquad L_n=N_n\ell_n=\left(\frac43\right)^n.\]</div>
-<div class="table-wrap"><table><thead><tr><th scope="col">Stage n</th><th scope="col">Segment count Nₙ</th><th scope="col">Length per segment ℓₙ</th><th scope="col">Total length Lₙ</th></tr></thead><tbody><tr><td>0</td><td>1</td><td>1</td><td>1</td></tr><tr><td>1</td><td>4</td><td>1/3</td><td>4/3 ≈ 1.3333</td></tr><tr><td>2</td><td>16</td><td>1/9</td><td>16/9 ≈ 1.7778</td></tr><tr><td>3</td><td>64</td><td>1/27</td><td>64/27 ≈ 2.3704</td></tr><tr><td>4</td><td>256</td><td>1/81</td><td>256/81 ≈ 3.1605</td></tr></tbody></table></div>
-<div class="example"><h3>Example 4 · A 9-meter starting segment</h3><p>After one replacement there are four 3-meter segments, totaling 12 meters. After two replacements there are sixteen 1-meter segments, totaling 16 meters.</p><p>Using the formula gives the same result: \(L_2=9(4/3)^2=16\) meters. The formula \((4/3)^n\) by itself assumes the original length is 1.</p></div><h3>The Sierpinski triangle: more pieces, less area</h3><p>Start with a filled triangle of area 1. Split it into four congruent triangles and remove the central one. Repeat on each remaining filled triangle. Each step keeps three quarters of the currently filled area.</p>
+<div class="table-wrap"><table>
+<thead><tr>
+<th scope="col">Stage n</th>
+<th scope="col">Segment count Nₙ</th>
+<th scope="col">Length per segment ℓₙ</th>
+<th scope="col">Total length Lₙ</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>4</td>
+<td>1/3</td>
+<td>4/3 ≈ 1.3333</td>
+</tr>
+<tr>
+<td>2</td>
+<td>16</td>
+<td>1/9</td>
+<td>16/9 ≈ 1.7778</td>
+</tr>
+<tr>
+<td>3</td>
+<td>64</td>
+<td>1/27</td>
+<td>64/27 ≈ 2.3704</td>
+</tr>
+<tr>
+<td>4</td>
+<td>256</td>
+<td>1/81</td>
+<td>256/81 ≈ 3.1605</td>
+</tr>
+</tbody>
+</table></div>
+<div class="example">
+<h3>Example 4 · A 9-meter starting segment</h3>
+<p>After one replacement there are four 3-meter segments, totaling 12 meters. After two replacements there are sixteen 1-meter segments, totaling 16 meters.</p>
+<p>Using the formula gives the same result: \(L_2=9(4/3)^2=16\) meters. The formula \((4/3)^n\) by itself assumes the original length is 1.</p>
+</div>
+<h3>The Sierpinski triangle: more pieces, less area</h3>
+<p>Here we measure a filled region. Its <em>area</em> tells how much flat surface it covers, in square units. Keeping track of area differs from measuring the length of an edge.</p>
+<p>Start with a filled triangle of area 1. Split it into four congruent triangles and remove the central one. Repeat on each remaining filled triangle. Each step keeps three quarters of the currently filled area.</p>
 <figure class="figure"><img src="../assets/week10/sierpinski-stages.svg" alt="Sierpinski stages 0 through 3: filled-triangle counts 1, 3, 9, 27; remaining area fractions 1, .75, .5625, .421875." loading="lazy"><figcaption>The number of pieces multiplies by 3, but each piece has one-quarter the area of its parent. Count and area answer different questions.</figcaption></figure>
-<div class="formula">\[T_n=3^n,\qquad A_n=\left(\frac34\right)^n.\]</div><p>At stage 4, there are \(3^4=81\) filled triangles, yet only \((3/4)^4=81/256\approx0.3164\) of the original area remains. That is about 31.64%, not 0.3164%. In the ideal limit, the remaining area tends to zero while a rich self-similar set remains.</p><div class="insight"><h3>Geometric complexity can be exactly predictable</h3><p>The Koch curve acquires intricate detail, but its finite-stage counts and lengths have exact formulas. A fractal shape does not automatically imply an unpredictable time evolution.</p></div><details><summary>Optional extension · A dimension between 1 and 2</summary><p>For these exact self-similar examples, dimension compares the number of smaller copies with their scale. If there are \(N\) copies, each shrunk by a factor \(b\), the similarity dimension satisfies \(b^D=N\), so \(D=\log N/\log b\).</p><p>Koch: \(D=\log4/\log3\approx1.262\). Sierpinski: \(D=\log3/\log2\approx1.585\). These dimensions describe scaling; they are not percentages of the plane that the shape fills.</p></details>
-<div class="quick-check"><p>At Koch stage 3, does each segment have length 1/3 or 1/27? How does that produce the total length?</p><details><summary>Check your reasoning</summary><p>Each segment has length \((1/3)^3=1/27\). There are 64 segments, so \(L_3=64/27\). The one-third factor is applied three times.</p></details></div>
+<div class="example">
+<h3>Why does each small triangle have one-quarter the area?</h3>
+<p>Each small triangle has half the base and half the height of its parent. The area formula, \(\tfrac12\times\text{base}\times\text{height}\), is therefore multiplied by \((1/2)(1/2)=1/4\). Keeping three such pieces keeps \(3\cdot(1/4)=3/4\) of the parent’s area.</p>
+<div class="table-wrap"><table>
+<caption>Start with original area 1 square unit</caption>
+<thead><tr>
+<th scope="col">Stage</th>
+<th scope="col">Filled pieces</th>
+<th scope="col">Area of each piece</th>
+<th scope="col">Total remaining area</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>3</td>
+<td>1/4</td>
+<td>3/4 = 0.75</td>
+</tr>
+<tr>
+<td>2</td>
+<td>9</td>
+<td>1/16</td>
+<td>9/16 = 0.5625</td>
+</tr>
+</tbody>
+</table></div>
+<p>For a concrete size, start with a triangle of area 16 square centimeters. After one stage, 12 square centimeters remain. After two, 9 remain. The <em>number</em> of pieces increases while the <em>total area</em> decreases.</p>
+</div>
+<div class="formula">\[T_n=3^n,\qquad A_n=\left(\frac34\right)^n.\]</div>
+<p>At stage 4, there are \(3^4=81\) filled triangles, yet only \((3/4)^4=81/256\approx0.3164\) of the original area remains. That is about 31.64%, not 0.3164%. In the ideal limit, the remaining area tends to zero while a rich self-similar set remains.</p>
+<h3>What does “in the limit” mean?</h3>
+<p>We never finish infinitely many drawing stages. Instead, we study the pattern in their measurements. Koch lengths are multiplied by a factor greater than 1, so they eventually exceed any chosen length. Sierpinski areas are multiplied by a positive factor less than 1, so they get as close to zero as we choose.</p>
+<p>The ideal Sierpinski set can have infinitely many points and still cover zero square units. A straight line segment also contains infinitely many points while having zero area in the plane. Counting points, measuring length, and measuring area ask different questions.</p>
+<div class="insight">
+<h3>Geometric complexity can be exactly predictable</h3>
+<p>The Koch curve acquires intricate detail, but its finite-stage counts and lengths have exact formulas. A fractal shape does not automatically imply an unpredictable time evolution.</p>
+</div>
+<details><summary>Optional extension · What could a dimension between 1 and 2 mean?</summary><p>A line segment can be made of two half-length copies of itself. A filled square can be made of four half-size copies: two across and two up. The number of copies needed at a smaller scale helps distinguish a line from a filled region.</p>
+<p>A Koch curve has four copies at one-third scale. Four is more than the three copies needed to make a straight segment at that scale, but fewer than the nine third-size squares needed to cover a square. Its scaling falls between those familiar cases. The dimension numbers below describe this scaling relationship.</p>
+<p class="small">The logarithm formula records that relationship for readers who want it. You do not need to calculate logarithms for this week’s laboratory or quiz. Here \(b\) is the reduction factor: \(b=3\) means each copy has one-third the original length.</p>
+<p>For these exact self-similar examples, dimension compares the number of smaller copies with their scale. If there are \(N\) copies, each shrunk by a factor \(b\), the similarity dimension satisfies \(b^D=N\), so \(D=\log N/\log b\).</p>
+<p>Koch: \(D=\log4/\log3\approx1.262\). Sierpinski: \(D=\log3/\log2\approx1.585\). These dimensions describe scaling; they are not percentages of the plane that the shape fills.</p></details>
+<div class="quick-check">
+<p>At Koch stage 3, does each segment have length 1/3 or 1/27? How does that produce the total length?</p>
+<details><summary>Check your reasoning</summary><p>Each segment has length \((1/3)^3=1/27\). There are 64 segments, so \(L_3=64/27\). The one-third factor is applied three times.</p></details>
+</div>
 </section>
-<section class="card" id="logistic"><div class="kicker">05 / The logistic map</div><h2>Growth meets a limiting factor</h2><p>We have used additive and multiplicative updates throughout the course. Now the multiplier itself depends on the current state:</p><div class="formula">\[x_{n+1}=r x_n(1-x_n).\]</div><ul><li>\(x_n\) is the current state, normalized between 0 and 1.</li><li>\(r\) is a fixed parameter controlling the update.</li><li>\(1-x_n\) is a limiting factor: it gets smaller when \(x_n\) gets larger.</li></ul><p>For \(0\le r\le4\), a starting state in \([0,1]\) stays in that interval. We can use \(x_n\) as a simplified population index, but a real population requires more information than this one equation includes.</p><div class="example"><h3>Example 5 · Do not reuse the old input</h3><p>Let \(r=2\) and \(x_0=0.2\).</p><ol class="steps"><li>\(x_1=2(0.2)(1-0.2)=2(0.2)(0.8)=0.32\).</li><li>\(x_2=2(0.32)(1-0.32)=2(0.32)(0.68)=0.4352\).</li><li>\(x_3=2(0.4352)(0.5648)=0.49160192\).</li></ol><p>Each new result replaces the previous input. The values approach 0.5.</p></div><h3>Three behaviors from the same formula</h3>
-<figure class="figure"><img src="../assets/week10/logistic-behaviors.svg" alt="For the logistic map starting at .4, r=2.8 approaches one value, r=3.2 approaches a two-cycle, and r=3.9 shows irregular variation over 40 updates." loading="lazy"><figcaption>Each panel starts at x₀ = 0.4 and shows 40 updates. The parameter changes; the formula stays the same. A finite plot shows numerical behavior, not a proof about every future update.</figcaption></figure><div class="table-wrap"><table><thead><tr><th scope="col">Behavior</th><th scope="col">What to look for</th><th scope="col">Example</th></tr></thead><tbody><tr><td>Fixed point</td><td>Later values approach one state.</td><td>r = 2.8 approaches 1 − 1/2.8 ≈ 0.642857.</td></tr><tr><td>Cycle</td><td>Later values approach a repeating pattern.</td><td>r = 3.2 approaches a two-cycle near 0.5130 and 0.7995.</td></tr><tr><td>Chaotic dynamics</td><td>Bounded irregular motion with sensitivity to nearby starts.</td><td>At r = 3.9, the nearby trajectories below separate substantially.</td></tr></tbody></table></div>
-<p>A <em>fixed point</em> is a state unchanged by an update. To find the nonzero fixed point, solve \(x=rx(1-x)\). For \(x\ne0\), divide by \(x\): \(1=r(1-x)\), giving \(x^*=1-1/r\). Finding a fixed point does not by itself tell us whether nearby states approach it.</p><div class="insight"><h3>A larger r does not mean “more chaos” every time</h3><p>There are periodic windows among the chaotic parameter ranges. For example, \(r=3.83\) has an attracting three-cycle. There are also exceptional starting values: at \(r=4\), the exact start \(x_0=0.5\) gives \(0.5\to1\to0\to0\). The explorer includes both examples.</p></div>
-<div class="quick-check"><p>With \(r=2.8\) and \(x_0=0.2\), calculate just the next state.</p><details><summary>Check your reasoning</summary><p>\(x_1=2.8(0.2)(0.8)=0.448\). It is not the fixed point; it is the first update from the chosen start.</p></details></div>
+<section class="card" id="logistic"><div class="kicker">05 / The logistic map</div>
+<h2>Growth meets a limiting factor</h2>
+<div class="example" id="logistic-setting">
+<h3>A small population model</h3>
+<p>Imagine a pond whose population is measured once per breeding season. Let 1,000 fish be our reference population. We can describe 200 fish by the fraction \(200/1{,}000=0.2\), or 20% of the reference population.</p>
+<p>Writing a quantity on this common 0-to-1 scale is called <em>normalizing</em> it. In this model, \(x=0\) means zero fish, \(x=0.5\) means 500 fish, and \(x=1\) means 1,000 fish. A model state such as 0.2 is a fraction, not a count of 0.2 fish.</p>
+<p>To model a next season, we want growth to depend on the present population and to weaken when crowding is high. The logistic map is one simple rule built for that purpose. It is a mathematical example, with a chosen reference scale, rather than a complete ecological account of a pond.</p>
+</div>
+<p>The rule combines the current fraction with a growth setting and a limiting factor. In words: next fraction = growth setting × current fraction × remaining fraction.</p>
+<p>We write the current fraction as \(x_n\). The next season’s fraction is \(x_{n+1}\). The setting \(r\) is a <em>parameter</em>: a number we hold fixed during a run. Choosing a different \(r\) changes the model’s response strength, much as changing the controller’s strength changed the temperature sequence in Week 5.</p>
+<p>In mathematics, a <em>map</em> is an input-output rule. The name <em>logistic map</em> refers to this particular population-style update. Repeating an update is also called <em>iterating</em> the rule.</p>
+<div class="formula">\[x_{n+1}=r x_n(1-x_n).\]</div>
+<ul>
+<li>\(x_n\) is the current state, normalized between 0 and 1.</li>
+<li>\(r\) is a fixed parameter controlling the update.</li>
+<li>\(1-x_n\) is a limiting factor: it gets smaller when \(x_n\) gets larger.</li>
+</ul>
+<p>If \(x_n=0.2\), then \(1-x_n=0.8\). If \(x_n=0.8\), then \(1-x_n=0.2\). This complement is the limiting factor in the model: a larger current fraction leaves a smaller factor to multiply by.</p>
+<h3>Read r as a setting, not a percentage</h3>
+<p>In Week 6, multiplying a balance by 1.05 represented 5% growth each period. Here the whole multiplier is \(r(1-x_n)\), so it changes when \(x_n\) changes. For example, with \(r=2\):</p>
+<div class="table-wrap"><table>
+<thead><tr>
+<th scope="col">Current fraction</th>
+<th scope="col">Limiting factor</th>
+<th scope="col">Whole multiplier</th>
+<th scope="col">Next fraction</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>0.2</td>
+<td>1 − 0.2 = 0.8</td>
+<td>2 × 0.8 = 1.6</td>
+<td>1.6 × 0.2 = 0.32</td>
+</tr>
+<tr>
+<td>0.5</td>
+<td>1 − 0.5 = 0.5</td>
+<td>2 × 0.5 = 1</td>
+<td>1 × 0.5 = 0.5</td>
+</tr>
+<tr>
+<td>0.8</td>
+<td>1 − 0.8 = 0.2</td>
+<td>2 × 0.2 = 0.4</td>
+<td>0.4 × 0.8 = 0.32</td>
+</tr>
+</tbody>
+</table></div>
+<p>At a low population, the model’s multiplier can exceed 1 and the next population grows. At a high population, the limiting factor can make the multiplier smaller than 1 and the population falls. The chosen rule can make a strong correction. This dependence on the current state makes the update <em>nonlinear</em>: its effects do not follow one fixed additive or multiplicative pattern.</p>
+<p>For \(0\le r\le4\), a starting state in \([0,1]\) stays in that interval. We can use \(x_n\) as a simplified population index, but a real population requires more information than this one equation includes.</p>
+<div class="example">
+<h3>Example 5 · Do not reuse the old input</h3>
+<p>Let \(r=2\) and \(x_0=0.2\).</p>
+<ol class="steps">
+<li>\(x_1=2(0.2)(1-0.2)=2(0.2)(0.8)=0.32\).</li>
+<li>\(x_2=2(0.32)(1-0.32)=2(0.32)(0.68)=0.4352\).</li>
+<li>\(x_3=2(0.4352)(0.5648)=0.49160192\).</li>
+</ol>
+<p>Each new result replaces the previous input. The values approach 0.5.</p>
+</div>
+<p>In the 1,000-fish setting, those fractions represent approximately 200, 320, 435, and 492 fish. These are model estimates; we round fish counts for reporting while keeping the fractional calculation unrounded. A “generation” or “update” on the graph means one breeding season in this example.</p>
+<h3>A fixed point: an update that leaves the state alone</h3>
+<p>Try \(r=2\) and \(x=0.5\). The next value is \(2(0.5)(1-0.5)=0.5\). If the model reaches exactly 0.5, it keeps returning 0.5. This unchanged value is called a <em>fixed point</em>.</p>
+<p>A sequence can also <em>approach</em> a fixed point: its later values get closer and closer to it. Our earlier run, \(0.2,0.32,0.4352,0.49160192,\ldots\), moves toward 0.5. A fixed point describes a lasting balance, whereas a first update describes what happens immediately from a particular start.</p>
+<p>For the nonzero fixed point of this rule, we can use \(x^*=1-1/r\). The star is a label for the fixed-point value; it is not multiplication. To use the formula, divide 1 by the chosen \(r\), then subtract that result from 1. For \(r=2.8\), this gives approximately 0.642857.</p>
+<details><summary>Why does the fixed-point formula work?</summary><p>A fixed point has the same value before and after the update, so it satisfies \(x=rx(1-x)\). For \(x\ne0\), divide both sides by \(x\), giving \(1=r(1-x)\). Divide by \(r\), then rearrange: \(1/r=1-x\), so \(x=1-1/r\). Zero is also a fixed point: without any starting population, this model produces none.</p></details>
+<h3>Three behaviors from the same formula</h3>
+<p>Now keep the initial state at 0.4 and change only \(r\). Read each panel like the time graphs in Week 5: move left to right through the updates, and read the vertical value at each dot. Joining the dots helps the eye follow the sequence; the calculation itself happens at the numbered updates.</p>
+<p>A <em>cycle</em> is a repeating sequence of states. A <em>two-cycle</em> alternates between two values, as a high-low-high-low pattern. The early values may still be settling toward that pattern. A nearly horizontal row of late dots indicates approach to a fixed point instead.</p>
+<p>In Week 5, a feedback sequence could swing because of a strong correction or delayed information. This rule uses the current population fraction directly at each season; it does not include a delayed sensor report. Here we investigate what happens as the response setting changes.</p>
+<figure class="figure"><img src="../assets/week10/logistic-behaviors.svg" alt="For the logistic map starting at .4, r=2.8 approaches one value, r=3.2 approaches a two-cycle, and r=3.9 shows irregular variation over 40 updates." loading="lazy"><figcaption>Each panel starts at x₀ = 0.4 and shows 40 updates. The parameter changes; the formula stays the same. A finite plot shows numerical behavior, not a proof about every future update.</figcaption></figure><h3>Giving chaotic behavior a meaning</h3>
+<p>The third panel does not settle into the visible one-value or two-value pattern. Its states remain between 0 and 1 while moving irregularly. To investigate further, we will run the rule twice from almost identical starts.</p>
+<p>Mathematicians use <em>chaos</em> for a kind of deterministic behavior in which very small initial differences can be amplified enough to limit detailed long-range forecasts. <em>Deterministic</em> means that an exactly specified input has one specified next result. In our chaotic logistic examples, later values also do not settle into a fixed point or a repeating cycle. This amplification of uncertainty about the start is called <em>sensitivity to initial conditions</em>. The comparison ahead shows what that means numerically.</p>
+<div class="table-wrap"><table>
+<thead><tr>
+<th scope="col">Behavior</th>
+<th scope="col">What to look for</th>
+<th scope="col">Example</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Fixed point</td>
+<td>Later values approach one state.</td>
+<td>r = 2.8 approaches 1 − 1/2.8 ≈ 0.642857.</td>
+</tr>
+<tr>
+<td>Cycle</td>
+<td>Later values approach a repeating pattern.</td>
+<td>r = 3.2 approaches a two-cycle near 0.5130 and 0.7995.</td>
+</tr>
+<tr>
+<td>Chaotic dynamics</td>
+<td>Bounded irregular motion with sensitivity to nearby starts.</td>
+<td>At r = 3.9, the nearby trajectories below separate substantially.</td>
+</tr>
+</tbody>
+</table></div>
+<div class="insight">
+<h3>A larger r does not mean “more chaos” every time</h3>
+<p>For some ranges of \(r\), repeating behavior returns. At \(r=3.83\), for example, ordinary nearby starts settle toward three values that repeat. Such a range is called a <em>periodic window</em>. The phrase simply means a range of parameter settings with repeating behavior.</p>
+<p>There can also be special starting values. At \(r=4\), the exact start \(x_0=0.5\) gives \(0.5\to1\to0\to0\). These examples are why we study both the setting and the starting value, rather than labeling every run from the formula alone.</p>
+</div>
+<div class="quick-check">
+<p>With \(r=2.8\) and \(x_0=0.2\), calculate just the next state.</p>
+<details><summary>Check your reasoning</summary><p>\(x_1=2.8(0.2)(0.8)=0.448\). It is not the fixed point; it is the first update from the chosen start.</p></details>
+</div>
 </section>
-<section class="card" id="prediction"><div class="kicker">06 / Prediction</div><h2>Knowing a rule and measuring a state are different tasks</h2><p>A deterministic rule gives the same next state whenever its input is exactly the same. In practice, an observation usually identifies a range of possible starting states. We can follow two nearby starts to see whether their forecasts remain close.</p><div class="example"><h3>Example 6 · A difference of one ten-thousandth</h3><p>Use \(r=3.9\) with \(x_0=0.4000\) and \(y_0=0.4001\). The first updates are</p><div class="math">\[x_1=3.9(0.4)(0.6)=0.936,\qquad y_1=3.9(0.4001)(0.5999)=0.936077961.\]</div><p>The initial gap is 0.0001; after the first update it is about 0.000078. The gap <em>shrinks initially</em>. Sensitivity does not require the gap to grow at every step.</p></div>
+<section class="card" id="prediction"><div class="kicker">06 / Prediction</div>
+<h2>Knowing a rule and measuring a state are different tasks</h2>
+<p>Suppose a survey estimates 40,000 fish, but a count of 40,010 is also plausible. We have one lake and two possible descriptions of its initial state. Running the same model from both estimates lets us ask whether that small uncertainty matters later.</p>
+<p>Using a reference population of 100,000 fish, those starts become \(40{,}000/100{,}000=0.4000\) and \(40{,}010/100{,}000=0.4001\). We call the two forecast sequences \(x_n\) and \(y_n\), so that we can compare their values at matching update numbers.</p>
+<p>A deterministic rule gives the same next state whenever its input is exactly the same. In practice, an observation usually identifies a range of possible starting states. We can follow two nearby starts to see whether their forecasts remain close.</p>
+<div class="example">
+<h3>Example 6 · A difference of one ten-thousandth</h3>
+<p>Use \(r=3.9\) with \(x_0=0.4000\) and \(y_0=0.4001\). The first updates are</p>
+<div class="math">\[x_1=3.9(0.4)(0.6)=0.936,\qquad y_1=3.9(0.4001)(0.5999)=0.936077961.\]</div>
+<p>The initial gap is 0.0001; after the first update it is about 0.000078. The gap <em>shrinks initially</em>. Sensitivity does not require the gap to grow at every step.</p>
+</div>
+<div class="example">
+<h3>Read the two panels as two different questions</h3>
+<p>In the upper panel, each line answers “what state does this starting estimate predict at generation \(n\)?” In the lower panel, each dot answers “how far apart are those two predictions at that same generation?”</p>
+<p>The gap \(|x_n-y_n|\) is found by subtracting the smaller state from the larger. It is zero when the forecasts agree. A gap of 0.01 means one hundredth of the reference population, or 1,000 fish in this setting. It does not mean 0.01 fish.</p>
+</div>
 <figure class="figure"><img src="../assets/week10/forecast-sensitivity.svg" alt="Two logistic trajectories starting at .4000 and .4001. Their gap first exceeds .01 at generation 8 and .10 at generation 14. The gap sometimes shrinks between generations." loading="lazy"><figcaption>The upper plot shows the states; the lower plot shows their absolute gap. Both calculations use full stored precision. Displayed decimals are rounded only for reading.</figcaption></figure>
-<p>Suppose a decision needs forecasts to agree within 0.01. For this pair, the first threshold crossing occurs at generation 8. If the tolerance is 0.10, the first crossing occurs at generation 14. A practical <em>forecast horizon</em> depends on the starting uncertainty, the rule, and the tolerance relevant to the decision.</p><p>This two-trajectory experiment illustrates sensitivity; it is not a confidence interval for every possible starting state. A fuller uncertainty study would propagate many plausible starts or an appropriate uncertainty model.</p><div class="insight"><h3>Round for display, not between updates</h3><p>If 0.4001 is rounded to 0.400 before the experiment begins, the two starts become identical and their apparent difference disappears. During iteration, premature rounding changes the input to every later calculation. Keep the calculator’s stored value and round only the numbers you report.</p></div><h3>Deterministic does not mean easily forecast</h3><p>The logistic rule contains no random-number generator. Its sensitivity concerns the consequences of imperfectly known initial conditions. Random sampling, incomplete models, and noisy measurements can also limit prediction, but they are distinct sources of uncertainty.</p>
-<div class="quick-check"><p>At generation 8, the gap is about 0.010896. At generation 9 it is about 0.003207. Has the first crossing of 0.01 moved to a later generation?</p><details><summary>Check your reasoning</summary><p>No. The first crossing is still generation 8. The trajectories can later move closer again. “First exceeds” does not mean “stays above forever.”</p></details></div>
+<h3>Choose how much disagreement matters</h3>
+<p>A <em>threshold</em> is a chosen cutoff. Suppose the question is “when does the gap first become greater than 0.01?” Read down the gap column and stop at the first value above that cutoff:</p>
+<div class="table-wrap"><table>
+<thead><tr>
+<th scope="col">Generation</th>
+<th scope="col">Absolute gap</th>
+<th scope="col">Is the gap greater than 0.01?</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>6</td>
+<td>0.001174</td>
+<td>No</td>
+</tr>
+<tr>
+<td>7</td>
+<td>0.004172</td>
+<td>No</td>
+</tr>
+<tr>
+<td>8</td>
+<td>0.010896</td>
+<td>Yes — this is the first crossing</td>
+</tr>
+<tr>
+<td>9</td>
+<td>0.003207</td>
+<td>No — the forecasts have moved closer again</td>
+</tr>
+</tbody>
+</table></div>
+<p>In this example, the earlier gaps at generations 0 through 5 are also below 0.01. “Greater than” means strictly above; a gap of exactly 0.01 would not cross this threshold. The comparison symbol in \(|x_n-y_n|&gt;0.01\) is a compact way to ask the same question.</p>
+<p>A <em>tolerance</em> is how much disagreement a decision can accept. For this pair, a tolerance of 0.01 is first exceeded at generation 8; a tolerance of 0.10 is first exceeded at generation 14. That first-crossing time gives a practical <em>forecast horizon</em> for the comparison: how long the forecasts initially stay within the chosen tolerance. A more demanding tolerance can give a shorter useful horizon.</p>
+<p>The two runs explore two plausible starting estimates. To assess a whole range of plausible starts, we would need to study more than these two. Their separation also does not prove that a real population follows this particular model.</p>
+<div class="insight">
+<h3>Round for display, not between updates</h3>
+<p>If 0.4001 is rounded to 0.400 before the experiment begins, the two starts become identical and their apparent difference disappears. During iteration, premature rounding changes the input to every later calculation. Keep the calculator’s stored value and round only the numbers you report.</p>
+<p>For a few updates, calculate directly. For longer runs, use the explorer’s table. If your calculator has an <em>Ans</em> or previous-answer feature, it can reuse a result without retyping rounded display digits. Rounding for display means shortening only the number you write down, while continuing from the stored answer.</p>
+</div>
+<h3>Deterministic does not mean easily forecast</h3>
+<p>The logistic rule contains no random-number generator. Its sensitivity concerns the consequences of imperfectly known initial conditions. Random sampling, incomplete models, and noisy measurements can also limit prediction, but they are distinct sources of uncertainty.</p>
+<div class="quick-check">
+<p>At generation 8, the gap is about 0.010896. At generation 9 it is about 0.003207. Has the first crossing of 0.01 moved to a later generation?</p>
+<details><summary>Check your reasoning</summary><p>No. The first crossing is still generation 8. The trajectories can later move closer again. “First exceeds” does not mean “stays above forever.”</p></details>
+</div>
 </section>
-<section class="card" id="scale"><div class="kicker">07 / Observation scale</div><h2>What does a shorter ruler reveal?</h2><p>A coarse map skips small bends in a boundary. A finer map follows more of them. The <em>coastline paradox</em> asks what happens to a reported length as the observation scale changes.</p>
+<section class="card" id="scale"><div class="kicker">07 / Observation scale</div>
+<h2>What does a shorter ruler reveal?</h2>
+<p>Imagine laying a straight ruler along a winding shoreline on a map. Mark where one ruler length ends, move the ruler to begin there, and keep going. Every placement contributes one ruler length to the estimate. A long ruler can bridge across a small inlet; a shorter ruler can turn into it.</p>
+<p>The ruler length sets the <em>measurement scale</em>. A finer scale follows smaller details. For these idealized tables, we treat every placement as a full ruler length, so multiplying the count by the ruler length gives the reported total.</p>
+<p>A coarse map skips small bends in a boundary. A finer map follows more of them. The <em>coastline paradox</em> asks what happens to a reported length as the observation scale changes.</p>
 <figure class="figure"><img src="../assets/week10/scale-measurement.svg" alt="Two polygonal approximations to the same gray Koch boundary: four coarse segments give length 1.333 units, while 64 finer segments give length 2.370 units." loading="lazy"><figcaption>A schematic illustration, not field data. The gray boundary is the same in both panels. The colored measuring route changes with resolution.</figcaption></figure>
-<div class="example"><h3>Example 7 · State both the length and the ruler</h3><p>In this invented survey, measured length equals ruler length times the number of placements.</p>
-<div class="table-wrap"><table><thead><tr><th scope="col">Ruler length</th><th scope="col">Placements</th><th scope="col">Measured length</th><th scope="col">In kilometers</th></tr></thead><tbody><tr><td>100 m</td><td>80</td><td>100 × 80 = 8,000 m</td><td>8.00 km</td></tr><tr><td>50 m</td><td>200</td><td>50 × 200 = 10,000 m</td><td>10.00 km</td></tr><tr><td>25 m</td><td>520</td><td>25 × 520 = 13,000 m</td><td>13.00 km</td></tr><tr><td>12.5 m</td><td>1,340</td><td>12.5 × 1,340 = 16,750 m</td><td>16.75 km</td></tr></tbody></table></div>
-<p>The measured coastline has not suddenly grown. The smaller ruler follows detail that the larger ruler skipped. A meaningful report includes the measurement scale and method.</p></div><p>In an ideal Koch curve, finite-stage lengths grow without bound. Natural coastlines are physical objects, with tides, changing shorelines, and limits to how a boundary is defined and observed. Approximate fractal behavior across some scales does not establish literally infinite physical length.</p><details><summary>Connection to optimization · Does a complicated boundary change the method?</summary><p>The corner-point method from Week 8 applies to a feasible polygon defined by linear inequalities. Replacing an edge with an irregular or fractal boundary changes the mathematical problem. A finite approximation may have many corners and may be nonconvex; the original list of vertices and linear constraints no longer describes it.</p><p>A bounded region can still have a finite, well-defined area even when its ideal boundary has infinite length. Infinite perimeter does not automatically imply undefined area. The chosen map resolution should match the decision we need to make.</p></details>
-<div class="quick-check"><p>A 20-meter ruler needs 600 placements. A 10-meter ruler needs 1,300 placements. Report both measured lengths.</p><details><summary>Check your reasoning</summary><p>The coarse measurement is \(20\cdot600=12{,}000\) meters (12 km). The finer measurement is \(10\cdot1{,}300=13{,}000\) meters (13 km). Report the ruler sizes along with the lengths.</p></details></div>
+<p>Read the two pictures as two measurements of the same boundary. The gray detail stays in place. The colored straight pieces show the measuring routes: the finer route uses more, shorter pieces and follows more turns.</p>
+<div class="example">
+<h3>Example 7 · State both the length and the ruler</h3>
+<p>In this invented survey, measured length equals ruler length times the number of placements.</p>
+<div class="table-wrap"><table>
+<thead><tr>
+<th scope="col">Ruler length</th>
+<th scope="col">Placements</th>
+<th scope="col">Measured length</th>
+<th scope="col">In kilometers</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>100 m</td>
+<td>80</td>
+<td>100 × 80 = 8,000 m</td>
+<td>8.00 km</td>
+</tr>
+<tr>
+<td>50 m</td>
+<td>200</td>
+<td>50 × 200 = 10,000 m</td>
+<td>10.00 km</td>
+</tr>
+<tr>
+<td>25 m</td>
+<td>520</td>
+<td>25 × 520 = 13,000 m</td>
+<td>13.00 km</td>
+</tr>
+<tr>
+<td>12.5 m</td>
+<td>1,340</td>
+<td>12.5 × 1,340 = 16,750 m</td>
+<td>16.75 km</td>
+</tr>
+</tbody>
+</table></div>
+<p>The measured coastline has not suddenly grown. The smaller ruler follows detail that the larger ruler skipped. A meaningful report includes the measurement scale and method.</p>
+</div>
+<p>In an ideal Koch curve, finite-stage lengths grow without bound. Natural coastlines are physical objects, with tides, changing shorelines, and limits to how a boundary is defined and observed. Approximate fractal behavior across some scales does not establish literally infinite physical length.</p>
+<details><summary>Connection to optimization · Does a complicated boundary change the method?</summary><p>In Week 8, straight-line constraints enclosed a polygon, and its corners gave a manageable list of candidate choices. A coastline is a useful reminder that the geometry we choose to represent a situation is part of the model. More detailed boundary data may require a different feasible-set description.</p>
+<p>The corner-point method from Week 8 applies to a feasible polygon defined by linear inequalities. Replacing an edge with an irregular or fractal boundary changes the mathematical problem. A finite approximation may have many corners and may be nonconvex; the original list of vertices and linear constraints no longer describes it.</p>
+<p>A bounded region can still have a finite, well-defined area even when its ideal boundary has infinite length. Infinite perimeter does not automatically imply undefined area. The chosen map resolution should match the decision we need to make.</p></details>
+<div class="quick-check">
+<p>A 20-meter ruler needs 600 placements. A 10-meter ruler needs 1,300 placements. Report both measured lengths.</p>
+<details><summary>Check your reasoning</summary><p>The coarse measurement is \(20\cdot600=12{,}000\) meters (12 km). The finer measurement is \(10\cdot1{,}300=13{,}000\) meters (13 km). Report the ruler sizes along with the lengths.</p></details>
+</div>
 </section>
-<section class="card" id="connections"><div class="kicker">08 / The observation thread</div><h2>What kind of question are we asking?</h2>
-<div class="table-wrap"><table><thead><tr><th scope="col">Example</th><th scope="col">What we can calculate</th><th scope="col">What still needs care</th></tr></thead><tbody><tr><td>Collatz</td><td>The route, update count, and peak for a chosen start.</td><td>A finite collection of successes does not prove a universal claim.</td></tr><tr><td>Koch and Sierpinski</td><td>Exact finite-stage counts, lengths, and area fractions.</td><td>The drawn stage is finite; the ideal fractal is a limit.</td></tr><tr><td>Logistic map</td><td>The next state from an exact input; comparisons across starts.</td><td>Measurement uncertainty and sensitivity limit useful horizons.</td></tr><tr><td>Coastline</td><td>Length under a specified scale and method.</td><td>Different resolutions answer different measurement questions.</td></tr><tr><td>AI text generation</td><td>Probabilities in a model and the consequences of a chosen token.</td><td>A probable continuation is not evidence that its claim is true.</td></tr></tbody></table></div>
-<p>Across this course, mathematics has given us ways to represent quantities, describe data, compare choices, follow feedback, and trace networks. Here those tools meet a final habit: identify the rule, identify the observation, and state what your conclusion actually covers.</p><div class="actions no-print"><a class="button" href="../demos/fractal_recursion.html">Try the Week 10 explorer</a><a class="button secondary" href="Math107_Chapter_10.pdf">Read the illustrated PDF chapter</a><button class="secondary" type="button" data-print-page>Print this reading</button></div></section>
-<div class="sources"><p>Further reading: these are sources for the mathematics, not required extra assignments.</p><ul><li>R. M. May (1976), <a href="https://doi.org/10.1038/261459a0">Simple mathematical models with very complicated dynamics</a>.</li><li>R. De Leo and J. A. Yorke (2021), <a href="https://doi.org/10.3934/dcds.2021075">The graph of the logistic map is a tower</a>, including the period-three window.</li><li>A.-S. Elsenhans (2026), <a href="https://www.antsxvii.org/papers/antsxvii-elsenhans-paper.pdf">Numerical verification of the Collatz conjecture for billion digit random numbers</a>. Computation tests instances; the general conjecture remains open.</li><li>B. Mandelbrot (1967), <a href="https://doi.org/10.1126/science.156.3775.636">How long is the coast of Britain? Statistical self-similarity and fractional dimension</a>.</li></ul></div>
-<div class="next"><a href="../index.html">← Course home</a><a class="button" href="../demos/fractal_recursion.html">Open the explorer →</a></div><footer class="footer"><span>MATH&amp; 107 · Complexity and the Limits of Prediction</span><span>Simple rules · Patterns · Observation</span></footer></main></body></html>
+<section class="card" id="connections"><div class="kicker">08 / The observation thread</div>
+<h2>What kind of question are we asking?</h2>
+<p>The same mathematical habit has appeared in different settings. Week 2 asked what a distribution describes. Weeks 3 and 4 asked how data and uncertain measurements support a conclusion. Week 5 studied how the present affects the next update. Weeks 7 and 8 asked which choices a model permits and what “best” means. Week 9 made the connections themselves visible.</p>
+<p>Here we have asked what repeated rules can reveal, and how the answer changes with the quantity and observation scale. A large number, a long route, a finely detailed picture, and an uncertain forecast are different observations. The table helps keep their meanings clear.</p>
+<div class="table-wrap"><table>
+<thead><tr>
+<th scope="col">Example</th>
+<th scope="col">What we can calculate</th>
+<th scope="col">What still needs care</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Collatz</td>
+<td>The route, update count, and peak for a chosen start.</td>
+<td>A finite collection of successes does not prove a universal claim.</td>
+</tr>
+<tr>
+<td>Koch and Sierpinski</td>
+<td>Exact finite-stage counts, lengths, and area fractions.</td>
+<td>The drawn stage is finite; the ideal fractal is a limit.</td>
+</tr>
+<tr>
+<td>Logistic map</td>
+<td>The next state from an exact input; comparisons across starts.</td>
+<td>Measurement uncertainty and sensitivity limit useful horizons.</td>
+</tr>
+<tr>
+<td>Coastline</td>
+<td>Length under a specified scale and method.</td>
+<td>Different resolutions answer different measurement questions.</td>
+</tr>
+<tr>
+<td>AI text generation</td>
+<td>Probabilities in a model and the consequences of a chosen token.</td>
+<td>A probable continuation is not evidence that its claim is true.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Across this course, mathematics has given us ways to represent quantities, describe data, compare choices, follow feedback, and trace networks. Here those tools meet a final habit: identify the rule, identify the observation, and state what your conclusion actually covers.</p>
+<div class="actions no-print">
+<a class="button" href="../demos/fractal_recursion.html">Try the Week 10 explorer</a><a class="button secondary" href="Math107_Chapter_10.pdf">Read the illustrated PDF chapter</a><button class="secondary" type="button" data-print-page>Print this reading</button>
+</div></section>
+<div class="sources">
+<p>Further reading: these are sources for the mathematics, not required extra assignments.</p>
+<ul>
+<li>R. M. May (1976), <a href="https://doi.org/10.1038/261459a0">Simple mathematical models with very complicated dynamics</a>.</li>
+<li>R. De Leo and J. A. Yorke (2021), <a href="https://doi.org/10.3934/dcds.2021075">The graph of the logistic map is a tower</a>, including the period-three window.</li>
+<li>A.-S. Elsenhans (2026), <a href="https://www.antsxvii.org/papers/antsxvii-elsenhans-paper.pdf">Numerical verification of the Collatz conjecture for billion digit random numbers</a>. Computation tests instances; the general conjecture remains open.</li>
+<li>B. Mandelbrot (1967), <a href="https://doi.org/10.1126/science.156.3775.636">How long is the coast of Britain? Statistical self-similarity and fractional dimension</a>.</li>
+</ul>
+</div>
+<div class="next">
+<a href="../index.html">← Course home</a><a class="button" href="../demos/fractal_recursion.html">Open the explorer →</a>
+</div>
+<footer class="footer"><span>MATH&amp; 107 · Complexity and the Limits of Prediction</span><span>Simple rules · Patterns · Observation</span></footer></main>
+</body>
+</html>

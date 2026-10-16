@@ -1,16 +1,327 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Trace, calculate, and compare: a guided laboratory on nearby starts, Collatz, fractal scaling, logistic dynamics, and observation scale."><title>Week 10 Laboratory — Investigate the rule. Explain the pattern. | Math in Society</title><link rel="stylesheet" href="../assets/week10/week10.css">
-<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week10/week10.js"></script></head>
-<body><a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html">Reading</a><a href="../demos/fractal_recursion.html">Explorer</a><a href="../labs/week10_lab.html" aria-current="page">Laboratory</a><a href="../applications/week10_application.html">Fish forecast</a><a href="../applications/week10_ai.html">AI application</a><a href="../discussions/week10_discussion.html">Discussion</a></nav><main class="wrap" id="main" data-answer-store="math107_week10_lab_v3" data-legacy-store="math107_week10_lab_v2"><header class="hero"><div class="eyebrow">Week 10 / Laboratory</div><h1>Investigate the rule. Explain the pattern.</h1><p class="lead">Trace, calculate, and compare: a guided laboratory on nearby starts, Collatz, fractal scaling, logistic dynamics, and observation scale.</p><div class="meta"><span class="tag">Five sections</span><span class="tag">Feedback for each response</span><span class="tag">Print your completed work</span></div></header><div class="student-bar no-print"><div><label for="studentName">Student name</label><input id="studentName" type="text" autocomplete="name"></div><button type="button" data-print-work>Print completed work / Save PDF</button><p id="printStatus" class="small" role="status"></p></div><div id="printName" class="print-name"></div><p id="saveStatus" class="small save-status" role="status"></p>
-<div class="card"><h2>Five investigations, one careful habit</h2><p>Identify the rule, calculate, then interpret what the calculation shows. Read the <a href="../readings/week10_reading.html">Week 10 reading</a> first and keep the <a href="../demos/fractal_recursion.html">explorer</a> available for checking longer trajectories.</p><ul><li>The start is step 0. After five updates, you have six recorded values.</li><li>Use the calculator’s stored value between updates. Round only the reported answer.</li><li>Fractions such as <code>81/256</code> are accepted in numerical fields. For percentages, enter the number requested by the question.</li></ul><p class="small">Check a section whenever you are ready. Correct responses remain visible while you revise the others. A changed response needs to be checked again.</p></div>
-<div class="progress no-print"><span id="progressText">0 / 5 sections checked</span><div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div></div>
-<section class="card lab-part" data-check-group="1" id="part1"><div class="kicker">Part 1 / Nearby starts</div><h2>Which difference are you tracking?</h2><p>The absolute difference is the distance between two values. The relative difference divides that distance by the magnitude of the first value.</p><div class="example"><h3>Example · Double 4 and 4.1 twice</h3><p>The resulting values are 16 and 16.4. The absolute gap is 0.4; the relative gap is \(0.4/16=0.025=2.5\%\). Both values grew by the same factor, so the percentage gap stayed the same.</p></div><h3>A. Add 5 at every update</h3><p>Use \(a_{n+1}=a_n+5\), starting once from 10 and once from 10.1.</p><div class="grid"><div class="question"><label for="p1a">Value after 5 updates, starting from 10</label><input id="p1a" type="text" inputmode="decimal" autocomplete="off" data-answer="35" data-tolerance="0.001" data-hint="Five updates add 5 five times: 10 + 5 × 5." data-success="Correct." aria-describedby="p1a-feedback"><span class="field-feedback" id="p1a-feedback" aria-live="polite"></span></div><div class="question"><label for="p1b">Value after 5 updates, starting from 10.1</label><input id="p1b" type="text" inputmode="decimal" autocomplete="off" data-answer="35.1" data-tolerance="0.001" data-hint="Start at 10.1 and add the same total as in the first trajectory." data-success="Correct." aria-describedby="p1b-feedback"><span class="field-feedback" id="p1b-feedback" aria-live="polite"></span></div></div><div class="question"><label for="p1c">Absolute difference after those 5 updates</label><input id="p1c" type="text" inputmode="decimal" autocomplete="off" data-answer="0.1" data-tolerance="0.0001" data-hint="Subtract the smaller final value from the larger." data-success="Correct." aria-describedby="p1c-feedback"><span class="field-feedback" id="p1c-feedback" aria-live="polite"></span></div><h3>B. Multiply by 3 at every update</h3><p>Use \(a_{n+1}=3a_n\), starting once from 1.00 and once from 1.01. Work through six updates.</p><div class="question"><label for="p1d">Absolute difference after 6 updates</label><input id="p1d" type="text" inputmode="decimal" autocomplete="off" data-answer="7.29" data-tolerance="0.001" data-hint="The initial absolute gap 0.01 is multiplied by 3 six times." data-success="Correct." aria-describedby="p1d-feedback"><span class="field-feedback" id="p1d-feedback" aria-live="polite"></span></div><div class="question"><label for="p1e">Relative difference after 6 updates, using the first trajectory as reference</label><select id="p1e" data-answer="right" data-hint="Divide the absolute gap by 3⁶, then multiply by 100." data-success="Correct. The absolute gap grows, but the relative gap stays at 1%." aria-describedby="p1e-feedback"><option value="">Choose a response…</option><option value="right">1%</option><option value="7.29">7.29%</option><option value="729">729%</option></select><span class="field-feedback" id="p1e-feedback" aria-live="polite"></span></div><div class="actions no-print"><button type="button" data-check>Check this section</button></div><p class="section-feedback" role="status"></p></section>
-<section class="card lab-part" data-check-group="2" id="part2"><div class="kicker">Part 2 / Collatz</div><h2>Count arrows. Record the peak.</h2><p>Even values are divided by 2; odd values are multiplied by 3 and then increased by 1. Stop at the first 1. The peak includes the starting value and all values up to that first 1.</p><div class="example"><h3>Example · Start from 3</h3><p>\(3\to10\to5\to16\to8\to4\to2\to1\). There are 7 updates and the peak is 16.</p></div><p>Now trace the complete routes from 6 and 7. You can use the explorer to check each even/odd decision.</p><div class="grid"><div class="question"><label for="p2a">Updates from 6 to its first 1</label><input id="p2a" type="text" inputmode="decimal" autocomplete="off" data-answer="8" data-tolerance="0" data-hint="Write the route; the initial 6 is not an update." data-success="Correct." aria-describedby="p2a-feedback"><span class="field-feedback" id="p2a-feedback" aria-live="polite"></span></div><div class="question"><label for="p2b">Peak reached from 6</label><input id="p2b" type="text" inputmode="decimal" autocomplete="off" data-answer="16" data-tolerance="0" data-hint="Find the largest recorded value, not the largest update count." data-success="Correct." aria-describedby="p2b-feedback"><span class="field-feedback" id="p2b-feedback" aria-live="polite"></span></div><div class="question"><label for="p2c">Updates from 7 to its first 1</label><input id="p2c" type="text" inputmode="decimal" autocomplete="off" data-answer="16" data-tolerance="0" data-hint="Write the full route from 7, then count its arrows." data-success="Correct." aria-describedby="p2c-feedback"><span class="field-feedback" id="p2c-feedback" aria-live="polite"></span></div><div class="question"><label for="p2d">Peak reached from 7</label><input id="p2d" type="text" inputmode="decimal" autocomplete="off" data-answer="52" data-tolerance="0" data-hint="The route begins 7 → 22 → 11 → 34 → 17 → …" data-success="Correct." aria-describedby="p2d-feedback"><span class="field-feedback" id="p2d-feedback" aria-live="polite"></span></div></div><div class="question"><label for="p2e">Which start takes more updates to reach 1?</label><select id="p2e" data-answer="right" data-hint="Compare your two update counts." data-success="Correct." aria-describedby="p2e-feedback"><option value="">Choose a response…</option><option value="6">6</option><option value="right">7</option><option value="same">They take the same number</option></select><span class="field-feedback" id="p2e-feedback" aria-live="polite"></span></div><div class="question"><label for="p2f">What do these two completed trajectories establish?</label><select id="p2f" data-answer="tested" data-hint="Distinguish the examples you tested from the statement about every positive integer." data-success="Correct." aria-describedby="p2f-feedback"><option value="">Choose a response…</option><option value="universal">Every positive integer reaches 1.</option><option value="tested">These two starting integers reach 1.</option><option value="random">The rule uses random numbers.</option></select><span class="field-feedback" id="p2f-feedback" aria-live="polite"></span></div><div class="actions no-print"><button type="button" data-check>Check this section</button></div><p class="section-feedback" role="status"></p></section>
-<section class="card lab-part" data-check-group="3" id="part3"><div class="kicker">Part 3 / Fractal accounting</div><h2>More pieces does not always mean more area</h2>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Trace, calculate, and compare: a guided laboratory on nearby starts, Collatz, fractal scaling, logistic dynamics, and observation scale.">
+<title>Week 10 Laboratory — Investigate the rule. Explain the pattern. | Math in Society</title>
+<link rel="stylesheet" href="../assets/week10/week10.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week10/week10.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html">Reading</a><a href="../demos/fractal_recursion.html">Explorer</a><a href="../labs/week10_lab.html" aria-current="page">Laboratory</a><a href="../applications/week10_application.html">Fish forecast</a><a href="../applications/week10_ai.html">AI application</a><a href="../discussions/week10_discussion.html">Discussion</a></nav><main class="wrap" id="main" data-answer-store="math107_week10_lab_v3" data-legacy-store="math107_week10_lab_v2"><header class="hero"><div class="eyebrow">Week 10 / Laboratory</div>
+<h1>Investigate the rule. Explain the pattern.</h1>
+<p class="lead">Trace, calculate, and compare: a guided laboratory on nearby starts, Collatz, fractal scaling, logistic dynamics, and observation scale.</p>
+<div class="meta">
+<span class="tag">Five sections</span><span class="tag">Feedback for each response</span><span class="tag">Print your completed work</span>
+</div></header><div class="student-bar no-print">
+<div>
+<label for="studentName">Student name</label><input id="studentName" type="text" autocomplete="name">
+</div>
+<button type="button" data-print-work>Print completed work / Save PDF</button><p id="printStatus" class="small" role="status"></p>
+</div>
+<div id="printName" class="print-name"></div>
+<p id="saveStatus" class="small save-status" role="status"></p>
+<div class="card">
+<h2>Five investigations, one careful habit</h2>
+<p>Identify the rule, calculate, then interpret what the calculation shows. Read the <a href="../readings/week10_reading.html">Week 10 reading</a> first and keep the <a href="../demos/fractal_recursion.html">explorer</a> available for checking longer trajectories.</p>
+<ul>
+<li>The start is step 0. After five updates, you have six recorded values.</li>
+<li>Use the calculator’s stored value between updates. Round only the reported answer.</li>
+<li>Fractions such as <code>81/256</code> are accepted in numerical fields. For percentages, enter the number requested by the question.</li>
+</ul>
+<p class="small">Check a section whenever you are ready. Correct responses remain visible while you revise the others. A changed response needs to be checked again.</p>
+<h3>What kind of mathematics are we doing?</h3>
+<p>Each section creates a small mathematical setting. First decide what a number represents and what one update does. Then use a table or formula to follow that rule. You are not being asked to recognize chaos from experience or to know a special theory of fractals in advance.</p>
+<p>In \(a_{n+1}\), the subscript \(n+1\) means “at the next step.” The rule’s right-hand side tells you how to calculate that new value. A word such as “peak,” “area,” or “gap” tells you which feature of the resulting numbers to report.</p>
+</div>
+<div class="progress no-print">
+<span id="progressText">0 / 5 sections checked</span><div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<section class="card lab-part" data-check-group="1" id="part1"><div class="kicker">Part 1 / Nearby starts</div>
+<h2>Which difference are you tracking?</h2>
+<p>The absolute difference is the distance between two values. The relative difference divides that distance by the magnitude of the first value.</p>
+<p>Use the same update on two possible starting measurements, as we did with balance and temperature sequences in earlier weeks. Comparing their values at the same step tells us how the initial disagreement changes.</p>
+<p>For a quick percentage reminder, values 20 and 21 are 1 unit apart; compared with 20, that is \(1/20=0.05=5\%\). A growing difference in units need not mean a growing percentage difference.</p>
+<div class="example">
+<h3>Example · Double 4 and 4.1 twice</h3>
+<p>The resulting values are 16 and 16.4. The absolute gap is 0.4; the relative gap is \(0.4/16=0.025=2.5\%\). Both values grew by the same factor, so the percentage gap stayed the same.</p>
+</div>
+<h3>A. Add 5 at every update</h3>
+<p>Make two columns. Their first entries, at step 0, are 10 and 10.1. Add 5 to each entry to create the next row. Continue until row 5. Then compare the two entries in that row.</p>
+<p>Use \(a_{n+1}=a_n+5\), starting once from 10 and once from 10.1.</p>
+<div class="grid">
+<div class="question">
+<label for="p1a">Value after 5 updates, starting from 10</label><input id="p1a" type="text" inputmode="decimal" autocomplete="off" data-answer="35" data-tolerance="0.001" data-hint="Five updates add 5 five times: 10 + 5 × 5." data-success="Correct." aria-describedby="p1a-feedback"><span class="field-feedback" id="p1a-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="p1b">Value after 5 updates, starting from 10.1</label><input id="p1b" type="text" inputmode="decimal" autocomplete="off" data-answer="35.1" data-tolerance="0.001" data-hint="Start at 10.1 and add the same total as in the first trajectory." data-success="Correct." aria-describedby="p1b-feedback"><span class="field-feedback" id="p1b-feedback" aria-live="polite"></span>
+</div>
+</div>
+<div class="question">
+<label for="p1c">Absolute difference after those 5 updates</label><input id="p1c" type="text" inputmode="decimal" autocomplete="off" data-answer="0.1" data-tolerance="0.0001" data-hint="Subtract the smaller final value from the larger." data-success="Correct." aria-describedby="p1c-feedback"><span class="field-feedback" id="p1c-feedback" aria-live="polite"></span>
+</div>
+<h3>B. Multiply by 3 at every update</h3>
+<p>Start a new pair of columns at 1.00 and 1.01. Multiply each entry by 3 to create the next row. The notation \(3^6\) means six factors of 3; it gives the common multiplier after six updates. To find the relative difference, divide the final gap by the final value in the first column.</p>
+<p>Use \(a_{n+1}=3a_n\), starting once from 1.00 and once from 1.01. Work through six updates.</p>
+<div class="question">
+<label for="p1d">Absolute difference after 6 updates</label><input id="p1d" type="text" inputmode="decimal" autocomplete="off" data-answer="7.29" data-tolerance="0.001" data-hint="The initial absolute gap 0.01 is multiplied by 3 six times." data-success="Correct." aria-describedby="p1d-feedback"><span class="field-feedback" id="p1d-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="p1e">Relative difference after 6 updates, using the first trajectory as reference</label><select id="p1e" data-answer="right" data-hint="Divide the absolute gap by 3⁶, then multiply by 100." data-success="Correct. The absolute gap grows, but the relative gap stays at 1%." aria-describedby="p1e-feedback"><option value="">Choose a response…</option>
+<option value="right">1%</option>
+<option value="7.29">7.29%</option>
+<option value="729">729%</option></select><span class="field-feedback" id="p1e-feedback" aria-live="polite"></span>
+</div>
+<div class="actions no-print"><button type="button" data-check>Check this section</button></div>
+<p class="section-feedback" role="status"></p></section>
+<section class="card lab-part" data-check-group="2" id="part2"><div class="kicker">Part 2 / Collatz</div>
+<h2>Count arrows. Record the peak.</h2>
+<p>Even values are divided by 2; odd values are multiplied by 3 and then increased by 1. Stop at the first 1. The peak includes the starting value and all values up to that first 1.</p>
+<p>Here the inputs are whole numbers. An even number is divisible by 2 without a remainder; an odd number is not. Recheck that property at every new value, because it chooses the next instruction.</p>
+<div class="example">
+<h3>Example · Start from 3</h3>
+<p>\(3\to10\to5\to16\to8\to4\to2\to1\). There are 7 updates and the peak is 16.</p>
+</div>
+<div class="example">
+<h3>Organize the route so the counts are visible</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th scope="col">Update number</th>
+<th scope="col">Current value from the example</th>
+<th scope="col">What happens next?</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>3</td>
+<td>Odd: 3 × 3 + 1 = 10</td>
+</tr>
+<tr>
+<td>1</td>
+<td>10</td>
+<td>Even: 10 ÷ 2 = 5</td>
+</tr>
+<tr>
+<td>2</td>
+<td>5</td>
+<td>Odd: 3 × 5 + 1 = 16</td>
+</tr>
+<tr>
+<td>3</td>
+<td>16</td>
+<td>Even: 16 ÷ 2 = 8</td>
+</tr>
+</tbody>
+</table></div>
+<p>Continue this pattern to the first 1. The last update number is the update count. Scan the value column for the peak. A complete route establishes what happens for that starting number; it does not cover untested starting numbers automatically.</p>
+</div>
+<p>Now trace the complete routes from 6 and 7. You can use the explorer to check each even/odd decision.</p>
+<div class="grid">
+<div class="question">
+<label for="p2a">Updates from 6 to its first 1</label><input id="p2a" type="text" inputmode="decimal" autocomplete="off" data-answer="8" data-tolerance="0" data-hint="Write the route; the initial 6 is not an update." data-success="Correct." aria-describedby="p2a-feedback"><span class="field-feedback" id="p2a-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="p2b">Peak reached from 6</label><input id="p2b" type="text" inputmode="decimal" autocomplete="off" data-answer="16" data-tolerance="0" data-hint="Find the largest recorded value, not the largest update count." data-success="Correct." aria-describedby="p2b-feedback"><span class="field-feedback" id="p2b-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="p2c">Updates from 7 to its first 1</label><input id="p2c" type="text" inputmode="decimal" autocomplete="off" data-answer="16" data-tolerance="0" data-hint="Write the full route from 7, then count its arrows." data-success="Correct." aria-describedby="p2c-feedback"><span class="field-feedback" id="p2c-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="p2d">Peak reached from 7</label><input id="p2d" type="text" inputmode="decimal" autocomplete="off" data-answer="52" data-tolerance="0" data-hint="The route begins 7 → 22 → 11 → 34 → 17 → …" data-success="Correct." aria-describedby="p2d-feedback"><span class="field-feedback" id="p2d-feedback" aria-live="polite"></span>
+</div>
+</div>
+<div class="question">
+<label for="p2e">Which start takes more updates to reach 1?</label><select id="p2e" data-answer="right" data-hint="Compare your two update counts." data-success="Correct." aria-describedby="p2e-feedback"><option value="">Choose a response…</option>
+<option value="6">6</option>
+<option value="right">7</option>
+<option value="same">They take the same number</option></select><span class="field-feedback" id="p2e-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="p2f">What do these two completed trajectories establish?</label><select id="p2f" data-answer="tested" data-hint="Distinguish the examples you tested from the statement about every positive integer." data-success="Correct." aria-describedby="p2f-feedback"><option value="">Choose a response…</option>
+<option value="universal">Every positive integer reaches 1.</option>
+<option value="tested">These two starting integers reach 1.</option>
+<option value="random">The rule uses random numbers.</option></select><span class="field-feedback" id="p2f-feedback" aria-live="polite"></span>
+</div>
+<div class="actions no-print"><button type="button" data-check>Check this section</button></div>
+<p class="section-feedback" role="status"></p></section>
+<section class="card lab-part" data-check-group="3" id="part3"><div class="kicker">Part 3 / Fractal accounting</div>
+<h2>More pieces does not always mean more area</h2>
+<p>A construction stage means applying a replacement instruction to every current piece of a drawing. Stage 0 is the original shape. We count pieces and measure their sizes separately, just as a packet count and the size of each packet together determine a total.</p>
 <figure class="figure"><img src="../assets/week10/koch-stages.svg" alt="Koch stages 0 to 3 show increasing segment counts and total length." loading="lazy"><figcaption>For this investigation, the original Koch segment has length 1. Each replacement multiplies the segment count by 4 and total length by 4/3.</figcaption></figure>
-<div class="example"><h3>Example · Stage 1</h3><p>There are 4 segments, each of length 1/3. The total is \(4(1/3)=4/3\). At stage \(n\), multiply \(4^n\) segments by \((1/3)^n\) length per segment.</p></div><div class="grid"><div class="question"><label for="p3a">Koch segment count at stage 2</label><input id="p3a" type="text" inputmode="decimal" autocomplete="off" data-answer="16" data-tolerance="0" data-hint="Use 4²." data-success="Correct." aria-describedby="p3a-feedback"><span class="field-feedback" id="p3a-feedback" aria-live="polite"></span></div><div class="question"><label for="p3b">Koch total length at stage 2 (fraction or 4 decimals)</label><input id="p3b" type="text" inputmode="decimal" autocomplete="off" data-answer="1.7777777777777777" data-tolerance="0.0001" data-hint="Multiply the stage-2 count by 1/9." data-success="Correct." aria-describedby="p3b-feedback"><span class="field-feedback" id="p3b-feedback" aria-live="polite"></span></div><div class="question"><label for="p3c">Koch segment count at stage 3</label><input id="p3c" type="text" inputmode="decimal" autocomplete="off" data-answer="64" data-tolerance="0" data-hint="Use 4³." data-success="Correct." aria-describedby="p3c-feedback"><span class="field-feedback" id="p3c-feedback" aria-live="polite"></span></div><div class="question"><label for="p3d">Koch total length at stage 3 (fraction or 4 decimals)</label><input id="p3d" type="text" inputmode="decimal" autocomplete="off" data-answer="2.3703703703703702" data-tolerance="0.0001" data-hint="Multiply the stage-3 count by 1/27." data-success="Correct." aria-describedby="p3d-feedback"><span class="field-feedback" id="p3d-feedback" aria-live="polite"></span></div><div class="question"><label for="p3e">Koch segment count at stage 4</label><input id="p3e" type="text" inputmode="decimal" autocomplete="off" data-answer="256" data-tolerance="0" data-hint="Use 4⁴." data-success="Correct." aria-describedby="p3e-feedback"><span class="field-feedback" id="p3e-feedback" aria-live="polite"></span></div><div class="question"><label for="p3f">Koch total length at stage 4 (fraction or 4 decimals)</label><input id="p3f" type="text" inputmode="decimal" autocomplete="off" data-answer="3.1604938271604937" data-tolerance="0.0001" data-hint="Multiply the stage-4 count by 1/81." data-success="Correct." aria-describedby="p3f-feedback"><span class="field-feedback" id="p3f-feedback" aria-live="polite"></span></div></div><div class="question"><label for="p3g">Ratio: Koch total length at one stage divided by total length at the previous stage (fraction or 4 decimals)</label><input id="p3g" type="text" inputmode="decimal" autocomplete="off" data-answer="1.3333333333333333" data-tolerance="0.0001" data-hint="Four new pieces each have one-third the old length." data-success="Correct." aria-describedby="p3g-feedback"><span class="field-feedback" id="p3g-feedback" aria-live="polite"></span></div><h3>Sierpinski area</h3><p>The starting triangle has area 1. Each step keeps three of four equal-area pieces, so remaining area is multiplied by 3/4. At stage 2, for example, the remaining fraction is \((3/4)^2=9/16=0.5625\).</p><div class="grid"><div class="question"><label for="p3h">Fraction of original Sierpinski area remaining at stage 4 (fraction or 4 decimals)</label><input id="p3h" type="text" inputmode="decimal" autocomplete="off" data-answer="0.31640625" data-tolerance="0.0001" data-hint="Use (3/4)⁴. Enter a fraction or a decimal, not a percentage." data-success="Correct." aria-describedby="p3h-feedback"><span class="field-feedback" id="p3h-feedback" aria-live="polite"></span></div><div class="question"><label for="p3i">Fraction of original area remaining at stage 10, rounded to 4 decimal places</label><input id="p3i" type="text" inputmode="decimal" autocomplete="off" data-answer="0.0563" data-tolerance="5e-05" data-hint="Compute (3/4)¹⁰, then round at the end." data-success="Correct." aria-describedby="p3i-feedback"><span class="field-feedback" id="p3i-feedback" aria-live="polite"></span></div></div><div class="question"><label for="p3j">Why can the filled-triangle count rise while the remaining area falls?</label><select id="p3j" data-answer="smaller" data-hint="Three copies remain, but each has only one-quarter the parent’s area." data-success="Correct." aria-describedby="p3j-feedback"><option value="">Choose a response…</option><option value="smaller">Each new triangle has only one-quarter the area of its parent.</option><option value="same">Each new triangle has the same area as its parent.</option><option value="negative">Some triangles have negative area.</option></select><span class="field-feedback" id="p3j-feedback" aria-live="polite"></span></div><div class="actions no-print"><button type="button" data-check>Check this section</button></div><p class="section-feedback" role="status"></p></section>
-<section class="card lab-part" data-check-group="4" id="part4"><div class="kicker">Part 4 / The logistic map</div><h2>First an update; then a long-run pattern</h2><div class="formula">\(x_{n+1}=r x_n(1-x_n)\)</div><div class="example"><h3>Example · r = 2 and x₀ = 0.4</h3><p>\(x_1=2(0.4)(0.6)=0.48\) and \(x_2=2(0.48)(0.52)=0.4992\). The nonzero fixed point is \(x^*=1-1/2=0.5\). A first update and a fixed point answer different questions.</p></div><h3>A. Use r = 2.8 and x₀ = 0.2</h3><p>Use the fixed-point formula \(x^*=1-1/r\), then use the recursion for the trajectory. The explorer can calculate ten updates without rounding between them.</p><div class="grid"><div class="question"><label for="p4a">Nonzero fixed point x*, rounded to 4 decimal places</label><input id="p4a" type="text" inputmode="decimal" autocomplete="off" data-answer="0.6428571428571428" data-tolerance="0.0001" data-hint="Compute 1 − 1/2.8." data-success="Correct." aria-describedby="p4a-feedback"><span class="field-feedback" id="p4a-feedback" aria-live="polite"></span></div><div class="question"><label for="p4b">First update x₁</label><input id="p4b" type="text" inputmode="decimal" autocomplete="off" data-answer="0.448" data-tolerance="0.0001" data-hint="Substitute 2.8 × 0.2 × (1 − 0.2)." data-success="Correct." aria-describedby="p4b-feedback"><span class="field-feedback" id="p4b-feedback" aria-live="polite"></span></div><div class="question"><label for="p4c">Value x₁₀, rounded to 4 decimal places</label><input id="p4c" type="text" inputmode="decimal" autocomplete="off" data-answer="0.6511" data-tolerance="0.0001" data-hint="Keep all stored digits while iterating. Do not enter the fixed point instead of the tenth update." data-success="Correct." aria-describedby="p4c-feedback"><span class="field-feedback" id="p4c-feedback" aria-live="polite"></span></div></div><div class="question"><label for="p4d">Which description fits this trajectory?</label><select id="p4d" data-answer="right" data-hint="Compare later values with x*. Approaching a fixed point does not require each update to move in the same direction." data-success="Correct." aria-describedby="p4d-feedback"><option value="">Choose a response…</option><option value="right">It approaches the nonzero fixed point.</option><option value="infinity">It grows without bound.</option><option value="zero">It becomes zero immediately.</option></select><span class="field-feedback" id="p4d-feedback" aria-live="polite"></span></div><h3>B. Use r = 3.8 with starts 0.40 and 0.41</h3><p>Calculate both trajectories with full stored precision. Compare \(|x_n-y_n|\) at each update, including the initial gap at step 0.</p><div class="question"><label for="p4e">First update number at which the absolute gap exceeds 0.05</label><input id="p4e" type="text" inputmode="decimal" autocomplete="off" data-answer="4" data-tolerance="0" data-hint="At steps 1, 2, and 3 the gaps are about .007220, .022805, and .035779. Continue one more update." data-success="Correct." aria-describedby="p4e-feedback"><span class="field-feedback" id="p4e-feedback" aria-live="polite"></span></div><div class="question"><label for="p4f">What changes between the two trajectories in part B?</label><select id="p4f" data-answer="start" data-hint="Both calculations use r = 3.8 and the same formula." data-success="Correct." aria-describedby="p4f-feedback"><option value="">Choose a response…</option><option value="start">Only the starting state.</option><option value="rule">The update formula.</option><option value="random">A random number at each step.</option></select><span class="field-feedback" id="p4f-feedback" aria-live="polite"></span></div><div class="actions no-print"><button type="button" data-check>Check this section</button></div><p class="section-feedback" role="status"></p></section>
-<section class="card lab-part" data-check-group="5" id="part5"><div class="kicker">Part 5 / Measuring at a scale</div><h2>The ruler is part of the report</h2><p>For each row in this invented survey, use:</p><div class="formula">measured length = ruler length × placements</div>
-<div class="table-wrap"><table><thead><tr><th scope="col">Ruler length</th><th scope="col">Placements</th></tr></thead><tbody><tr><td>100 m</td><td>80</td></tr><tr><td>50 m</td><td>200</td></tr><tr><td>25 m</td><td>520</td></tr><tr><td>12.5 m</td><td>1,340</td></tr></tbody></table></div>
-<div class="example"><h3>Example · Watch the units</h3><p>A 20-meter ruler placed 45 times gives \(20\cdot45=900\) meters, or 0.9 kilometers. In the responses below, enter <em>meters</em>.</p></div><div class="grid"><div class="question"><label for="p5a">Measured length with the 100-meter ruler, in meters</label><input id="p5a" type="text" inputmode="decimal" autocomplete="off" data-answer="8000" data-tolerance="0" data-hint="Multiply 100 meters by 80." data-success="Correct." aria-describedby="p5a-feedback"><span class="field-feedback" id="p5a-feedback" aria-live="polite"></span></div><div class="question"><label for="p5b">Measured length with the 50-meter ruler, in meters</label><input id="p5b" type="text" inputmode="decimal" autocomplete="off" data-answer="10000" data-tolerance="0" data-hint="Multiply 50 meters by 200." data-success="Correct." aria-describedby="p5b-feedback"><span class="field-feedback" id="p5b-feedback" aria-live="polite"></span></div><div class="question"><label for="p5c">Measured length with the 25-meter ruler, in meters</label><input id="p5c" type="text" inputmode="decimal" autocomplete="off" data-answer="13000" data-tolerance="0" data-hint="Multiply 25 meters by 520." data-success="Correct." aria-describedby="p5c-feedback"><span class="field-feedback" id="p5c-feedback" aria-live="polite"></span></div><div class="question"><label for="p5d">Measured length with the 12.5-meter ruler, in meters</label><input id="p5d" type="text" inputmode="decimal" autocomplete="off" data-answer="16750" data-tolerance="0" data-hint="Multiply 12.5 meters by 1,340." data-success="Correct." aria-describedby="p5d-feedback"><span class="field-feedback" id="p5d-feedback" aria-live="polite"></span></div></div><div class="question"><label for="p5e">As the ruler gets shorter in these data, the reported length…</label><select id="p5e" data-answer="right" data-hint="Compare the four products." data-success="Correct." aria-describedby="p5e-feedback"><option value="">Choose a response…</option><option value="right">increases.</option><option value="decrease">decreases.</option><option value="constant">stays exactly constant.</option></select><span class="field-feedback" id="p5e-feedback" aria-live="polite"></span></div><div class="question"><label for="p5f">Which report communicates the measurement most clearly?</label><select id="p5f" data-answer="scale" data-hint="Include the resolution that produced the reported length." data-success="Correct." aria-describedby="p5f-feedback"><option value="">Choose a response…</option><option value="scale">The measured length is 13 km using a 25-meter ruler.</option><option value="absolute">The coastline is exactly 13 km long at every scale.</option><option value="growth">The coastline grew because we used a smaller ruler.</option></select><span class="field-feedback" id="p5f-feedback" aria-live="polite"></span></div><div class="actions no-print"><button type="button" data-check>Check this section</button></div><p class="section-feedback" role="status"></p></section>
-<div class="card no-print"><h2>Keep a copy of your work</h2><p>Your responses save in this browser. To submit them, enter your name above, choose <em>Print completed work / Save PDF</em>, and use the browser’s printer or PDF option. Follow the submission instructions in Canvas.</p><button type="button" data-print-work>Print completed work / Save PDF</button></div><div class="next"><a href="../index.html">← Course home</a><a class="button" href="../applications/week10_application.html">Try the fish forecast →</a></div><footer class="footer"><span>MATH&amp; 107 · Complexity and the Limits of Prediction</span><span>Simple rules · Patterns · Observation</span></footer></main></body></html>
+<div class="example">
+<h3>Example · Stage 1</h3>
+<p>There are 4 segments, each of length 1/3. The total is \(4(1/3)=4/3\). At stage \(n\), multiply \(4^n\) segments by \((1/3)^n\) length per segment.</p>
+<p>Use this same accounting for every row: <em>total length = number of segments × length of one segment</em>. At stage 2, the count is \(4\cdot4\), while one segment’s length is \((1/3)(1/3)\). An exponent is a shortcut for those repeated factors.</p>
+</div>
+<div class="grid">
+<div class="question">
+<label for="p3a">Koch segment count at stage 2</label><input id="p3a" type="text" inputmode="decimal" autocomplete="off" data-answer="16" data-tolerance="0" data-hint="Use 4²." data-success="Correct." aria-describedby="p3a-feedback"><span class="field-feedback" id="p3a-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="p3b">Koch total length at stage 2 (fraction or 4 decimals)</label><input id="p3b" type="text" inputmode="decimal" autocomplete="off" data-answer="1.7777777777777777" data-tolerance="0.0001" data-hint="Multiply the stage-2 count by 1/9." data-success="Correct." aria-describedby="p3b-feedback"><span class="field-feedback" id="p3b-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="p3c">Koch segment count at stage 3</label><input id="p3c" type="text" inputmode="decimal" autocomplete="off" data-answer="64" data-tolerance="0" data-hint="Use 4³." data-success="Correct." aria-describedby="p3c-feedback"><span class="field-feedback" id="p3c-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="p3d">Koch total length at stage 3 (fraction or 4 decimals)</label><input id="p3d" type="text" inputmode="decimal" autocomplete="off" data-answer="2.3703703703703702" data-tolerance="0.0001" data-hint="Multiply the stage-3 count by 1/27." data-success="Correct." aria-describedby="p3d-feedback"><span class="field-feedback" id="p3d-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="p3e">Koch segment count at stage 4</label><input id="p3e" type="text" inputmode="decimal" autocomplete="off" data-answer="256" data-tolerance="0" data-hint="Use 4⁴." data-success="Correct." aria-describedby="p3e-feedback"><span class="field-feedback" id="p3e-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="p3f">Koch total length at stage 4 (fraction or 4 decimals)</label><input id="p3f" type="text" inputmode="decimal" autocomplete="off" data-answer="3.1604938271604937" data-tolerance="0.0001" data-hint="Multiply the stage-4 count by 1/81." data-success="Correct." aria-describedby="p3f-feedback"><span class="field-feedback" id="p3f-feedback" aria-live="polite"></span>
+</div>
+</div>
+<div class="question">
+<label for="p3g">Ratio: Koch total length at one stage divided by total length at the previous stage (fraction or 4 decimals)</label><input id="p3g" type="text" inputmode="decimal" autocomplete="off" data-answer="1.3333333333333333" data-tolerance="0.0001" data-hint="Four new pieces each have one-third the old length." data-success="Correct." aria-describedby="p3g-feedback"><span class="field-feedback" id="p3g-feedback" aria-live="polite"></span>
+</div>
+<h3>Sierpinski area</h3>
+<p>Area measures the filled surface in square units. Splitting a triangle into four congruent smaller triangles gives each one one-quarter of the parent’s area. Keeping three of them leaves three quarters. Repeating that removal multiplies the <em>remaining</em> area by 3/4 again; it does not subtract a fixed quarter of the original area each time.</p>
+<p>For example, starting with 16 square units leaves 12 after one stage and 9 after two. A fraction of 0.5625 means 56.25% of the original area. The responses below ask for a fraction or decimal, so enter <code>0.5625</code>, rather than <code>56.25</code>, for that example.</p>
+<p>The starting triangle has area 1. Each step keeps three of four equal-area pieces, so remaining area is multiplied by 3/4. At stage 2, for example, the remaining fraction is \((3/4)^2=9/16=0.5625\).</p>
+<div class="grid">
+<div class="question">
+<label for="p3h">Fraction of original Sierpinski area remaining at stage 4 (fraction or 4 decimals)</label><input id="p3h" type="text" inputmode="decimal" autocomplete="off" data-answer="0.31640625" data-tolerance="0.0001" data-hint="Use (3/4)⁴. Enter a fraction or a decimal, not a percentage." data-success="Correct." aria-describedby="p3h-feedback"><span class="field-feedback" id="p3h-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="p3i">Fraction of original area remaining at stage 10, rounded to 4 decimal places</label><input id="p3i" type="text" inputmode="decimal" autocomplete="off" data-answer="0.0563" data-tolerance="5e-05" data-hint="Compute (3/4)¹⁰, then round at the end." data-success="Correct." aria-describedby="p3i-feedback"><span class="field-feedback" id="p3i-feedback" aria-live="polite"></span>
+</div>
+</div>
+<div class="question">
+<label for="p3j">Why can the filled-triangle count rise while the remaining area falls?</label><select id="p3j" data-answer="smaller" data-hint="Three copies remain, but each has only one-quarter the parent’s area." data-success="Correct." aria-describedby="p3j-feedback"><option value="">Choose a response…</option>
+<option value="smaller">Each new triangle has only one-quarter the area of its parent.</option>
+<option value="same">Each new triangle has the same area as its parent.</option>
+<option value="negative">Some triangles have negative area.</option></select><span class="field-feedback" id="p3j-feedback" aria-live="polite"></span>
+</div>
+<div class="actions no-print"><button type="button" data-check>Check this section</button></div>
+<p class="section-feedback" role="status"></p></section>
+<section class="card lab-part" data-check-group="4" id="part4"><div class="kicker">Part 4 / The logistic map</div>
+<h2>First an update; then a long-run pattern</h2>
+<p>Imagine a population expressed as a fraction of a chosen reference population. Then \(x=0.2\) means 20% of that reference, and \(1-x=0.8\) is the limiting factor used by the model. One update represents a breeding season. The letter \(r\) is a fixed response setting; it is not itself a percentage growth rate.</p>
+<p>Read the formula as “next fraction = setting × current fraction × limiting factor.” This is the same input-output idea as the feedback sequences in Week 5, with a different rule.</p>
+<div class="formula">\(x_{n+1}=r x_n(1-x_n)\)</div>
+<div class="example">
+<h3>Example · r = 2 and x₀ = 0.4</h3>
+<p>\(x_1=2(0.4)(0.6)=0.48\) and \(x_2=2(0.48)(0.52)=0.4992\). The nonzero fixed point is \(x^*=1-1/2=0.5\). A first update and a fixed point answer different questions.</p>
+<p>A <em>fixed point</em> is a value returned unchanged by an update: \(2(0.5)(0.5)=0.5\). The star in \(x^*\) labels this special value. A trajectory can approach it without being there at the first or tenth update.</p>
+</div>
+<h3>A. Use r = 2.8 and x₀ = 0.2</h3>
+<div class="example">
+<h3>Three questions, three calculations</h3>
+<ol class="steps">
+<li>
+<em>Fixed point:</em> use \(1-1/r\). For a practice setting of \(r=2.5\), this is \(1-1/2.5=0.6\). Use 2.8 for your response below.</li>
+<li>
+<em>First update:</em> substitute the given starting value into \(rx(1-x)\) once.</li>
+<li>
+<em>Tenth update:</em> apply that update ten times, using each new result as the next input.</li>
+</ol>
+<p>For the tenth update, open <a href="../demos/fractal_recursion.html">Logistic trajectories in the explorer</a>. Set r to 2.8, starting state A to 0.2, initial gap to 0, and updates to 10. Open the trajectory table and read state A in row n = 10. Row 0 is the start, so it is not one of the ten updates.</p>
+</div>
+<p>Use the fixed-point formula \(x^*=1-1/r\), then use the recursion for the trajectory. The explorer can calculate ten updates without rounding between them.</p>
+<div class="grid">
+<div class="question">
+<label for="p4a">Nonzero fixed point x*, rounded to 4 decimal places</label><input id="p4a" type="text" inputmode="decimal" autocomplete="off" data-answer="0.6428571428571428" data-tolerance="0.0001" data-hint="Compute 1 − 1/2.8." data-success="Correct." aria-describedby="p4a-feedback"><span class="field-feedback" id="p4a-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="p4b">First update x₁</label><input id="p4b" type="text" inputmode="decimal" autocomplete="off" data-answer="0.448" data-tolerance="0.0001" data-hint="Substitute 2.8 × 0.2 × (1 − 0.2)." data-success="Correct." aria-describedby="p4b-feedback"><span class="field-feedback" id="p4b-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="p4c">Value x₁₀, rounded to 4 decimal places</label><input id="p4c" type="text" inputmode="decimal" autocomplete="off" data-answer="0.6511" data-tolerance="0.0001" data-hint="Keep all stored digits while iterating. Do not enter the fixed point instead of the tenth update." data-success="Correct." aria-describedby="p4c-feedback"><span class="field-feedback" id="p4c-feedback" aria-live="polite"></span>
+</div>
+</div>
+<div class="question">
+<label for="p4d">Which description fits this trajectory?</label><select id="p4d" data-answer="right" data-hint="Compare later values with x*. Approaching a fixed point does not require each update to move in the same direction." data-success="Correct." aria-describedby="p4d-feedback"><option value="">Choose a response…</option>
+<option value="right">It approaches the nonzero fixed point.</option>
+<option value="infinity">It grows without bound.</option>
+<option value="zero">It becomes zero immediately.</option></select><span class="field-feedback" id="p4d-feedback" aria-live="polite"></span>
+</div>
+<h3>B. Use r = 3.8 with starts 0.40 and 0.41</h3>
+<p>Use one column for each starting estimate. At every row, subtract the smaller value from the larger to get the absolute gap. The bars in \(|x_n-y_n|\) mean that nonnegative difference. “Exceeds 0.05” means greater than 0.05, so an exact gap of 0.05 would not count.</p>
+<p>In the explorer, set r to 3.8, starting state A to 0.40, initial gap to 0.01, and updates to 10. The first-gap readout uses exactly this cutoff of 0.05. Inspect the table to see why that row is the first one above the cutoff.</p>
+<p>Calculate both trajectories with full stored precision. Compare \(|x_n-y_n|\) at each update, including the initial gap at step 0.</p>
+<div class="question">
+<label for="p4e">First update number at which the absolute gap exceeds 0.05</label><input id="p4e" type="text" inputmode="decimal" autocomplete="off" data-answer="4" data-tolerance="0" data-hint="At steps 1, 2, and 3 the gaps are about .007220, .022805, and .035779. Continue one more update." data-success="Correct." aria-describedby="p4e-feedback"><span class="field-feedback" id="p4e-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="p4f">What changes between the two trajectories in part B?</label><select id="p4f" data-answer="start" data-hint="Both calculations use r = 3.8 and the same formula." data-success="Correct." aria-describedby="p4f-feedback"><option value="">Choose a response…</option>
+<option value="start">Only the starting state.</option>
+<option value="rule">The update formula.</option>
+<option value="random">A random number at each step.</option></select><span class="field-feedback" id="p4f-feedback" aria-live="polite"></span>
+</div>
+<div class="actions no-print"><button type="button" data-check>Check this section</button></div>
+<p class="section-feedback" role="status"></p></section>
+<section class="card lab-part" data-check-group="5" id="part5"><div class="kicker">Part 5 / Measuring at a scale</div>
+<h2>The ruler is part of the report</h2>
+<p>For each row in this invented survey, use:</p>
+<p>Picture a straight ruler laid end to end along a shoreline on a map. Its length tells how much each placement contributes; the placement count tells how many such pieces were used. Shorter rulers can follow turns that longer rulers bridge across.</p>
+<div class="formula">measured length = ruler length × placements</div>
+<div class="table-wrap"><table>
+<thead><tr>
+<th scope="col">Ruler length</th>
+<th scope="col">Placements</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>100 m</td>
+<td>80</td>
+</tr>
+<tr>
+<td>50 m</td>
+<td>200</td>
+</tr>
+<tr>
+<td>25 m</td>
+<td>520</td>
+</tr>
+<tr>
+<td>12.5 m</td>
+<td>1,340</td>
+</tr>
+</tbody>
+</table></div>
+<div class="example">
+<h3>Example · Watch the units</h3>
+<p>A 20-meter ruler placed 45 times gives \(20\cdot45=900\) meters, or 0.9 kilometers. In the responses below, enter <em>meters</em>.</p>
+</div>
+<div class="grid">
+<div class="question">
+<label for="p5a">Measured length with the 100-meter ruler, in meters</label><input id="p5a" type="text" inputmode="decimal" autocomplete="off" data-answer="8000" data-tolerance="0" data-hint="Multiply 100 meters by 80." data-success="Correct." aria-describedby="p5a-feedback"><span class="field-feedback" id="p5a-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="p5b">Measured length with the 50-meter ruler, in meters</label><input id="p5b" type="text" inputmode="decimal" autocomplete="off" data-answer="10000" data-tolerance="0" data-hint="Multiply 50 meters by 200." data-success="Correct." aria-describedby="p5b-feedback"><span class="field-feedback" id="p5b-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="p5c">Measured length with the 25-meter ruler, in meters</label><input id="p5c" type="text" inputmode="decimal" autocomplete="off" data-answer="13000" data-tolerance="0" data-hint="Multiply 25 meters by 520." data-success="Correct." aria-describedby="p5c-feedback"><span class="field-feedback" id="p5c-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="p5d">Measured length with the 12.5-meter ruler, in meters</label><input id="p5d" type="text" inputmode="decimal" autocomplete="off" data-answer="16750" data-tolerance="0" data-hint="Multiply 12.5 meters by 1,340." data-success="Correct." aria-describedby="p5d-feedback"><span class="field-feedback" id="p5d-feedback" aria-live="polite"></span>
+</div>
+</div>
+<div class="question">
+<label for="p5e">As the ruler gets shorter in these data, the reported length…</label><select id="p5e" data-answer="right" data-hint="Compare the four products." data-success="Correct." aria-describedby="p5e-feedback"><option value="">Choose a response…</option>
+<option value="right">increases.</option>
+<option value="decrease">decreases.</option>
+<option value="constant">stays exactly constant.</option></select><span class="field-feedback" id="p5e-feedback" aria-live="polite"></span>
+</div>
+<div class="question">
+<label for="p5f">Which report communicates the measurement most clearly?</label><select id="p5f" data-answer="scale" data-hint="Include the resolution that produced the reported length." data-success="Correct." aria-describedby="p5f-feedback"><option value="">Choose a response…</option>
+<option value="scale">The measured length is 13 km using a 25-meter ruler.</option>
+<option value="absolute">The coastline is exactly 13 km long at every scale.</option>
+<option value="growth">The coastline grew because we used a smaller ruler.</option></select><span class="field-feedback" id="p5f-feedback" aria-live="polite"></span>
+</div>
+<div class="actions no-print"><button type="button" data-check>Check this section</button></div>
+<p class="section-feedback" role="status"></p></section>
+<div class="card no-print">
+<h2>Keep a copy of your work</h2>
+<p>Your responses save in this browser. To submit them, enter your name above, choose <em>Print completed work / Save PDF</em>, and use the browser’s printer or PDF option. Follow the submission instructions in Canvas.</p>
+<button type="button" data-print-work>Print completed work / Save PDF</button>
+</div>
+<div class="next">
+<a href="../index.html">← Course home</a><a class="button" href="../applications/week10_application.html">Try the fish forecast →</a>
+</div>
+<footer class="footer"><span>MATH&amp; 107 · Complexity and the Limits of Prediction</span><span>Simple rules · Patterns · Observation</span></footer></main>
+</body>
+</html>
