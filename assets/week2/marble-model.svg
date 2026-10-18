@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="742.79952pt" height="325.19952pt" viewBox="0 0 742.79952 325.19952" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 325.19952
+L 742.79952 325.19952
+L 742.79952 -0
+L 0 -0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="PathCollection_1">
+    <defs>
+     <path id="m6cb608c11b" d="M 0 12.247449
+C 3.248061 12.247449 6.363528 10.95698 8.660254 8.660254
+C 10.95698 6.363528 12.247449 3.248061 12.247449 0
+C 12.247449 -3.248061 10.95698 -6.363528 8.660254 -8.660254
+C 6.363528 -10.95698 3.248061 -12.247449 0 -12.247449
+C -3.248061 -12.247449 -6.363528 -10.95698 -8.660254 -8.660254
+C -10.95698 -6.363528 -12.247449 -3.248061 -12.247449 0
+C -12.247449 3.248061 -10.95698 6.363528 -8.660254 8.660254
+C -6.363528 10.95698 -3.248061 12.247449 0 12.247449
+z
+" style="stroke: #ffffff"/>
+    </defs>
+    <g clip-path="url(#p729f6e0fd8)">
+     <use xlink:href="#m6cb608c11b" x="59.733303" y="127.332072" style="fill: #a55c21; stroke: #ffffff"/>
+    </g>
+   </g>
+   <g id="PathCollection_2">
+    <g clip-path="url(#p729f6e0fd8)">
+     <use xlink:href="#m6cb608c11b" x="116.399931" y="127.332072" style="fill: #a55c21; stroke: #ffffff"/>
+    </g>
+   </g>
+   <g id="PathCollection_3">
+    <g clip-path="url(#p729f6e0fd8)">
+     <use xlink:href="#m6cb608c11b" x="173.06656" y="127.332072" style="fill: #a55c21; stroke: #ffffff"/>
+    </g>
+   </g>
+   <g id="PathCollection_4">
+    <g clip-path="url(#p729f6e0fd8)">
+     <use xlink:href="#m6cb608c11b" x="229.733189" y="127.332072" style="fill: #a55c21; stroke: #ffffff"/>
+    </g>
+   </g>
+   <g id="PathCollection_5">
+    <defs>
+     <path id="m0af020063b" d="M 0 12.247449
+C 3.248061 12.247449 6.363528 10.95698 8.660254 8.660254
+C 10.95698 6.363528 12.247449 3.248061 12.247449 0
+C 12.247449 -3.248061 10.95698 -6.363528 8.660254 -8.660254
+C 6.363528 -10.95698 3.248061 -12.247449 0 -12.247449
+C -3.248061 -12.247449 -6.363528 -10.95698 -8.660254 -8.660254
+C -10.95698 -6.363528 -12.247449 -3.248061 -12.247449 0
+C -12.247449 3.248061 -10.95698 6.363528 -8.660254 8.660254
+C -6.363528 10.95698 -3.248061 12.247449 0 12.247449
+z
+" style="stroke: #ffffff"/>
+    </defs>
+    <g clip-path="url(#p729f6e0fd8)">
+     <use xlink:href="#m0af020063b" x="286.399817" y="127.332072" style="fill: #17677a; stroke: #ffffff"/>
+    </g>
+   </g>
+   <g id="PathCollection_6">
+    <g clip-path="url(#p729f6e0fd8)">
+     <use xlink:href="#m0af020063b" x="343.066446" y="127.332072" style="fill: #17677a; stroke: #ffffff"/>
+    </g>
+   </g>
+   <g id="PathCollection_7">
+    <g clip-path="url(#p729f6e0fd8)">
+     <use xlink:href="#m0af020063b" x="59.733303" y="186.51512" style="fill: #17677a; stroke: #ffffff"/>
+    </g>
+   </g>
+   <g id="PathCollection_8">
+    <defs>
+     <path id="mba0f691661" d="M 0 12.247449
+C 3.248061 12.247449 6.363528 10.95698 8.660254 8.660254
+C 10.95698 6.363528 12.247449 3.248061 12.247449 0
+C 12.247449 -3.248061 10.95698 -6.363528 8.660254 -8.660254
+C 6.363528 -10.95698 3.248061 -12.247449 0 -12.247449
+C -3.248061 -12.247449 -6.363528 -10.95698 -8.660254 -8.660254
+C -10.95698 -6.363528 -12.247449 -3.248061 -12.247449 0
+C -12.247449 3.248061 -10.95698 6.363528 -8.660254 8.660254
+C -6.363528 10.95698 -3.248061 12.247449 0 12.247449
+z
+" style="stroke: #ffffff"/>
+    </defs>
+    <g clip-path="url(#p729f6e0fd8)">
+     <use xlink:href="#mba0f691661" x="116.399931" y="186.51512" style="fill: #536240; stroke: #ffffff"/>
+    </g>
+   </g>
+   <g id="PathCollection_9">
+    <g clip-path="url(#p729f6e0fd8)">
+     <use xlink:href="#mba0f691661" x="173.06656" y="186.51512" style="fill: #536240; stroke: #ffffff"/>
+    </g>
+   </g>
+   <g id="PathCollection_10">
+    <g clip-path="url(#p729f6e0fd8)">
+     <use xlink:href="#mba0f691661" x="229.733189" y="186.51512" style="fill: #536240; stroke: #ffffff"/>
+    </g>
+   </g>
+   <g id="PathCollection_11">
+    <g clip-path="url(#p729f6e0fd8)">
+     <use xlink:href="#mba0f691661" x="286.399817" y="186.51512" style="fill: #536240; stroke: #ffffff"/>
+    </g>
+   </g>
+   <g id="PathCollection_12">
+    <g clip-path="url(#p729f6e0fd8)">
+     <use xlink:href="#mba0f691661" x="343.066446" y="186.51512" style="fill: #536240; stroke: #ffffff"/>
+    </g>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #a55c21" x="416.733063" y="102.155548" transform="rotate(-0 416.733063 102.155548)">Red: 4 / 12 = 1 / 3</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17677a" x="416.733063" y="182.052662" transform="rotate(-0 416.733063 182.052662)">Blue: 3 / 12 = 1 / 4</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #536240" x="416.733063" y="261.949777" transform="rotate(-0 416.733063 261.949777)">Green: 5 / 12</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #293329" x="59.733303" y="298.96291" transform="rotate(-0 59.733303 298.96291)">Model assumption: each of the 12 marbles is equally likely to be drawn.</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #293329" x="14.4" y="26.5575" transform="rotate(-0 14.4 26.5575)">Count equally likely individual outcomes first</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p729f6e0fd8">
+   <rect x="14.4" y="38.5575" width="713.99952" height="272.24202"/>
+  </clipPath>
+ </defs>
+</svg>

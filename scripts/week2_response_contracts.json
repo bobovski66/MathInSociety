@@ -1,0 +1,713 @@
+{
+  "labs/week2_lab.html": [
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "printStudentName",
+        "type": "text",
+        "autocomplete": "name",
+        "placeholder": "Enter your name"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "s1p"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "month",
+          "all ER patients during the month"
+        ],
+        [
+          "tuesday",
+          "patients from that Tuesday"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "s1s"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "month",
+          "all ER patients during the month"
+        ],
+        [
+          "tuesday",
+          "patients from that Tuesday"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "s1b"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "oneday",
+          "only one day is represented"
+        ],
+        [
+          "spread",
+          "patients are sampled across many days of the month"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "s2b"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "random",
+          "random selection from the population of interest"
+        ],
+        [
+          "convenience",
+          "a convenience sample from one location or time"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "s3b"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "monday",
+          "customers who already visit on Monday mornings"
+        ],
+        [
+          "all",
+          "all customers equally"
+        ]
+      ]
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "sibTotal",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "sibMode",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "sibModeFreq",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "pOne",
+        "type": "number",
+        "step": "0.001"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "pMore",
+        "type": "number",
+        "step": "0.001"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "graphCat"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "bar",
+          "bar chart"
+        ],
+        [
+          "hist",
+          "histogram"
+        ]
+      ]
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "carRF",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "graphNum"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "bar",
+          "bar chart"
+        ],
+        [
+          "hist",
+          "histogram"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "ageMax"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "[20,25)",
+          "[20,25)"
+        ],
+        [
+          "[25,30)",
+          "[25,30)"
+        ],
+        [
+          "[30,35)",
+          "[30,35)"
+        ],
+        [
+          "[35,40)",
+          "[35,40)"
+        ],
+        [
+          "[40,45)",
+          "[40,45)"
+        ]
+      ]
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "missingP",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "sumRule"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "1",
+          "all probabilities must sum to 1"
+        ],
+        [
+          "100",
+          "all probabilities must sum to 100"
+        ],
+        [
+          "0",
+          "all probabilities must sum to 0"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "errValid"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "yes",
+          "yes"
+        ],
+        [
+          "no",
+          "no"
+        ]
+      ]
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "errAtLeast",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "errShape"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "right",
+          "skewed right"
+        ],
+        [
+          "left",
+          "skewed left"
+        ],
+        [
+          "sym",
+          "symmetric"
+        ]
+      ]
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "sf0",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "sf1",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "sf2",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "sf3",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "rf0",
+        "type": "number",
+        "step": "0.001"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "rf1",
+        "type": "number",
+        "step": "0.001"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "rf2",
+        "type": "number",
+        "step": "0.001"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "rf3",
+        "type": "number",
+        "step": "0.001"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "age0",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "age1",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "age2",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "age3",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "age4",
+        "type": "number"
+      },
+      "options": []
+    }
+  ],
+  "applications/week2_application.html": [
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "q1a"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "workers",
+          "all working residents in the county"
+        ],
+        [
+          "sample",
+          "the 80 surveyed residents"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "q1b"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "workers",
+          "all working residents in the county"
+        ],
+        [
+          "sample",
+          "the 80 surveyed residents"
+        ]
+      ]
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "d",
+        "type": "number",
+        "step": "0.001"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "t",
+        "type": "number",
+        "step": "0.001"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "b",
+        "type": "number",
+        "step": "0.001"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "w",
+        "type": "number",
+        "step": "0.001"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q3a",
+        "type": "number",
+        "step": "0.001"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q3b",
+        "type": "number",
+        "step": "0.001"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "q4"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "transit",
+          "overestimate public-transit use"
+        ],
+        [
+          "drive",
+          "overestimate driving"
+        ],
+        [
+          "same",
+          "produce exactly the same distribution"
+        ]
+      ]
+    }
+  ],
+  "applications/week2_ai.html": [
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q1",
+        "type": "number",
+        "step": "any",
+        "inputmode": "decimal"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q2",
+        "type": "number",
+        "step": "any",
+        "inputmode": "decimal"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q3",
+        "type": "number",
+        "step": "any",
+        "inputmode": "decimal"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "q4"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "Several next tokens can have positive probability.",
+          "Several next tokens can have positive probability."
+        ],
+        [
+          "Token IDs change meaning between runs.",
+          "Token IDs change meaning between runs."
+        ],
+        [
+          "Every token has equal probability.",
+          "Every token has equal probability."
+        ],
+        [
+          "The prompt is discarded after the first step.",
+          "The prompt is discarded after the first step."
+        ]
+      ]
+    }
+  ],
+  "applications/ai_week2.html": [
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q1a",
+        "type": "number",
+        "step": ".01"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q1b",
+        "type": "number",
+        "step": ".01"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q2a",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q2b",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "q3"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "mat",
+          "mat"
+        ],
+        [
+          "rug",
+          "rug"
+        ],
+        [
+          "chair",
+          "chair"
+        ],
+        [
+          "moon",
+          "moon"
+        ]
+      ]
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q4a",
+        "type": "number",
+        "step": ".01"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "q4b"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "cold",
+          "Cold"
+        ],
+        [
+          "hot",
+          "Hot"
+        ]
+      ]
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q5",
+        "type": "number",
+        "step": ".01"
+      },
+      "options": []
+    }
+  ]
+}

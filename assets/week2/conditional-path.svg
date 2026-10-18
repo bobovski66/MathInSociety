@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="742.79952pt" height="353.99952pt" viewBox="0 0 742.79952 353.99952" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 353.99952
+L 742.79952 353.99952
+L 742.79952 0
+L 0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="text_1">
+    <g id="patch_2">
+     <path d="M 57.767289 202.489369
+L 81.945258 202.489369
+Q 88.445258 202.489369 88.445258 195.989369
+L 88.445258 183.407807
+Q 88.445258 176.907807 81.945258 176.907807
+L 57.767289 176.907807
+Q 51.267289 176.907807 51.267289 183.407807
+L 51.267289 195.989369
+Q 51.267289 202.489369 57.767289 202.489369
+z
+" style="fill: #eef3e8; stroke: #d8ddcd; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #536240" x="69.856273" y="193.285776" transform="rotate(-0 69.856273 193.285776)">The</text>
+   </g>
+   <g id="text_2">
+    <g id="patch_3">
+     <path d="M 315.945372 127.538903
+L 364.465841 127.538903
+Q 370.965841 127.538903 370.965841 121.038903
+L 370.965841 108.457341
+Q 370.965841 101.957341 364.465841 101.957341
+L 315.945372 101.957341
+Q 309.445372 101.957341 309.445372 108.457341
+L 309.445372 121.038903
+Q 309.445372 127.538903 315.945372 127.538903
+z
+" style="fill: #eef3e8; stroke: #d8ddcd; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17677a" x="340.205606" y="118.33531" transform="rotate(-0 340.205606 118.33531)">The cat</text>
+   </g>
+   <g id="text_3">
+    <g id="patch_4">
+     <path d="M 277.618731 288.147045
+L 402.792481 288.147045
+Q 409.292481 288.147045 409.292481 281.647045
+L 409.292481 269.065482
+Q 409.292481 262.565482 402.792481 262.565482
+L 277.618731 262.565482
+Q 271.118731 262.565482 271.118731 269.065482
+L 271.118731 281.647045
+Q 271.118731 288.147045 277.618731 288.147045
+z
+" style="fill: #eef3e8; stroke: #d8ddcd; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #536240" x="340.205606" y="278.943451" transform="rotate(-0 340.205606 278.943451)">Another next token</text>
+   </g>
+   <g id="text_4">
+    <g id="patch_5">
+     <path d="M 581.243379 84.710066
+L 653.730567 84.710066
+Q 660.230567 84.710066 660.230567 78.210066
+L 660.230567 65.628503
+Q 660.230567 59.128503 653.730567 59.128503
+L 581.243379 59.128503
+Q 574.743379 59.128503 574.743379 65.628503
+L 574.743379 78.210066
+Q 574.743379 84.710066 581.243379 84.710066
+z
+" style="fill: #eef3e8; stroke: #d8ddcd; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17677a" x="617.486973" y="75.506472" transform="rotate(-0 617.486973 75.506472)">The cat sat</text>
+   </g>
+   <g id="text_5">
+    <g id="patch_6">
+     <path d="M 537.990958 175.721346
+L 696.982989 175.721346
+Q 703.482989 175.721346 703.482989 169.221346
+L 703.482989 156.639783
+Q 703.482989 150.139783 696.982989 150.139783
+L 537.990958 150.139783
+Q 531.490958 150.139783 531.490958 156.639783
+L 531.490958 169.221346
+Q 531.490958 175.721346 537.990958 175.721346
+z
+" style="fill: #eef3e8; stroke: #d8ddcd; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #536240" x="617.486973" y="166.517752" transform="rotate(-0 617.486973 166.517752)">The cat + another token</text>
+   </g>
+   <g id="patch_7">
+    <path d="M 113.333908 178.32663
+Q 191.165999 150.885261 266.889256 124.187408
+" style="fill: none; stroke: #17677a; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 260.676869 123.408784
+L 266.889256 124.187408
+L 262.538925 128.690143
+" style="fill: none; stroke: #17677a; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17677a" x="191.166871" y="128.132134" transform="rotate(-0 191.166871 128.132134)">0.40</text>
+   </g>
+   <g id="patch_8">
+    <path d="M 113.279857 201.209418
+Q 187.700355 233.865608 260.073246 265.623295
+" style="fill: none; stroke: #536240; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 256.070332 260.809079
+L 260.073246 265.623295
+L 253.820125 265.937097
+" style="fill: none; stroke: #536240; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #536240" x="180.76882" y="258.224728" transform="rotate(-0 180.76882 258.224728)">0.60</text>
+   </g>
+   <g id="patch_9">
+    <path d="M 397.633039 103.717014
+Q 477.114157 90.656757 554.388796 77.959067
+" style="fill: none; stroke: #17677a; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 548.408896 76.104129
+L 554.388796 77.959067
+L 549.316905 81.630024
+" style="fill: none; stroke: #17677a; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17677a" x="471.914256" y="69.242482" transform="rotate(-0 471.914256 69.242482)">0.50</text>
+   </g>
+   <g id="patch_10">
+    <path d="M 397.603264 125.928804
+Q 461.514672 141.515772 523.253684 156.572928
+" style="fill: none; stroke: #536240; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 518.476577 152.525799
+L 523.253684 156.572928
+L 517.149718 157.966336
+" style="fill: none; stroke: #536240; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #536240" x="464.982221" y="160.253762" transform="rotate(-0 464.982221 160.253762)">0.50</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17677a" x="381.797811" y="326.215508" transform="rotate(-0 381.797811 326.215508)">Path probability: 0.40 × 0.50 = 0.20</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #293329" x="14.4" y="25.797656" transform="rotate(-0 14.4 25.797656)">Use the chance at the second step after the first choice</text>
+   </g>
+  </g>
+ </g>
+</svg>
