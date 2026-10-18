@@ -2,6 +2,7 @@
 from pathlib import Path
 from html import escape
 import json,os
+from build_discussions import build_discussion, discussion_entry
 ROOT=Path(__file__).resolve().parents[1]
 NAV=[('Reading','readings/week5_reading.html'),('Explorer','demos/cybernetics.html'),('Laboratory','labs/week5_lab.html'),('Greenhouse','applications/week5_application.html'),('Learning','applications/week5_ai.html'),('Discussion','discussions/week5_discussion.html'),('History','information_cybernetics_timeline.html')]
 def write(path,text):
@@ -101,12 +102,7 @@ ext=r'''
 '''
 page(extfile,'AI Mathematics Extension','Score a prediction by its surprise.','Use powers of two to connect probabilities, bits, average token loss, perplexity, and an idealized coding length.',ext,['Optional information-theory extension','Worked probability scores','All original practice retained'],store='math107_ai_week5_v2',legacy='math107_ai_week5_v1',nextlink=('Return to the feedback discussion','discussions/week5_discussion.html'))
 
-disc=r'''
-<section class="card"><h2>Start with something familiar</h2><p>You turn up a shower because the water feels cold. Nothing seems to happen, so you turn it up again. A few seconds later, the water is too hot.</p><p>Each time, you used how the water felt to decide what to do next. That is <em>feedback</em>. But the water took time to respond.</p></section>
-<section class="card"><h2>Your post</h2><p>Choose something people adjust—such as room temperature, a recipe, a practice routine, or the amount of water a plant gets. Your example can be real or made up.</p><p>Describe what someone is trying to get right. What tells them whether their change is working?</p><p>Then explore <em>one</em> of these questions:</p><ul><li>What could happen if they make a change that is too big?</li><li>What could happen if it takes a while to see the result?</li><li>Would everyone agree on what counts as “better”?</li></ul><p>Explain what you think could happen, and why. Post your response in Canvas.</p></section>
-<section class="card"><h2>Reply to a classmate</h2><p>Read a classmate’s example. Ask a question, suggest a small change, or connect their example to something you have noticed.</p><p>Give them something to respond to. You might ask, “What would happen if…?” or explain, “I think that could work because….”</p></section>
-'''
-page('discussions/week5_discussion.html','Discussion','Making adjustments','What helps us decide whether to make a change—or give it more time?',disc,['Feedback','Delay','Everyday choices'],nextlink=('Continue to Week 6','readings/week6_reading.html'))
+build_discussion(5)
 
 def update_dashboard():
  p=ROOT/'index.html';s=p.read_text();start=s.index('const WEEKS = ')+len('const WEEKS = ');weeks,end=json.JSONDecoder().raw_decode(s[start:]);w=next(x for x in weeks if x['week']==5)
@@ -118,7 +114,7 @@ def update_dashboard():
  w['weekly_lab']['note']='Six scaffolded investigations with feedback beside each answer, compatible saved work, explanations for instructor review, and named printing.'
  w['application'][0]['note']='Compare greenhouse reports, explain overshoot and zero reported error, then test a gentler response and identify missing evidence.'
  w['application'][1]['note']='Trace weight, prediction, error, and update; compare current and delayed training, then explore the optional information-theory extension.'
- w['discussion'][0].update(title='Module 5 Discussion — Making Adjustments',note='Choose an everyday example of feedback, explore what could happen, and respond to a classmate in your own words.')
+ w['discussion'][0].update(discussion_entry(5))
  s=s[:start]+json.dumps(weeks,ensure_ascii=False,separators=(',',':'))+s[start+end:]
  start=s.index('const ASSESSMENTS = ')+len('const ASSESSMENTS = ');ass,end=json.JSONDecoder().raw_decode(s[start:]);q=ass['week5']
  q['subtitle']='Seven checks connect current and delayed updates, a specific overshoot, measurement quality, feedback direction, and adaptation.'

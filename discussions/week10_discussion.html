@@ -1,95 +1,13 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Compare nearby starting measurements, then explain what their later separation says about prediction and observation.">
-<title>Week 10 Discussion — Same rule. Different forecast horizons. | Math in Society</title>
-<link rel="stylesheet" href="../assets/week10/week10.css">
-<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week10/week10.js"></script>
-</head>
-<body>
-<a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html">Reading</a><a href="../demos/fractal_recursion.html">Explorer</a><a href="../labs/week10_lab.html">Laboratory</a><a href="../applications/week10_application.html">Fish forecast</a><a href="../applications/week10_ai.html">AI application</a><a href="../discussions/week10_discussion.html" aria-current="page">Discussion</a></nav><main class="wrap" id="main"><header class="hero"><div class="eyebrow">Week 10 / Discussion</div>
-<h1>Same rule. Different forecast horizons.</h1>
-<p class="lead">Compare nearby starting measurements, then explain what their later separation says about prediction and observation.</p>
-<div class="meta">
-<span class="tag">Calculate → post → compare</span><span class="tag">Submit in the class discussion board</span>
-</div></header>
-<section class="card"><div class="kicker">The problem</div>
-<h2>Two teams observe the same population</h2>
-<p>An observation station uses the simplified logistic model</p>
-<p>The state is a population fraction: 0.20 means 20% of a chosen reference population. One update represents one breeding season. The subscript in \(x_n\) counts those seasons; \(r=3.9\) is the same response setting throughout the calculation.</p>
-<div class="formula">\(x_{n+1}=3.9x_n(1-x_n).\)</div>
-<p>Two teams’ estimates of the initial state differ by 0.0001. Choose one pair below and compare how those two estimates develop under exactly the same rule.</p>
-<div class="table-wrap"><table>
-<thead><tr>
-<th scope="col">Pair</th>
-<th scope="col">Starting state A</th>
-<th scope="col">Starting state B</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>A</td>
-<td>0.2000</td>
-<td>0.2001</td>
-</tr>
-<tr>
-<td>B</td>
-<td>0.2500</td>
-<td>0.2501</td>
-</tr>
-<tr>
-<td>C</td>
-<td>0.3500</td>
-<td>0.3501</td>
-</tr>
-</tbody>
-</table></div>
-<p>The starting values are at generation 0. Keep full stored precision during the calculation; display at least six decimal places in your table.</p>
-<div class="example">
-<h3>Example of a table row</h3>
-<p>For pair A at generation 0, record 0.200000, 0.200100, and an absolute gap of 0.000100. To obtain generation 1, apply \(3.9x(1-x)\) separately to each starting value.</p>
-<p>The absolute gap is the larger forecast minus the smaller forecast. For pair A at generation 1, the two updated fractions are \(3.9(0.2000)(0.8000)=0.624000\) and \(3.9(0.2001)(0.7999)=0.624233961\). Their gap is 0.000233961. Use this example as a method check, then work with your chosen pair.</p>
-</div></section>
-<section class="card"><div class="kicker">Calculate, then compare</div>
-<h2>Use the table to check your work</h2>
-<p>A calculator or spreadsheet is fine. The tool below keeps full stored precision, then rounds its displayed table to six decimal places.</p>
-<p>The cutoff 0.05 is a gap of five percentage points of the reference population. A first crossing occurs at the first generation whose gap is strictly greater than 0.05. A later return below the cutoff does not erase that first crossing.</p>
-<p>The graph’s horizontal axis counts generations; the vertical axis gives the predicted fractions. Read both curves at the same generation. The solid and dashed curves differ only in their starting estimate.</p>
-<div class="controls"><div>
-<label for="discussionPair">Choose your pair</label><select id="discussionPair"><option value="0.2">Pair A · 0.2000 / 0.2001</option>
-<option value="0.25">Pair B · 0.2500 / 0.2501</option>
-<option value="0.35">Pair C · 0.3500 / 0.3501</option></select>
-</div></div>
-<div class="legend">
-<span class="a">Starting state A</span><span class="b">Starting state B</span>
-</div>
-<div class="chart" id="discussionPlot"></div>
-<details><summary>Reveal the computed table and threshold crossing</summary><p id="discussionCross" class="readout"></p>
-<div class="table-wrap trace" id="discussionTable"></div></details><p class="small">Check both trajectories’ first updates yourself before using the table to inspect later generations.</p></section>
-<section class="card"><div class="kicker">Initial post</div>
-<h2>Show the calculation and its meaning</h2>
-<p>A useful explanation can be short and numerical. Name the first crossing generation, report its gap, and compare that gap with 0.05. Then explain that both forecasts still use the same next-state instruction. You are explaining what the calculation shows, rather than assuming the reader already knows the vocabulary of chaos.</p>
-<ol class="steps">
-<li>Name your pair and show one complete update calculation for each starting state.</li>
-<li>Include a table of generation, state A, state B, and absolute gap for generations 0 through 10. Continue through the first generation where the gap exceeds 0.05, or through generation 15 if it has not crossed by then.</li>
-<li>Report the first crossing you found. If no crossing occurs by generation 15, say so; do not treat “not observed yet” as “never.”</li>
-<li>Explain how an initially small measurement difference affects later forecasts. State why the rule is still deterministic.</li>
-<li>Explain what would happen if both starting values were rounded to only three decimal places before iteration.</li>
-</ol>
-<p>A clear table, labeled graph, or image of organized handwritten work is appropriate. Use the numerical results to support your explanation.</p></section>
-<section class="card"><div class="kicker">Replies</div>
-<h2>Compare another observer’s result</h2>
-<p>Follow the reply instructions in Canvas. If possible, choose a classmate who used a different initial pair. Compare threshold-crossing times and check at least one calculation. Explain why a different crossing time is compatible with both pairs following the same formula.</p>
-<p>A useful reply identifies a mathematical detail: a calculation, a rounding choice, a threshold, or the meaning of a forecast. The page provides the problem and checking tools; post your response on the class discussion board.</p>
-<div class="insight">
-<h3>What the experiment supports</h3>
-<p>A pair of forecasts can illustrate sensitivity to initial measurements. It does not give guaranteed bounds for every possible state, prove that an actual population is chaotic, or show that all future questions are unanswerable.</p>
-</div>
-<button type="button" class="secondary no-print" data-print-page>Print this discussion prompt</button></section>
-<div class="next">
-<a href="../index.html">← Course home</a><a class="button" href="../readings/week10_reading.html">Return to the reading →</a>
-</div>
-<footer class="footer"><span>MATH&amp; 107 · Complexity and the Limits of Prediction</span><span>Simple rules · Patterns · Observation</span></footer></main>
-</body>
-</html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Choose a situation to forecast, compare three updates from two nearby starts, and explain how far you would trust the result."><title>Week 10 Discussion — How far would you trust a prediction? | Math in Society</title>
+<link rel="stylesheet" href="../assets/week10/week10.css"><script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week10/week10.js"></script></head>
+<body><a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header>
+<nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html">Reading</a><a href="../demos/fractal_recursion.html">Explorer</a><a href="../labs/week10_lab.html">Laboratory</a><a href="../applications/week10_application.html">Application</a><a href="../discussions/week10_discussion.html" aria-current="page">Discussion</a></nav>
+<main class="wrap" id="main"><header class="hero"><div class="eyebrow">Week 10 / Discussion</div><h1>How far would you trust a prediction?</h1><p class="lead">What can a repeated rule tell you—and what would you still need to find out?</p><div class="meta"><span class="tag">Repeated rules</span><span class="tag">Starting numbers</span><span class="tag">Forecasts</span></div></header>
+<section class="card"><h2>Start with something familiar</h2><p>We predict things when we plan a trip, practice a skill, or expect a project to grow. A number can help us think ahead, but we also need to ask where it came from.</p><p>This week’s activities show that repeating a clear rule can lead to surprising results. Here, try a simple rule for something you know and consider how much you would trust it.</p><div class="example"><h3>One short example</h3><p>A made-up forecast doubles an amount each round. Starting with 5 and starting with 6 gives:</p><div class="table-wrap"><table><thead><tr><th scope="col">Start</th><th scope="col">After 1 round</th><th scope="col">After 2</th><th scope="col">After 3</th></tr></thead><tbody><tr><td>5</td><td>10</td><td>20</td><td>40</td></tr><tr><td>6</td><td>12</td><td>24</td><td>48</td></tr></tbody></table></div><p>The starting gap is 1; after three rounds it is 8. This doubling rule still has a predictable pattern.</p></div></section>
+<section class="card" id="your-post"><h2>Your post</h2><p>Choose something you might try to predict, such as practice time, progress on a project, or the number of people joining an activity. Make up a simple rule that could fit it: add a fixed amount, multiply by the same number, or take half of what is left.</p><p>Use your own example and answer all the numbered questions. Post your response in Canvas.</p><ol class="tasks"><li>What are you trying to predict, and why would the prediction matter to you? State your starting number, rule, and what one step means.</li><li>Use your rule for three steps. Then change the starting number a little and repeat the same three steps. Show both sets of numbers and the difference between their final values.</li><li>What might happen in your real example that your rule leaves out? Would the same pattern keep working? Explain with a specific possibility.</li><li>How far ahead would you trust this forecast, and why? What would you check as new information arrives?</li></ol></section>
+<section class="card" id="replies"><h2>Reply to a classmate</h2><p>Read a classmate’s example. Ask a question, suggest a small change, or connect their example to something you have noticed. Give them something to respond to.</p><p>You might start with:</p><ul><li>“Would changing the starting number by ___ change your decision?”</li><li>“What new information might make you revise the rule? I would watch for…”</li></ul><p>Explain a little of your thinking so your classmate can build on it.</p></section>
+<div class="actions no-print"><button type="button" data-print-page>Print this discussion prompt</button></div>
+<div class="next"><a href="week9_discussion.html">← Week 9 discussion</a><a href="../index.html">Course home →</a></div>
+<footer class="footer"><span>MATH&amp; 107 · Week 10 · Discussion</span><a href="../readings/week10_reading.html">Return to the Week 10 reading ↗</a></footer></main></body></html>
