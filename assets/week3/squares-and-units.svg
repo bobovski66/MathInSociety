@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="614.588589pt" height="346.79952pt" viewBox="0 0 614.588589 346.79952" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M -0 346.79952
+L 614.588589 346.79952
+L 614.588589 0
+L -0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 42.294695 231.978619
+L 153.873474 231.978619
+L 153.873474 120.39984
+L 42.294695 120.39984
+z
+" clip-path="url(#p73618dd04e)" style="fill: #17677a; opacity: 0.22; stroke: #17677a; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 321.241642 231.978619
+L 432.820421 231.978619
+L 432.820421 120.39984
+L 321.241642 120.39984
+z
+" clip-path="url(#p73618dd04e)" style="fill: #536240; opacity: 0.22; stroke: #536240; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17677a" x="98.084084" y="180.880167" transform="rotate(-0 98.084084 180.880167)">Area 4</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17677a" x="98.084084" y="98.084084" transform="rotate(-0 98.084084 98.084084)">Deviation -2</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #536240" x="377.031032" y="180.880167" transform="rotate(-0 377.031032 180.880167)">Area 4</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #536240" x="377.031032" y="98.084084" transform="rotate(-0 377.031032 98.084084)">Deviation +2</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="298.925886" y="262.662783" transform="rotate(-0 298.925886 262.662783)">Squares: 4 + 0 + 0 + 4 = 8 squared units</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #536240" x="298.925886" y="294.462735" transform="rotate(-0 298.925886 294.462735)">Sample variance: 8 / 3 ≈ 2.67 squared units</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17677a" x="298.925886" y="324.031112" transform="rotate(-0 298.925886 324.031112)">Square root: sample s ≈ 1.63 original units</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p73618dd04e">
+   <rect x="14.4" y="14.4" width="585.788589" height="317.99952"/>
+  </clipPath>
+ </defs>
+</svg>

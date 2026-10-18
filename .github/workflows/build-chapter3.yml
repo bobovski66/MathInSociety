@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - "readings/Math107_Chapter_03.tex"
+      - "readings/chapter3/*.tex"
+      - "assets/week3/*.pdf"
       - ".github/workflows/build-chapter3.yml"
   workflow_dispatch:
 

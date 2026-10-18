@@ -1,50 +1,189 @@
 
-\begin{center}
-\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{ll}
-\toprule
-\textbf{Measure of center} & \textbf{Companion measure of spread} \\
+
+\Needspace{6\baselineskip}\section{Weighted averages: unequal shares}
+
+In an ordinary mean, each observation receives the same share of the total weight. A \emph{weighted average} allows different shares. Multiply each value by its weight, then add. For the form used here, the weights are nonnegative and sum to 1.
+
+\[\text{weighted average}=w_1x_1+\cdots+w_nx_n,\qquad w_1+\cdots+w_n=1.\]
+\begin{tcolorbox}[title={Two scores with different weights},breakable]
+
+Scores of 70 and 90 have ordinary mean 80. If the first counts for 25\% and the second for 75\%, the weighted result is 0.25(70) + 0.75(90) = 17.5 + 67.5 = 85. Convert the percentages to decimal weights before multiplying.
+
+
+\end{tcolorbox}
+
+With nonnegative weights summing to 1, the result stays between the smallest and largest values. Larger weight means a value has more influence on the combined result. It does not turn the weight into a statement that the value is correct.
+
+
+The attention application uses this same operation to combine numerical information. Work the familiar weighted average before reading about its role in a model.
+
+
+\begin{tcolorbox}[title={Pause and try 9},breakable]
+Scores of 60 and 80 receive weights 0.25 and 0.75. Find the weighted average and check its bounds.
+\end{tcolorbox}
+
+
+\Needspace{6\baselineskip}\section{Moving or rescaling every value}
+
+If you add the same number to every observation, all the points move together. Their mean and median move by that number, but the distances between points do not change. Range and standard deviation stay the same.
+
+
+If you multiply every observation by 2, the distances double too. The mean, median, range, and standard deviation all double. Multiplication by a negative number also reverses order; spread changes by the magnitude of the multiplier and remains nonnegative.
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=3.6in,keepaspectratio]{../assets/week3/shift-and-scale.pdf}
+\captionof*{figure}{Moving the whole data set changes its location. Stretching it changes its spread. Keep the units and transformation clear.}
+\end{minipage}\par\medskip
+
+\begin{tcolorbox}[title={Pause and try 10},breakable]
+A sample has mean 20 and sample SD 3. Add 5 to every value. What are the new mean and sample SD?
+\end{tcolorbox}
+
+
+\Needspace{6\baselineskip}\section{What does the result tell us?}
+
+Write the result with its units and a sentence about the data. ``The five test bottles averaged 250 mL, with sample SD about 0.71 mL'' tells us more than two unlabeled calculator outputs.
+
+
+\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYY@{}}\toprule
+Question & Useful calculation & What to keep in view\\
 \midrule
-Mean   & Sample standard deviation \\
-Median & Range \\
-\bottomrule
-\end{tabular}
-\end{center}
+What would each share be if the total were equal? & Mean & Every value affects the total\\
+What is the middle ordered value? & Median & Sort first; use both middle values when needed\\
+Which value repeats most often? & Mode & Ties and no repeated values are possible\\
+How far apart are the extremes? & Range & It uses only the endpoints\\
+How much do values vary around the mean? & Sample standard deviation & Use all values and the n $-$ 1 rule here\\
+\bottomrule\end{tabularx}}\par\medskip
 
-\noindent
-The mean and sample standard deviation are appropriate when the
-data is approximately symmetric with no extreme values.
-The median and range are more informative when the data
-contains extreme values or is heavily skewed.
+A summary describes the observations we have. Whether those observations represent a larger group depends on how they were selected and measured. A narrow spread does not establish that the sample came from the right population or that the measuring instrument was accurate.
 
-\begin{example}
-The following data records the ages of participants in
-two different programs.
 
-Program A (yoga class):
-\[ 28,\; 31,\; 34,\; 29,\; 33,\; 30,\; 32,\; 35. \]
-\[
-\bar{x}_A = 31.5, \qquad s_A \approx 2.45.
-\]
+Week 4 introduces normal models and intervals for population quantities. Here we are learning to describe observed variation. A standard deviation alone does not prove that a data set has a bell shape or tell us a tail percentage.
 
-Program B (community center drop-in):
-\[ 8,\; 15,\; 22,\; 45,\; 67,\; 72,\; 78,\; 83. \]
-\[
-\bar{x}_B = 48.75, \qquad \text{Median}_B = 56, \qquad
-\text{Range}_B = 75.
-\]
 
-Program A has a narrow age range and a small standard
-deviation. The mean and sample standard deviation describe it well.
-Program B spans a wide age range with no clear cluster.
-The median and range are more informative for Program B.
-\end{example}
+\begin{tcolorbox}[title={Pause and try 11},breakable]
+Two filling machines average the target amount. Does that settle which is more consistent?
+\end{tcolorbox}
 
-\begin{exercises}
+References: NIST's \href{https://www.itl.nist.gov/div898/handbook/eda/section3/eda351.htm}{measures of location} and \href{https://www.itl.nist.gov/div898/handbook/eda/section3/eda356.htm}{measures of scale}. Numerical examples in this unit are hypothetical.
+
+
+% Practice questions retained from Chapter 3, with corrected interpretation prompts.
+
+\Needspace{8\baselineskip}
+\section*{Practice A: Center}
+\begin{enumerate}[label=A\arabic*.,leftmargin=2.5em,itemsep=10pt]
+  \item Find the mean, median, and mode of each data set.
+    \begin{enumerate}[label=(\alph*), itemsep=5pt]
+      \item $4,\; 7,\; 7,\; 9,\; 11,\; 13,\; 7,\; 6$
+      \item $22,\; 18,\; 30,\; 22,\; 25,\; 18,\; 29,\;
+             22,\; 31$
+      \item $0.5,\; 1.2,\; 0.8,\; 1.5,\; 0.9,\; 1.1$
+    \end{enumerate}
+
+  \item The following data records the number of customer
+    complaints received by a store over ten days:
+    \[ 3,\; 0,\; 5,\; 2,\; 1,\; 4,\; 2,\; 8,\; 2,\; 3. \]
+    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+      \item Find the mean, median, and mode.
+      \item On day 8, a particularly difficult situation led
+        to 8 complaints. Describe the effect of removing this
+        value from the data set on each of the three measures.
+    \end{enumerate}
+
+  \item A real estate agent reports that the mean home price
+    in a neighborhood is \$420{,}000, but the median is
+    \$285{,}000.
+    In two complete sentences, explain what this difference
+    tells a potential buyer about the distribution of home
+    prices in the neighborhood.
+
+  \item Seven students took a test. Six of them scored
+    $72, 78, 84, 80, 76, 88$.
+    The mean score for all seven students is $80$.
+    What did the seventh student score?
+    Show your work.
+
+\end{enumerate}
+
+\Needspace{8\baselineskip}
+\section*{Practice B: Range}
+\begin{enumerate}[label=B\arabic*.,leftmargin=2.5em,itemsep=10pt]
+  \item Find the range of each data set.
+    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+      \item $14,\; 22,\; 9,\; 31,\; 18,\; 27$
+      \item $-5,\; 0,\; 3,\; -2,\; 8,\; -7,\; 1$
+      \item $0.4,\; 1.1,\; 0.7,\; 1.8,\; 0.3$
+    \end{enumerate}
+
+  \item Two delivery drivers recorded the following number
+    of deliveries per day over five days.
+    \begin{center}
+    \renewcommand{\arraystretch}{1.4}
+    \begin{tabular}{lrrrrr}
+    \toprule
+    & Day 1 & Day 2 & Day 3 & Day 4 & Day 5 \\
+    \midrule
+    Driver A & 12 & 14 & 11 & 13 & 15 \\
+    Driver B & 8  & 18 & 10 & 16 & 13 \\
+    \bottomrule
+    \end{tabular}
+    \end{center}
+    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+      \item Compute the mean and range for each driver.
+      \item Which driver is more consistent?
+        Justify your answer using the range.
+    \end{enumerate}
+
+  \item A data set has a range of $40$ and a minimum value
+    of $15$. What is the maximum value?
+
+\end{enumerate}
+
+\Needspace{8\baselineskip}
+\section*{Practice C: Sample standard deviation}
+\begin{enumerate}[label=C\arabic*.,leftmargin=2.5em,itemsep=10pt]
+  \item Compute the sample standard deviation of each data set.
+    Show all steps using the deviation table.
+    \begin{enumerate}[label=(\alph*), itemsep=6pt]
+      \item $3,\; 5,\; 5,\; 7$
+      \item $10,\; 20,\; 30,\; 40$
+      \item $6,\; 6,\; 9,\; 9$
+    \end{enumerate}
+
+  \item Without computing, decide which data set has a
+    larger sample standard deviation. Explain your reasoning.
+    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+      \item Set A: $50, 51, 50, 49, 50$ \quad
+        Set B: $30, 40, 50, 60, 70$
+      \item Set C: $2, 2, 2, 2, 2$ \quad
+        Set D: $1, 2, 3, 4, 5$
+    \end{enumerate}
+
+  \item A data set has five values with mean $\bar{x} = 10$.
+    The squared deviations are $4, 1, 0, 1, 4$.
+    Compute the sample standard deviation without knowing the
+    original values.
+
+  \item Two machines fill bottles with juice.
+    Machine A fills to $250, 251, 249, 250, 250$ mL.
+    Machine B fills to $245, 255, 248, 253, 249$ mL.
+    \begin{enumerate}[label=(\alph*), itemsep=4pt]
+      \item Compute the mean and sample standard deviation for
+        each machine.
+      \item Which machine is more consistent?
+        Justify using the sample standard deviation.
+    \end{enumerate}
+
+\end{enumerate}
+
+\Needspace{8\baselineskip}
+\section*{Practice D: Interpreting summaries}
+\begin{enumerate}[label=D\arabic*.,leftmargin=2.5em,itemsep=10pt]
   \item For each data set, compute all five statistics:
     mean, median, mode, range, and sample standard deviation.
-    Then state which pair (mean/SD or median/range) better
-    describes the center and spread, and explain why.
+    Use the values and statistics to explain how an extreme value affects the summaries. Which center better describes a typical observation? Explain.
     \begin{enumerate}[label=(\alph*), itemsep=6pt]
       \item $12,\; 14,\; 14,\; 15,\; 16,\; 17,\; 14$
       \item $5,\; 6,\; 7,\; 8,\; 9,\; 10,\; 85$
@@ -69,120 +208,19 @@ The median and range are more informative for Program B.
       \item What does a larger sample standard deviation indicate
         about the distribution of values?
     \end{enumerate}
-\end{exercises}
 
-%--------------------------------------------------------------------
-\section{Visualizing Center and Spread}
-%--------------------------------------------------------------------
+\end{enumerate}
 
-The histogram is the primary visual tool for understanding
-the distribution of a data set.
-Center and spread are visible in the shape of a histogram:
-the center is where the distribution is tallest, and the
-spread is how wide the distribution is.
-
-\begin{example}
-The following histogram shows the distribution of 50 exam
-scores.
-
-\begin{center}
-\begin{tikzpicture}
-\begin{axis}[
-  ybar interval,
-  width=10cm, height=5.5cm,
-  bar width=1.0,
-  xtick={50,60,70,80,90,100,110},
-  xticklabels={50,60,70,80,90,100,{}},
-  x tick label style={font=\small},
-  xlabel={Score},
-  ylabel={Frequency},
-  y tick label style={font=\small},
-  ytick={0,2,4,6,8,10,12,14},
-  ymin=0, ymax=15,
-  ymajorgrids=true,
-  grid style=dotted,
-]
-\addplot[fill=mathblue!55, draw=mathblue]
-  coordinates {(50,3)(60,7)(70,14)(80,13)(90,9)(100,4)(110,0)};
-\end{axis}
-\end{tikzpicture}
-\end{center}
-
-The distribution is approximately symmetric and centered
-near $75$--$80$.
-Most scores fall between $60$ and $90$.
-A small number of scores appear below $60$ or above $90$.
-\end{example}
-
-\begin{example}[Two distributions with the same mean]
-The two distributions below both have mean $50$,
-but different sample standard deviations.
-
-\begin{center}
-\begin{tikzpicture}
-\begin{axis}[
-  width=10cm, height=6cm,
-  xlabel={Value},
-  ylabel={Relative Frequency},
-  ytick={0,0.1,0.2,0.3,0.4},
-  ymin=0, ymax=0.45,
-  xmin=20, xmax=80,
-  grid=major,
-  grid style=dotted,
-  legend style={at={(0.97,0.97)}, anchor=north east, font=\small},
-]
-\addplot[mathblue, very thick, smooth, samples=60,
-  domain=22:78]
-  {0.40*exp(-0.5*((x-50)/6)^2)};
-\addlegendentry{Small $s$}
-\addplot[mathred, very thick, smooth, dashed, samples=60,
-  domain=22:78]
-  {0.16*exp(-0.5*((x-50)/15)^2)};
-\addlegendentry{Large $s$}
-\draw[black, thick, dashed]
-  (axis cs:50,0) -- (axis cs:50,0.40);
-\node[above right, font=\small] at (axis cs:50,0.01)
-  {mean $= 50$};
-\end{axis}
-\end{tikzpicture}
-\end{center}
-
-The narrow distribution has a small sample standard deviation:
-values cluster tightly around the mean.
-The wide distribution has a large sample standard deviation:
-values are spread broadly around the mean.
-Both are centered at the same location.
-\end{example}
-
-\begin{exercises}
+\Needspace{8\baselineskip}
+\section*{Practice E: Reading graphs}
+\begin{enumerate}[label=E\arabic*.,leftmargin=2.5em,itemsep=10pt]
   \item The histogram below shows the distribution of
     heights (in inches) for a sample of 40 adults.
 
-  \begin{center}
-  \begin{tikzpicture}
-  \begin{axis}[
-    ybar interval,
-    width=9cm, height=5cm,
-    bar width=1.0,
-    xtick={58,62,66,70,74,78},
-    xticklabels={58,62,66,70,74,{}},
-    x tick label style={font=\small},
-    xlabel={Height (inches)},
-    ylabel={Frequency},
-    y tick label style={font=\small},
-    ytick={0,2,4,6,8,10,12},
-    ymin=0, ymax=13,
-    ymajorgrids=true,
-    grid style=dotted,
-  ]
-  \addplot[fill=mathgreen!50, draw=mathgreen]
-    coordinates {(58,2)(62,7)(66,12)(70,11)(74,6)(78,2)(82,0)};
-  \end{axis}
-  \end{tikzpicture}
-  \end{center}
+  \begin{center}\includegraphics[width=\linewidth,height=2.8in,keepaspectratio]{../assets/week3/height-histogram.pdf}\end{center}
 
     \begin{enumerate}[label=(\alph*), itemsep=4pt]
-      \item In which interval do most heights fall?
+      \item Which interval has the largest count? Is that a majority of the observations?
       \item Is the distribution symmetric or skewed?
       \item Would you expect the mean to be close to the
         median? Explain in one sentence.
@@ -203,15 +241,24 @@ Both are centered at the same location.
       \item In which data set is the value $36$ more
         unusual? Explain in one sentence.
     \end{enumerate}
-\end{exercises}
 
-%--------------------------------------------------------------------
+\end{enumerate}
+
+\Needspace{8\baselineskip}
+\section*{Practice F: Weighted averages}
+\begin{enumerate}[label=F\arabic*.,leftmargin=2.5em,itemsep=10pt]
+\item Scores 70 and 90 receive weights 0.25 and 0.75. Find the weighted result, compare it with the ordinary mean, and check that it lies between the two values.
+\item Values 2, 5, 8, 10 receive weights 0.10, 0.20, 0.60, 0.10. Check the weight total, calculate every contribution, and find the weighted result. What does the largest weight tell you?
+\item In a whole-sentence illustration, positions 2, 3, 5, 6, 8 receive weights 0.10, 0.05, 0.70, 0.05, 0.10. Find the weighted position. Explain why a decimal result does not designate a fractional word. Why would a next-token generator need to exclude words that are not available yet?
+\end{enumerate}
+\section*{Practice G: Changing every value}
+\begin{enumerate}[label=G\arabic*.,leftmargin=2.5em,itemsep=10pt]
+\item A sample has mean 20 and sample SD 3. Separately, (a) add 5 to every value and (b) multiply every original value by 2. Give the resulting mean and SD for each change, and explain through distances from the mean.
+\end{enumerate}
+
+\Needspace{8\baselineskip}
 \section*{Chapter 3 Review}
-%--------------------------------------------------------------------
-
-\addcontentsline{toc}{section}{Chapter 3 Review}
-
-\begin{enumerate}[label=\arabic*., leftmargin=2em, itemsep=8pt]
+\begin{enumerate}[label=R\arabic*.,leftmargin=2.5em,itemsep=10pt]
 
   \item The following data records the number of hours per
     week a sample of 10 students spend on homework:
@@ -236,7 +283,7 @@ Both are centered at the same location.
         and median each change? Compute both.
     \end{enumerate}
 
-  \item Three students each score a mean of $80$ on five
+  \item Two students each score a mean of $80$ on five
     exams. Student A's scores are
     $78, 79, 80, 81, 82$.
     Student B's scores are
@@ -292,3 +339,174 @@ Both are centered at the same location.
     \end{enumerate}
 
 \end{enumerate}
+
+\clearpage
+\section*{Solutions and Reasoning}
+
+\paragraph{Short check 1.}
+We need to know what was measured, its units, which observations were included, and how much they varied. An average is a summary of a specified set of measurements.
+
+
+\paragraph{Short check 2.}
+The mean is (4 + 6 + 8)/3 = 6 minutes. Three observations $\times$ 6 minutes = 18 minutes, the original total.
+
+
+\paragraph{Short check 3.}
+Sort to get 1, 3, 6, 8. The median is (3 + 6)/2 = 4.5. Averaging the endpoints would give the same answer here by coincidence; the procedure uses the two middle positions.
+
+
+\paragraph{Short check 4.}
+Both 1 and 3 occur twice, more often than 2. The modes are 1 and 3; averaging those two modes would answer a different question.
+
+
+\paragraph{Short check 5.}
+Maximum $-$ 7 = 18, so maximum = 25. Range describes a difference, not the largest value by itself.
+
+
+\paragraph{Short check 6.}
+The mean is 3. The deviations are $-$2, 0, and +2, which sum to zero. The observations are still different.
+
+
+\paragraph{Short check 7.}
+There are three observations, so divide by 3 $-$ 1 = 2. The variance is 4 squared units, and s = \(\sqrt{4}\) = 2 original units.
+
+
+\paragraph{Short check 8.}
+No. The median and range are separate calculations. The median can stay nearly fixed while the maximum and therefore the range change greatly.
+
+
+\paragraph{Short check 9.}
+The result is 0.25(60) + 0.75(80) = 15 + 60 = 75. It lies between 60 and 80 and is closer to the more heavily weighted value 80.
+
+
+\paragraph{Short check 10.}
+The mean becomes 25; the sample SD stays 3. Each value and the mean moved by the same 5, leaving every deviation unchanged.
+
+
+\paragraph{Short check 11.}
+No. Compare their observed ranges and sample SDs, inspect the values, and apply the stated tolerance rule. Equal means can conceal very different variation.
+
+
+\clearpage
+
+\Needspace{8\baselineskip}
+\subsection*{Practice A: Center}
+\begin{enumerate}[label=A\arabic*.,leftmargin=2.5em,itemsep=10pt]
+\item (a) Mean $8$; median $7$; mode(s): $7$.
+
+(b) Mean $\frac{217}{9}\approx 24.1111$; median $22$; mode(s): $22$.
+
+(c) Mean $1$; median $1$; mode(s): no repeated value, so no mode under the course convention.
+\item The ten-day total is 30: mean 3, median 2.5, mode 2. Removing 8 leaves total 22 across nine days: mean $22/9\approx2.4444$, median 2, mode 2. Both the total and count change. The mode stays fixed here; a median need not remain fixed when an observation is removed.
+\item The mean is much higher than the median, suggesting some high prices are pulling the total-per-home upward. The median describes a middle observed home price; the mean describes the total divided by the count. These two summaries do not reveal the complete shape or prove how many homes are affordable to a particular buyer.
+\item $7(80)=560$ points in all. The six known scores total 478. The missing score is $560-478=82$.
+\end{enumerate}
+
+\Needspace{8\baselineskip}
+\subsection*{Practice B: Range}
+\begin{enumerate}[label=B\arabic*.,leftmargin=2.5em,itemsep=10pt]
+\item (a) $31-9=22$. (b) $8-(-7)=15$. (c) $1.8-0.3=1.5$. The result has the original measurement units.
+\item Driver A totals 65: mean 13 and range $15-11=4$. Driver B also totals 65: mean 13 and range $18-8=10$. A is more consistent in these five recorded days under the range comparison. Equal means do not describe equal daily variation.
+\item Maximum minus 15 equals 40, so the maximum is 55.
+\end{enumerate}
+
+\Needspace{8\baselineskip}
+\subsection*{Practice C: Sample standard deviation}
+\begin{enumerate}[label=C\arabic*.,leftmargin=2.5em,itemsep=10pt]
+\item \par\medskip\noindent\begin{minipage}{\linewidth}(a)\par{\small\renewcommand{\arraystretch}{1.2}\begin{tabularx}{\linewidth}{@{}YYY@{}}\toprule
+Value & Deviation & Squared deviation\\\midrule
+$3$ & $-2$ & $4$\\
+$5$ & $0$ & $0$\\
+$5$ & $0$ & $0$\\
+$7$ & $2$ & $4$\\
+\bottomrule\end{tabularx}}\par\medskip
+Mean $5$. Squared-deviation sum $8$. Divide by 3 for sample variance $\frac{8}{3}\approx 2.6667$. Then $s=\sqrt{\frac{8}{3}}\approx 1.6330$ in the original units.\par\end{minipage}\par\medskip
+\par\medskip\noindent\begin{minipage}{\linewidth}(b)\par{\small\renewcommand{\arraystretch}{1.2}\begin{tabularx}{\linewidth}{@{}YYY@{}}\toprule
+Value & Deviation & Squared deviation\\\midrule
+$10$ & $-15$ & $225$\\
+$20$ & $-5$ & $25$\\
+$30$ & $5$ & $25$\\
+$40$ & $15$ & $225$\\
+\bottomrule\end{tabularx}}\par\medskip
+Mean $25$. Squared-deviation sum $500$. Divide by 3 for sample variance $\frac{500}{3}\approx 166.6667$. Then $s=\sqrt{\frac{500}{3}}\approx 12.9099$ in the original units.\par\end{minipage}\par\medskip
+\par\medskip\noindent\begin{minipage}{\linewidth}(c)\par{\small\renewcommand{\arraystretch}{1.2}\begin{tabularx}{\linewidth}{@{}YYY@{}}\toprule
+Value & Deviation & Squared deviation\\\midrule
+$6$ & $\frac{-3}{2}$ & $\frac{9}{4}$\\
+$6$ & $\frac{-3}{2}$ & $\frac{9}{4}$\\
+$9$ & $\frac{3}{2}$ & $\frac{9}{4}$\\
+$9$ & $\frac{3}{2}$ & $\frac{9}{4}$\\
+\bottomrule\end{tabularx}}\par\medskip
+Mean $\frac{15}{2}\approx 7.5$. Squared-deviation sum $9$. Divide by 3 for sample variance $3$. Then $s=\sqrt{3}\approx 1.7321$ in the original units.\par\end{minipage}\par\medskip
+
+\item (a) B has the greater sample SD: its values are farther from the common mean 50. The calculated SDs are $\sqrt{0.5}\approx0.7071$ and $\sqrt{250}\approx15.8114$. (b) D has greater spread. All C values equal 2, giving $s_C=0$; D varies, with $s_D=\sqrt{2.5}\approx1.5811$. The zero-SD statement requires at least two observations.
+\item The squared deviations total 10. With five observations, sample variance is $10/4=2.5$ and $s=\sqrt{2.5}\approx1.5811$. The given squared deviations suffice because they already supply the departures from the mean.
+\item Both means are 250 mL. A has squared-deviation sum 2, giving variance $2/4=0.5$ and $s_A\approx0.7071$ mL. B has squared-deviation sum 64, giving variance 16 and $s_B=4$ mL. A is more consistent in the observed samples. This does not guarantee every future fill.
+\end{enumerate}
+
+\Needspace{8\baselineskip}
+\subsection*{Practice D: Interpreting summaries}
+\begin{enumerate}[label=D\arabic*.,leftmargin=2.5em,itemsep=10pt]
+\item (a) Mean $\frac{102}{7}\approx 14.5714$; median $14$; mode(s): $14$. Range $5$; sample variance $\frac{55}{21}\approx 2.619$; sample SD $s=1.6183$.
+
+(b) Mean $\frac{130}{7}\approx 18.5714$; median $8$; mode(s): no repeated value, so no mode under the course convention. Range $80$; sample variance $\frac{18080}{21}\approx 860.9524$; sample SD $s=29.3420$.
+
+The second list has six values from 5 through 10 and one at 85. Its median 8 better describes that main cluster, while its mean still correctly accounts for the full total. The range and SD are both sensitive to the distant value. Reporting a median does not make the range resistant.
+\item Rainfall totals 3.8 inches over 14 days, giving mean $3.8/14\approx0.2714$ inch per day. Ten values are zero, so median and mode are zero. For a typical observed day, zero conveys that most days were dry. The mean is still useful for the total-per-day rainfall over the full period.
+\item Draw both histograms centered at 20, with the first concentrated more tightly and the second extending more widely. A larger sample SD indicates greater spread around the common mean. The two summary numbers do not determine unique histograms or establish a normal shape.
+\end{enumerate}
+
+\Needspace{8\baselineskip}
+\subsection*{Practice E: Reading graphs}
+\begin{enumerate}[label=E\arabic*.,leftmargin=2.5em,itemsep=10pt]
+\item (a) The 66-to-below-70-inch interval has the largest count, 12. That is $12/40=30\%$, not a majority. (b) The bars are roughly mound-shaped and approximately symmetric, with small differences between the two sides. (c) That shape suggests the mean and median will be reasonably close. Exact raw-data means and medians cannot generally be recovered from these bin counts alone.
+\item One valid sketch uses the two data sets shown in the chapter figure: both center at 50, with one much narrower than the other. The narrow sample has values close to 50; the wide sample places observations farther from 50. A graph should label a shared measurement scale so the widths can be compared.
+\item The distances are $(36-30)/2=3$ sample SDs and $(36-30)/8=0.75$ sample SD. The observation is farther from the mean in SD units in the first data set. Without further information about shape, these distances do not supply exact tail percentages.
+\end{enumerate}
+
+\Needspace{8\baselineskip}
+\subsection*{Practice F: Weighted averages}
+\begin{enumerate}[label=F\arabic*.,leftmargin=2.5em,itemsep=10pt]
+\item $0.25(70)+0.75(90)=17.5+67.5=85$. The ordinary mean is 80. The weighted result is between 70 and 90 and closer to the more heavily weighted score 90.
+\item The weights total 1. Contributions are 0.2, 1, 4.8, and 1; their sum is 7. The ordinary mean is 6.25. Weight 0.60 makes the value 8 strongly influential in this particular combination; it does not certify that its information is correct.
+\item $0.10(2)+0.05(3)+0.70(5)+0.05(6)+0.10(8)=0.2+0.15+3.5+0.3+0.8=4.95$. This is a numerical center of weighted positions, not a token at a fractional position. The complete-sentence table includes position 8 after the word at position 7. A next-token generator must mask unavailable future text; otherwise it would use information that it does not have when generating.
+\end{enumerate}
+
+\Needspace{8\baselineskip}
+\subsection*{Practice G: Changing every value}
+\begin{enumerate}[label=G\arabic*.,leftmargin=2.5em,itemsep=10pt]
+\item (a) The mean becomes 25 and SD stays 3: every observation and its mean move by the same 5, preserving deviations. (b) The original mean doubles to 40 and SD doubles to 6: deviations double, squared deviations quadruple, and the final square root doubles the spread measure.
+\end{enumerate}
+
+\Needspace{8\baselineskip}
+
+\Needspace{8\baselineskip}
+\subsection*{Chapter 3 review}
+\begin{enumerate}[label=R\arabic*.,leftmargin=2.5em,itemsep=10pt]
+\item Mean 6 hours, median 6 hours, mode 6 hours, and range 5 hours.
+\par\medskip\noindent\begin{minipage}{\linewidth}\par{\small\renewcommand{\arraystretch}{1.2}\begin{tabularx}{\linewidth}{@{}YYY@{}}\toprule
+Value & Deviation & Squared deviation\\\midrule
+$4$ & $-2$ & $4$\\
+$7$ & $1$ & $1$\\
+$5$ & $-1$ & $1$\\
+$8$ & $2$ & $4$\\
+$6$ & $0$ & $0$\\
+$5$ & $-1$ & $1$\\
+$9$ & $3$ & $9$\\
+$4$ & $-2$ & $4$\\
+$6$ & $0$ & $0$\\
+$6$ & $0$ & $0$\\
+\bottomrule\end{tabularx}}\par\medskip
+Mean $6$. Squared-deviation sum $24$. Divide by 9 for sample variance $\frac{8}{3}\approx 2.6667$. Then $s=\sqrt{\frac{8}{3}}\approx 1.6330$ in the original units.\par\end{minipage}\par\medskip
+The sample centers at 6 weekly homework-hours, with observed values from 4 to 9 hours and sample SD about 1.63 hours.
+\item The total is 26 days, giving mean $26/8=3.25$ and median 1. The median better describes the middle employee in these observations. Removing 18 leaves total 8 across seven observations: mean $8/7\approx1.1429$ and median 1. The unusually large value substantially changes the mean, while the median stays fixed in this particular comparison.
+\item B should have greater sample SD. A has squared-deviation sum 10 and $s_A=\sqrt{10/4}\approx1.5811$. B has sum 1,000 and $s_B=\sqrt{1000/4}\approx15.8114$. Both means are 80, but B varies much more.
+\item Six values with mean 14 total 84. The five known values total 70. The missing value is 14.
+\item A left-skewed histogram has a longer tail toward the smaller values. Such low values tend to pull the mean toward that tail, so one generally expects the mean to be below the median in this setting. This is an interpretation of the displayed shape, not a formula for exact numerical values.
+\item City A has mean 69 degrees F, range 4 degrees F, and $s_A=\sqrt{2.5}\approx1.5811$ degrees F. City B has mean 71 degrees F, range 30 degrees F, and $s_B=\sqrt{151.5}\approx12.3085$ degrees F. A has the more consistent observed temperatures according to both spread measures.
+\item The mean diameter is 10.00 mm. Squared deviations total 0.001 square mm. Sample variance is $0.001/5=0.0002$ square mm and $s=\sqrt{0.0002}\approx0.014142$ mm. The permitted interval is [9.97,10.03] mm. Every sampled bearing meets it; the sample alone does not establish that every future bearing will meet it.
+\end{enumerate}
+
+\subsection*{References and activities}
+The NIST Engineering Statistics Handbook discusses \href{https://www.itl.nist.gov/div898/handbook/eda/section3/eda351.htm}{measures of location} and \href{https://www.itl.nist.gov/div898/handbook/eda/section3/eda356.htm}{measures of scale}. The weighted-average application uses the value-combination structure described in Vaswani and colleagues' \href{https://arxiv.org/html/1706.03762v7}{Attention Is All You Need}.
+
+Use the \href{https://bobovski66.github.io/MathInSociety/demos/center_spread.html}{explorer} to compare a common axis with fitted axes and to inspect every deviation. The \href{https://bobovski66.github.io/MathInSociety/applications/week3_application.html}{filling-machine application} separates a target, observed consistency, and an acceptance rule. The \href{https://bobovski66.github.io/MathInSociety/discussions/week3_discussion.html}{discussion} asks what an average misses in an example from your own experience. Week 4 uses these distinctions when describing normal models and uncertainty in population estimates.

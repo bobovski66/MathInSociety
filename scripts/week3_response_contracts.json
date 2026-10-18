@@ -1,0 +1,805 @@
+{
+  "readings/week3_reading.html": [],
+  "demos/center_spread.html": [
+    {
+      "tag": "textarea",
+      "attrs": {
+        "id": "data"
+      },
+      "options": [],
+      "text": "50, 51, 50, 49, 50"
+    }
+  ],
+  "labs/week3_lab.html": [
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "printStudentName",
+        "type": "text",
+        "autocomplete": "name",
+        "placeholder": "Enter your name"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "cMean",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "cMedian",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "cMode",
+        "type": "number",
+        "step": "1"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "cMean2",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "cMedian2",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "cMode2",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "meanEffect"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "down",
+          "decreases"
+        ],
+        [
+          "same",
+          "stays the same"
+        ],
+        [
+          "up",
+          "increases"
+        ]
+      ],
+      "text": ""
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "modeEffect"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "down",
+          "decreases"
+        ],
+        [
+          "same",
+          "stays the same"
+        ],
+        [
+          "up",
+          "increases"
+        ]
+      ],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "totalSeven",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "missingScore",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "maxFromRange",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "meanA",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "rangeA",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "meanB",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "rangeB",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "driverConsistent"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "A",
+          "Driver A"
+        ],
+        [
+          "B",
+          "Driver B"
+        ],
+        [
+          "same",
+          "equally consistent"
+        ]
+      ],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "sdMean",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "d0",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q0",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "d1",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q1",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "d2",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q2",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "d3",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q3",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "sumSq",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "varPop",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "sdVal",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "sameMeanA",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "sameSdA",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "sameMeanB",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "sameSdB",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "largerPredict"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "A",
+          "Set A"
+        ],
+        [
+          "B",
+          "Set B"
+        ],
+        [
+          "same",
+          "They should be equal"
+        ]
+      ],
+      "text": ""
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "moreConsistent"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "A",
+          "Set A"
+        ],
+        [
+          "B",
+          "Set B"
+        ],
+        [
+          "same",
+          "They are equally consistent"
+        ]
+      ],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "outMean",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "outMedian",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "outRange",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "bestCenter"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "mean",
+          "mean"
+        ],
+        [
+          "median",
+          "median"
+        ]
+      ],
+      "text": ""
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "outReason"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "outlier",
+          "the value 85 pulls the mean upward"
+        ],
+        [
+          "mode",
+          "the mode pulls the mean upward"
+        ],
+        [
+          "range",
+          "the range is always equal to the mean"
+        ]
+      ],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "cleanMean",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "cleanMedian",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "cleanRange",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    }
+  ],
+  "applications/week3_application.html": [
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "meanA",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "rangeA",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "sdA",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "meanB",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "rangeB",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "sdB",
+        "type": "number",
+        "step": "0.01"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "choice"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "A",
+          "Machine A"
+        ],
+        [
+          "B",
+          "Machine B"
+        ],
+        [
+          "same",
+          "They are equally consistent"
+        ]
+      ],
+      "text": ""
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "spec"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "A",
+          "Machine A only"
+        ],
+        [
+          "B",
+          "Machine B only"
+        ],
+        [
+          "both",
+          "Both machines"
+        ],
+        [
+          "neither",
+          "Neither machine"
+        ]
+      ],
+      "text": ""
+    }
+  ],
+  "applications/week3_ai.html": [
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q1",
+        "type": "number",
+        "step": "any",
+        "inputmode": "decimal"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q2",
+        "type": "number",
+        "step": "any",
+        "inputmode": "decimal"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q3",
+        "type": "number",
+        "step": "any",
+        "inputmode": "decimal"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "q4"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "It receives the largest weight, 0.60.",
+          "It receives the largest weight, 0.60."
+        ],
+        [
+          "It is the third number in the list.",
+          "It is the third number in the list."
+        ],
+        [
+          "It is an even number.",
+          "It is an even number."
+        ],
+        [
+          "It has the largest token ID.",
+          "It has the largest token ID."
+        ]
+      ],
+      "text": ""
+    }
+  ],
+  "applications/ai_week3.html": [
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q1",
+        "type": "number",
+        "step": ".01"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "q2"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "dog",
+          "dog"
+        ],
+        [
+          "chased",
+          "chased"
+        ],
+        [
+          "ball",
+          "ball"
+        ],
+        [
+          "rolled",
+          "rolled"
+        ]
+      ],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q3",
+        "type": "number",
+        "step": ".01"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q4",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q5a",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q5b",
+        "type": "number"
+      },
+      "options": [],
+      "text": ""
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "q5c"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "A",
+          "Head A"
+        ],
+        [
+          "B",
+          "Head B"
+        ]
+      ],
+      "text": ""
+    }
+  ],
+  "discussions/week3_discussion.html": []
+}

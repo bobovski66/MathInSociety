@@ -1,90 +1,48 @@
-\documentclass[12pt]{book}
-\usepackage[utf8]{inputenc}
+\documentclass[12pt,letterpaper]{article}
 \usepackage[T1]{fontenc}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{geometry}
-\usepackage{tikz}
-\usepackage{pgfplots}
-\usepackage{xcolor}
-\usepackage{mdframed}
-\usepackage{enumitem}
-\usepackage{booktabs}
-\usepackage{array}
-\usepackage{fancyhdr}
-\usepackage{titlesec}
-\pgfplotsset{compat=1.18}
-\geometry{margin=1.1in, top=1.2in, bottom=1.2in}
+\usepackage{lmodern,microtype,amsmath,amssymb,graphicx,booktabs,tabularx,array,enumitem,xcolor,fancyhdr,titlesec,tcolorbox,caption}
+\tcbuselibrary{breakable}
+\usepackage[margin=1in,headheight=15pt,headsep=18pt,footskip=25pt]{geometry}
+\usepackage[colorlinks=true,urlcolor=teal,linkcolor=olive]{hyperref}
+\definecolor{olive}{HTML}{536240}\definecolor{ink}{HTML}{293329}\definecolor{teal}{HTML}{17677A}\definecolor{gold}{HTML}{A55C21}\definecolor{soft}{HTML}{EEF3E8}\definecolor{warm}{HTML}{FBEFDF}
+\color{ink}\setlength{\parindent}{0pt}\setlength{\parskip}{7pt}
+\setlist{leftmargin=1.4em,itemsep=3pt,topsep=3pt}
+\renewcommand{\thesection}{3.\arabic{section}}
+\titleformat{\section}{\Large\bfseries\color{olive}}{\thesection}{.6em}{}
+\titleformat{\subsection}{\large\bfseries\color{teal}}{}{0pt}{}
+\titlespacing*{\section}{0pt}{4pt}{12pt}\titlespacing*{\subsection}{0pt}{11pt}{4pt}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\sffamily MATH\& 107 / WEEK 3}\fancyhead[R]{\small\sffamily Center and Spread}\fancyfoot[L]{\small\sffamily Math in Society / Dr Lee}\fancyfoot[R]{\small\sffamily\thepage}\renewcommand{\headrulewidth}{.3pt}
+\tcbset{boxrule=.5pt,arc=2mm,left=10pt,right=10pt,top=7pt,bottom=7pt,before skip=9pt,after skip=9pt,colframe=olive!35,colback=soft,fonttitle=\bfseries,coltitle=teal,colbacktitle=soft}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\captionsetup{font=small,labelformat=empty,textfont={color=teal},skip=7pt}
+\hypersetup{pdftitle={Week 3: Center and Spread},pdfauthor={MATH and 107 / Dr Lee}}
+\usepackage{needspace}
+\pdfinfoomitdate=1
+\pdftrailerid{}
+\pdfsuppressptexinfo=15
+\setlength{\emergencystretch}{2em}
 
-\definecolor{mathblue}{RGB}{30,90,160}
-\definecolor{mathgreen}{RGB}{30,140,80}
-\definecolor{mathred}{RGB}{180,40,40}
-\definecolor{lightgray}{RGB}{240,240,240}
-
-\titleformat{\chapter}[display]
-  {\normalfont\large\bfseries}
-  {\chaptertitlename\ \thechapter}{12pt}{\LARGE}
-\titleformat{\section}
-  {\normalfont\large\bfseries}{{\thesection}}{1em}{}
-\titleformat{\subsection}
-  {\normalfont\normalsize\bfseries}{{\thesubsection}}{1em}{}
-
-\setcounter{chapter}{2}
-
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[LE]{\small\textit{Chapter \thechapter.\ Basic Statistics}}
-\fancyhead[RO]{\small\textit{Observing with Mathematical Perspectives}}
-\fancyfoot[C]{\small\thepage}
-\renewcommand{\headrulewidth}{0.4pt}
-
-\newcounter{exercise}[section]
-\renewcommand{\theexercise}{\thesection.\arabic{exercise}}
-\newenvironment{exercises}{%
-  \begin{mdframed}[backgroundcolor=lightgray, linewidth=0pt,
-    innertopmargin=10pt, innerbottommargin=10pt]
-  \noindent\textbf{Exercises \thesection}
-  \begin{list}{\theexercise.}
-    {\usecounter{exercise}
-     \setlength{\leftmargin}{2em}
-     \setlength{\itemsep}{6pt}}
-}{%
-  \end{list}
-  \end{mdframed}
-}
-
-\newcounter{example}[section]
-\renewcommand{\theexample}{\thesection.\arabic{example}}
-\newenvironment{example}[1][]{%
-  \refstepcounter{example}
-  \medskip
-  \noindent\textbf{Example \theexample.}%
-  \ifx&#1&\else\ \textit{(#1)}\fi\quad
-}{%
-  \medskip
-}
-
-\newenvironment{definition}[1]{%
-  \begin{mdframed}[linecolor=mathblue, linewidth=1pt,
-    innertopmargin=8pt, innerbottommargin=8pt]
-  \noindent\textbf{Definition.} \textit{#1.}\quad
-}{%
-  \end{mdframed}\medskip
-}
+\widowpenalty=10000
+\clubpenalty=10000
 
 \begin{document}
+{\small\sffamily\color{olive}WEEK 3 / BASIC STATISTICS\par}
+\vspace{12pt}
+{\fontsize{30}{34}\selectfont\bfseries\color{olive}Describing center\\and variation\par}
+\vspace{10pt}
+{\large Use numerical summaries and graphs to explain what a set of observations tells us.\par}
+\begin{center}\includegraphics[width=\linewidth,height=3in,keepaspectratio]{../assets/week3/mean-sharing.pdf}\end{center}
+\begin{tcolorbox}[title={A typical value is only part of the story}]
+Two routes can average the same travel time while one varies much more from day to day. A useful description asks both where the observations sit and how much they differ. The setting, units, and graph help us interpret the calculations.
+\end{tcolorbox}
+Week 2 organized observations with frequency tables, relative frequencies, and graphs. This chapter develops the mean, median, mode, range, and sample standard deviation. Weighted averages connect those methods to a numerical model of attention.
 
-%====================================================================
-\chapter{Basic Statistics}
-%====================================================================
+Try the short checks before reading their explanations. The practice sets retain the chapter's numerical questions, with corrected interpretation prompts. Complete solutions follow the exercises. The examples are hypothetical.
 
-A data set is a collection of numerical observations.
-Before drawing conclusions from data, an observer needs
-concise descriptions of two properties: where the values tend
-to sit, and how much they vary around that location.
-
+\medskip
+\href{https://bobovski66.github.io/MathInSociety/readings/week3_reading.html}{Online reading}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/demos/center_spread.html}{Center and spread explorer}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/labs/week3_lab.html}{Laboratory}
+\clearpage
 \input{chapter3/part1.tex}
 \input{chapter3/part2.tex}
 \input{chapter3/part3.tex}
-
 \end{document}
