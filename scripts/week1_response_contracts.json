@@ -1,0 +1,845 @@
+{
+  "labs/week1_lab.html": [
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "printStudentName",
+        "type": "text",
+        "autocomplete": "name",
+        "placeholder": "Enter your name"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "diverExpr",
+        "type": "text",
+        "placeholder": "Example format: 0 + ... + ... + ..."
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "diverFinal",
+        "type": "number",
+        "step": "1"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "data-save": "scaleRule1",
+        "id": "scaleRule1"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "smaller",
+          "smaller"
+        ],
+        [
+          "larger",
+          "larger"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "data-save": "scaleRule2",
+        "id": "scaleRule2"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "smaller",
+          "smaller"
+        ],
+        [
+          "larger",
+          "larger"
+        ]
+      ]
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "cp1",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "cp2",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "eq1"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ]
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "cp3",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "cp4",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "eq2"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "yes",
+          "Yes"
+        ],
+        [
+          "no",
+          "No"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "data-save": "prediction",
+        "id": "prediction"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "A",
+          "Population A: fixed addition"
+        ],
+        [
+          "B",
+          "Population B: 15% growth"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "data-save": "recursionReason",
+        "id": "recursionReason"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "growing",
+          "The percentage is applied to a growing current value, so the absolute amount added grows over time."
+        ],
+        [
+          "fixed",
+          "The percentage model adds the same number every year."
+        ],
+        [
+          "random",
+          "The percentage model changes randomly."
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "class0"
+      },
+      "options": [
+        [
+          "",
+          "smallest set\u2026"
+        ],
+        [
+          "N",
+          "N \u2014 natural"
+        ],
+        [
+          "Z",
+          "Z \u2014 integer"
+        ],
+        [
+          "Q",
+          "Q \u2014 rational"
+        ],
+        [
+          "R",
+          "R \u2014 irrational real"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "class1"
+      },
+      "options": [
+        [
+          "",
+          "smallest set\u2026"
+        ],
+        [
+          "N",
+          "N \u2014 natural"
+        ],
+        [
+          "Z",
+          "Z \u2014 integer"
+        ],
+        [
+          "Q",
+          "Q \u2014 rational"
+        ],
+        [
+          "R",
+          "R \u2014 irrational real"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "class2"
+      },
+      "options": [
+        [
+          "",
+          "smallest set\u2026"
+        ],
+        [
+          "N",
+          "N \u2014 natural"
+        ],
+        [
+          "Z",
+          "Z \u2014 integer"
+        ],
+        [
+          "Q",
+          "Q \u2014 rational"
+        ],
+        [
+          "R",
+          "R \u2014 irrational real"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "class3"
+      },
+      "options": [
+        [
+          "",
+          "smallest set\u2026"
+        ],
+        [
+          "N",
+          "N \u2014 natural"
+        ],
+        [
+          "Z",
+          "Z \u2014 integer"
+        ],
+        [
+          "Q",
+          "Q \u2014 rational"
+        ],
+        [
+          "R",
+          "R \u2014 irrational real"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "class4"
+      },
+      "options": [
+        [
+          "",
+          "smallest set\u2026"
+        ],
+        [
+          "N",
+          "N \u2014 natural"
+        ],
+        [
+          "Z",
+          "Z \u2014 integer"
+        ],
+        [
+          "Q",
+          "Q \u2014 rational"
+        ],
+        [
+          "R",
+          "R \u2014 irrational real"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "class5"
+      },
+      "options": [
+        [
+          "",
+          "smallest set\u2026"
+        ],
+        [
+          "N",
+          "N \u2014 natural"
+        ],
+        [
+          "Z",
+          "Z \u2014 integer"
+        ],
+        [
+          "Q",
+          "Q \u2014 rational"
+        ],
+        [
+          "R",
+          "R \u2014 irrational real"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "pred0"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "less",
+          "less than 7"
+        ],
+        [
+          "equal",
+          "equal to 7"
+        ],
+        [
+          "greater",
+          "greater than 7"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "pred1"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "less",
+          "less than 7"
+        ],
+        [
+          "equal",
+          "equal to 7"
+        ],
+        [
+          "greater",
+          "greater than 7"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "pred2"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "less",
+          "less than 7"
+        ],
+        [
+          "equal",
+          "equal to 7"
+        ],
+        [
+          "greater",
+          "greater than 7"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "pred3"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "less",
+          "less than 7"
+        ],
+        [
+          "equal",
+          "equal to 7"
+        ],
+        [
+          "greater",
+          "greater than 7"
+        ]
+      ]
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "a1",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "b1",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "a2",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "b2",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "a3",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "b3",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "a4",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "b4",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "a5",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "b5",
+        "type": "number"
+      },
+      "options": []
+    }
+  ],
+  "applications/week1_application.html": [
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "q2a"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "A",
+          "A"
+        ],
+        [
+          "B",
+          "B"
+        ],
+        [
+          "equal",
+          "equal"
+        ]
+      ]
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q2b",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q2c",
+        "type": "number",
+        "placeholder": "percent"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "q3a"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "A",
+          "A"
+        ],
+        [
+          "B",
+          "B"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "q3b"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "A",
+          "A"
+        ],
+        [
+          "B",
+          "B"
+        ]
+      ]
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q4a",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q4b",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "a1",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "b1",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "a2",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "b2",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "a3",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "b3",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "a4",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "b4",
+        "type": "number"
+      },
+      "options": []
+    }
+  ],
+  "applications/week1_ai.html": [
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "q1"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "slept on the mat",
+          "slept on the mat"
+        ],
+        [
+          "mat the on slept",
+          "mat the on slept"
+        ],
+        [
+          "cat sat on mat",
+          "cat sat on mat"
+        ],
+        [
+          "slept the mat on",
+          "slept the mat on"
+        ]
+      ]
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q2",
+        "type": "number",
+        "step": "any",
+        "inputmode": "decimal"
+      },
+      "options": []
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "q3"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "L\u2099 = 10 + n",
+          "L\u2099 = 10 + n"
+        ],
+        [
+          "L\u2099 = 10n",
+          "L\u2099 = 10n"
+        ],
+        [
+          "L\u2099 = n \u2212 10",
+          "L\u2099 = n \u2212 10"
+        ],
+        [
+          "L\u2099 = 10\u207f",
+          "L\u2099 = 10\u207f"
+        ]
+      ]
+    },
+    {
+      "tag": "select",
+      "attrs": {
+        "id": "q4"
+      },
+      "options": [
+        [
+          "",
+          "choose\u2026"
+        ],
+        [
+          "Which token is being referred to.",
+          "Which token is being referred to."
+        ],
+        [
+          "Where the token must appear in every sentence.",
+          "Where the token must appear in every sentence."
+        ],
+        [
+          "How important the token is.",
+          "How important the token is."
+        ],
+        [
+          "How similar the token is to neighboring ID numbers.",
+          "How similar the token is to neighboring ID numbers."
+        ]
+      ]
+    }
+  ],
+  "applications/ai_week1.html": [
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q1",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q2",
+        "placeholder": "example: 4, 9, ..."
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q3a",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q3b",
+        "type": "number"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q4",
+        "placeholder": "four words"
+      },
+      "options": []
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "id": "q5",
+        "type": "number"
+      },
+      "options": []
+    }
+  ]
+}

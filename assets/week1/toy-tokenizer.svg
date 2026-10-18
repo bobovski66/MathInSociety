@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="742.79952pt" height="260.39952pt" viewBox="0 0 742.79952 260.39952" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 260.39952
+L 742.79952 260.39952
+L 742.79952 0
+L 0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 46.854524 142.606877
+L 132.047648 142.606877
+L 132.047648 97.114114
+L 46.854524 97.114114
+z
+" clip-path="url(#p9345cf1fc0)" style="fill: #eef3e8; stroke: #d8ddcd; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 144.218095 142.606877
+L 229.411219 142.606877
+L 229.411219 97.114114
+L 144.218095 97.114114
+z
+" clip-path="url(#p9345cf1fc0)" style="fill: #eef3e8; stroke: #d8ddcd; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 241.581665 142.606877
+L 326.77479 142.606877
+L 326.77479 97.114114
+L 241.581665 97.114114
+z
+" clip-path="url(#p9345cf1fc0)" style="fill: #eef3e8; stroke: #d8ddcd; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 338.945236 142.606877
+L 424.138361 142.606877
+L 424.138361 97.114114
+L 338.945236 97.114114
+z
+" clip-path="url(#p9345cf1fc0)" style="fill: #eef3e8; stroke: #d8ddcd; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 436.308807 142.606877
+L 521.501932 142.606877
+L 521.501932 97.114114
+L 436.308807 97.114114
+z
+" clip-path="url(#p9345cf1fc0)" style="fill: #eef3e8; stroke: #d8ddcd; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 533.672378 142.606877
+L 618.865503 142.606877
+L 618.865503 97.114114
+L 533.672378 97.114114
+z
+" clip-path="url(#p9345cf1fc0)" style="fill: #eef3e8; stroke: #d8ddcd; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 631.035949 142.606877
+L 716.229074 142.606877
+L 716.229074 97.114114
+L 631.035949 97.114114
+z
+" clip-path="url(#p9345cf1fc0)" style="fill: #eef3e8; stroke: #d8ddcd; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17677a" x="89.451086" y="124.413129" transform="rotate(-0 89.451086 124.413129)">The</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #536240" x="89.451086" y="192.235346" transform="rotate(-0 89.451086 192.235346)">4</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17677a" x="186.814657" y="124.413129" transform="rotate(-0 186.814657 124.413129)">cat</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #536240" x="186.814657" y="192.235346" transform="rotate(-0 186.814657 192.235346)">9</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17677a" x="284.178228" y="124.413129" transform="rotate(-0 284.178228 124.413129)">sat</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #536240" x="284.178228" y="192.235346" transform="rotate(-0 284.178228 192.235346)">12</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17677a" x="381.541799" y="124.413129" transform="rotate(-0 381.541799 124.413129)">on</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #536240" x="381.541799" y="192.235346" transform="rotate(-0 381.541799 192.235346)">7</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17677a" x="478.90537" y="124.413129" transform="rotate(-0 478.90537 124.413129)">the</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #536240" x="478.90537" y="192.235346" transform="rotate(-0 478.90537 192.235346)">3</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17677a" x="576.26894" y="124.413129" transform="rotate(-0 576.26894 124.413129)">mat</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #536240" x="576.26894" y="192.235346" transform="rotate(-0 576.26894 192.235346)">15</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17677a" x="673.632511" y="124.413129" transform="rotate(-0 673.632511 124.413129)">.</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #536240" x="673.632511" y="192.235346" transform="rotate(-0 673.632511 192.235346)">1</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="371.39976" y="47.485646" transform="rotate(-0 371.39976 47.485646)">Seven toy tokens, including the period</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="371.39976" y="237.728109" transform="rotate(-0 371.39976 237.728109)">Capital The and lowercase the have different labels in this toy table.</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p9345cf1fc0">
+   <rect x="14.4" y="14.4" width="713.99952" height="231.59952"/>
+  </clipPath>
+ </defs>
+</svg>

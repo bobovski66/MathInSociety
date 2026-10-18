@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="492.583213pt" height="418.79952pt" viewBox="0 0 492.583213 418.79952" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 418.79952
+L 492.583213 418.79952
+L 492.583213 0
+L 0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 98.724221 320.075299
+L 309.534772 320.075299
+L 309.534772 109.264748
+L 98.724221 109.264748
+z
+" clip-path="url(#p9214f2c069)" style="fill: #eef3e8; stroke: #536240; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 98.724221 320.075299
+L 309.534772 109.264748
+" clip-path="url(#p9214f2c069)" style="fill: none; stroke: #17677a; stroke-width: 3; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="204.129496" y="351.696882" transform="rotate(-0 204.129496 351.696882)">1</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #293329" x="64.994532" y="219.360961" transform="rotate(-0 64.994532 219.360961)">1</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 20px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17677a" x="155.643069" y="189.372758" transform="rotate(-0 155.643069 189.372758)">√2</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #17677a" transform="translate(334.832038 156.830976)">Diagonal² = 1² + 1²</text>
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #17677a" transform="translate(334.832038 172.507914)">= 2</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #293329" x="98.724221" y="389.642781" transform="rotate(-0 98.724221 389.642781)">√2 ≈ 1.41421, but the finite decimal is only an approximation.</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p9214f2c069">
+   <rect x="14.4" y="14.4" width="463.783213" height="389.99952"/>
+  </clipPath>
+ </defs>
+</svg>

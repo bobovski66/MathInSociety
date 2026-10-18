@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="742.79952pt" height="332.910907pt" viewBox="0 0 742.79952 332.910907" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 332.910907
+L 742.79952 332.910907
+L 742.79952 0
+L 0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 40.844427 133.39992
+L 106.955493 133.39992
+L 106.955493 67.288853
+L 40.844427 67.288853
+z
+" clip-path="url(#p3dac171b3a)" style="fill: #17677a; stroke: #ffffff; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 106.955493 133.39992
+L 173.06656 133.39992
+L 173.06656 67.288853
+L 106.955493 67.288853
+z
+" clip-path="url(#p3dac171b3a)" style="fill: #17677a; stroke: #ffffff; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 173.06656 133.39992
+L 239.177627 133.39992
+L 239.177627 67.288853
+L 173.06656 67.288853
+z
+" clip-path="url(#p3dac171b3a)" style="fill: #17677a; stroke: #ffffff; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 239.177627 133.39992
+L 305.288693 133.39992
+L 305.288693 67.288853
+L 239.177627 67.288853
+z
+" clip-path="url(#p3dac171b3a)" style="fill: #eef3e8; stroke: #ffffff; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 40.844427 199.510987
+L 106.955493 199.510987
+L 106.955493 133.39992
+L 40.844427 133.39992
+z
+" clip-path="url(#p3dac171b3a)" style="fill: #17677a; stroke: #ffffff; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 106.955493 199.510987
+L 173.06656 199.510987
+L 173.06656 133.39992
+L 106.955493 133.39992
+z
+" clip-path="url(#p3dac171b3a)" style="fill: #17677a; stroke: #ffffff; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 173.06656 199.510987
+L 239.177627 199.510987
+L 239.177627 133.39992
+L 173.06656 133.39992
+z
+" clip-path="url(#p3dac171b3a)" style="fill: #17677a; stroke: #ffffff; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 239.177627 199.510987
+L 305.288693 199.510987
+L 305.288693 133.39992
+L 239.177627 133.39992
+z
+" clip-path="url(#p3dac171b3a)" style="fill: #eef3e8; stroke: #ffffff; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 40.844427 265.622053
+L 106.955493 265.622053
+L 106.955493 199.510987
+L 40.844427 199.510987
+z
+" clip-path="url(#p3dac171b3a)" style="fill: #c9ddc3; stroke: #ffffff; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 106.955493 265.622053
+L 173.06656 265.622053
+L 173.06656 199.510987
+L 106.955493 199.510987
+z
+" clip-path="url(#p3dac171b3a)" style="fill: #c9ddc3; stroke: #ffffff; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 173.06656 265.622053
+L 239.177627 265.622053
+L 239.177627 199.510987
+L 173.06656 199.510987
+z
+" clip-path="url(#p3dac171b3a)" style="fill: #c9ddc3; stroke: #ffffff; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 239.177627 265.622053
+L 305.288693 265.622053
+L 305.288693 199.510987
+L 239.177627 199.510987
+z
+" clip-path="url(#p3dac171b3a)" style="fill: #eef3e8; stroke: #ffffff; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #536240" x="351.56644" y="97.038833" transform="rotate(-0 351.56644 97.038833)">Original amount: 3/4 = 9/12 cup</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #293329" x="351.56644" y="166.455453" transform="rotate(-0 351.56644 166.455453)">Take 2 of its 3 rows:</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17677a" x="351.56644" y="225.955413" transform="rotate(-0 351.56644 225.955413)">(2/3) × (3/4) = 6/12 = 1/2 cup</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #293329" x="40.844427" y="305.288693" transform="rotate(-0 40.844427 305.288693)">The full 4-by-3 rectangle represents one cup.</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p3dac171b3a">
+   <rect x="14.4" y="14.4" width="713.99952" height="304.110907"/>
+  </clipPath>
+ </defs>
+</svg>
