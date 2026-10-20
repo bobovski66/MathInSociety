@@ -65,7 +65,7 @@ for p in sorted((ROOT/'assets/week5').glob('*.svg')):
   if not pdf.exists() or pdf.stat().st_size<1000:fail(str(pdf)+': missing or empty paired figure')
  except Exception as e:fail(str(p)+': '+str(e))
 expected={
- 'labs/week5_lab.html':{'p1state':'64','p1ref':'70','p1measure':'sensor','p1action':'heater','p2e0':6,'p2c0':3,'p2x1':67,'p2e1':3,'p2c1':1.5,'p2x2':68.5,'p3old2':67,'p3corr2':1.5,'p3x3':71.5,'p3old3':70,'p3corr3':0,'p3x4':71.5,'p4x5':70.75,'p4x6':70,'p4x7':69.625,'p4which':'delayed','p5z':2,'p5proof':'no','p6thermo':'corrective','p6viral':'amplifying'},
+ 'labs/week5_lab.html':{'p1state':'64','p1ref':'70','p1measure':'sensor','p1action':'heater','p2e0':6,'p2c0':3,'p2x1':67,'p2e1':3,'p2c1':1.5,'p2x2':68.5,'p3old2':67,'p3corr2':1.5,'p3x3':71.5,'p3old3':70,'p3corr3':0,'p3x4':71.5,'p4x5':70.75,'p4x6':70,'p4x7':69.625,'p4which':'delayed'},
  'applications/week5_application.html':dict(zip(['now1','now2','now3','late1','late2','late3','choice','correction'],[67,68.5,69.25,67,70,71.5,'immediate',0])),
  'applications/week5_ai.html':dict(zip(['q1','q2','q3','q4'],[4,2,2.5,'feedback'])),
  'applications/ai_week5.html':dict(zip(['q1a','q1b','q1c','q2a','q2b','q3a','q3b','q3c','q4','q5'],[1,3,5,8,2,1,3,'A',4,200]))
@@ -88,7 +88,7 @@ for f,values in expected.items():
   if old['tag']=='select':
    before={x[0] for x in old['options']};after={x.get('value') for x in el.xpath('./option')}
    if before!=after:fail(f+': changed option tokens '+id)
-if sum(len(v) for v in expected.values())!=46:fail('Expected 46 original graded fields')
+if sum(len(v) for v in expected.values())!=42:fail('Expected 42 graded fields after removing Parts 5 and 6')
 if len(list((ROOT/'assets/week5').glob('*.svg')))!=14:fail('Expected fourteen paired vector diagrams')
 history=html.fromstring((ROOT/'information_cybernetics_timeline.html').read_text())
 # This older revision predates the timeline on some repository histories.
@@ -107,4 +107,4 @@ for f in FILES:
   if 'Illustrated chapter' in link.text_content() and link.get('href')!='../readings/Math107_Chapter_05.pdf':fail(f+': wrong chapter footer')
 if errors:raise SystemExit('\n'.join(errors))
 if '--dom-json' in sys.argv:print(json.dumps(snapshots))
-else:print('PASS: eight resources; links, figures, labels, feedback, mathematical delimiters, 46 original graded fields and option tokens, unchanged other weeks, and all 63 history entries.')
+else:print('PASS: eight resources; links, figures, labels, feedback, mathematical delimiters, 42 graded fields and option tokens, unchanged other weeks, and all 63 history entries.')

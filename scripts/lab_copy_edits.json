@@ -99,7 +99,7 @@
     "5": [
       [
         "The arithmetic is deliberately manageable",
-        "Six investigations involve a thermostat, greenhouse, delayed readings, sensor measurements, and feedback."
+        "Four investigations explore a thermostat, current feedback, delayed reports, and oscillation."
       ],
       [
         "Work in order. Each response receives its own numerical",
@@ -120,10 +120,6 @@
       [
         "Use your delayed values \\(x_3=x_4=71.5\\)",
         "Continue from Part 3. Use \\(x_4\\) as the current state and \\(x_3\\) as the delayed report to find \\(x_5\\)."
-      ],
-      [
-        "Corrective feedback opposes a measured departure.",
-        "Classify each response: Does it correct a departure, amplify a change, or adjust its own rule?"
       ]
     ],
     "6": [

@@ -31,7 +31,7 @@ for name in FILES:
     assert imgs == EXPECTED[key], f"{name}: unexpected pictures: {imgs}"
     assert not tree.xpath('//div[contains(concat(" ",normalize-space(@class)," ")," example ")]'), f"{name}: worked example returned"
     groups = tree.xpath('//section[@data-check-group]')
-    assert len(groups) >= 5, f"{name}: too few problems"
+    assert len(groups) >= (4 if key == 5 else 5), f"{name}: unexpected number of problems"
     for group in groups:
         assert group.xpath("./h2"), f"{name}: missing problem heading"
         assert group.xpath('.//input | .//textarea | .//select'), f"{name}: no response fields"
