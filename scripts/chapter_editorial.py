@@ -18,7 +18,7 @@ def polish_generated_chapters(paths):
             hits=0
             for i,line in enumerate(ls):
                 if line.strip().startswith(prefix):
-                    ls[i]=new+"\\n";hits+=1
+                    ls[i]=new+chr(10);hits+=1
             cover="".join(ls)
             if hits>1:raise ValueError("Ambiguous paragraph in "+name)
         source=cover+remainder
