@@ -64,9 +64,9 @@ def _focus_lab(path, text):
                 break
     # A lab heading needs its title and context, not a decorative badge row.
     text = re.sub(
-        r'(<header\\b[^>]*class="[^"]*\\bhero\\b[^"]*"[^>]*>)([\\s\\S]*?)(</header>)',
+        r'(<header\b[^>]*class="[^"]*\bhero\b[^"]*"[^>]*>)([\s\S]*?)(</header>)',
         lambda m: m.group(1) + re.sub(
-            r'<div\\b[^>]*class="[^"]*\\bmeta\\b[^"]*"[^>]*>[\\s\\S]*?</div>',
+            r'<div\b[^>]*class="[^"]*\bmeta\b[^"]*"[^>]*>[\s\S]*?</div>',
             '', m.group(2), flags=re.I
         ) + m.group(3),
         text, flags=re.I

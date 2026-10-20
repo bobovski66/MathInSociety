@@ -50,4 +50,9 @@ assert '<input id="ans" data-answer="2">' in out
 assert 'lab-focus.css' in out
 assert 'lab-submission.js' in out and 'data-download-filled-html' in out
 assert 'Five investigations cover' in out
+sample_with_badges = '<html><head></head><body><header class="hero"><h1>Sample lab</h1><div class="meta"><span class="tag">Feedback beside each answer</span></div></header><main><button type="button" data-print-work>Print</button></main></body></html>'
+result = streamline_activity_html("labs/week5_lab.html", sample_with_badges)
+assert '<h1>Sample lab</h1>' in result
+assert 'Feedback beside each answer' not in result
+assert 'class="meta"' not in result
 print(f"PASS: {len(FILES)} labs, {total_questions} response groups, {total_figures} problem-specific images, and rebuild idempotence.")
