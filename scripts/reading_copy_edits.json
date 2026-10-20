@@ -1,0 +1,237 @@
+{
+  "1": {
+    "headings": [
+      [
+        "h2",
+        "Start with what the number describes",
+        "Quantities, labels, and units"
+      ],
+      [
+        "h2",
+        "When a model stops fitting",
+        "Interpreting a model's limits"
+      ],
+      [
+        "h2",
+        "Practice and further reading",
+        "Further practice"
+      ]
+    ],
+    "paragraphs": [
+      [
+        "Each section has an example and a short question to try.",
+        "A number may describe an amount, a location, or a change. Its meaning determines the useful operations: we can add two distances, compare two temperatures, or calculate a share of a quantity. The examples throughout this chapter use invented situations."
+      ],
+      [
+        "We'll use numbers to count, locate, share, scale, and follow repeated changes.",
+        "A number used as a label identifies something; a number used as a measurement tells us how much of a quantity is present. The distinction matters before any arithmetic begins."
+      ],
+      [
+        "A <em>set</em> is a collection.",
+        "A <em>set</em> is a collection of objects. Number systems are sets distinguished by which numbers they contain. Counting books requires positive integers; recording changes or debts requires negative numbers; describing shares leads to fractions."
+      ],
+      [
+        "When a task asks for the smallest listed system,",
+        "We classify a number by the smallest set in the chain that contains it. For example, \\(8/4=2\\) is natural, although it is written as a fraction. A value such as \\(\\sqrt2\\) is real but lies outside the rational numbers."
+      ],
+      [
+        "Fractions can describe steps too:",
+        "Fractions can also describe positions on the number line. To calculate \\(1/3+1/2\\), express both distances in sixths: \\(2/6+3/6=5/6\\). The common denominator gives us pieces of the same size."
+      ],
+      [
+        "The explorer compares repeated rules on shared axes.",
+        "An additive rule changes a quantity by a fixed difference. A multiplicative rule changes it by a fixed factor. Starting from the same amount, their short-term results may be close while their longer-term results diverge."
+      ],
+      [
+        "Use the laboratory to classify numbers,",
+        "Practice these ideas by classifying numbers, tracing signed changes, comparing fractions, and calculating recursive sequences. The examples in the text provide the methods needed for those problems."
+      ]
+    ]
+  },
+  "2": {
+    "headings": [
+      [
+        "h2",
+        "From survey answers to a conclusion",
+        "Counting observations and estimating chances"
+      ],
+      [
+        "h2",
+        "Why totals matter when comparing groups",
+        "Comparing groups of different sizes"
+      ],
+      [
+        "h2",
+        "Probability over repeated trials",
+        "Probability and repeated trials"
+      ]
+    ],
+    "paragraphs": [
+      [
+        "In Week 1, fractions described parts of a whole.",
+        "A sample provides observations about a group, while a probability model assigns chances to possible outcomes. Both use shares of a whole, but the denominator and its interpretation differ. We will use fictional survey results and model probabilities to work through that distinction."
+      ],
+      [
+        "Suppose a college wants to learn how students get to campus.",
+        "Suppose a college wants to know how its students get to campus. Surveying all 1,600 students would be expensive, so it asks 80. The larger group is the population; those who answer form the sample."
+      ],
+      [
+        "Two random samples can differ by chance.",
+        "Even well-selected random samples differ because they contain different people. A sample is <em>biased</em> when the method systematically favors some members over others. For instance, surveying only at the bicycle rack can overrepresent cyclists regardless of how many people answer."
+      ],
+      [
+        "A count tells us how many.",
+        "A frequency gives a count, but a <em>relative frequency</em> describes how common that result is within a group. Divide its count by the total number of recorded observations. The resulting proportion can be written as a fraction, decimal, or percentage."
+      ],
+      [
+        "Bar-chart heights should be measured from zero",
+        "For a bar chart, begin the height axis at zero to compare counts or percentages fairly. This chapter uses equal-width histogram bins, for which bar heights may represent counts or relative frequencies. Unequal widths call for a different height convention based on density."
+      ],
+      [
+        "An <em>empirical</em> distribution summarizes observed frequencies.",
+        "An <em>empirical</em> distribution gives proportions observed in a sample. A <em>theoretical</em> distribution comes from assumptions about a process, such as the equal chances assigned to the faces of a fair die. Repeated experiments let us compare the observed proportions with the model's probabilities."
+      ],
+      [
+        "When interpreting a distribution, consider what was measured,",
+        "A distribution is useful only with a clearly specified group and outcome. A statement about the 25 respondents is exact for those responses; extending the same percentage to an entire college requires a sampling argument. Knowing what was counted is as important as doing the division."
+      ]
+    ]
+  },
+  "3": {
+    "headings": [
+      [
+        "h1",
+        "Center, spread, and the story in the data",
+        "Describing center and variation"
+      ],
+      [
+        "h2",
+        "One typical value cannot tell the whole story",
+        "When averages conceal variation"
+      ],
+      [
+        "h2",
+        "What does the result tell us?",
+        "Interpreting statistical summaries"
+      ]
+    ],
+    "paragraphs": [
+      [
+        "The methods here build on Week 2’s observations,",
+        "In Week 2, we counted observations and displayed their frequencies. Here we summarize numerical measurements with their center and spread. The mean, median, mode, range, and standard deviation each describe a different feature of a data set."
+      ],
+      [
+        "Week 2 organized observations with counts and graphs.",
+        "A measure of <em>center</em> describes the typical location of the observations. A measure of <em>spread</em> describes how far apart they are. For a useful comparison, report both and consider the shape of the data."
+      ],
+      [
+        "Keep the measurements comparable.",
+        "Units matter. Before averaging travel times, for example, convert all measurements to minutes or all to hours. Comparisons between different groups also require knowing how the observations were selected."
+      ],
+      [
+        "The symbol \\(\\bar x\\) is read",
+        "We write the sample mean as \\(\\bar x\\), pronounced 'x-bar'. The symbol \\(n\\) is the number of observations, and \\(x_1,x_2,\\ldots,x_n\\) label their values. The mean equals their sum divided by \\(n\\)."
+      ],
+      [
+        "The median depends on the middle of the ordering.",
+        "The median depends on position in the sorted list. Changing a value far above the middle may change the mean substantially while leaving the median unchanged. This can make the median useful for data with unusually large or small values."
+      ],
+      [
+        "Continue with the week's activities",
+        "Use the center-and-spread explorer to change individual observations and see which statistics respond. In the laboratory, calculate the same summaries directly from the provided data."
+      ]
+    ]
+  },
+  "4": {
+    "headings": [
+      [
+        "h2",
+        "Individual measurements and population estimates",
+        "Two kinds of statistical questions"
+      ],
+      [
+        "h2",
+        "Normal shape, center, and spread",
+        "Describing a normal distribution"
+      ]
+    ],
+    "paragraphs": [
+      [
+        "The reading develops these ideas before the",
+        "An individual z-score describes how many standard deviations a measurement is from the population mean. An interval estimate addresses a different question: which population values remain plausible given the sampled observations and the method used? The bottling example lets us investigate both."
+      ],
+      [
+        "A histogram summarizes the frequencies of measurements.",
+        "Measurements often cluster near a central value, with fewer observations far above or below it. A <em>normal distribution</em> is a symmetric, bell-shaped mathematical model of such variation. Whether it is appropriate depends on the actual data and process."
+      ],
+      [
+        "The mean \\(\\mu\\), pronounced",
+        "A normal model is specified by its mean \\(\\mu\\), which locates the center, and standard deviation \\(\\sigma>0\\), which sets the scale of variation. Increasing \\(\\sigma\\) spreads the same total probability over a wider range, lowering the peak of the density curve."
+      ],
+      [
+        "Before using a normal model, consider",
+        "Before calculating normal probabilities, examine the measurements or the process being modeled. Strong skew, several distinct groups, or extreme observations can make a single normal model a poor description."
+      ],
+      [
+        "After one interval has been calculated,",
+        "For a fixed population quantity, a computed confidence interval either covers it or does not. The confidence level describes the long-run proportion of intervals that cover the quantity when the sampling procedure is repeated under the stated assumptions."
+      ],
+      [
+        "Week 5 uses measurements to choose actions",
+        "A measurement used to control a process can be noisy even when the process itself is stable. The distinction between individual variation and uncertainty about a population quantity will matter when we study feedback."
+      ]
+    ]
+  },
+  "5": {
+    "headings": [
+      [
+        "h1",
+        "When information changes what happens next.",
+        "Feedback, information, and control"
+      ],
+      [
+        "h2",
+        "A good intention can arrive at the wrong time",
+        "A delay in the feedback loop"
+      ],
+      [
+        "h2",
+        "A subscript tells you when, not how much to multiply",
+        "Reading a time-indexed sequence"
+      ],
+      [
+        "h2",
+        "A graph is evidence about the displayed steps",
+        "Interpreting the calculated trajectory"
+      ],
+      [
+        "h2",
+        "Put the loop into your own words",
+        "Following the loop"
+      ]
+    ],
+    "removeIntroGrid": true,
+    "paragraphs": [
+      [
+        "This week asks how a system uses information to change what happens next.",
+        "This is a <em>feedback</em> problem: an action changes a condition, and a later measurement influences the next action. <em>Cybernetics</em> studies these loops in machines, organisms, and organizations. A thermostat gives us a numerical example in which timing and response strength can be varied separately."
+      ],
+      [
+        "Read in order and try each short check",
+        "In the greenhouse example, we can follow the actual temperature, the sensor report, and the next correction step by step. The <a href=\"../demos/cybernetics.html\">explorer</a> plots the resulting sequences. The <a href=\"../information_cybernetics_timeline.html\">historical timeline</a> connects these ideas to people who studied communication, regulation, and learning."
+      ],
+      [
+        "The state and the measurement need not agree.",
+        "The <em>state</em> is the actual condition of the system; the <em>measurement</em> is information about that condition. A measurement may arrive late, be rounded, or contain noise. The controller responds to the available report, whether or not it matches the present state."
+      ],
+      [
+        "Use the table to explain a particular overshoot.",
+        "To explain an overshoot, compare the report used for the decision with the actual state at that step. In our delayed greenhouse, the controller continues to react to an earlier shortage after the temperature has reached the target."
+      ],
+      [
+        "The illustrated history preserves a broad cast:",
+        "The history of cybernetics includes work on communication, feedback, computing, and the social consequences of observation. The <a href=\"../information_cybernetics_timeline.html\">timeline</a> includes Margaret Mead, Janet Freed, Rózsa Péter, F. Jessie MacWilliams, Vera Pless, Wiener, Shannon, and many others. Their problems differed, but the relationship between information and action connects them."
+      ]
+    ]
+  }
+}
