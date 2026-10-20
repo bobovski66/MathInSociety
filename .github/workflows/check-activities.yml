@@ -9,6 +9,8 @@ on:
       - "scripts/lab_copy_edits.json"
       - "scripts/verify_lab_focus.py"
       - "assets/lab-focus.css"
+      - "assets/lab-submission.js"
+      - "scripts/test_lab_html_export.js"
       - "scripts/build_week*_pages.py"
       - ".github/workflows/check-activities.yml"
   workflow_dispatch:
@@ -23,6 +25,10 @@ jobs:
         run: python -m pip install lxml scipy
       - name: Verify focused lab layout and rebuild rules
         run: python scripts/verify_lab_focus.py
+      - name: Test completed-HTML submission export
+        run: |
+          node --check assets/lab-submission.js
+          node scripts/test_lab_html_export.js
       - name: Check pages and saved answer contracts
         run: |
           for w in $(seq 1 10); do
