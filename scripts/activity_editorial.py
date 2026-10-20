@@ -31,35 +31,36 @@ def _without_examples(text):
 
 
 def _focus_lab(path, text):
-    """Apply the same reviewed copy and diagram selection on future rebuilds."""
+    """Apply the reviewed lab layout on future page rebuilds."""
     import json
     from pathlib import Path
-    data = json.loads((Path(__file__).parent / 'lab_copy_edits.json').read_text())
+    data = json.loads((Path(__file__).parent / "lab_copy_edits.json").read_text())
     name = Path(path).name
-    match = re.search(r'week(\\d+)_lab\\.html', name)
-    key = 'extension' if name == 'week8_optimization_lab.html' else (match.group(1) if match else None)
+    match = re.search(r"week(\d+)_lab\.html", name)
+    key = "extension" if name == "week8_optimization_lab.html" else (match.group(1) if match else None)
     if key is None:
         return text
-    for filename in data['remove'].get(key, []):
-        pattern = r'<figure\\b[^>]*>[\\s\\S]*?<img\\b[^>]*src=["\\'][^"\\']*/' + re.escape(filename) + r'["\\'][\\s\\S]*?</figure>'
-        text = re.sub(pattern, '', text, flags=re.I)
-    replacements = data['ext'] if key == 'extension' else data['edits'].get(key, [])
+    unused_figures = data["remove"].get(key, [])
+    if unused_figures:
+        def keep_relevant(m):
+            return "" if any("/" + name in m.group(0) for name in unused_figures) else m.group(0)
+        text = re.sub(r"<figure\b[^>]*>[\s\S]*?</figure>", keep_relevant, text, flags=re.I)
+    replacements = data["ext"] if key == "extension" else data["edits"].get(key, [])
     def plain(value):
-        value = re.sub(r'<[^>]+>', ' ', value)
-        return re.sub(r'\\s+', ' ', value).strip()
+        return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", value)).strip()
     for prefix, replacement in replacements:
         found = [False]
         def swap(m):
             if not found[0] and plain(m.group(2)).startswith(prefix):
                 found[0] = True
-                return m.group(1) + replacement + '</p>' if replacement else ''
+                return m.group(1) + replacement + "</p>" if replacement else ""
             return m.group(0)
-        text = re.sub(r'(<p\\b[^>]*>)([\\s\\S]*?)</p>', swap, text, flags=re.I)
-    for original, revised in data['titles'].get(key, []):
-        text = text.replace('>' + original + '</h', '>' + revised + '</h', 1)
-    if 'lab-focus.css' not in text:
-        text = re.sub(r'</head>', '<link rel="stylesheet" href="../assets/lab-focus.css"></head>', text, count=1, flags=re.I)
-    text = re.sub(r'<body>', '<body class="lab-focus">', text, count=1, flags=re.I)
+        text = re.sub(r"(<p\b[^>]*>)([\s\S]*?)</p>", swap, text, flags=re.I)
+    for original, revised in data["titles"].get(key, []):
+        text = text.replace(">" + original + "</h", ">" + revised + "</h", 1)
+    if "lab-focus.css" not in text:
+        text = re.sub(r"</head>", '<link rel="stylesheet" href="../assets/lab-focus.css"></head>', text, count=1, flags=re.I)
+    text = re.sub(r"<body>", '<body class="lab-focus">', text, count=1, flags=re.I)
     return text
 
 def streamline_activity_html(path, text):
