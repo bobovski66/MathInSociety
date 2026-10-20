@@ -5,7 +5,7 @@
 A list of measurements is a \emph{data set}. Each number describes an observation: perhaps one day's waiting time or the amount in one bottle. Before calculating, ask what was measured, which units were used, and who or what the list describes.
 
 
-Week 2 organized observations with counts and graphs. Week 3 asks how to summarize those observations. We need both a \emph{center}, describing where values tend to sit, and a \emph{spread}, describing how much they vary.
+A measure of \emph{center} describes the typical location of the observations. A measure of \emph{spread} describes how far apart they are. For a useful comparison, report both and consider the shape of the data.
 
 
 \begin{tcolorbox}[title={The same average can describe different experiences},breakable]
@@ -15,7 +15,7 @@ One route to work takes 24, 25, and 26 minutes. Another takes 15, 25, and 35 min
 
 \end{tcolorbox}
 
-Keep the measurements comparable. Combining minutes with hours without converting them first gives a meaningless average. A number describing one group may also tell us little about a different group.
+Units matter. Before averaging travel times, for example, convert all measurements to minutes or all to hours. Comparisons between different groups also require knowing how the observations were selected.
 
 
 \begin{tcolorbox}[title={Pause and try 1},breakable]
@@ -28,7 +28,7 @@ What is missing from ``The average was 25''?
 Add the values and divide by how many there are. This gives the \emph{mean}, often called the average. Imagine sharing the total equally among all the observations.
 
 \[\bar x=\frac{\text{sum of the values}}{\text{number of values}}=\frac{x_1+x_2+\cdots+x_n}{n}.\]
-The symbol \(\bar x\) is read ``x-bar.'' The letter n counts the observations. The labels \(x_1,x_2,\ldots\) mean the first value, second value, and so on; the small numbers are labels, not powers.
+We write the sample mean as \(\bar x\), pronounced 'x-bar'. The symbol \(n\) is the number of observations, and \(x_1,x_2,\ldots,x_n\) label their values. The mean equals their sum divided by \(n\).
 
 
 \par\medskip\noindent\begin{minipage}{\linewidth}
@@ -71,7 +71,7 @@ The values 9, 2, 4, 4, 7, and 5 become 2, 4, 4, 5, 7, 9. There are six observati
 Repeated values matter. In 1, 2, 2, 2, 9, the median is 2. There are not equal numbers \emph{strictly} below and above it because several observations equal it. The ordered-position procedure still works.
 
 
-The median depends on the middle of the ordering. Making an already largest value still larger often leaves the median unchanged. Removing an observation can change the middle positions, so the median is not guaranteed to stay fixed after every change.
+The median depends on position in the sorted list. Changing a value far above the middle may change the mean substantially while leaving the median unchanged. This can make the median useful for data with unusually large or small values.
 
 
 \begin{tcolorbox}[title={Pause and try 3},breakable]

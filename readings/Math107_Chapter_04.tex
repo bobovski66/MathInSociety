@@ -37,19 +37,19 @@ A bottle at 516 mL is compared with a normal model centered at 500 mL with stand
 \end{tcolorbox}
 Week 3 introduced center and spread. This chapter adds normal models, standardized position, sampling variability, and confidence intervals. Its core interval exercises supply their margins. The standard-error and repeated-sampling examples explain the meaning of those margins under stated assumptions.
 
-Try the short checks before reading their explanations. Review exercises retain the principal numerical settings used in the course and include complete solutions. All examples are hypothetical.
+A z-score places an individual observation relative to the model mean and standard deviation. An interval estimate uses a sample to draw conclusions about an unknown population quantity.
 
 \medskip
 \href{https://bobovski66.github.io/MathInSociety/readings/week4_reading.html}{Online reading}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/demos/normal_z.html}{Statistical explorer}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/labs/week4_lab.html}{Laboratory}
 \clearpage
 
 
-\Needspace{6\baselineskip}\section{Normal shape, center, and spread}
+\Needspace{6\baselineskip}\section{Describing a normal distribution}
 
-A histogram summarizes the frequencies of measurements. Some histograms have a roughly symmetric mound: most measurements are near the center, and increasingly fewer lie far away on either side. A \emph{normal distribution} is a smooth mathematical model of that shape. It is a model to consider, rather than a shape every dataset must have.
+Measurements often cluster near a central value, with fewer observations far above or below it. A \emph{normal distribution} is a symmetric, bell-shaped mathematical model of such variation. Whether it is appropriate depends on the actual data and process.
 
 
-The mean \(\mu\), pronounced ``mu,'' gives the center. The standard deviation \(\sigma\), pronounced ``sigma,'' gives the spread in the same units as the measurements. The model requires \(\sigma>0\). When the standard deviation is larger, values spread over a wider range. A narrower normal curve is taller because the total area under either curve is 1, representing 100\% of possible outcomes.
+A normal model is specified by its mean \(\mu\), which locates the center, and standard deviation \(\sigma>0\), which sets the scale of variation. Increasing \(\sigma\) spreads the same total probability over a wider range, lowering the peak of the density curve.
 
 
 \par\medskip\noindent\begin{minipage}{\linewidth}
@@ -63,7 +63,7 @@ For a continuous measurement, the probability of a range is represented by the a
 Here we specify a normal model by naming its mean and standard deviation. If we use the notation \(N(\mu,\sigma^2)\), its second entry is the \emph{variance}, the square of the standard deviation. Naming both quantities avoids a notation ambiguity found across textbooks.
 
 
-Before using a normal model, consider the shape and context of the data. Waiting times can have a long right tail; a mixture of two groups can have two peaks. Real measurements may also have bounds that the ideal normal curve does not. Check whether the model is a reasonable approximation for the question and range of interest.
+Before calculating normal probabilities, examine the measurements or the process being modeled. Strong skew, several distinct groups, or extreme observations can make a single normal model a poor description.
 
 
 \begin{tcolorbox}[title={Pause and try 1},breakable]
@@ -274,7 +274,7 @@ A 95\% confidence level describes the long-run coverage of a procedure. Imagine 
 \captionof*{figure}{An illustration using a normal population with known standard deviation. The observed coverage in a finite run need not be exactly 95\%.}
 \end{minipage}\par\medskip
 
-After one interval has been calculated, it either contains the fixed parameter or it does not. The confidence level does not mean 95\% of individual observations fall inside that interval, and it does not assign a 95\% probability to that one fixed parameter after the data are observed.
+For a fixed population quantity, a computed confidence interval either covers it or does not. The confidence level describes the long-run proportion of intervals that cover the quantity when the sampling procedure is repeated under the stated assumptions.
 
 
 In the repeat-sampling experiment, the population mean is known because we chose the model. We can therefore check which intervals contain it. In an actual study, the unknown mean is precisely what we are trying to estimate.
@@ -339,7 +339,7 @@ Statistical conclusions also depend on the population definition, selection meth
 A distribution has mean 60 and SD 12. An individual value is 78. A separate sample gives mean 63 with margin 3. Find the individual z-score and the sample interval. Does the interval contain 60?
 \end{tcolorbox}
 
-Week 5 uses measurements to choose actions in feedback systems. The distinction developed here remains essential: a noisy reading, a changing population mean, and an uncertain estimate are different reasons for what an observer sees.
+A measurement used to control a process can be noisy even when the process itself is stable. The distinction between individual variation and uncertainty about a population quantity will matter when we study feedback.
 
 
 References: NIST's \href{https://www.itl.nist.gov/div898/handbook/eda/section3/eda3661.htm}{normal distribution}, \href{https://www.itl.nist.gov/div898/handbook/eda/section3/eda352.htm}{confidence limits for a mean}, and \href{https://www.itl.nist.gov/div898/handbook/prc/section1/prc14.htm}{confidence-interval interpretation}. The chapter's core exercises supply their margins; calculating a t interval is outside the assigned arithmetic here.

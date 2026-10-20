@@ -28,7 +28,7 @@
 \begin{document}
 {\small\sffamily\color{olive}WEEK 6 / CONTINUOUS MATH I / INTEREST AND LOANS\par}
 \vspace{12pt}
-{\fontsize{31}{35}\selectfont\bfseries\color{olive}Following the balance\par}
+{\fontsize{31}{35}\selectfont\bfseries\color{olive}Interest, growth, and loan payments\par}
 \vspace{10pt}
 {\large Start with one amount. State the period and the rule. Use the ending balance as the next input.\par}
 \begin{center}\includegraphics[width=\linewidth]{../assets/week6/growth-over-time.pdf}\end{center}
@@ -37,7 +37,7 @@ A \$2,000 balance can grow through fixed dollar additions or a percentage of its
 \end{tcolorbox}
 This chapter develops the meaning of percentages, period rates, and repeated updates before using formulas. It distinguishes an ending balance from interest earned, a scheduled payment from principal reduction, and a simulation's stopping month from an actual payoff.
 
-The core work uses arithmetic, powers, and simple equations. Try each short check before consulting its explanation. The review includes complete solutions and optional investigations of rounding and modeling assumptions.
+A fixed-dollar addition gives linear growth, while a percentage of the current balance gives compound growth. A loan combines percentage growth with payments, and the order of the updates affects the next balance.
 
 \medskip
 \href{https://bobovski66.github.io/MathInSociety/readings/week6_reading.html}{Online reading}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/demos/interest_loans.html}{Interest and loan explorer}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/labs/week6_lab.html}{Guided laboratory}
@@ -298,7 +298,7 @@ A table of this repeated repayment calculation is often called an \emph{amortiza
 
 \begin{tcolorbox}[title={State the rounding rule},breakable,colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35]
 
-The loan table in this reading rounds each month's interest to the nearest cent before updating the balance. The application's long comparison keeps full internal precision and rounds only the displayed results, preserving its original calculation method. Both conventions are available in the explorer. Small total differences can come from rounding rather than from a different interest formula.
+The repayment table rounds each month's interest to the nearest cent before updating the balance. Calculations that keep full precision until the end can differ slightly, especially over many months.
 
 
 \end{tcolorbox}
@@ -404,7 +404,7 @@ Week 7 compares costs, revenue, and profit for different possible quantities. Th
 
 \end{tcolorbox}
 
-Practice in the laboratory, compare the two repayment plans, and explore hypothetical compute growth. The discussion asks you to show and explain a payment schedule.
+Practice in the laboratory, compare the two repayment plans, and explore hypothetical compute growth. The discussion asks you to compare two payments for a purpose you choose.
 
 
 \clearpage

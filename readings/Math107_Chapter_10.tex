@@ -22,7 +22,7 @@
 \begin{document}
 {\small\sffamily\color{olive}CHAPTER 10 / COMPLEXITY AND THE LIMITS OF PREDICTION\par}
 \vspace{8pt}
-{\fontsize{31}{35}\selectfont\bfseries\color{olive}Simple rules.\\Surprising worlds.\par}
+{\fontsize{31}{35}\selectfont\bfseries\color{olive}Recursion, fractals, and prediction\par}
 \vspace{8pt}
 {\large Follow a number through a maze, build a curve that keeps getting longer, and discover why an exact rule can still leave a forecast uncertain.\par}
 
@@ -34,9 +34,9 @@ Repeated updates are already familiar: a balance earns interest; a controller ac
 \begin{tcolorbox}[title={The question for the week}]
 If we know the rule, do we know the future? Begin by defining the quantity, what one update means, the starting information, and the question we want the calculation to answer.
 \end{tcolorbox}
-By the end, you can trace Collatz routes, distinguish tested examples from proof, calculate fractal counts and measures, compare logistic forecasts, and report a measurement together with its observation scale.
+One rule can produce a long number trajectory, intricate geometry, or sensitivity to a starting measurement. We will distinguish calculation for chosen examples from the stronger conclusions that require proof.
 
-Work through the examples before the short checks. The explorer handles long calculations; no prior study of chaos or fractals is assumed. The dimension extension is optional. Solutions to the short checks and the chapter review appear at the end.
+Repeated updates show how a result develops. Calculating many particular cases helps us investigate a pattern, but it does not by itself establish a claim for every starting value.
 
 \medskip
 \href{https://bobovski66.github.io/MathInSociety/readings/week10_reading.html}{Online reading}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/demos/fractal_recursion.html}{Week 10 explorer}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/labs/week10_lab.html}{Guided laboratory}
@@ -47,7 +47,7 @@ Work through the examples before the short checks. The explorer handles long cal
 \Needspace{6\baselineskip}\section*{Start here: a quantity, a rule, and a question}
 
 
-In Week 6, a savings balance became the input for the next interest calculation. In Week 5, a temperature reading affected the next heating adjustment. Each example began with a quantity, described how it changed, and asked what would happen after several updates. We will use that same approach here.
+In an interest calculation or thermostat update, the current state determines the next state. The same kind of rule can define a number sequence, a population model, or a geometric construction.
 
 
 
@@ -94,7 +94,7 @@ We will use \emph{complexity} broadly for behavior or structure with many detail
 
 
 
-You will use arithmetic, percentages, repeated multiplication, tables, and graph reading from earlier weeks. The explorer handles long calculations. The optional dimension extension is for curiosity; logarithm calculations are not needed for the core activities.
+The calculations rely on arithmetic, percentages, tables, and graphs. The explorer provides longer trajectories that can be compared with calculations by hand.
 
 
 \clearpage
@@ -198,7 +198,7 @@ Start at 4 and 4.1. Double both values three times. What are the absolute and re
 
 
 
-\Needspace{6\baselineskip}\section{Two instructions. One enormous question.}
+\Needspace{6\baselineskip}\section{The Collatz problem}
 
 
 Here the mathematical world is the positive integers: 1, 2, 3, and so on. We are not modeling fish or money yet. We are exploring what a particular arithmetic instruction does to a whole number. One update means applying the instruction once.
@@ -346,7 +346,7 @@ A program tests every starting integer from 1 through 10,000, and they all reach
 \clearpage
 
 
-\Needspace{6\baselineskip}\section{Keep the rule. Change the scale.}
+\Needspace{6\baselineskip}\section{Repeated geometric constructions}
 
 
 Now one update changes a drawing rather than a single population or balance. Think of a drawing program with a replacement instruction. Stage 0 is the original drawing. Stage 1 applies the instruction once to every original piece. Stage 2 applies it once to every piece produced at stage 1.
@@ -803,7 +803,7 @@ If 0.4001 is rounded to 0.400 before the experiment begins, the two starts becom
 
 
 
-For a few updates, calculate directly. For longer runs, use the explorer's table. If your calculator has an \emph{Ans} or previous-answer feature, it can reuse a result without retyping rounded display digits. Rounding for display means shortening only the number you write down, while continuing from the stored answer.
+For the first few updates, substitute the current value into the rule. For longer sequences, use the explorer's table. Keep full precision during the updates so that rounding does not change the modeled trajectory.
 
 
 

@@ -25,14 +25,14 @@
 \begin{document}
 {\small\sffamily\color{olive}CHAPTER 9 / NETWORKS AND COLLECTIVE SYSTEMS\par}
 \vspace{10pt}
-{\fontsize{31}{35}\selectfont\bfseries\color{olive}Small connections.\\Collective effects.\par}
+{\fontsize{31}{35}\selectfont\bfseries\color{olive}Networks, paths, and spreading\par}
 \vspace{8pt}
 {\large Follow a community alert through seven locations. Discover how direct contacts, alternate routes, and local decisions shape the whole system.\par}
 \begin{center}\includegraphics[width=\linewidth]{../assets/week9/community-network.pdf}\end{center}
 \begin{tcolorbox}[title={The question for the week}]
 A community has seven locations and nine direct communication links. Can an alert reach everyone? How many rounds does it need? Which one-link improvement helps it survive an outage?
 \end{tcolorbox}
-This chapter begins with the meaning of a dot and a line, then builds a language for neighbors, paths, vulnerability, and spread. It uses arithmetic, fractions, averages, and repeated updates from Weeks 1--8. No earlier study of networks is assumed.
+Nodes stand for locations; edges stand for direct contacts. Paths make communication possible between distant nodes, while failures and spreading rules determine how the network responds.
 
 \medskip
 \href{https://bobovski66.github.io/MathInSociety/readings/week9_reading.html}{Online reading}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/demos/network_systems.html}{Network explorer}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/labs/week9_lab.html}{Guided laboratory}
@@ -40,7 +40,7 @@ This chapter begins with the meaning of a dot and a line, then builds a language
 \clearpage
 
 
-\Needspace{6\baselineskip}\section*{Start here: connections change what a community can do}
+\Needspace{6\baselineskip}\section{A network for community alerts}
 
 
 A county has seven places that can relay a public alert: a coordinator, library, clinic, school, shelter, residential block, and community center. The county knows which places can contact one another directly. Will an alert reach everyone? How long could it take? What happens if one communication link fails?
@@ -51,36 +51,18 @@ These questions concern \emph{relationships}. Counting the seven locations gives
 
 
 
-You already have the tools to begin. From Weeks 1--4, we will use counting, fractions, percentages, and averages. From Weeks 5--6, we will use a rule repeatedly, keeping track of the current state. From Weeks 7--8, we will ask what we are trying to improve and which choices are allowed. No previous study of networks is assumed.
+We can count neighbors, compare paths, and measure how densely a network is connected. Once a rule for forwarding or adopting an alert is specified, we can also calculate how the state changes from one round to the next.
 
 
 
-\Needspace{5\baselineskip}\subsection*{By the end, you can\ldots{}}
 
-\begin{itemize}
-\item Translate a real situation into nodes and links.
-\item Count direct neighbors and measure the network's density.
-\item Trace routes and identify separated groups.
-
-\end{itemize}
-
-\Needspace{5\baselineskip}\subsection*{\ldots{}and explain why it matters.}
-
-\begin{itemize}
-\item Find a vulnerable link and test an alternate route.
-\item Trace a message or a threshold rule round by round.
-\item Distinguish a model's calculation from a real decision.
-
-\end{itemize}
-
-
-Read the worked examples before opening the short checks. The explorer lets you test the same network. The illustrated PDF includes the explanations, a review, and solutions. Extra centrality formulas are marked as extensions.
+The network explorer uses the same seven-location network. Remove a link to see what routes remain, or change the spreading rule while keeping the connections fixed.
 
 
 
 \clearpage
 
-\Needspace{6\baselineskip}\section{A dot is a place. A line is a direct connection.}
+\Needspace{6\baselineskip}\section{Representing locations and links}
 
 
 Each dot in a network drawing is a \emph{node}. A node represents one object we choose to study. Each line is an \emph{edge}, or link, joining two nodes. In our alert model, a node is a location, and an edge means that the two locations have an established two-way communication channel.
@@ -128,7 +110,7 @@ We can record the same network with an \emph{edge list}: AB, AC, BC, BD, CD, DE,
 The main network is \emph{undirected}: every link works both ways. It is \emph{unweighted}: all links count equally. It is also \emph{simple}: there are no links from a node to itself and at most one link per pair. Those assumptions determine which formulas apply.
 
 
-The seven locations and their links are an invented teaching example, not a description of an actual county emergency system.
+The seven-location system is hypothetical. For a real emergency network, channel reliability, direction, and delays may also affect the result.
 
 
 \end{tcolorbox}

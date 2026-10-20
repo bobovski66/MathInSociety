@@ -28,7 +28,7 @@
 \begin{document}
 {\small\sffamily\color{olive}WEEK 5 / MATHEMATICS IN SOCIETY / FEEDBACK AND INFORMATION\par}
 \vspace{12pt}
-{\fontsize{31}{35}\selectfont\bfseries\color{olive}When information changes what happens next\par}
+{\fontsize{31}{35}\selectfont\bfseries\color{olive}Feedback, information, and control\par}
 \vspace{10pt}
 {\large Build a loop from familiar sequences. Follow the state, the report, the correction, and the next state.\par}
 \begin{center}\includegraphics[width=\linewidth,height=2.85in,keepaspectratio]{../assets/week5/immediate-delayed.pdf}\end{center}
@@ -37,14 +37,14 @@ Two greenhouses start at $64^\circ$F and aim for $70^\circ$F. Both correct half 
 \end{tcolorbox}
 Cybernetics studies communication, feedback, and control in machines, living things, and social systems. We develop its basic questions using the recursive sequences of Week 1 and the measurements and variation of Weeks 3--4. No engineering or calculus is assumed.
 
-Try each short check before consulting its explanation in the solutions. The review includes numerical updates, interpretation, historical questions, and complete solutions. Optional information-theory questions use powers of two before logarithms.
+A controller acts on the report it receives. When information arrives late, its next correction can respond to a condition that has already changed. The resulting sequence may overshoot or oscillate.
 
 \medskip
 \href{https://bobovski66.github.io/MathInSociety/readings/week5_reading.html}{Online reading}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/demos/cybernetics.html}{Feedback explorer}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/labs/week5_lab.html}{Guided laboratory}
 \clearpage
 
 
-\Needspace{6\baselineskip}\section{A subscript tells you when, not how much to multiply}
+\Needspace{6\baselineskip}\section{Reading a time-indexed sequence}
 
 A \emph{sequence} is an ordered list. A \emph{recursive rule} tells us how to use earlier values to find a new one. If \(a_0=10\) and \(a_{n+1}=a_n-2\), the list begins \(10,8,6,4,\ldots\). Starting at step 0, three updates take us to \(a_3=4\). There are four listed values but only three changes.
 
@@ -89,7 +89,7 @@ Controller & The rule or decision maker & Compare report with 70; choose correct
 Actuator & What carries out the action & Heater or cooling fan\\
 \bottomrule\end{tabularx}}\par\medskip
 
-The \emph{state} and the \emph{measurement} need not agree. The state is the temperature actually present now; a measurement is a report about temperature. It might describe an earlier hour or contain an error. Our first model makes them agree so we can see one idea at a time.
+The \emph{state} is the actual condition of the system; the \emph{measurement} is information about that condition. A measurement may arrive late, be rounded, or contain noise. The controller responds to the available report, whether or not it matches the present state.
 
 
 \begin{tcolorbox}[title={Pause and try 2},breakable]
@@ -205,7 +205,7 @@ In our delayed sequence, steps 3 and 4 are both 71.5, above the target. Steps 7 
 
 \begin{tcolorbox}[title={A graph is evidence about the displayed steps},breakable,colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35]
 
-Use the table to explain a particular overshoot. A finite plot alone does not prove what every later value will do. In this fixed mathematical example the oscillation does decay, but a similar-looking short beginning is not a universal guarantee.
+To explain an overshoot, compare the report used for the decision with the actual state at that step. In our delayed greenhouse, the controller continues to react to an earlier shortage after the temperature has reached the target.
 
 
 \end{tcolorbox}
@@ -368,7 +368,7 @@ Norbert Wiener's 1948 \emph{Cybernetics} connected communication and control in 
 Anthropologist Margaret Mead helped bring questions about culture and social organization into the interdisciplinary Macy Conferences. In a 1967 address published in 1968 as \emph{Cybernetics of Cybernetics}, she asked whether the American Society for Cybernetics could apply cybernetic ideas to its own organization. The people studying feedback could also examine their own feedback loops.
 
 
-The illustrated history preserves a broad cast: human computers, programmers, engineers, mathematicians, psychologists, and organizers. Follow the contributions of Mead, Janet Freed, Rózsa Péter, F. Jessie MacWilliams, Vera Pless, and other women alongside Wiener and Shannon. You are not expected to memorize all 63 entries. Use the guided routes to explain how one historical problem connects to this week's mathematics.
+The history of cybernetics includes work on communication, feedback, computing, and the social consequences of observation. The timeline includes Margaret Mead, Janet Freed, Rózsa Péter, F. Jessie MacWilliams, Vera Pless, Wiener, Shannon, and many others. Their problems differed, but the relationship between information and action connects them.
 
 
 \begin{tcolorbox}[title={A model can describe the consequences of a chosen goal},breakable,colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35]
