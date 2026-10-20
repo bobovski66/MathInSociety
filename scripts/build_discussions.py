@@ -39,7 +39,7 @@ DISCUSSIONS = {
         "tags": ["Samples", "Percentages"],
         "intro": [
             "You ask 10 people at a library whether they prefer printed books. Eight say yes. That is 8 ÷ 10 × 100 = 80% of the people you asked.",
-            "Would you expect the same result if you asked somewhere else? The place and the people could make a difference.",
+            "A survey outside the library might give a different result because it reaches different people.",
         ],
         "choose": "Think of a yes-or-no question you would like answered about your class, neighborhood, workplace, or a hobby. Make up a small survey result for this discussion.",
         "questions": [
