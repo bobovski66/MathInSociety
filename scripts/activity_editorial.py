@@ -62,6 +62,15 @@ def _focus_lab(path, text):
             if current in text:
                 text = text.replace(current, "<" + tag + ">" + revised + "</" + tag + ">", 1)
                 break
+    # A lab heading needs its title and context, not a decorative badge row.
+    text = re.sub(
+        r'(<header\\b[^>]*class="[^"]*\\bhero\\b[^"]*"[^>]*>)([\\s\\S]*?)(</header>)',
+        lambda m: m.group(1) + re.sub(
+            r'<div\\b[^>]*class="[^"]*\\bmeta\\b[^"]*"[^>]*>[\\s\\S]*?</div>',
+            '', m.group(2), flags=re.I
+        ) + m.group(3),
+        text, flags=re.I
+    )
     if "lab-focus.css" not in text:
         text = re.sub(r"</head>", '<link rel="stylesheet" href="../assets/lab-focus.css"></head>', text, count=1, flags=re.I)
     text = re.sub(r"<body>", '<body class="lab-focus">', text, count=1, flags=re.I)

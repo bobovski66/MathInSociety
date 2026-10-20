@@ -27,6 +27,7 @@ for name in FILES:
     body = tree.xpath("//body")
     assert len(body) == 1 and "lab-focus" in body[0].get("class", "").split(), f"{name}: focus style missing"
     assert tree.xpath('//link[@href="../assets/lab-focus.css"]'), f"{name}: shared stylesheet missing"
+    assert not tree.xpath('//header[contains(concat(" ", normalize-space(@class), " "), " hero ")]//div[contains(concat(" ", normalize-space(@class), " "), " meta ")]'), f"{name}: decorative badge row returned"
     buttons = tree.xpath('//*[@data-download-filled-html]')
     assert len(buttons) == 1 and buttons[0].tag == "button", f"{name}: expected one filled-HTML download button"
     assert tree.xpath('//script[@src="../assets/lab-submission.js"]'), f"{name}: HTML download script missing"
