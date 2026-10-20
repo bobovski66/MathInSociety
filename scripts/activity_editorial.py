@@ -57,7 +57,11 @@ def _focus_lab(path, text):
             return m.group(0)
         text = re.sub(r"(<p\b[^>]*>)([\s\S]*?)</p>", swap, text, flags=re.I)
     for original, revised in data["titles"].get(key, []):
-        text = text.replace(">" + original + "</h", ">" + revised + "</h", 1)
+        for tag in ("h2", "h3"):
+            current = "<" + tag + ">" + original + "</" + tag + ">"
+            if current in text:
+                text = text.replace(current, "<" + tag + ">" + revised + "</" + tag + ">", 1)
+                break
     if "lab-focus.css" not in text:
         text = re.sub(r"</head>", '<link rel="stylesheet" href="../assets/lab-focus.css"></head>', text, count=1, flags=re.I)
     text = re.sub(r"<body>", '<body class="lab-focus">', text, count=1, flags=re.I)
