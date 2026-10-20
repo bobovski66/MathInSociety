@@ -6,8 +6,8 @@ def polish_generated_chapters(paths):
     for raw in paths:
         path=Path(raw);name=path.name
         source=path.read_text()
-        start=source.find(r"\\begin{document}")
-        end=source.find(r"\\clearpage",start+1)
+        start=source.find(r"\begin{document}")
+        end=source.find(r"\clearpage",start+1)
         if start<0 or end<0:
             raise ValueError("Missing cover for "+name)
         cover=source[:end];remainder=source[end:]
