@@ -73,6 +73,17 @@ def streamline_activity_html(path, text):
     text = _without_examples(text)
     if path.startswith('labs/'):
         text = _focus_lab(path, text)
+        if 'data-download-filled-html' not in text:
+            text, count = re.subn(
+                r'(<button\b[^>]*\bdata-print-work\b[^>]*>[\s\S]*?</button>)',
+                r'\1<button type="button" data-download-filled-html>Download filled HTML</button>',
+                text, count=1, flags=re.I
+            )
+            if count != 1:
+                raise ValueError('Lab needs a print button for filled-HTML download: ' + path)
+        if 'lab-submission.js' not in text:
+            text = re.sub(r'</head>', '<script defer src="../assets/lab-submission.js"></script></head>', text, count=1, flags=re.I)
+        text = text.replace('Your name for the printed copy', 'Your name for the printed or downloaded copy')
     if path in ("demos/number_systems.html", "demos/probability_distribution.html"):
         text = _QUICK_ANSWER.sub(r"\1\2", text)
     return text
