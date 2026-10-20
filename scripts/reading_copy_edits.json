@@ -233,5 +233,99 @@
         "The history of cybernetics includes work on communication, feedback, computing, and the social consequences of observation. The <a href=\"../information_cybernetics_timeline.html\">timeline</a> includes Margaret Mead, Janet Freed, Rózsa Péter, F. Jessie MacWilliams, Vera Pless, Wiener, Shannon, and many others. Their problems differed, but the relationship between information and action connects them."
       ]
     ]
+  },
+  "6": {
+    "headings": [
+      [
+        "h1",
+        "Interest and loans: follow the changing balance.",
+        "Interest, growth, and loan payments"
+      ]
+    ],
+    "removeIntroGrid": true,
+    "paragraphs": [
+      [
+        "Week 5 introduced a system’s",
+        "An account balance is a <em>state</em> that changes from one period to the next. For savings, interest is added; for a loan, interest increases the amount owed and a payment reduces it. The sequence of operations determines the next balance."
+      ],
+      [
+        "Read in order and work the short checks",
+        "We begin with one period of interest, develop simple and compound growth, and then follow monthly loan balances. Each calculation refers to a specified rate and time period."
+      ],
+      [
+        "The loan table in this reading rounds each month’s interest",
+        "The repayment table rounds each month's interest to the nearest cent before updating the balance. Calculations that keep full precision until the end can differ slightly, especially over many months."
+      ],
+      [
+        "A useful comparison includes the path, the totals, and the assumptions",
+        "For a loan, compare the payment, time until payoff, and total interest. A lower monthly payment can leave more money accruing interest over a longer period."
+      ]
+    ]
+  },
+  "7": {
+    "headings": [
+      [
+        "h1",
+        "Optimization: choosing what “best” means.",
+        "Costs, revenue, and profit"
+      ],
+      [
+        "h2",
+        "A decision has choices, consequences, and a goal",
+        "A seller's production decision"
+      ]
+    ],
+    "removeIntroGrid": true,
+    "paragraphs": [
+      [
+        "These are related questions, but each asks for a different piece of information.",
+        "The stall fee is due regardless of sales. Each candle sold brings revenue, while each candle made incurs a production cost. Subtracting the total cost from revenue gives the profit for a particular sales plan."
+      ],
+      [
+        "In Week 6, a balance changed as time passed.",
+        "Here, quantity replaces time as the input. We compare the cost, revenue, and profit of different quantities made and sold during the same month."
+      ],
+      [
+        "Read in order, try each short check",
+        "The candle example develops fixed and variable costs, break-even quantities, and profit per additional sale. A production limit then lets us compare feasible choices."
+      ],
+      [
+        "With no other inventory value or costs, a revised model uses two counts:",
+        "When production and sales differ, let \\(n\\) be candles made and \\(s\\) candles sold, with \\(0\\le s\\le n\\). Profit becomes \\(P=10s-4n-180\\), reflecting both quantities."
+      ]
+    ]
+  },
+  "8": {
+    "headings": [
+      [
+        "h1",
+        "Possible first. Then optimal.",
+        "Feasible regions and optimization"
+      ],
+      [
+        "h2",
+        "First ask what is possible. Then ask what is best.",
+        "A production decision with resource limits"
+      ]
+    ],
+    "removeIntroGrid": true,
+    "paragraphs": [
+      [
+        "We will turn each complete plan into a point on a coordinate graph.",
+        "Let \\(x\\) and \\(y\\) be the numbers of two kinds of packs. Each resource limit becomes an inequality. The points satisfying all inequalities form the feasible region; a contribution function then gives a score to each possible plan."
+      ],
+      [
+        "Use the feasible-region explorer while learning",
+        "The <a href=\"../demos/convex_geometry.html\">feasible-region explorer</a> displays the overlap of resource constraints. The <a href=\"../demos/linear_programming.html\">optimizer</a> compares goals on that region. The printable chapters cover <a href=\"Math107_Chapter_08.pdf\">feasible geometry</a> and <a href=\"Math107_Chapter_09.pdf\">optimization</a>."
+      ],
+      [
+        "The resource counts and contribution amounts are invented",
+        "In this example, contribution means money remaining after per-pack costs. Subtracting the same fixed event fee from every plan changes profit totals but not which plan has the greatest contribution."
+      ],
+      [
+        "For geometry, we first allow nonnegative real values",
+        "For the geometry, fractional pack quantities are initially allowed. Actual snack packs must be whole. A final decision must therefore satisfy both the resource constraints and the whole-number requirement."
+      ]
+    ]
   }
 }
