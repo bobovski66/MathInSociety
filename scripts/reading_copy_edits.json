@@ -327,5 +327,94 @@
         "For the geometry, fractional pack quantities are initially allowed. Actual snack packs must be whole. A final decision must therefore satisfy both the resource constraints and the whole-number requirement."
       ]
     ]
+  },
+  "9": {
+    "headings": [
+      [
+        "h1",
+        "Small connections. Collective effects.",
+        "Networks, paths, and spreading"
+      ],
+      [
+        "h2",
+        "Connections change what a community can do",
+        "A network for community alerts"
+      ],
+      [
+        "h2",
+        "A dot is a place. A line is a direct connection.",
+        "Representing locations and links"
+      ]
+    ],
+    "removeIntroGrid": true,
+    "paragraphs": [
+      [
+        "These questions concern <em>relationships</em>.",
+        "Answering these questions requires the pattern of connections, not just the number of places. A <em>network</em> represents the locations as nodes and direct communication channels as edges."
+      ],
+      [
+        "You already have the tools to begin.",
+        "We can count neighbors, compare paths, and measure how densely a network is connected. Once a rule for forwarding or adopting an alert is specified, we can also calculate how the state changes from one round to the next."
+      ],
+      [
+        "Read the worked examples before opening the short checks.",
+        "The <a href=\"../demos/network_systems.html\">network explorer</a> uses the same seven-location network. Remove a link to see what routes remain, or change the spreading rule while keeping the connections fixed."
+      ],
+      [
+        "The seven locations and their links are an invented teaching example",
+        "The seven-location system is hypothetical. For a real emergency network, channel reliability, direction, and delays may also affect the result."
+      ],
+      [
+        "A link failure and a location failure are different tests",
+        "Removing a link disables one connection. Removing a location also removes every link attached to it. These changes may disconnect different portions of the network."
+      ]
+    ]
+  },
+  "10": {
+    "headings": [
+      [
+        "h1",
+        "Simple rules. Surprising worlds.",
+        "Recursion, fractals, and prediction"
+      ],
+      [
+        "h2",
+        "If we know the rule, do we know the future?",
+        "What a rule can tell us"
+      ],
+      [
+        "h2",
+        "Two instructions. One enormous question.",
+        "The Collatz problem"
+      ],
+      [
+        "h2",
+        "Keep the rule. Change the scale.",
+        "Repeated geometric constructions"
+      ]
+    ],
+    "removeIntroGrid": true,
+    "paragraphs": [
+      [
+        "This week, we will keep those ideas separate",
+        "These examples share an initial condition and a rule applied repeatedly. They lead to different questions: whether a number sequence reaches 1, how a geometric construction's length or area changes, and how accurately two nearby starting measurements can predict later states."
+      ],
+      [
+        "In Week 6, a savings balance became the input",
+        "In an interest calculation or thermostat update, the current state determines the next state. The same kind of rule can define a number sequence, a population model, or a geometric construction."
+      ],
+      [
+        "We will use <em>complexity</em> broadly",
+        "Here <em>complexity</em> refers to detailed structures or behaviors that arise from repeated rules. We will reserve <em>chaos</em> for a dynamical phenomenon involving sensitive dependence on initial conditions, investigated with the logistic model."
+      ],
+      [
+        "You will use arithmetic, percentages, repeated multiplication",
+        "The calculations rely on arithmetic, percentages, tables, and graphs. The <a href=\"../demos/fractal_recursion.html\">explorer</a> provides longer trajectories that can be compared with calculations by hand."
+      ],
+      [
+        "For a few updates, calculate directly.",
+        "For the first few updates, substitute the current value into the rule. For longer sequences, use the explorer's table. Keep full precision during the updates so that rounding does not change the modeled trajectory."
+      ]
+    ]
   }
 }

@@ -10,38 +10,21 @@
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html" aria-current="page">Reading</a><a href="../demos/fractal_recursion.html">Explorer</a><a href="../labs/week10_lab.html">Laboratory</a><a href="../applications/week10_application.html">Fish forecast</a><a href="../applications/week10_ai.html">AI application</a><a href="../discussions/week10_discussion.html">Discussion</a></nav><main class="wrap" id="main"><header class="hero"><div class="eyebrow">Week 10 / Reading</div>
-<h1>Simple rules. Surprising worlds.</h1>
+<h1>Recursion, fractals, and prediction</h1>
 <p class="lead">Follow a number through a maze, build a curve that keeps getting longer, and discover why an exact rule can still leave a forecast uncertain.</p>
 <div class="meta">
 <span class="tag">Collatz</span><span class="tag">Fractals</span><span class="tag">Logistic dynamics</span><span class="tag">Measurement &amp; prediction</span>
 </div></header>
 <div class="card">
 <div class="kicker">The question for the week</div>
-<h2>If we know the rule, do we know the future?</h2>
+<h2>What a rule can tell us</h2>
 <p>A computer can follow a short instruction perfectly and still produce a result that surprises us. That surprise can have several causes. A number sequence can take an unexpectedly long route. A shape can acquire finer detail forever. A prediction can depend on a starting measurement more precisely than we can make it.</p>
-<p>This week, we will keep those ideas separate while looking for the thread that connects them: <em>the outcome depends on a rule, a starting state, and the scale at which we observe.</em></p>
-<div class="grid">
-<div>
-<h3>By the end, you can…</h3>
-<ul>
-<li>Trace a recursion and distinguish a value from an update count.</li>
-<li>Explain what a tested example can and cannot prove.</li>
-<li>Calculate fractal counts, lengths, and area fractions.</li>
-</ul>
-</div>
-<div>
-<h3>…and make sense of the result.</h3>
-<ul>
-<li>Recognize fixed points, cycles, and sensitive trajectories.</li>
-<li>Compare forecasts without rounding away the difference.</li>
-<li>Report a measurement together with its observation scale.</li>
-</ul>
-</div>
-</div>
+<p>These examples share an initial condition and a rule applied repeatedly. They lead to different questions: whether a number sequence reaches 1, how a geometric construction's length or area changes, and how accurately two nearby starting measurements can predict later states.</p>
+
 </div>
 <section class="card" id="start-here"><div class="kicker">Start here / The mathematical setting</div>
 <h2>A quantity, a rule, and a question</h2>
-<p>In Week 6, a savings balance became the input for the next interest calculation. In Week 5, a temperature reading affected the next heating adjustment. Each example began with a quantity, described how it changed, and asked what would happen after several updates. We will use that same approach here.</p>
+<p>In an interest calculation or thermostat update, the current state determines the next state. The same kind of rule can define a number sequence, a population model, or a geometric construction.</p>
 <p>A <em>mathematical model</em> is a deliberately simplified description of a situation. We choose what to keep track of and write a rule relating the quantities. For example, a savings model might include interest and omit fees. A population model might include crowding and omit migration. A calculated answer describes what the model predicts under those assumptions.</p>
 <div class="example">
 <h3>Set up the mathematical world before calculating</h3>
@@ -60,7 +43,7 @@
 <p>Some examples this week are models of situations, such as a changing population. Others are mathematical constructions we invent and study, such as a number rule or a repeating drawing instruction. In each case, defining the setting makes the calculation meaningful.</p>
 <h3>What do “complexity” and “chaos” mean here?</h3>
 <p>We will use <em>complexity</em> broadly for behavior or structure with many details: a long number route, an intricate boundary, or a changing forecast. We will give the more specific word <em>chaos</em> a mathematical meaning by comparing nearby forecasts later in the reading. We begin with familiar arithmetic and build toward that idea.</p>
-<p class="small">You will use arithmetic, percentages, repeated multiplication, tables, and graph reading from earlier weeks. The explorer handles long calculations. The optional dimension extension is for curiosity; logarithm calculations are not needed for the core activities.</p></section>
+<p class="small">The calculations rely on arithmetic, percentages, tables, and graphs. The <a href="../demos/fractal_recursion.html">explorer</a> provides longer trajectories that can be compared with calculations by hand.</p></section>
 <nav class="toc" aria-label="Reading contents"><div class="kicker">Read in order; try the short checks</div>
 <p><a href="#start-here">Begin with the mathematical setting: a quantity, a rule, and a question.</a></p>
 <ol>
@@ -159,7 +142,7 @@
 </div>
 </section>
 <section class="card" id="collatz"><div class="kicker">02 / The Collatz number machine</div>
-<h2>Two instructions. One enormous question.</h2>
+<h2>The Collatz problem</h2>
 <p>Here the mathematical world is the positive integers: 1, 2, 3, and so on. We are not modeling fish or money yet. We are exploring what a particular arithmetic instruction does to a whole number. One update means applying the instruction once.</p>
 <p>Choose a positive whole number. If it is even, divide it by 2. If it is odd, multiply it by 3 and add 1. Use the result as the next input.</p>
 <p>An <em>even</em> integer divides by 2 without a remainder, such as 6 or 10. An <em>odd</em> integer does not, such as 3 or 5. The displayed formula below simply puts those two verbal instructions into one statement. The brace says “choose the appropriate row.”</p>
@@ -241,7 +224,7 @@
 </div>
 </section>
 <section class="card" id="fractals"><div class="kicker">04 / Fractal construction</div>
-<h2>Keep the rule. Change the scale.</h2>
+<h2>Repeated geometric constructions</h2>
 <p>Now one update changes a drawing rather than a single population or balance. Think of a drawing program with a replacement instruction. Stage 0 is the original drawing. Stage 1 applies the instruction once to every original piece. Stage 2 applies it once to every piece produced at stage 1.</p>
 <p>A self-similar object contains smaller copies of its overall pattern. We can build ideal fractals by repeating a geometric instruction at finer and finer scales. A displayed stage is a finite approximation; the ideal fractal is the limit of all stages.</p>
 <p>For these examples, <em>self-similar</em> means a smaller part is an exact scaled copy of the whole limiting pattern. A <em>fractal</em> has structure that remains intricate as we inspect finer scales. We can draw only finitely many stages, but we can ask what the measurements do as the number of stages increases.</p>
@@ -523,7 +506,7 @@
 <div class="insight">
 <h3>Round for display, not between updates</h3>
 <p>If 0.4001 is rounded to 0.400 before the experiment begins, the two starts become identical and their apparent difference disappears. During iteration, premature rounding changes the input to every later calculation. Keep the calculator’s stored value and round only the numbers you report.</p>
-<p>For a few updates, calculate directly. For longer runs, use the explorer’s table. If your calculator has an <em>Ans</em> or previous-answer feature, it can reuse a result without retyping rounded display digits. Rounding for display means shortening only the number you write down, while continuing from the stored answer.</p>
+<p>For the first few updates, substitute the current value into the rule. For longer sequences, use the explorer's table. Keep full precision during the updates so that rounding does not change the modeled trajectory.</p>
 </div>
 <h3>Deterministic does not mean easily forecast</h3>
 <p>The logistic rule contains no random-number generator. Its sensitivity concerns the consequences of imperfectly known initial conditions. Random sampling, incomplete models, and noisy measurements can also limit prediction, but they are distinct sources of uncertainty.</p>
