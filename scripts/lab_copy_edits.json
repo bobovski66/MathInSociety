@@ -1,0 +1,352 @@
+{
+  "remove": {
+    "1": [
+      "number-tower.svg",
+      "fraction-equivalence.svg"
+    ],
+    "2": [
+      "population-sample.svg",
+      "bin-boundaries.svg",
+      "employee-transport.svg"
+    ],
+    "3": [
+      "squares-and-units.svg"
+    ],
+    "4": [
+      "empirical-bands.svg",
+      "interval-anatomy.svg"
+    ],
+    "5": [
+      "subscript-timeline.svg",
+      "averaging.svg"
+    ],
+    "8": [
+      "convex-segments.svg"
+    ],
+    "9": [
+      "failure-repair.svg"
+    ]
+  },
+  "edits": {
+    "1": [
+      [
+        "Work through the five investigations.",
+        "Five investigations cover number systems, signed changes, scaling, fractions, and population models."
+      ],
+      [
+        "Enter fractions or decimals.",
+        "Enter fractions or decimals; round only where requested. Answers save automatically."
+      ]
+    ],
+    "2": [
+      [
+        "Investigate samples, counts, proportions, graphs",
+        "Five investigations use surveys, counts, graphs, and probability tables."
+      ],
+      [
+        "Use fractions or decimals for proportions",
+        "Enter fractions or decimals for proportions (three decimal places if needed). Use whole numbers for counts."
+      ],
+      [
+        "For each situation, identify the population",
+        "Each survey reaches a different group. Identify whom it aims to describe and whom it actually reaches."
+      ],
+      [
+        "Every listed probability must lie between 0 and 1.",
+        "Complete each probability distribution and check its total."
+      ]
+    ],
+    "3": [
+      [
+        "First ask where the observations sit, then ask how much they vary.",
+        "Find measures of center and spread for the data sets below."
+      ],
+      [
+        "Use the data 3, 5, 5, 7.",
+        "Use 3, 5, 5, 7 to complete the sample standard-deviation table."
+      ],
+      [
+        "Review your calculations and written answers before printing.",
+        ""
+      ]
+    ],
+    "4": [
+      [
+        "Work through the five parts in order.",
+        "Five investigations use normal models, z-scores, samples, and interval estimates."
+      ],
+      [
+        "First identify whether a question concerns an individual value,",
+        "Use the values in each problem. Enter percentages as numbers, such as 68 for 68%."
+      ],
+      [
+        "A normal model is symmetric.",
+        "Use the Empirical Rule to estimate the percentages for these two distributions."
+      ],
+      [
+        "Use \\(z=(x-\\mu)/\\sigma\\)",
+        "Calculate the requested z-scores or original measurements."
+      ],
+      [
+        "Use estimate minus margin for the lower endpoint",
+        "For each estimate and margin, find the interval endpoints and interpret the result."
+      ],
+      [
+        "For comparable studies, E is approximately proportional",
+        "Explore how margin of error changes with sample size under comparable study conditions."
+      ]
+    ],
+    "5": [
+      [
+        "The arithmetic is deliberately manageable",
+        "Six investigations involve a thermostat, greenhouse, delayed readings, sensor measurements, and feedback."
+      ],
+      [
+        "Work in order. Each response receives its own numerical",
+        "Answers save automatically; check each section as you finish."
+      ],
+      [
+        "A classroom is at 64°F.",
+        "A classroom is at 64°F, and its thermostat is set to 70°F. Identify what measures, decides, and changes the temperature."
+      ],
+      [
+        "For the numerical greenhouse, use target 70°F",
+        "A greenhouse starts at 64°F and aims for 70°F. Its controller corrects half the reported error each hour. Use \\(x_0=64\\) and \\(k=0.5\\)."
+      ],
+      [
+        "Now use \\(x_{n+1}=x_n+0.5(70-x_{n-1})\\)",
+        "Use the delayed rule \\(x_{n+1}=x_n+0.5(70-x_{n-1})\\), starting from \\(x_{-1}=x_0=64\\). Each update uses the previous report."
+      ],
+      [
+        "Use your delayed values \\(x_3=x_4=71.5\\)",
+        "Continue from Part 3. Use \\(x_4\\) as the current state and \\(x_3\\) as the delayed report to find \\(x_5\\)."
+      ],
+      [
+        "Corrective feedback opposes a measured departure.",
+        "Classify each response: Does it correct a departure, amplify a change, or adjust its own rule?"
+      ]
+    ],
+    "6": [
+      [
+        "Use the given principal, interest rate",
+        "Use each principal, rate, and duration. Enter money without a dollar sign, and round final amounts to cents. Round interest each month in the loan table."
+      ],
+      [
+        "Use \\(A=P(1+rt)\\)",
+        "Use the interest rules from the reading or explorer. Enter percentage numbers when a field asks for a percentage."
+      ],
+      [
+        "Your numerical responses receive individual feedback.",
+        "Answers save automatically. Check each section as you finish."
+      ],
+      [
+        "Annual compounding uses one factor per year.",
+        "Compare annual and monthly compounding for the accounts below."
+      ],
+      [
+        "Use the Rule of 72:",
+        "Use the Rule of 72 to estimate the doubling times and rates below."
+      ],
+      [
+        "Round each month’s interest to cents, subtract the payment,",
+        "Calculate the monthly interest, subtract the payment, and carry the balance forward."
+      ]
+    ],
+    "7": [
+      [
+        "In each setting below, q counts the units",
+        "Each situation gives a fixed cost, cost per unit, and selling price. Assume all units produced are sold."
+      ],
+      [
+        "Use \\(C(q)=F+vq\\)",
+        "Build cost, revenue, and profit functions from each situation. The explorer can check your calculations."
+      ],
+      [
+        "Enter numbers without a dollar sign.",
+        "Enter dollar amounts without a dollar sign. Negative profit represents a loss. Answers save automatically."
+      ],
+      [
+        "Continue with the same craft-fair model,",
+        "For the craft-fair model \\(P(q)=4.5q-48\\), find when the seller stops losing money."
+      ],
+      [
+        "For the print shop from Part 1,",
+        "Return to the print shop in Part 1. What does selling one more poster add to cost, revenue, and profit?"
+      ]
+    ],
+    "8": [
+      [
+        "Keep the reading and both explorers available.",
+        "Five investigations explore convex sets, resource limits, feasible corners, and optimization."
+      ],
+      [
+        "A set is convex when the segment",
+        "Classify each shape by checking whether every segment between two points of the set stays inside."
+      ],
+      [
+        "Use the lab preset in the feasible-region explorer",
+        "Find all feasible corners using the given inequalities. Use the explorer to check if useful."
+      ],
+      [
+        "A different bounded polygon has vertices",
+        "A workshop has feasible corners (0,0), (6,0), (4,3), and (0,5). Compare \\(f=3x+2y\\) and \\(g=x+4y\\) at each corner."
+      ]
+    ],
+    "9": [
+      [
+        "Read the chapter first.",
+        "Explore the same seven-location network by counting neighbors, tracing paths, changing links, and following two spreading rules."
+      ],
+      [
+        "Use the adjacency table",
+        "Use the adjacency table in the reading to decide which locations have direct links."
+      ],
+      [
+        "A bridge is an edge whose removal",
+        "A bridge is a link whose removal separates a connected network. Remove D–E from the base network and examine the remaining paths."
+      ],
+      [
+        "E has three neighbors:",
+        "For location E, decide how many neighbors must be active to meet the adoption threshold."
+      ]
+    ],
+    "10": [
+      [
+        "Identify the rule, calculate, then interpret",
+        "Five investigations explore nearby starts, Collatz, fractal constructions, population models, and coastline measurements."
+      ],
+      [
+        "Each investigation supplies a starting point",
+        "Each part gives a rule and a question. Record the quantities requested."
+      ],
+      [
+        "In \\(a_{n+1}\\), the subscript",
+        "Step 0 is the starting value; each update gives the next value."
+      ],
+      [
+        "Use the same update on two possible starting",
+        "Compare how two nearby starting values change under the same rule."
+      ],
+      [
+        "Compare absolute and relative differences using",
+        "Calculate the absolute and relative gaps requested below."
+      ],
+      [
+        "Make two columns. Their first entries",
+        "Start at 10 and 10.1. Add 5 each step through step 5, then compare."
+      ],
+      [
+        "Start a new pair of columns at 1.00",
+        "Start at 1.00 and 1.01. Multiply each value by 3 for six steps, then compare."
+      ],
+      [
+        "Here the inputs are whole numbers.",
+        "Apply the even or odd rule at each step until the sequence reaches 1."
+      ],
+      [
+        "A construction stage means applying",
+        "For each Koch stage, count the pieces and find their total length."
+      ],
+      [
+        "Area measures the filled surface in square units.",
+        "The Sierpinski triangle keeps three of four equal smaller triangles at each stage. Find the area remaining."
+      ],
+      [
+        "For example, starting with 16 square units",
+        "Enter remaining area as a fraction or decimal, not a percentage."
+      ],
+      [
+        "Imagine a population expressed as a fraction",
+        "The state \\(x_n\\) is a fraction of a reference population. Use \\(x_{n+1}=rx_n(1-x_n)\\) to model one breeding season per update."
+      ],
+      [
+        "Read the formula as “next fraction",
+        ""
+      ],
+      [
+        "Use one column for each starting estimate.",
+        "Compare two starting fractions through ten updates. Find the first step where their difference exceeds 0.05."
+      ],
+      [
+        "In the explorer, set r to 3.8",
+        "Use the logistic explorer to check trajectories with \\(r=3.8\\), starts 0.40 and 0.41, and ten updates."
+      ],
+      [
+        "Picture a straight ruler laid end to end",
+        "Different ruler lengths give different estimates of the same coastline. Use the ruler length and placements to find each result."
+      ],
+      [
+        "Your responses save in this browser.",
+        "Enter your name and print or save your work when finished."
+      ]
+    ]
+  },
+  "ext": [
+    [
+      "The core lab introduced the geometry.",
+      "For each problem, build the constraints and objective, find the feasible corners, and compare the scores."
+    ],
+    [
+      "All quantities and prices",
+      "Assume the stated costs and rates remain fixed. Acres may be fractional; individual products require whole numbers."
+    ],
+    [
+      "Choosing the cheapest among three listed plans",
+      "Compare the three listed plans. Which is cheapest? Would that change if zero production were allowed?"
+    ]
+  ],
+  "titles": {
+    "3": [
+      [
+        "Center and spread together",
+        "Getting started"
+      ]
+    ],
+    "4": [
+      [
+        "Normal distributions and inference",
+        "Getting started"
+      ]
+    ],
+    "5": [
+      [
+        "Observe, compare, act, and observe again",
+        "Getting started"
+      ]
+    ],
+    "6": [
+      [
+        "Keep the rate, period, and balance together",
+        "Getting started"
+      ]
+    ],
+    "7": [
+      [
+        "Costs, revenue, and profit",
+        "Getting started"
+      ]
+    ],
+    "8": [
+      [
+        "Five investigations: translate, check, draw, compare",
+        "Getting started"
+      ]
+    ],
+    "9": [
+      [
+        "Seven investigations, with a reason behind every number",
+        "Getting started"
+      ]
+    ],
+    "10": [
+      [
+        "Five investigations, one careful habit",
+        "Getting started"
+      ],
+      [
+        "What kind of mathematics are we doing?",
+        "Following an update rule"
+      ]
+    ]
+  }
+}

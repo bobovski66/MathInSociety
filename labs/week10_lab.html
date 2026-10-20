@@ -7,8 +7,8 @@
 <title>Week 10 Laboratory — Investigate the rule. Explain the pattern. | Math in Society</title>
 <link rel="stylesheet" href="../assets/week10/week10.css">
 <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week10/week10.js"></script>
-</head>
-<body>
+<link rel="stylesheet" href="../assets/lab-focus.css"></head>
+<body class="lab-focus">
 <a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html">Reading</a><a href="../demos/fractal_recursion.html">Explorer</a><a href="../labs/week10_lab.html" aria-current="page">Laboratory</a><a href="../applications/week10_application.html">Fish forecast</a><a href="../applications/week10_ai.html">AI application</a><a href="../discussions/week10_discussion.html">Discussion</a></nav><main class="wrap" id="main" data-answer-store="math107_week10_lab_v3" data-legacy-store="math107_week10_lab_v2"><header class="hero"><div class="eyebrow">Week 10 / Laboratory</div>
 <h1>Investigate the rule. Explain the pattern.</h1>
 <p class="lead">Trace, calculate, and compare: a guided laboratory on nearby starts, Collatz, fractal scaling, logistic dynamics, and observation scale.</p>
@@ -23,17 +23,17 @@
 <div id="printName" class="print-name"></div>
 <p id="saveStatus" class="small save-status" role="status"></p>
 <div class="card">
-<h2>Five investigations, one careful habit</h2>
-<p>Identify the rule, calculate, then interpret what the calculation shows. Read the <a href="../readings/week10_reading.html">Week 10 reading</a> first and keep the <a href="../demos/fractal_recursion.html">explorer</a> available for checking longer trajectories.</p>
+<h2>Getting started</h2>
+<p>Five investigations explore nearby starts, Collatz, fractal constructions, population models, and coastline measurements.</p>
 <ul>
 <li>The start is step 0. After five updates, you have six recorded values.</li>
 <li>Use the calculator’s stored value between updates. Round only the reported answer.</li>
 <li>Fractions such as <code>81/256</code> are accepted in numerical fields. For percentages, enter the number requested by the question.</li>
 </ul>
 <p class="small">Check each section after entering your answers. Changes can be rechecked.</p>
-<h3>What kind of mathematics are we doing?</h3>
-<p>Each investigation supplies a starting point and a rule. Follow it and report the quantities requested.</p>
-<p>In \(a_{n+1}\), the subscript \(n+1\) means “at the next step.” The rule’s right-hand side tells you how to calculate that new value. A word such as “peak,” “area,” or “gap” tells you which feature of the resulting numbers to report.</p>
+<h3>Following an update rule</h3>
+<p>Each part gives a rule and a question. Record the quantities requested.</p>
+<p>Step 0 is the starting value; each update gives the next value.</p>
 </div>
 <div class="progress no-print">
 <span id="progressText">0 / 5 sections checked</span><div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
@@ -41,11 +41,11 @@
 <section class="card lab-part" data-check-group="1" id="part1"><div class="kicker">Part 1 / Nearby starts</div>
 <h2>Which difference are you tracking?</h2>
 <p>The absolute difference is the distance between two values. The relative difference divides that distance by the magnitude of the first value.</p>
-<p>Use the same update on two possible starting measurements, as we did with balance and temperature sequences in earlier weeks. Comparing their values at the same step tells us how the initial disagreement changes.</p>
-<p>Compare absolute and relative differences using the values in each question.</p>
+<p>Compare how two nearby starting values change under the same rule.</p>
+<p>Calculate the absolute and relative gaps requested below.</p>
 
 <h3>A. Add 5 at every update</h3>
-<p>Make two columns. Their first entries, at step 0, are 10 and 10.1. Add 5 to each entry to create the next row. Continue until row 5. Then compare the two entries in that row.</p>
+<p>Start at 10 and 10.1. Add 5 each step through step 5, then compare.</p>
 <p>Use \(a_{n+1}=a_n+5\), starting once from 10 and once from 10.1.</p>
 <div class="grid">
 <div class="question">
@@ -59,7 +59,7 @@
 <label for="p1c">Absolute difference after those 5 updates</label><input id="p1c" type="text" inputmode="decimal" autocomplete="off" data-answer="0.1" data-tolerance="0.0001" data-hint="Subtract the smaller final value from the larger." data-success="Correct." aria-describedby="p1c-feedback"><span class="field-feedback" id="p1c-feedback" aria-live="polite"></span>
 </div>
 <h3>B. Multiply by 3 at every update</h3>
-<p>Start a new pair of columns at 1.00 and 1.01. Multiply each entry by 3 to create the next row. The notation \(3^6\) means six factors of 3; it gives the common multiplier after six updates. To find the relative difference, divide the final gap by the final value in the first column.</p>
+<p>Start at 1.00 and 1.01. Multiply each value by 3 for six steps, then compare.</p>
 <p>Use \(a_{n+1}=3a_n\), starting once from 1.00 and once from 1.01. Work through six updates.</p>
 <div class="question">
 <label for="p1d">Absolute difference after 6 updates</label><input id="p1d" type="text" inputmode="decimal" autocomplete="off" data-answer="7.29" data-tolerance="0.001" data-hint="The initial absolute gap 0.01 is multiplied by 3 six times." data-success="Correct." aria-describedby="p1d-feedback"><span class="field-feedback" id="p1d-feedback" aria-live="polite"></span>
@@ -75,7 +75,7 @@
 <section class="card lab-part" data-check-group="2" id="part2"><div class="kicker">Part 2 / Collatz</div>
 <h2>Count arrows. Record the peak.</h2>
 <p>Even values are divided by 2; odd values are multiplied by 3 and then increased by 1. Stop at the first 1. The peak includes the starting value and all values up to that first 1.</p>
-<p>Here the inputs are whole numbers. An even number is divisible by 2 without a remainder; an odd number is not. Recheck that property at every new value, because it chooses the next instruction.</p>
+<p>Apply the even or odd rule at each step until the sequence reaches 1.</p>
 
 
 <p>Now trace the complete routes from 6 and 7. You can use the explorer to check each even/odd decision.</p>
@@ -109,7 +109,7 @@
 <p class="section-feedback" role="status"></p></section>
 <section class="card lab-part" data-check-group="3" id="part3"><div class="kicker">Part 3 / Fractal accounting</div>
 <h2>More pieces does not always mean more area</h2>
-<p>A construction stage means applying a replacement instruction to every current piece of a drawing. Stage 0 is the original shape. We count pieces and measure their sizes separately, just as a packet count and the size of each packet together determine a total.</p>
+<p>For each Koch stage, count the pieces and find their total length.</p>
 <figure class="figure"><img src="../assets/week10/koch-stages.svg" alt="Koch stages 0 to 3 show increasing segment counts and total length." loading="lazy"><figcaption>For this investigation, the original Koch segment has length 1. Each replacement multiplies the segment count by 4 and total length by 4/3.</figcaption></figure>
 
 <div class="grid">
@@ -136,8 +136,8 @@
 <label for="p3g">Ratio: Koch total length at one stage divided by total length at the previous stage (fraction or 4 decimals)</label><input id="p3g" type="text" inputmode="decimal" autocomplete="off" data-answer="1.3333333333333333" data-tolerance="0.0001" data-hint="Four new pieces each have one-third the old length." data-success="Correct." aria-describedby="p3g-feedback"><span class="field-feedback" id="p3g-feedback" aria-live="polite"></span>
 </div>
 <h3>Sierpinski area</h3>
-<p>Area measures the filled surface in square units. Splitting a triangle into four congruent smaller triangles gives each one one-quarter of the parent’s area. Keeping three of them leaves three quarters. Repeating that removal multiplies the <em>remaining</em> area by 3/4 again; it does not subtract a fixed quarter of the original area each time.</p>
-<p>For example, starting with 16 square units leaves 12 after one stage and 9 after two. A fraction of 0.5625 means 56.25% of the original area. The responses below ask for a fraction or decimal, so enter <code>0.5625</code>, rather than <code>56.25</code>, for that example.</p>
+<p>The Sierpinski triangle keeps three of four equal smaller triangles at each stage. Find the area remaining.</p>
+<p>Enter remaining area as a fraction or decimal, not a percentage.</p>
 <p>The initial area is 1. Each stage keeps three quarters of the previous area.</p>
 <div class="grid">
 <div class="question">
@@ -157,8 +157,8 @@
 <p class="section-feedback" role="status"></p></section>
 <section class="card lab-part" data-check-group="4" id="part4"><div class="kicker">Part 4 / The logistic map</div>
 <h2>First an update; then a long-run pattern</h2>
-<p>Imagine a population expressed as a fraction of a chosen reference population. Then \(x=0.2\) means 20% of that reference, and \(1-x=0.8\) is the limiting factor used by the model. One update represents a breeding season. The letter \(r\) is a fixed response setting; it is not itself a percentage growth rate.</p>
-<p>Read the formula as “next fraction = setting × current fraction × limiting factor.” This is the same input-output idea as the feedback sequences in Week 5, with a different rule.</p>
+<p>The state \(x_n\) is a fraction of a reference population. Use \(x_{n+1}=rx_n(1-x_n)\) to model one breeding season per update.</p>
+
 <div class="formula">\(x_{n+1}=r x_n(1-x_n)\)</div>
 
 <h3>A. Use r = 2.8 and x₀ = 0.2</h3>
@@ -182,8 +182,8 @@
 <option value="zero">It becomes zero immediately.</option></select><span class="field-feedback" id="p4d-feedback" aria-live="polite"></span>
 </div>
 <h3>B. Use r = 3.8 with starts 0.40 and 0.41</h3>
-<p>Use one column for each starting estimate. At every row, subtract the smaller value from the larger to get the absolute gap. The bars in \(|x_n-y_n|\) mean that nonnegative difference. “Exceeds 0.05” means greater than 0.05, so an exact gap of 0.05 would not count.</p>
-<p>In the explorer, set r to 3.8, starting state A to 0.40, initial gap to 0.01, and updates to 10. The first-gap readout uses exactly this cutoff of 0.05. Inspect the table to see why that row is the first one above the cutoff.</p>
+<p>Compare two starting fractions through ten updates. Find the first step where their difference exceeds 0.05.</p>
+<p>Use the logistic explorer to check trajectories with \(r=3.8\), starts 0.40 and 0.41, and ten updates.</p>
 <p>Calculate both trajectories with full stored precision. Compare \(|x_n-y_n|\) at each update, including the initial gap at step 0.</p>
 <div class="question">
 <label for="p4e">First update number at which the absolute gap exceeds 0.05</label><input id="p4e" type="text" inputmode="decimal" autocomplete="off" data-answer="4" data-tolerance="0" data-hint="At steps 1, 2, and 3 the gaps are about .007220, .022805, and .035779. Continue one more update." data-success="Correct." aria-describedby="p4e-feedback"><span class="field-feedback" id="p4e-feedback" aria-live="polite"></span>
@@ -199,7 +199,7 @@
 <section class="card lab-part" data-check-group="5" id="part5"><div class="kicker">Part 5 / Measuring at a scale</div>
 <h2>The ruler is part of the report</h2>
 <p>For each row in this invented survey, use:</p>
-<p>Picture a straight ruler laid end to end along a shoreline on a map. Its length tells how much each placement contributes; the placement count tells how many such pieces were used. Shorter rulers can follow turns that longer rulers bridge across.</p>
+<p>Different ruler lengths give different estimates of the same coastline. Use the ruler length and placements to find each result.</p>
 <div class="formula">measured length = ruler length × placements</div>
 <div class="table-wrap"><table>
 <thead><tr>
@@ -256,7 +256,7 @@
 <p class="section-feedback" role="status"></p></section>
 <div class="card no-print">
 <h2>Keep a copy of your work</h2>
-<p>Your responses save in this browser. To submit them, enter your name above, choose <em>Print completed work / Save PDF</em>, and use the browser’s printer or PDF option. Follow the submission instructions in Canvas.</p>
+<p>Enter your name and print or save your work when finished.</p>
 <button type="button" data-print-work>Print completed work / Save PDF</button>
 </div>
 <div class="next">
