@@ -141,3 +141,6 @@ practice=(ROOT/'scripts/week2_chapter_practice.tex').read_text()
 references=solutions.pop()
 write('readings/Math107_Chapter_02.tex',preamble+cover+''.join(reading)+references+extras+practice+''.join(solutions)+'\n\\end{document}\n')
 os.sync();print('Built Chapter 2:',len(checks),'short checks and all 26 original exercise/review groups with complete solutions.')
+
+from chapter_editorial import polish_generated_chapters
+polish_generated_chapters([ROOT / "readings/Math107_Chapter_02.tex"])

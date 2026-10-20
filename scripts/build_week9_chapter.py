@@ -197,3 +197,6 @@ if __name__=='__main__':
  out=ROOT/'readings/Math107_Chapter_09_Networks.tex'
  out.write_text('\n'.join(line.rstrip() for line in ''.join(parts).splitlines())+'\n')
  print('Built standalone chapter source with',len(checks),'short checks and 15 review problems.')
+
+from chapter_editorial import polish_generated_chapters
+polish_generated_chapters([ROOT / "readings/Math107_Chapter_09_Networks.tex"])

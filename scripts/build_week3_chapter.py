@@ -182,3 +182,6 @@ write('readings/chapter3/part3.tex', ''.join(converted[8:]) + '\n' + practice + 
 write('readings/Math107_Chapter_03.tex', preamble + cover)
 os.sync()
 print('Built Chapter 3:', len(checks), 'short checks; all 24 original practice/review groups plus four new groups, with complete solutions.')
+
+from chapter_editorial import polish_generated_chapters
+polish_generated_chapters([ROOT / "readings/Math107_Chapter_03.tex"])

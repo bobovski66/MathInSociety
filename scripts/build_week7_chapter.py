@@ -133,3 +133,6 @@ parts.append('\n\\clearpage\n'+answers)
 target=ROOT/'readings/Math107_Chapter_07.tex';temp=target.with_suffix('.tmp')
 with temp.open('w') as f:f.write('\n'.join(line.rstrip() for line in ''.join(parts).replace('−',r'\ensuremath{-}').splitlines())+'\n');f.flush();os.fsync(f.fileno())
 os.replace(temp,target);os.sync();print('Built standalone chapter with',len(checks),'short checks and 16 review problems with solutions.')
+
+from chapter_editorial import polish_generated_chapters
+polish_generated_chapters([ROOT / "readings/Math107_Chapter_07.tex"])

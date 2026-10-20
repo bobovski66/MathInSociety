@@ -247,3 +247,6 @@ if __name__=='__main__':
   chunks.extend([review,'\n\\clearpage\n{\\setlength{\\parskip}{4pt}\\setlist{itemsep=4pt,topsep=3pt}\\titlespacing*{\\paragraph}{0pt}{5pt}{.75em}\n\\section*{Solutions and Reasoning}\n'])
   for i,(_,answer) in enumerate(checks,1):chunks.append('\n\\paragraph{Short check '+str(i)+'.} '+answer)
   chunks.append('\n'+answers);out=ROOT/'readings'/filename;out.write_text('\n'.join(line.rstrip() for line in ''.join(chunks).splitlines())+'\n');print('Built Part',part,'with',len(checks),'short checks:',out.name)
+
+from chapter_editorial import polish_generated_chapters
+polish_generated_chapters([ROOT / "readings/Math107_Chapter_08.tex", ROOT / "readings/Math107_Chapter_09.tex"])

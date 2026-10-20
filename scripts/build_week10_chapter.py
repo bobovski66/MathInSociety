@@ -142,3 +142,6 @@ if __name__=='__main__':
  parts.append('\n'+review_answers)
  (ROOT/'readings/Math107_Chapter_10.tex').write_text('\n'.join(line.rstrip() for line in ''.join(parts).splitlines())+'\n')
  print('Built complete LaTeX source with',len(checks),'short checks.')
+
+from chapter_editorial import polish_generated_chapters
+polish_generated_chapters([ROOT / "readings/Math107_Chapter_10.tex"])

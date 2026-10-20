@@ -132,3 +132,6 @@ solutions.append(group('R','Chapter 1 review',[
 practice=(ROOT/'scripts/week1_chapter_practice.tex').read_text()
 write('readings/Math107_Chapter_01.tex',preamble+cover+''.join(reading)+extras+practice+''.join(solutions)+'\n\\end{document}\n')
 os.sync();print('Built Chapter 1:',len(checks),'short checks and all 28 original exercise/review groups with solutions.')
+
+from chapter_editorial import polish_generated_chapters
+polish_generated_chapters([ROOT / "readings/Math107_Chapter_01.tex"])
