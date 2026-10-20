@@ -1,0 +1,67 @@
+name: Build Math 107 Illustrated Chapters
+on:
+  push:
+    paths:
+      - "readings/week*_reading.html"
+      - "scripts/build_week*_chapter*.py"
+      - "scripts/chapter_editorial.py"
+      - ".github/workflows/build-all-math107-chapters.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: math107-all-chapters
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install HTML conversion dependency
+        run: python -m pip install lxml
+      - name: Check Python chapter scripts
+        run: python -m py_compile scripts/chapter_editorial.py scripts/build_week*_chapter*.py
+      - name: Regenerate chapter LaTeX sources
+        run: |
+          for n in 1 2 3 4 5 6 7 8 9 10; do
+            if [ "$n" = 8 ]; then
+              python scripts/build_week8_chapters.py
+            else
+              python "scripts/build_week${n}_chapter.py"
+            fi
+          done
+      - name: Compile all chapter PDFs
+        uses: xu-cheng/latex-action@v4
+        with:
+          working_directory: readings
+          root_file: |
+            Math107_Chapter_01.tex
+            Math107_Chapter_02.tex
+            Math107_Chapter_03.tex
+            Math107_Chapter_04.tex
+            Math107_Chapter_05.tex
+            Math107_Chapter_06.tex
+            Math107_Chapter_07.tex
+            Math107_Chapter_08.tex
+            Math107_Chapter_09.tex
+            Math107_Chapter_09_Networks.tex
+            Math107_Chapter_10.tex
+          args: -pdf -interaction=nonstopmode -halt-on-error
+      - name: Verify PDF files
+        run: |
+          for f in readings/Math107_Chapter_{01,02,03,04,05,06,07,08,09,09_Networks,10}.pdf; do
+            test -s "$f" || exit 1
+          done
+      - name: Commit revised chapters
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add readings/Math107_Chapter_*.tex readings/Math107_Chapter_*.pdf readings/chapter3/*.tex
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Regenerate taught Math 107 chapter PDFs"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
