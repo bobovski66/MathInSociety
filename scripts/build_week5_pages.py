@@ -5,7 +5,10 @@ import json,os
 from build_discussions import build_discussion, discussion_entry
 ROOT=Path(__file__).resolve().parents[1]
 NAV=[('Reading','readings/week5_reading.html'),('Explorer','demos/cybernetics.html'),('Laboratory','labs/week5_lab.html'),('Greenhouse','applications/week5_application.html'),('Learning','applications/week5_ai.html'),('Discussion','discussions/week5_discussion.html'),('History','information_cybernetics_timeline.html')]
+from activity_editorial import streamline_activity_html
+
 def write(path,text):
+ text=streamline_activity_html(str(path),text)
  p=ROOT/path;t=p.with_suffix(p.suffix+'.tmp')
  with t.open('w') as f:f.write(text);f.flush();os.fsync(f.fileno())
  os.replace(t,p)

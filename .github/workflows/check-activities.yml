@@ -1,0 +1,28 @@
+name: Verify Math 107 labs and demos
+on:
+  push:
+    paths:
+      - "labs/**"
+      - "demos/**"
+      - "assets/week*/week*.js"
+      - "scripts/activity_editorial.py"
+      - "scripts/build_week*_pages.py"
+      - ".github/workflows/check-activities.yml"
+  workflow_dispatch:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Python HTML parser
+        run: python -m pip install lxml
+      - name: Check pages and saved answer contracts
+        run: |
+          for w in $(seq 1 10); do
+            python scripts/verify_week${w}.py
+          done
+      - name: Test mathematical models and page interactions
+        run: |
+          for w in $(seq 1 10); do
+            node scripts/test_week${w}.js
+          done
