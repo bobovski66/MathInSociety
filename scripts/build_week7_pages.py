@@ -7,8 +7,11 @@ ROOT=Path(__file__).resolve().parents[1]
 NAV=[('Reading','readings/week7_reading.html'),('Explorer','demos/business_models.html'),('Laboratory','labs/week7_lab.html'),('Food stand','applications/week7_application.html'),('AI service','applications/week7_ai.html'),('Discussion','discussions/week7_discussion.html')]
 from activity_editorial import streamline_activity_html
 
+from reading_editorial import streamline_reading_html
+
 def write(path,text):
  text=streamline_activity_html(str(path),text)
+ text=streamline_reading_html(str(path),text)
  p=ROOT/path;t=p.with_suffix(p.suffix+'.tmp')
  with t.open('w') as f:f.write(text);f.flush();os.fsync(f.fileno())
  os.replace(t,p)
