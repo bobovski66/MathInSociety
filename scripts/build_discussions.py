@@ -14,11 +14,11 @@ ROOT = Path(__file__).resolve().parents[1]
 DISCUSSIONS = {
     1: {
         "title": "A small change, repeated",
-        "lead": "What can a few repeated changes tell you about something you do?",
+        "lead": "Where do repeated changes appear in everyday life?",
         "tags": ["Numbers", "Repeated changes"],
         "intro": [
-            "Someone practices for 10 minutes on Monday, then adds 5 minutes each day. The next three practice times are 15, 20, and 25 minutes. One small change has made a pattern.",
-            "We use patterns like this when we plan, count, save, or practice. The numbers mean more when we know what they describe.",
+            "Someone practices for 10 minutes on Monday, then adds 5 minutes each day. The next three practice times are 15, 20, and 25 minutes. The practice times form the sequence 10, 15, 20, 25.",
+            "We see sequences like this in savings, game scores, and everyday routines.",
         ],
         "choose": "Choose a number you might keep track of: minutes of practice, items collected, points in a game, or something else that matters to you. A real or made-up example is fine.",
         "questions": [
@@ -288,9 +288,9 @@ def build_discussion(week):
 <body><a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header>
 <nav class="unit-nav" aria-label="Week {week} materials">{nav}</nav>
 <main class="wrap" id="main"><header class="hero"><div class="eyebrow">Week {week} / Discussion</div><h1>{escape(item['title'])}</h1><p class="lead">{escape(item['lead'])}</p><div class="meta">{tags}</div></header>
-<section class="card"><h2>Start with something familiar</h2>{paragraphs}</section>
-<section class="card" id="your-post"><h2>Your post</h2><p>{escape(item['choose'])}</p><p>Use your own example and answer all the numbered questions. Post your response in Canvas.</p><ol class="tasks">{questions}</ol></section>
-<section class="card" id="replies"><h2>Reply to a classmate</h2><p>Read a classmate’s example. Ask a question, suggest a small change, or connect their example to something you have noticed. Give them something to respond to.</p><p>You might start with:</p><ul>{replies}</ul><p>Explain a little of your thinking so your classmate can build on it.</p></section>
+<section class="card"><h2>An example</h2>{paragraphs}</section>
+<section class="card" id="your-post"><h2>Your post</h2><p>{escape(item['choose'])}</p><p>Answer the four questions using your example, then post your response in Canvas.</p><ol class="tasks">{questions}</ol></section>
+<section class="card" id="replies"><h2>Reply to a classmate</h2><p>Read a classmate's example and respond with a question, a suggestion, or a connection to your own experience.</p><p>You might start with:</p><ul>{replies}</ul><p>Include a sentence explaining your question or suggestion.</p></section>
 <div class="actions no-print"><button type="button" data-print-page>Print this discussion prompt</button></div>
 <div class="next">{previous}{following}</div>
 <footer class="footer"><span>MATH&amp; 107 · Week {week} · Discussion</span><a href="../{info['reading'][0]['url']}">Return to the Week {week} reading ↗</a></footer></main></body></html>

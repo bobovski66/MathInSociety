@@ -1,0 +1,31 @@
+name: Build Math 107 Chapter 1
+on:
+  push:
+    paths:
+      - "readings/Math107_Chapter_01.tex"
+      - "assets/week1/*.pdf"
+      - ".github/workflows/build-chapter1.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Compile Chapter 1
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: Math107_Chapter_01.tex
+          working_directory: readings
+          args: -pdf -interaction=nonstopmode -halt-on-error
+      - name: Commit updated chapter PDF
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add readings/Math107_Chapter_01.pdf
+          git diff --cached --quiet || git commit -m "Build revised Math 107 Chapter 1 PDF"
+          git push
