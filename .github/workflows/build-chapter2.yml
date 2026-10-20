@@ -18,6 +18,10 @@ jobs:
           fetch-depth: 0
       - name: Install HTML conversion dependency
         run: python -m pip install lxml
+      - name: Verify Week 2 HTML and saved response contracts
+        run: python scripts/verify_week2.py
+      - name: Test Week 2 mathematics and interactions
+        run: node scripts/test_week2.js
       - name: Regenerate Chapter 2 LaTeX from revised reading
         run: python scripts/build_week2_chapter.py
       - name: Compile Chapter 2 PDF
