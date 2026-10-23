@@ -45,6 +45,14 @@
       [
         "Use the laboratory to classify numbers,",
         "Practice these ideas by classifying numbers, tracing signed changes, comparing fractions, and calculating recursive sequences. The examples in the text provide the methods needed for those problems."
+      ],
+      [
+        "“12” could mean 12 minutes, 12 dollars, or the label on a storage bin. Adding tw",
+        "“12” could mean 12 minutes, 12 dollars, or the label on a storage bin. Adding two waiting times can make sense. A bin number identifies the bin, while a measurement describes its contents."
+      ],
+      [
+        "Next week we will use fractions to describe probabilities. Later, we will revisi",
+        "Fractions can also describe probabilities, and recursive rules appear in feedback systems. These ideas recur throughout the course."
       ]
     ]
   },
@@ -94,6 +102,18 @@
       [
         "When interpreting a distribution, consider what was measured,",
         "A distribution is useful only with a clearly specified group and outcome. A statement about the 25 respondents is exact for those responses; extending the same percentage to an entire college requires a sampling argument. Knowing what was counted is as important as doing the division."
+      ],
+      [
+        "Numbers can be answers too. For the pet counts 0, 1, 1, 2, 0, 1, the frequencies",
+        "Numbers can be answers too. For the pet counts 0, 1, 1, 2, 0, 1, the frequencies are 2 for zero pets, 3 for one pet, and 1 for two pets. Zero pets is a valid count that belongs in the frequency table."
+      ],
+      [
+        "A sample provides observations about a group, while a probability model assigns ",
+        "A sample provides observations about a group, while a probability model assigns chances to possible outcomes. Both use shares of a whole, but the denominator and its interpretation differ. The examples use survey data and simple probability models to show how each is calculated and interpreted."
+      ],
+      [
+        "The exact fractions add to 1 because all 25 answers are included once. Rounded d",
+        "The exact fractions add to 1 because all 25 answers are included once. Rounding to three decimal places may give a displayed total such as 0.999. For exact calculations, use the fractions before rounding. If the sample has no observations, there is no relative frequency to calculate: division by zero does not give a share."
       ]
     ]
   },
@@ -139,6 +159,18 @@
       [
         "Continue with the week's activities",
         "Use the center-and-spread explorer to change individual observations and see which statistics respond. In the laboratory, calculate the same summaries directly from the provided data."
+      ],
+      [
+        "One route to work takes 24, 25, and 26 minutes. Another takes 15, 25, and 35 min",
+        "One route to work takes 24, 25, and 26 minutes. Another takes 15, 25, and 35 minutes. Both average 25 minutes. The second route varies more, with trips taking as long as 35 minutes. If arriving on time matters, you will want to know about that variation."
+      ],
+      [
+        "For 2, 3, 3, 5, and 7 hours, the total is 20 and the mean is 20 ÷ 5 = 4 hours. N",
+        "For 2, 3, 3, 5, and 7 hours, the total is 20 and the mean is 20 ÷ 5 = 4 hours. The mean of 4 hours describes the group as a whole, even though none of the observations equals 4."
+      ],
+      [
+        "The range uses only the two extreme observations. It does not tell you where the",
+        "The range measures the distance between the smallest and largest observations. The graph shows how the other values are distributed. Two lists can therefore have the same mean and the same range while distributing their observations differently."
       ]
     ]
   },
@@ -179,6 +211,18 @@
       [
         "Week 5 uses measurements to choose actions",
         "A measurement used to control a process can be noisy even when the process itself is stable. The distinction between individual variation and uncertainty about a population quantity will matter when we study feedback."
+      ],
+      [
+        "If we observed 1,000 deliveries from this model, about 950 would fall between 22",
+        "If we observed 1,000 deliveries from this model, about 950 would fall between 22 and 38 minutes on average. An observed collection may contain somewhat more or fewer than 950. The rule describes a model proportion, not a guarantee about a finite count."
+      ],
+      [
+        "The rule does not directly give a percentage for every boundary. For example, a ",
+        "The Empirical Rule gives approximate percentages at one, two, and three standard deviations. For example, a cutoff 1.9 standard deviations above the mean is between the one- and two-standard-deviation marks. The Empirical Rule alone does not supply its exact upper-tail probability."
+      ],
+      [
+        "With mean 70 and standard deviation 10, a value of 85 has \\(z=(85-70)/10=1.5\\). ",
+        "With mean 70 and standard deviation 10, a value of 85 has \\(z=(85-70)/10=1.5\\). A value at z = −2 is \\(x=70+(-2)(10)=50\\). A negative z-score means the observation is below the mean, even when the original measurement is positive."
       ]
     ]
   },
@@ -231,6 +275,18 @@
       [
         "The illustrated history preserves a broad cast:",
         "The history of cybernetics includes work on communication, feedback, computing, and the social consequences of observation. The <a href=\"../information_cybernetics_timeline.html\">timeline</a> includes Margaret Mead, Janet Freed, Rózsa Péter, F. Jessie MacWilliams, Vera Pless, Wiener, Shannon, and many others. Their problems differed, but the relationship between information and action connects them."
+      ],
+      [
+        "For our greenhouse, let \\(x_n\\) mean temperature in degrees Fahrenheit at step \\",
+        "For our greenhouse, let \\(x_n\\) mean temperature in degrees Fahrenheit at step \\(n\\). We will treat each step as one hour. Thus \\(x_0=64\\) is the starting temperature, \\(x_1\\) is the temperature after one update, and \\(x_2\\) is the temperature after two updates. The subscript labels the time step, with each successive subscript marking another update."
+      ],
+      [
+        "The reported error is 70 − 70 = 0, so the correction is 0 and the next temperatu",
+        "The reported error is 70 − 70 = 0, so the correction is 0 and the next temperature remains 71.5°F. A zero reported error means the older measurement matched the target, even though the current temperature is 71.5°F."
+      ],
+      [
+        "Put step number on the horizontal axis and temperature on the vertical axis. Eac",
+        "Put step number on the horizontal axis and temperature on the vertical axis. Each dot is a calculated state; connecting segments help your eye follow the sequence. The line segments provide a visual guide between the hourly measurements. The dashed horizontal line marks 70°F."
       ]
     ]
   },
@@ -292,6 +348,18 @@
       [
         "With no other inventory value or costs, a revised model uses two counts:",
         "When production and sales differ, let \\(n\\) be candles made and \\(s\\) candles sold, with \\(0\\le s\\le n\\). Profit becomes \\(P=10s-4n-180\\), reflecting both quantities."
+      ],
+      [
+        "C(q)=250+1.5q. At 100 loaves, cost is 250+150=$400. The $250 is not multiplied b",
+        "C(q)=250+1.5q. At 100 loaves, cost is 250+150=$400. The $250 remains a fixed cost as the number of loaves changes."
+      ],
+      [
+        "At 20 candles, money still comes in: revenue is $200. The loss of $60 means that",
+        "At 20 candles, money still comes in: revenue is $200. The loss of $60 means that revenue falls $60 short of the $260 cost. Customers paid $200, while the modeled costs were $260. At 40 candles, the $60 profit is what remains after the modeled costs."
+      ],
+      [
+        "Below the profit graph’s horizontal zero line are losses; above it are positive ",
+        "Below the profit graph’s horizontal zero line are losses; above it are positive profits. A rising profit graph shows improvement. Profit becomes positive after the graph crosses the horizontal zero line. From 0 to 20 candles, the loss shrinks, but the profit remains negative."
       ]
     ]
   },
@@ -325,6 +393,14 @@
       [
         "For geometry, we first allow nonnegative real values",
         "For the geometry, fractional pack quantities are initially allowed. Actual snack packs must be whole. A final decision must therefore satisfy both the resource constraints and the whole-number requirement."
+      ],
+      [
+        "The last two constraints forbid negative production. A plan is feasible if it sa",
+        "The last two constraints forbid negative production. A plan is <em>feasible</em> if it satisfies <em>every</em> constraint. Every resource limit must be satisfied at the same time."
+      ],
+      [
+        "Packing uses 6+1 = 7 ≤ 8, but ingredients use 2(6)+1 = 13 > 12. It is not feasib",
+        "Packing uses 6+1 = 7 ≤ 8, but ingredients use 2(6)+1 = 13 > 12. It is not feasible. A feasible plan must satisfy both resource limits."
       ]
     ]
   },
@@ -367,6 +443,18 @@
       [
         "A link failure and a location failure are different tests",
         "Removing a link disables one connection. Removing a location also removes every link attached to it. These changes may disconnect different portions of the network."
+      ],
+      [
+        "We can record the same network with an edge list : AB, AC, BC, BD, CD, DE, EF, E",
+        "We can record the same network with an <em>edge list</em>: AB, AC, BC, BD, CD, DE, EF, EG, FG. “AB” is shorthand for the connection joining A and B. Because the links work both ways, AB and BA describe the same edge, counted once."
+      ],
+      [
+        "A density of 1 means every pair has a direct link. A density of 0 means no links",
+        "A density of 1 means every pair has a direct link. A density of 0 means no links exist. Adding a new link to our example raises density to \\(10/21\\approx0.476\\). The location of the new link matters: a new link inside one region and a new link between regions increase the count equally but can have different effects on reliability."
+      ],
+      [
+        "Another shortest route is \\(A\\to C\\to D\\to E\\to G\\), also length 4. There need n",
+        "Another shortest route is \\(A\\to C\\to D\\to E\\to G\\), also length 4. Several routes can share the same shortest length. A route that names A–D–G is invalid: neither AD nor DG exists in the original network."
       ]
     ]
   },
@@ -414,6 +502,18 @@
       [
         "For a few updates, calculate directly.",
         "For the first few updates, substitute the current value into the rule. For longer sequences, use the explorer's table. Keep full precision during the updates so that rounding does not change the modeled trajectory."
+      ],
+      [
+        "Imagine two measurements of the same starting quantity: 10 and 10.1. Rather than",
+        "Imagine two measurements of the same starting quantity: 10 and 10.1. Applying the same rule to both measurements produces two forecast sequences to compare. This gives two possible forecasts. We then ask how far apart their predictions are at the same update number."
+      ],
+      [
+        "“The difference gets bigger” does not yet tell us what kind of behavior we have.",
+        "To describe this behavior, specify which difference is growing and over how many updates. We need to say which difference we mean."
+      ],
+      [
+        "The subscript in \\(a_0\\) labels the starting value; it does not mean “multiply \\",
+        "The subscript in \\(a_0\\) identifies the starting value. Similarly, the \\(n+1\\) in the subscript labels the next step. The amount added to the current value is the 5 on the right side."
       ]
     ]
   }
