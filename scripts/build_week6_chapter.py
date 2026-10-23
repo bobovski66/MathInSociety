@@ -17,7 +17,7 @@ cover=r'''
 \begin{tcolorbox}[title={The setting for the week}]
 A \$2,000 balance can grow through fixed dollar additions or a percentage of its current amount. A loan combines percentage growth with payments that subtract from the debt. Tables and graphs make the differences visible.
 \end{tcolorbox}
-This chapter develops the meaning of percentages, period rates, and repeated updates before using formulas. It distinguishes an ending balance from interest earned, a scheduled payment from principal reduction, and a simulation's stopping month from an actual payoff.
+We will calculate how a balance changes over time, beginning with percentages and one-period updates. Then we will compare simple and compound interest and trace a loan through its monthly payments.
 
 The core work uses arithmetic, powers, and simple equations. Try each short check before consulting its explanation. The review includes complete solutions and optional investigations of rounding and modeling assumptions.
 
@@ -42,13 +42,13 @@ Regular payment & Payoff month & Total paid & Total interest\\\midrule
 This table keeps full internal precision and rounds displayed money to cents. The actual final payments are approximately \$17.89 and \$93.42. The larger scheduled payment saves 59 months and about \$4,604.46 of interest when the difference is calculated before display rounding. Subtracting the displayed rounded interest totals gives a one-cent difference.
 
 \begin{center}\includegraphics[width=\linewidth]{../assets/week6/card-repayment.pdf}\end{center}
-The comparison describes the consequences of two stated schedules. Monthly affordability requires information beyond these model inputs. The \href{https://www.consumerfinance.gov/ask-cfpb/how-does-my-credit-card-company-calculate-the-amount-of-interest-i-owe-en-51/}{CFPB's explanation of actual interest calculations} also describes why a real card's daily-balance method can differ from our simplified monthly model.
+The figures compare payoff time and total interest for two specified monthly payments. Whether a payment is affordable depends on the borrower's monthly budget and other expenses. The \href{https://www.consumerfinance.gov/ask-cfpb/how-does-my-credit-card-company-calculate-the-amount-of-interest-i-owe-en-51/}{CFPB's explanation of actual interest calculations} also describes why a real card's daily-balance method can differ from our simplified monthly model.
 
 \clearpage
 \subsection*{A resource index can follow the same growth mathematics}
 An invented computing-capacity index begins at 100 units. One plan adds 25 units each year: $A_k=100+25k$. A second grows by 25\%: $B_k=100(1.25)^k$.
 
-Both give 125 after one year. After two, the additive plan gives 150 but percentage growth gives 156.25. Its second increase is 31.25 because it acts on the updated base 125. These are resource-index values, not counts of whole machines or measurements of intelligence.
+Both give 125 after one year. After two, the additive plan gives 150 but percentage growth gives 156.25. Its second increase is 31.25 because it acts on the updated base 125. These values measure a hypothetical capacity index, with learning and performance considered separately.
 
 Suppose a third plan grows by 25\% until a ceiling 400 is reached. Its rule is
 \[
@@ -57,7 +57,7 @@ L_0=100,\qquad L_{k+1}=\min(400,1.25L_k).
 Here min means choose the smaller value. At year 6, the limited and uncapped percentage plans both have about 381.47. At year 7, the uncapped value is about 476.84 while the limited rule selects 400.
 
 \begin{center}\includegraphics[width=\linewidth]{../assets/week6/ai-growth-limits.pdf}\end{center}
-The ceiling changes the rule and thus the trajectory. It is an explicit hypothetical policy, not a forecast about any real AI operation. Learning, reliability, energy, and useful service each require suitable measures and observations.
+The ceiling changes the update rule and creates a different growth pattern. The example represents a hypothetical computing resource. Learning, reliability, energy, and useful service each require suitable measures and observations.
 '''
 review=r'''
 \clearpage
