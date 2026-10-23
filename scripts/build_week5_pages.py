@@ -106,7 +106,8 @@ ext=r'''
 '''
 page(extfile,'AI Mathematics Extension','Measuring surprise in predictions','Use powers of two to connect probabilities, bits, average token loss, perplexity, and an idealized coding length.',ext,['Optional information-theory extension','Worked probability scores','All original practice retained'],store='math107_ai_week5_v2',legacy='math107_ai_week5_v1',nextlink=('Return to the feedback discussion','discussions/week5_discussion.html'))
 
-build_discussion(5)
+# Week 5 discussion remains unchanged while students complete the activity.
+# Rebuild it separately only when the discussion is ready to be revised.
 
 def update_dashboard():
  p=ROOT/'index.html';s=p.read_text();start=s.index('const WEEKS = ')+len('const WEEKS = ');weeks,end=json.JSONDecoder().raw_decode(s[start:]);w=next(x for x in weeks if x['week']==5)
