@@ -129,7 +129,7 @@
       ],
       [
         "Use \\(A=P(1+rt)\\)",
-        "Use the interest rules from the reading or explorer. Enter percentage numbers when a field asks for a percentage."
+        "Use the reading or explorer for the interest formulas. When a question asks for a percentage, enter 4 for 4%."
       ],
       [
         "Your numerical responses receive individual feedback.",
@@ -137,7 +137,7 @@
       ],
       [
         "Annual compounding uses one factor per year.",
-        "Compare annual and monthly compounding for the accounts below."
+        "Calculate the balances for these accounts. Pay attention to whether interest is compounded annually or monthly."
       ],
       [
         "Use the Rule of 72:",
