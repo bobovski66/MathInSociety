@@ -276,6 +276,7 @@ def build_discussion(week):
     questions = "".join(f"<li>{escape(q)}</li>" for q in item["questions"])
     replies = "".join(f"<li>“{escape(q)}”</li>" for q in item["replies"])
     tags = "".join(f'<span class="tag">{escape(tag)}</span>' for tag in item["tags"])
+    tag_row = f'<div class="meta">{tags}</div>' if week != 6 else ''
     unit = week if week >= 4 else 5
     previous = f'<a href="week{week-1}_discussion.html">← Week {week-1} discussion</a>' if week > 1 else '<a href="../index.html">← Course home</a>'
     following = f'<a href="week{week+1}_discussion.html">Week {week+1} discussion →</a>' if week < 10 else '<a href="../index.html">Course home →</a>'
@@ -287,7 +288,7 @@ def build_discussion(week):
     page += f'''<script defer src="../assets/week{unit}/week{unit}.js"></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header>
 <nav class="unit-nav" aria-label="Week {week} materials">{nav}</nav>
-<main class="wrap" id="main"><header class="hero"><div class="eyebrow">Week {week} / Discussion</div><h1>{escape(item['title'])}</h1><p class="lead">{escape(item['lead'])}</p><div class="meta">{tags}</div></header>
+<main class="wrap" id="main"><header class="hero"><div class="eyebrow">Week {week} / Discussion</div><h1>{escape(item['title'])}</h1><p class="lead">{escape(item['lead'])}</p>{tag_row}</header>
 <section class="card"><h2>An example</h2>{paragraphs}</section>
 <section class="card" id="your-post"><h2>Your post</h2><p>{escape(item['choose'])}</p><p>Answer the four questions using your example, then post your response in Canvas.</p><ol class="tasks">{questions}</ol></section>
 <section class="card" id="replies"><h2>Reply to a classmate</h2><p>Read a classmate's example and respond with a question, a suggestion, or a connection to your own experience.</p><p>You might start with:</p><ul>{replies}</ul><p>Include a sentence explaining your question or suggestion.</p></section>
