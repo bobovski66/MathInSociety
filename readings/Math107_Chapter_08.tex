@@ -89,7 +89,7 @@ Each pack uses one packing slot, so making \(x\) of A and \(y\) of B uses \(x+y\
 A type-A pack uses two ingredient portions and a type-B pack uses one. Their total use is \(2x+y\), giving \(2x+y\leq12\). The coefficient 2 means \emph{2 portions per pack}. Multiplying by \(x\) packs gives portions; both sides of this comparison have the same units.
 
 \[x+y\leq8,\qquad 2x+y\leq12,\qquad x\geq0,\quad y\geq0.\]
-The last two constraints forbid negative production. A plan is \emph{feasible} if it satisfies \emph{every} constraint. Passing one test is not enough.
+The last two constraints forbid negative production. A plan is \emph{feasible} if it satisfies \emph{every} constraint. Every resource limit must be satisfied at the same time.
 
 
 \begin{tcolorbox}[title={Example \textperiodcentered{} Test (5,3) and (3,3)},breakable]
@@ -276,7 +276,7 @@ The first means 5 type-A packs and 2 type-B packs; the second means 2 of A and 5
 
 
 \paragraph{Short check 2.}
-Packing uses 6+1 = 7 $\le$ 8, but ingredients use 2(6)+1 = 13 \textgreater{} 12. It is not feasible. A single violated constraint rules out a plan.
+Packing uses 6+1 = 7 $\le$ 8, but ingredients use 2(6)+1 = 13 \textgreater{} 12. It is not feasible. A feasible plan must satisfy both resource limits.
 
 
 \paragraph{Short check 3.}

@@ -101,7 +101,7 @@ G & Community Center & E, F\\
 \end{itemize}
 
 
-We can record the same network with an \emph{edge list}: AB, AC, BC, BD, CD, DE, EF, EG, FG. ``AB'' names the link between A and B; it does not mean multiplication. Because the links work both ways, AB and BA describe the same edge, counted once.
+We can record the same network with an \emph{edge list}: AB, AC, BC, BD, CD, DE, EF, EG, FG. ``AB'' is shorthand for the connection joining A and B. Because the links work both ways, AB and BA describe the same edge, counted once.
 
 
 
@@ -201,7 +201,7 @@ For seven nodes and nine edges, substitute \(n=7\) and \(m=9\). You get \(18/(7\
 \end{tcolorbox}
 
 
-A density of 1 means every pair has a direct link. A density of 0 means no links exist. Adding a new link to our example raises density to \(10/21\approx0.476\). Where that link goes still matters: a new link inside one region and a new link between regions increase the count equally but can have different effects on reliability.
+A density of 1 means every pair has a direct link. A density of 0 means no links exist. Adding a new link to our example raises density to \(10/21\approx0.476\). The location of the new link matters: a new link inside one region and a new link between regions increase the count equally but can have different effects on reliability.
 
 
 
@@ -223,7 +223,7 @@ A \emph{path} is a route that follows edges from one node to another without rep
 One route is \(A\to B\to D\to E\to G\). Check each step against the edge list: AB, BD, DE, and EG all exist. The route names five nodes but uses four links, so its length is 4. The arrows here show the direction we travel along two-way links.
 
 
-Another shortest route is \(A\to C\to D\to E\to G\), also length 4. There need not be just one shortest path. A route that names A--D--G is invalid: neither AD nor DG exists in the original network.
+Another shortest route is \(A\to C\to D\to E\to G\), also length 4. Several routes can share the same shortest length. A route that names A--D--G is invalid: neither AD nor DG exists in the original network.
 
 
 \end{tcolorbox}

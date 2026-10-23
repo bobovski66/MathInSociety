@@ -49,7 +49,7 @@ A controller acts on the report it receives. When information arrives late, its 
 A \emph{sequence} is an ordered list. A \emph{recursive rule} tells us how to use earlier values to find a new one. If \(a_0=10\) and \(a_{n+1}=a_n-2\), the list begins \(10,8,6,4,\ldots\). Starting at step 0, three updates take us to \(a_3=4\). There are four listed values but only three changes.
 
 
-For our greenhouse, let \(x_n\) mean temperature in degrees Fahrenheit at step \(n\). We will treat each step as one hour. Thus \(x_0=64\) is the starting temperature, \(x_1\) is the temperature after one update, and \(x_2\) is the temperature after two updates. The subscript is a label for time. It is neither an exponent nor a multiplication.
+For our greenhouse, let \(x_n\) mean temperature in degrees Fahrenheit at step \(n\). We will treat each step as one hour. Thus \(x_0=64\) is the starting temperature, \(x_1\) is the temperature after one update, and \(x_2\) is the temperature after two updates. The subscript labels the time step, with each successive subscript marking another update.
 
 
 \par\medskip\noindent\begin{minipage}{\linewidth}
@@ -189,7 +189,7 @@ At step 3, the current temperature is 71.5°F but the old report is 70°F. What 
 
 \Needspace{6\baselineskip}\section{The graph shows when the direction changes}
 
-Put step number on the horizontal axis and temperature on the vertical axis. Each dot is a calculated state; connecting segments help your eye follow the sequence. They do not specify exactly how temperature changes within an hour. The dashed horizontal line marks 70°F.
+Put step number on the horizontal axis and temperature on the vertical axis. Each dot is a calculated state; connecting segments help your eye follow the sequence. The line segments provide a visual guide between the hourly measurements. The dashed horizontal line marks 70°F.
 
 
 \par\medskip\noindent\begin{minipage}{\linewidth}
@@ -456,7 +456,7 @@ The first error is 16 cm, so the correction is 4 cm and the level becomes 88 cm.
 
 
 \paragraph{Short check 4.}
-The reported error is 70 $-$ 70 = 0, so the correction is 0 and the next temperature remains 71.5°F. Zero reported error does not mean the present temperature is at the target.
+The reported error is 70 $-$ 70 = 0, so the correction is 0 and the next temperature remains 71.5°F. A zero reported error means the older measurement matched the target, even though the current temperature is 71.5°F.
 
 
 \paragraph{Short check 5.}
