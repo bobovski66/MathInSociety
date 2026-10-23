@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Two starting estimates differ by ten fish. Use the same deterministic rule to discover when their model forecasts become substantially different.">
-<title>Week 10 Application — How far can ten fish change a forecast? | Math in Society</title>
+<title>Week 10 Application — Comparing population forecasts | Math in Society</title>
 <link rel="stylesheet" href="../assets/week10/week10.css">
 <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week10/week10.js"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html">Reading</a><a href="../demos/fractal_recursion.html">Explorer</a><a href="../labs/week10_lab.html">Laboratory</a><a href="../applications/week10_application.html" aria-current="page">Fish forecast</a><a href="../applications/week10_ai.html">AI application</a><a href="../discussions/week10_discussion.html">Discussion</a></nav><main class="wrap" id="main" data-answer-store="math107_week10_application_v3" data-legacy-store="math107_week10_application_v2"><header class="hero"><div class="eyebrow">Week 10 / Application</div>
-<h1>How far can ten fish change a forecast?</h1>
+<h1>Comparing population forecasts</h1>
 <p class="lead">Two starting estimates differ by ten fish. Use the same deterministic rule to discover when their model forecasts become substantially different.</p>
 </header><div class="student-bar no-print">
 <div>
@@ -22,7 +22,7 @@
 <p id="saveStatus" class="small save-status" role="status"></p>
 <section class="card"><div class="kicker">The situation</div>
 <h2>A difference of ten fish</h2>
-<p>Return to the model-setting questions: what are we measuring, what is one update, and what forecast do we need? Here we measure an estimated number of fish. One update means one breeding season, also called a generation in this model. Our question is how long two nearby starting estimates produce similar predictions.</p>
+<p>Our model follows an estimated fish population one breeding season at a time. Here we measure an estimated number of fish. One update means one breeding season, also called a generation in this model. Our question is how long two nearby starting estimates produce similar predictions.</p>
 <p>A field team is studying a lake population using a deliberately simplified model. They choose a reference population of \(K=100{,}000\) fish and write the current population as a fraction \(x=N/K\).</p>
 <div class="example">
 <h3>Why change a fish count into a fraction?</h3>
