@@ -119,24 +119,20 @@ DISCUSSIONS = {
     },
     6: {
         "title": "A payment that works for you",
-        "lead": "How would you balance paying something off with the other things you need money for?",
-        "tags": ["Interest", "Payments", "Choices"],
+        "lead": "How does your monthly payment affect the loan balance and your other priorities?",
+        "tags": [],
         "intro": [
-            "Suppose you owe $400. In a made-up loan, the monthly interest is 1%, so the first month adds $400 × 0.01 = $4. A $50 payment then leaves $400 + $4 − $50 = $354 owed.",
-            "A bigger payment would leave less owed. It would also leave less money for other things that month. Both parts can matter when choosing a payment.",
+            "Imagine someone borrowed $500 for an expense of their choice. The loan charges 1% interest each month. They can make a monthly payment of either $30 or $75.",
+            "Interest is added before each payment. Use ending balance = starting balance + interest − payment. Assume the interest rate stays fixed and there are no additional charges.",
         ],
-        "choose": "Imagine borrowing for a repair, a useful item, a class, or another project you care about. Choose a starting amount and two possible monthly payments. You can invent all the amounts. Use the same made-up monthly interest rate of 1%. Add interest first, then take off the payment.",
+        "choose": "Use the amounts above. You can invent the borrower's circumstances to explain their choice.",
         "questions": [
-            "What would the borrowed money help you do? How much would you start out owing?",
-            "Find the first month’s interest: starting amount × 0.01. For each payment, calculate starting amount + interest − payment. Choose payments smaller than your starting balance, and round money to cents.",
-            "Which payment would you choose, and why? What else would you need to consider that month?",
-            "In this model, next month’s interest is 1% of the balance left. Which payment would lead to less interest next month? Explain how the changing balance makes that happen.",
+            "Calculate the first month's interest on $500. Then calculate the remaining balance after a $30 payment and after a $75 payment. Show your arithmetic.",
+            "Imagine a reason for borrowing the money. Which payment would you choose for that situation, and what other expenses or priorities would influence the decision?",
+            "Which choice leads to less interest in the second month? Explain using the balances you calculated. What might make the borrower reconsider their choice?",
         ],
-        "replies": [
-            "What would happen to the balance if you paid $10 more each month?",
-            "What other cost might affect which payment you choose? I am thinking about…",
-        ],
-        "note": "Choose a purpose and invented loan amounts, compare two one-month payment calculations, and explain which choice fits your priorities.",
+        "replies": [],
+        "note": "Compare two payment amounts for a $500 loan, calculate the first month's balances, and discuss how circumstances affect the choice.",
     },
     7: {
         "title": "Would it be worth offering?",
@@ -277,6 +273,9 @@ def build_discussion(week):
     replies = "".join(f"<li>“{escape(q)}”</li>" for q in item["replies"])
     tags = "".join(f'<span class="tag">{escape(tag)}</span>' for tag in item["tags"])
     tag_row = f'<div class="meta">{tags}</div>' if week != 6 else ''
+    intro_heading = "The situation" if week == 6 else "An example"
+    post_instruction = "Post your answers in Canvas." if week == 6 else "Answer the four questions using your example, then post your response in Canvas."
+    reply_text = ("<p>Read a classmate’s post. Ask what might change their decision, or suggest another factor they could consider.</p>" if week == 6 else "<p>Read a classmate's example and respond with a question, a suggestion, or a connection to your own experience.</p><p>You might start with:</p><ul>" + replies + "</ul><p>Include a sentence explaining your question or suggestion.</p>")
     unit = week if week >= 4 else 5
     previous = f'<a href="week{week-1}_discussion.html">← Week {week-1} discussion</a>' if week > 1 else '<a href="../index.html">← Course home</a>'
     following = f'<a href="week{week+1}_discussion.html">Week {week+1} discussion →</a>' if week < 10 else '<a href="../index.html">Course home →</a>'
@@ -289,9 +288,9 @@ def build_discussion(week):
 <body><a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header>
 <nav class="unit-nav" aria-label="Week {week} materials">{nav}</nav>
 <main class="wrap" id="main"><header class="hero"><div class="eyebrow">Week {week} / Discussion</div><h1>{escape(item['title'])}</h1><p class="lead">{escape(item['lead'])}</p>{tag_row}</header>
-<section class="card"><h2>An example</h2>{paragraphs}</section>
-<section class="card" id="your-post"><h2>Your post</h2><p>{escape(item['choose'])}</p><p>Answer the four questions using your example, then post your response in Canvas.</p><ol class="tasks">{questions}</ol></section>
-<section class="card" id="replies"><h2>Reply to a classmate</h2><p>Read a classmate's example and respond with a question, a suggestion, or a connection to your own experience.</p><p>You might start with:</p><ul>{replies}</ul><p>Include a sentence explaining your question or suggestion.</p></section>
+<section class="card"><h2>{intro_heading}</h2>{paragraphs}</section>
+<section class="card" id="your-post"><h2>Your post</h2><p>{escape(item['choose'])}</p><p>{post_instruction}</p><ol class="tasks">{questions}</ol></section>
+<section class="card" id="replies"><h2>Reply to a classmate</h2>{reply_text}</section>
 <div class="actions no-print"><button type="button" data-print-page>Print this discussion prompt</button></div>
 <div class="next">{previous}{following}</div>
 <footer class="footer"><span>MATH&amp; 107 · Week {week} · Discussion</span><a href="../{info['reading'][0]['url']}">Return to the Week {week} reading ↗</a></footer></main></body></html>
