@@ -21,8 +21,7 @@
 <div id="printName" class="print-name"></div>
 <p id="saveStatus" class="small save-status" role="status"></p>
 <div class="card">
-<h2>Getting started</h2>
-<p>Five investigations explore nearby starts, Collatz, fractal constructions, population models, and coastline measurements.</p>
+<h2>About this investigation</h2><p>Many systems are governed by simple rules applied repeatedly. Their long-term behavior can still be difficult to predict, especially when outcomes depend on the starting value, the number of updates, or the scale at which something is observed.</p><p>These five investigations use number sequences, geometric constructions, a population model, and a coastline survey. For every sequence, call the starting value step 0; five updates therefore produce six recorded values. Carry calculator precision forward between steps, rounding only answers you report. Use the explorer when an exercise refers to it.</p>
 <ul>
 <li>The start is step 0. After five updates, you have six recorded values.</li>
 <li>Use the calculator’s stored value between updates. Round only the reported answer.</li>
@@ -37,7 +36,7 @@
 <span id="progressText">0 / 5 sections checked</span><div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
 </div>
 <section class="card lab-part" data-check-group="1" id="part1"><div class="kicker">Part 1 / Nearby starts</div>
-<h2>Which difference are you tracking?</h2>
+<h2>Which difference are you tracking?</h2><p>Suppose two forecasts begin with nearly the same value. Will that small difference remain small, grow steadily, or grow in proportion to the values themselves? The answer depends on the update rule.</p><p>The <em>absolute difference</em> is the numerical gap between the two outcomes. The <em>relative difference</em> measures that gap against a reference value. Apply the same number of updates to both starting points before comparing them. Keep addition and multiplication rules separate as you interpret the result.</p>
 <p>The absolute difference is the distance between two values. The relative difference divides that distance by the magnitude of the first value.</p>
 <p>Compare how two nearby starting values change under the same rule.</p>
 <p>Calculate the absolute and relative gaps requested below.</p>
@@ -47,10 +46,10 @@
 <p>Use \(a_{n+1}=a_n+5\), starting once from 10 and once from 10.1.</p>
 <div class="grid">
 <div class="question">
-<label for="p1a">Value after 5 updates, starting from 10</label><input id="p1a" type="text" inputmode="decimal" autocomplete="off" data-answer="35" data-tolerance="0.001" data-hint="Five updates add 5 five times: 10 + 5 × 5." data-success="Correct." aria-describedby="p1a-feedback"><span class="field-feedback" id="p1a-feedback" aria-live="polite"></span>
+<label for="p1a">After five additions of 5, what value results from a starting value of 10?</label><input id="p1a" type="text" inputmode="decimal" autocomplete="off" data-answer="35" data-tolerance="0.001" data-hint="Five updates add 5 five times: 10 + 5 × 5." data-success="Correct." aria-describedby="p1a-feedback"><span class="field-feedback" id="p1a-feedback" aria-live="polite"></span>
 </div>
 <div class="question">
-<label for="p1b">Value after 5 updates, starting from 10.1</label><input id="p1b" type="text" inputmode="decimal" autocomplete="off" data-answer="35.1" data-tolerance="0.001" data-hint="Start at 10.1 and add the same total as in the first trajectory." data-success="Correct." aria-describedby="p1b-feedback"><span class="field-feedback" id="p1b-feedback" aria-live="polite"></span>
+<label for="p1b">After five additions of 5, what value results from a starting value of 10.1?</label><input id="p1b" type="text" inputmode="decimal" autocomplete="off" data-answer="35.1" data-tolerance="0.001" data-hint="Start at 10.1 and add the same total as in the first trajectory." data-success="Correct." aria-describedby="p1b-feedback"><span class="field-feedback" id="p1b-feedback" aria-live="polite"></span>
 </div>
 </div>
 <div class="question">
@@ -71,7 +70,7 @@
 <div class="actions no-print"><button type="button" data-check>Check this section</button></div>
 <p class="section-feedback" role="status"></p></section>
 <section class="card lab-part" data-check-group="2" id="part2"><div class="kicker">Part 2 / Collatz</div>
-<h2>Count arrows. Record the peak.</h2>
+<h2>Count arrows. Record the peak.</h2><p>The Collatz rule is easy to state: halve an even integer; for an odd integer, multiply by three and add one. Repeating the rule creates a path of integers whose length and highest value are not obvious from its starting point.</p><p>Begin with each assigned value and write down every new term until the sequence first reaches 1. Count <em>updates</em>, not entries in the list; the original value is step 0. The peak is the largest value seen anywhere along that finite path.</p>
 <p>Even values are divided by 2; odd values are multiplied by 3 and then increased by 1. Stop at the first 1. The peak includes the starting value and all values up to that first 1.</p>
 <p>Apply the even or odd rule at each step until the sequence reaches 1.</p>
 
@@ -79,13 +78,13 @@
 <p>Now trace the complete routes from 6 and 7. You can use the explorer to check each even/odd decision.</p>
 <div class="grid">
 <div class="question">
-<label for="p2a">Updates from 6 to its first 1</label><input id="p2a" type="text" inputmode="decimal" autocomplete="off" data-answer="8" data-tolerance="0" data-hint="Write the route; the initial 6 is not an update." data-success="Correct." aria-describedby="p2a-feedback"><span class="field-feedback" id="p2a-feedback" aria-live="polite"></span>
+<label for="p2a">How many updates take the sequence starting at 6 to its first 1?</label><input id="p2a" type="text" inputmode="decimal" autocomplete="off" data-answer="8" data-tolerance="0" data-hint="Write the route; the initial 6 is not an update." data-success="Correct." aria-describedby="p2a-feedback"><span class="field-feedback" id="p2a-feedback" aria-live="polite"></span>
 </div>
 <div class="question">
-<label for="p2b">Peak reached from 6</label><input id="p2b" type="text" inputmode="decimal" autocomplete="off" data-answer="16" data-tolerance="0" data-hint="Find the largest recorded value, not the largest update count." data-success="Correct." aria-describedby="p2b-feedback"><span class="field-feedback" id="p2b-feedback" aria-live="polite"></span>
+<label for="p2b">What is the largest number reached before the sequence from 6 first reaches 1?</label><input id="p2b" type="text" inputmode="decimal" autocomplete="off" data-answer="16" data-tolerance="0" data-hint="Find the largest recorded value, not the largest update count." data-success="Correct." aria-describedby="p2b-feedback"><span class="field-feedback" id="p2b-feedback" aria-live="polite"></span>
 </div>
 <div class="question">
-<label for="p2c">Updates from 7 to its first 1</label><input id="p2c" type="text" inputmode="decimal" autocomplete="off" data-answer="16" data-tolerance="0" data-hint="Write the full route from 7, then count its arrows." data-success="Correct." aria-describedby="p2c-feedback"><span class="field-feedback" id="p2c-feedback" aria-live="polite"></span>
+<label for="p2c">How many updates take the sequence starting at 7 to its first 1?</label><input id="p2c" type="text" inputmode="decimal" autocomplete="off" data-answer="16" data-tolerance="0" data-hint="Write the full route from 7, then count its arrows." data-success="Correct." aria-describedby="p2c-feedback"><span class="field-feedback" id="p2c-feedback" aria-live="polite"></span>
 </div>
 <div class="question">
 <label for="p2d">Peak reached from 7</label><input id="p2d" type="text" inputmode="decimal" autocomplete="off" data-answer="52" data-tolerance="0" data-hint="The route begins 7 → 22 → 11 → 34 → 17 → …" data-success="Correct." aria-describedby="p2d-feedback"><span class="field-feedback" id="p2d-feedback" aria-live="polite"></span>
@@ -106,7 +105,7 @@
 <div class="actions no-print"><button type="button" data-check>Check this section</button></div>
 <p class="section-feedback" role="status"></p></section>
 <section class="card lab-part" data-check-group="3" id="part3"><div class="kicker">Part 3 / Fractal accounting</div>
-<h2>More pieces does not always mean more area</h2>
+<h2>More pieces does not always mean more area</h2><p>A geometric shape can become increasingly intricate by repeating one small construction. In the Koch process, each line segment is replaced by four segments, each one-third as long as the original.</p><p>Track two quantities separately: the number of pieces and their total length. The piece count multiplies by four at every stage; the total length multiplies by 4/3. Use the previous stage to find the next rather than trying to count a detailed picture by eye.</p>
 <p>For each Koch stage, count the pieces and find their total length.</p>
 <figure class="figure"><img src="../assets/week10/koch-stages.svg" alt="Koch stages 0 to 3 show increasing segment counts and total length." loading="lazy"><figcaption>For this investigation, the original Koch segment has length 1. Each replacement multiplies the segment count by 4 and total length by 4/3.</figcaption></figure>
 
@@ -154,7 +153,7 @@
 <div class="actions no-print"><button type="button" data-check>Check this section</button></div>
 <p class="section-feedback" role="status"></p></section>
 <section class="card lab-part" data-check-group="4" id="part4"><div class="kicker">Part 4 / The logistic map</div>
-<h2>First an update; then a long-run pattern</h2>
+<h2>First an update; then a long-run pattern</h2><p>A simple population model might predict next season's population fraction from this season's fraction. In the logistic update, x(1−x) reflects both the existing population and the limits on growth, while the parameter r controls the response.</p><p>Evaluate the recursion in sequence, always using the newest value. Distinguish a <em>fixed point</em>, which would remain unchanged if reached, from a trajectory that merely moves near one. Compare the long-run patterns produced by the parameter choices in the questions.</p>
 <p>The state \(x_n\) is a fraction of a reference population. Use \(x_{n+1}=rx_n(1-x_n)\) to model one breeding season per update.</p>
 
 <div class="formula">\(x_{n+1}=r x_n(1-x_n)\)</div>
@@ -195,7 +194,7 @@
 <div class="actions no-print"><button type="button" data-check>Check this section</button></div>
 <p class="section-feedback" role="status"></p></section>
 <section class="card lab-part" data-check-group="5" id="part5"><div class="kicker">Part 5 / Measuring at a scale</div>
-<h2>The ruler is part of the report</h2>
+<h2>The ruler is part of the report</h2><p>Imagine tracing a jagged coastline using straight rulers. A long ruler misses smaller bends, while a short ruler can follow more of the outline. The reported length may therefore depend on the scale of measurement.</p><p>Calculate each row by multiplying ruler length by the number of placements. Then compare the estimates as the ruler becomes shorter. Ask what this tells you about measurements made on complicated natural boundaries.</p>
 <p>For each row in this invented survey, use:</p>
 <p>Different ruler lengths give different estimates of the same coastline. Use the ruler length and placements to find each result.</p>
 <div class="formula">measured length = ruler length × placements</div>
