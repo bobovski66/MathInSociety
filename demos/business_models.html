@@ -1,38 +1,82 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Explore how price, cost, and quantity affect profit."><title>Week 7 Explorer — Exploring cost, revenue, and profit | Math in Society</title>
 <link rel="stylesheet" href="../assets/week7/week7.css"><style>
-/* Business explorer: persistent inputs alongside live model displays. */
-.business-wrap{max-width:1450px}
-.business-workspace{display:grid;grid-template-columns:minmax(240px,290px) minmax(0,1fr);gap:24px;align-items:start}
-.business-rail{position:sticky;top:18px;align-self:start;min-width:0;max-height:calc(100vh - 36px);overflow-y:auto;overscroll-behavior:contain;background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:18px}
-.business-rail h3{margin:0 0 14px;font-size:1.05rem}
-.business-rail .controls{display:grid;grid-template-columns:minmax(0,1fr);gap:13px;align-items:stretch;padding:0;margin:0;background:transparent}
-.business-rail .controls>div{min-width:0;flex:none}
-.business-rail .controls label{line-height:1.4;margin-bottom:5px}
-.business-rail .controls select,.business-rail .controls input[type=number]{max-width:none!important;width:100%}
-.business-rail .controls input[type=checkbox]{width:auto;vertical-align:middle}
-.business-rail #businessContext{margin:16px 0 0}
-.business-rail #businessError{margin-bottom:0}
+/* Week 7 business explorer: sliders and graph remain visible together. */
+.business-wrap{max-width:1390px}
+.business-explorer>h2{margin-bottom:14px}
+.business-intro{max-width:95ch}
+.business-workspace{display:grid;grid-template-columns:minmax(250px,290px) minmax(0,1fr);align-items:start;gap:26px;margin-top:24px}
+.business-rail{position:sticky;top:16px;align-self:start;min-width:0;background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:20px}
+.business-rail h3,.business-display h3{margin:0 0 17px;font-size:1.16rem}
+.slider-controls{display:grid;gap:20px}
+.slider-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:6px}
+.slider-head label{font-weight:650;font-size:.91rem;line-height:1.4}
+.slider-head output{font-weight:720;color:var(--olive-dark);font-size:1rem;white-space:nowrap;font-variant-numeric:tabular-nums}
+.slider-group input[type=range]{display:block;min-width:0;width:100%;accent-color:var(--olive);cursor:pointer}
+.slider-group .small{margin:3px 0 0;font-size:.81rem}
 .business-display{min-width:0}
-.business-display #businessResults>:first-child{margin-top:0}
-.business-display .chart{min-width:0}
-@media(max-width:1000px){
- .business-workspace{grid-template-columns:minmax(0,1fr);gap:20px}
- .business-rail{position:static;max-height:none;overflow:visible}
- .business-rail .controls{grid-template-columns:repeat(2,minmax(0,1fr))}
- .business-rail .controls>div{flex:none}
+.business-equations{display:grid;gap:9px}
+.business-equation{display:grid;grid-template-columns:110px minmax(0,1fr);align-items:baseline;gap:14px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:#f8faf4}
+.business-equation strong{font-size:.94rem}
+.business-equation output{display:block;font:600 clamp(.95rem,1.35vw,1.18rem)/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--olive-dark);overflow-x:auto;white-space:nowrap}
+.business-display .stats{margin:16px 0}
+.business-display .stat{padding:12px}
+.business-state{font-weight:600;margin:10px 0 15px}
+.business-display .chart{min-width:0;margin:10px 0 8px}
+.business-display .chart:has(svg){overflow:visible}
+.business-caption{margin:6px 0 0;color:var(--muted);font-size:.86rem}
+@media(max-width:890px){
+ .business-workspace{grid-template-columns:minmax(0,1fr);gap:22px}
+ .business-rail{position:static}
+ .slider-controls{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 22px}
 }
 @media(max-width:540px){
- .business-rail .controls{grid-template-columns:minmax(0,1fr)}
- .business-explorer{padding:20px 14px}
+ .business-explorer{padding:22px 15px}
+ .slider-controls{grid-template-columns:minmax(0,1fr)}
+ .business-equation{grid-template-columns:1fr;gap:1px}
+ .business-equation output{font-size:.94rem}
+ .business-display .chart svg{min-width:580px}
+ .business-display .chart{overflow-x:auto}
+ .business-display .chart:has(svg){overflow-x:auto}
 }
 @media print{
- .business-wrap{max-width:none}
  .business-workspace{display:block}
- .business-rail{display:none!important}
+ .business-rail{display:none}
+ .business-display .chart:has(svg){overflow:visible}
 }
-</style><script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week7/week7.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header><nav class="unit-nav" aria-label="Week 7 materials"><a href="../readings/week7_reading.html">Reading</a><a href="../demos/business_models.html" aria-current="page">Explorer</a><a href="../labs/week7_lab.html">Laboratory</a><a href="../applications/week7_application.html">Food stand</a><a href="../applications/week7_ai.html">AI service</a><a href="../discussions/week7_discussion.html">Discussion</a></nav><main class="wrap business-wrap" id="main"><header class="hero"><div class="eyebrow">Week 7 / Explorer</div><h1>Exploring cost, revenue, and profit</h1><p class="lead">Explore how price, cost, and quantity affect profit.</p></header>
-<section class="card"><h2>One month or event; several possible quantities</h2><p>F is the fixed cost, v the cost per item, p the price, and q the number sold. Capacity limits production.</p><p>Change price, costs, or capacity and compare the profit graph and table. Enter money in dollars.</p></section>
-<section class="card business-explorer"><div class="kicker">Explore / A choice and its consequences</div><h2>Build the business model</h2><div class="business-workspace"><aside class="business-rail" aria-label="Business model inputs"><h3>Model inputs</h3><div class="controls"><div><label for="businessPreset">Starting model</label><select id="businessPreset"><option value="candles">Candles: the reading</option><option value="tutor">Tutoring hours: the lab</option><option value="cards">Craft-fair cards</option><option value="food">Festival food stand</option><option value="thin">A thin margin</option><option value="zero">Price equals variable cost</option><option value="negative">Price below variable cost</option><option value="free">No fixed cost, equal price and cost</option></select></div><div><label for="F">Fixed cost F ($ per period)</label><input id="F" type="number" min="0" max="100000" step="0.01" value="180"></div><div><label for="v">Variable cost v ($ per unit)</label><input id="v" type="number" min="0" max="1000" step="0.01" value="4"></div><div><label for="p">Selling price p ($ per unit)</label><input id="p" type="number" min="0" max="1000" step="0.01" value="10"></div><div><label for="q">Selected quantity q (units)</label><input id="q" type="number" min="0" max="10000" step="any" value="50"></div><div><label for="capacity">Capacity (units per period)</label><input id="capacity" type="number" min="0" max="10000" step="any" value="60"></div><div><label for="wholeUnits"><input id="wholeUnits" type="checkbox" checked> Require whole units</label></div></div><p id="businessContext" class="small"></p><p id="businessError" class="chart-error" role="status"></p></aside><div class="business-display"><div id="businessResults"><p id="businessFormula" class="formula"></p><div class="stats"><div class="stat"><span>Selected cost</span><output id="cost"></output></div><div class="stat"><span>Selected revenue</span><output id="rev"></output></div><div class="stat"><span>Selected profit</span><output id="profit"></output></div></div><p id="businessState" class="readout" aria-live="polite"></p><p id="businessFeasible" class="small"></p><div class="chart" id="businessPlot"><figure class="figure"><img src="../assets/week7/cost-revenue-gap.svg" alt="The initial candle cost and revenue lines intersect at 30 candles; at 50 the profit gap is $120." loading="lazy"><figcaption>The starting graph. Enable JavaScript to change the model.</figcaption></figure></div><p class="small">The gap between revenue and cost at the selected quantity is profit.</p><h3>Profit at nearby quantities</h3><div class="table-wrap" id="businessTable"></div><p id="businessMarginal" class="readout"></p><h3>Break-even is not a best-quantity rule</h3><p id="businessBreakEven" class="readout"></p><p id="businessBest" class="readout"></p></div></div></div></section>
-<section class="card"><h2>Five investigations</h2><ol class="steps"><li>For candles, compare q=20, 30, and 50. Explain why a positive margin can coexist with a loss.</li><li>Keep candle costs fixed but lower capacity to 25. Compare the exact break-even quantity with the best feasible quantity. Can the best plan still lose money?</li><li>Choose craft-fair cards. Compare q=10 and 11, then enter 10.6666667 with whole units turned off. Explain the difference between a continuous threshold and a usable sale count.</li><li>Choose price equals variable cost, then no fixed cost with equal price and cost. Why do these have different break-even conclusions even though both margins are zero?</li><li>Return to candles and raise only F by $60. What changes in total profit, break-even quantity, and marginal profit? Keep p, v, and q fixed while comparing.</li></ol><div class="insight"><h3>What this explorer holds fixed</h3><p>Changing p does not automatically change q. To study a price-and-demand relationship, you must enter a corresponding quantity from a separate estimate. The <a href="../applications/week7_application.html">food-stand application</a> compares those scenarios explicitly. Capacity constrains availability; the graph’s viewing window does not create another business limit.</p></div><p>Money displays to two decimal places; calculations use full precision.</p></section><noscript><section class="card"><p></p></section></noscript>
-<div class="actions no-print"><button type="button" data-print-page>Print this page</button></div><div class="next"><a href="../index.html">← Course home</a><a href="../labs/week7_lab.html">Practice in the laboratory →</a></div><footer class="footer"><span>MATH&amp; 107 · Optimization: Choosing What Best Means</span><a href="../readings/Math107_Chapter_07.pdf">Illustrated chapter, practice, and solutions ↗</a></footer></main></body></html>
+</style><script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week7/week7.js"></script><script defer src="../assets/week7/business_models_interactive.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header><nav class="unit-nav" aria-label="Week 7 materials"><a href="../readings/week7_reading.html">Reading</a><a href="../demos/business_models.html" aria-current="page">Explorer</a><a href="../labs/week7_lab.html">Laboratory</a><a href="../applications/week7_application.html">Food stand</a><a href="../applications/week7_ai.html">AI service</a><a href="../discussions/week7_discussion.html">Discussion</a></nav><main class="wrap business-wrap" id="main"><header class="hero"><div class="eyebrow">Week 7 / Explorer</div><h1>Exploring cost, revenue, and profit</h1><p class="lead">Move the sliders to see how monthly costs, revenue, and profit fit together.</p></header>
+<section class="card business-explorer" aria-labelledby="business-heading">
+<h2 id="business-heading">A candle business</h2>
+<div class="business-intro">
+<p>Imagine a seller who pays $180 each month to rent a market stall, spends $4 on materials for each candle, and sells every candle for $10. Let <strong>q</strong> be the number of candles made and sold during the month.</p>
+<p>The total <strong>cost</strong> combines a fixed expense, <strong>F</strong>, with a cost of <strong>v</strong> dollars per candle: <strong>C(q) = F + vq</strong>. The <strong>revenue</strong> is the price <strong>p</strong> times the number sold: <strong>R(q) = pq</strong>. Subtract cost from revenue to get <strong>profit</strong>: <strong>P(q) = R(q) − C(q) = (p − v)q − F</strong>.</p>
+<p>Move the sliders to change the assumptions. The model treats the selling price and cost per candle as constant and assumes all candles produced are sold.</p>
+</div>
+<div class="business-workspace">
+<aside class="business-rail" aria-label="Business model sliders">
+<h3>Change the assumptions</h3>
+<div class="slider-controls">
+<div class="slider-group"><div class="slider-head"><label for="F">Fixed monthly cost</label><output id="FValue" for="F">$180.00</output></div><input id="F" type="range" min="0" max="400" step="10" value="180"><p class="small">Paid even when nothing sells.</p></div>
+<div class="slider-group"><div class="slider-head"><label for="v">Cost per candle</label><output id="vValue" for="v">$4.00</output></div><input id="v" type="range" min="0" max="15" step="0.5" value="4"><p class="small">Materials for each candle.</p></div>
+<div class="slider-group"><div class="slider-head"><label for="p">Selling price</label><output id="pValue" for="p">$10.00</output></div><input id="p" type="range" min="0" max="20" step="0.5" value="10"><p class="small">Revenue from each candle sold.</p></div>
+<div class="slider-group"><div class="slider-head"><label for="q">Candles sold</label><output id="qValue" for="q">50</output></div><input id="q" type="range" min="0" max="100" step="1" value="50"><p class="small">The quantity for the calculation.</p></div>
+</div>
+<p id="businessError" class="chart-error" role="status"></p>
+</aside>
+<div class="business-display">
+<h3>Cost, revenue, and profit</h3>
+<div class="business-equations" aria-label="Equations with current values">
+<div class="business-equation"><strong>Cost</strong><output id="businessCostFormula">C(q) = 180 + 4q</output></div>
+<div class="business-equation"><strong>Revenue</strong><output id="businessRevenueFormula">R(q) = 10q</output></div>
+<div class="business-equation"><strong>Profit</strong><output id="businessProfitFormula">P(q) = 6q − 180</output></div>
+</div>
+<div class="stats" aria-label="Values at the selected number of candles">
+<div class="stat"><span>Monthly cost</span><output id="cost">$380.00</output></div>
+<div class="stat"><span>Monthly revenue</span><output id="rev">$500.00</output></div>
+<div class="stat"><span>Monthly profit</span><output id="profit">$120.00</output></div>
+</div>
+<p class="business-state" id="businessState" aria-live="polite">At 50 candles sold, the business earns $120.00 in profit.</p>
+<div class="chart" id="businessPlot"><figure class="figure"><img src="../assets/week7/cost-revenue-gap.svg" alt="Cost and revenue lines for the starting example. They meet at 30 candles and are $120 apart at 50 candles." loading="lazy"><figcaption>Starting example. Enable JavaScript to adjust the graph.</figcaption></figure></div>
+<p class="business-caption">The vertical gap between the lines at the selected quantity shows the profit or loss. Where the lines cross, profit is zero.</p>
+</div></div></section>
+<div class="next"><a href="../index.html">← Course home</a><a href="../labs/week7_lab.html">Practice in the laboratory →</a></div><footer class="footer"><span>MATH&amp; 107 · Optimization: Choosing What Best Means</span><a href="../readings/Math107_Chapter_07.pdf">Illustrated chapter, practice, and solutions ↗</a></footer></main></body></html>
