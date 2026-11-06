@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Two starting estimates differ by ten fish. Use the same deterministic rule to discover when their model forecasts become substantially different.">
+<meta name="description" content="A conservation group compares two plausible fish counts to decide when another survey could be useful. The same update rule can produce forecasts that eventually disagree.">
 <title>Week 10 Application — Comparing population forecasts | Math in Society</title>
 <link rel="stylesheet" href="../assets/week10/week10.css">
 <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week10/week10.js"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html">Reading</a><a href="../demos/fractal_recursion.html">Explorer</a><a href="../labs/week10_lab.html">Laboratory</a><a href="../applications/week10_application.html" aria-current="page">Fish forecast</a><a href="../applications/week10_ai.html">AI application</a><a href="../discussions/week10_discussion.html">Discussion</a></nav><main class="wrap" id="main" data-answer-store="math107_week10_application_v3" data-legacy-store="math107_week10_application_v2"><header class="hero"><div class="eyebrow">Week 10 / Application</div>
-<h1>Comparing population forecasts</h1>
-<p class="lead">Two starting estimates differ by ten fish. Use the same deterministic rule to discover when their model forecasts become substantially different.</p>
+<h1>When should the lake be surveyed again?</h1>
+<p class="lead">A conservation group compares two plausible fish counts to decide when another survey could be useful. The same update rule can produce forecasts that eventually disagree.</p>
 </header><div class="student-bar no-print">
 <div>
 <label for="studentName">Student name</label><input id="studentName" type="text" autocomplete="name">
@@ -21,8 +21,8 @@
 <div id="printName" class="print-name"></div>
 <p id="saveStatus" class="small save-status" role="status"></p>
 <section class="card"><div class="kicker">The situation</div>
-<h2>A difference of ten fish</h2>
-<p>Our model follows an estimated fish population one breeding season at a time. Here we measure an estimated number of fish. One update means one breeding season, also called a generation in this model. Our question is how long two nearby starting estimates produce similar predictions.</p>
+<h2>Two possible counts, one survey decision</h2>
+<p>A lake conservation group is planning its next population survey. Two plausible estimates of the current population differ by just ten fish. How far ahead do their predictions remain close enough to inform a plan? Each update in this simplified model represents one breeding season.</p>
 <p>A field team is studying a lake population using a deliberately simplified model. They choose a reference population of \(K=100{,}000\) fish and write the current population as a fraction \(x=N/K\).</p>
 <div class="example">
 <h3>Why change a fish count into a fraction?</h3>
@@ -130,7 +130,7 @@
 <p class="section-feedback" role="status"></p></section>
 <section class="card" data-check-group="3"><div class="kicker">Part 3 / Forecast horizons</div>
 <h2>When does the gap matter?</h2>
-<p>A <em>tolerance</em> says how much disagreement is acceptable for a particular question. A <em>threshold</em> is the cutoff used to check it. In this investigation, we use fixed cutoffs measured against the reference population.</p>
+<p>A <em>tolerance</em> says how much disagreement a particular decision can accept. Compare two illustrative limits: 1,000 fish and 10,000 fish. These are chosen for mathematical comparison, not established ecological management thresholds.</p>
 <div class="table-wrap"><table>
 <thead><tr>
 <th scope="col">Fractional gap</th>
@@ -155,7 +155,7 @@
 <p>Read the absolute-gap column from generation 0 downward. For the 0.01 question, ignore rows at or below 0.01 and stop at the first row above it. Repeat separately for the 0.10 question. The generations need not be the same.</p>
 <p>At the first row above 0.10, multiply that row’s fractional gap by 100,000 and round to the nearest fish. This asks for the size of the difference at that generation, rather than either forecast’s total population.</p>
 </div>
-<p>The two thresholds below are decision tolerances for this experiment. A first crossing remains the first crossing even if the gap later shrinks again.</p>
+<p>Find the first generation at which the forecasts differ by more than the chosen tolerance. A later shrinkage in their gap does not undo that first crossing.</p>
 <div class="question">
 <label for="a5">First generation with |xₙ − yₙ| &gt; 0.01 (more than 1,000 fish)</label><input id="a5" type="text" inputmode="decimal" autocomplete="off" data-answer="8" data-tolerance="0" data-hint="Find the first table row whose absolute fractional gap exceeds .01. Start checking at n = 0." data-success="Correct." aria-describedby="a5-feedback"><span class="field-feedback" id="a5-feedback" aria-live="polite"></span>
 </div>
@@ -174,11 +174,12 @@
 <div class="actions no-print"><button type="button" data-check>Check this section</button></div>
 <p class="section-feedback" role="status"></p></section>
 <div class="card">
-<h2>Use the result carefully</h2>
+<h2>Use the calculation to plan better observations</h2>
 <p>This is called <em>sensitivity to initial conditions</em>: the calculated future can depend strongly on a small difference in the starting information. The model is still <em>deterministic</em>, meaning the same exact input always has the same next result. We changed the starting estimate, not the formula.</p>
 <p>The first gap above 1,000 fish occurs sooner than the first gap above 10,000 fish. That is why a useful forecast horizon must name a tolerance. Monitoring again can reduce current uncertainty and restart the comparison, although it cannot make an incomplete model exact.</p>
-<p>Even after exact long-range trajectories become unreliable, questions about ranges, typical behavior, or short-term responses can remain useful. The right question depends on the decision.</p>
+<p>Even if one long-range number cannot be trusted, a new survey or a range of possible outcomes might still support a practical decision. Before acting, the group needs real observations, realistic measurement errors, and evidence that the model describes its lake.</p>
 </div>
+<div class="card"><h2>Recommend a monitoring plan</h2><p>Imagine the group decides that two predictions differing by more than 1,000 fish are too far apart for its current plan. Use your first-crossing calculation to suggest when the group should collect fresh observations or reassess the model. Why is this a warning from an illustration, rather than a survey schedule established for a real lake?</p><div class="question"><label for="surveyRecommendation">Your monitoring recommendation: when to check again, what evidence would help, and which model assumptions should be verified.</label><textarea id="surveyRecommendation" data-save rows="5"></textarea></div></div>
 <div class="card no-print">
 <h2>Keep a copy of your work</h2>
 <p>Your responses save in this browser. To submit them, enter your name above, choose <em>Print completed work / Save PDF</em>, and use the browser’s printer or PDF option. Follow the submission instructions in Canvas.</p>
