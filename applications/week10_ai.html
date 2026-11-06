@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Use a small probability tree to study how text generation branches, then consider how generated claims are checked against evidence.">
+<meta name="description" content="Follow a language model’s possible text continuations and ask why a likely sentence is not automatically a reliable claim about the world.">
 <title>Week 10 AI Application — How token choices change later predictions | Math in Society</title>
 <link rel="stylesheet" href="../assets/week10/week10.css">
 <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week10/week10.js"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html">Reading</a><a href="../demos/fractal_recursion.html">Explorer</a><a href="../labs/week10_lab.html">Laboratory</a><a href="../applications/week10_application.html">Fish forecast</a><a href="../applications/week10_ai.html" aria-current="page">AI application</a><a href="../discussions/week10_discussion.html">Discussion</a></nav><main class="wrap" id="main" data-answer-store="math107_ai_module_10_v5" data-legacy-store="math107_ai_module_10_v4"><header class="hero"><div class="eyebrow">Week 10 / AI Application</div>
-<h1>How token choices change later predictions</h1>
-<p class="lead">Use a small probability tree to study how text generation branches, then consider how generated claims are checked against evidence.</p>
+<h1>What does an AI continuation actually predict?</h1>
+<p class="lead">Follow a language model’s possible text continuations and ask why a likely sentence is not automatically a reliable claim about the world.</p>
 </header><div class="student-bar no-print">
 <div>
 <label for="studentName">Student name</label><input id="studentName" type="text" autocomplete="name">
@@ -21,12 +21,12 @@
 <div id="printName" class="print-name"></div>
 <p id="saveStatus" class="small save-status" role="status"></p>
 <section class="card"><div class="kicker">The connection</div>
-<h2>The output becomes the next input</h2>
-<p>Earlier AI applications described tokens as the pieces of text used by a language model, and probabilities as weights on possible next pieces. We will combine those ideas with Week 10’s repeated updates.</p>
+<h2>A prediction about words is different from a prediction about events</h2>
+<p>The fish-population model predicted a numerical state from a previous numerical state. A language model makes a different kind of prediction: a distribution over possible next pieces of text. We will follow a small example to understand how one choice changes later options and why a fluent continuation does not establish a fact.</p>
 <p>The <em>context</em> is the text available to the model at the current step. If the context ends in “The light in the forest was,” then choosing a word such as “moving” changes that context to “The light in the forest was moving.” The next prediction now begins from that updated text.</p>
 <p>In the logistic map, a new state is calculated from the current state. A language model also works step by step: it uses the current context to calculate a next-token distribution, chooses a token, appends it, and computes another distribution using the updated context. This is <em>autoregressive generation</em>.</p>
 <div class="formula">context → next-token probabilities → chosen token → enlarged context → repeat</div>
-<p>The choice rule matters. One possible rule always selects the most probable next token, using a fixed rule for ties. With identical inputs and computations, that choice rule repeats its output. Sampling instead makes a random choice using the probabilities, so two runs can take different branches from the same prompt.</p></section>
+<p>The choice rule matters. One option always selects the most probable next token, with a fixed tie rule. Under identical conditions, that selection produces the same token. Sampling instead uses probabilities to choose randomly, so repeated generations can follow different branches even from the same prompt. That randomness differs from sensitivity to initial conditions in a deterministic dynamical system.</p></section>
 <section class="card"><div class="kicker">An invented word-level model</div>
 <h2>The light in the forest was…</h2>
 <p>We will treat each listed word or punctuation mark as one toy token. Actual tokenizers can split text differently. The probabilities below are invented for this exercise; they are not measurements from a particular AI model.</p>
@@ -105,7 +105,7 @@
 <div class="actions no-print"><button type="button" data-check>Check this section</button></div>
 <p class="section-feedback" role="status"></p></section>
 <div class="card">
-<h2>Three distinctions to carry forward</h2>
+<h2>Before relying on a generated statement</h2>
 <ul>
 <li>
 <em>Recursion:</em> the context changes as output is appended.</li>
@@ -114,7 +114,7 @@
 <li>
 <em>Verification:</em> the plausibility of a continuation does not establish the truth of its claims.</li>
 </ul>
-<p>A change in a prompt can change a later response, but that observation alone does not establish mathematical chaos. Our useful connection here is repeated updating, branching, and the difference between prediction and evidence.</p>
+<p>The probabilities in this toy tree describe which continuation a model would produce under its assumptions. They do not provide evidence about what actually happened in a forest. Before relying on a generated statement for a report or decision, we would need independent observations and sources. The mathematical connection is sequential updating and branching—not proof of chaos or truth.</p>
 </div>
 <div class="card no-print">
 <h2>Keep a copy of your work</h2>
