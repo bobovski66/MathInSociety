@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420" role="img" aria-label="A short walk is not always the quickest walk">
+<rect width="900" height="420" fill="#fff"/>
+<text x="40" y="47" font-size="24" font-weight="700" font-family="Arial, sans-serif" fill="#293329">A short walk is not always the quickest walk</text>
+<text x="40" y="78" font-size="16" font-family="Arial, sans-serif" fill="#17677a">Compare the fewest connections with the total travel minutes</text>
+<g font-family="Arial, sans-serif"><path d="M105 190L343 130" stroke="#536240" stroke-width="4" fill="none"/><rect x="196" y="140" width="56" height="27" rx="6" fill="#fff" stroke="#d8ddcd"/><text x="224" y="158" text-anchor="middle" font-size="16" fill="#17677a">8 min</text>
+<path d="M343 130L778 185" stroke="#536240" stroke-width="4" fill="none"/><rect x="532.5" y="137.5" width="56" height="27" rx="6" fill="#fff" stroke="#d8ddcd"/><text x="560.5" y="155.5" text-anchor="middle" font-size="16" fill="#17677a">9 min</text>
+<path d="M105 190L341 283" stroke="#536240" stroke-width="4" fill="none"/><rect x="195" y="216.5" width="56" height="27" rx="6" fill="#fff" stroke="#d8ddcd"/><text x="223" y="234.5" text-anchor="middle" font-size="16" fill="#17677a">4 min</text>
+<path d="M341 283L583 275" stroke="#536240" stroke-width="4" fill="none"/><rect x="434" y="259" width="56" height="27" rx="6" fill="#fff" stroke="#d8ddcd"/><text x="462" y="277" text-anchor="middle" font-size="16" fill="#17677a">3 min</text>
+<path d="M583 275L778 185" stroke="#536240" stroke-width="4" fill="none"/><rect x="652.5" y="210" width="56" height="27" rx="6" fill="#fff" stroke="#d8ddcd"/><text x="680.5" y="228" text-anchor="middle" font-size="16" fill="#17677a">5 min</text><circle cx="105" cy="190" r="27" fill="#eef3e8" stroke="#536240" stroke-width="3"/><text x="105" y="196" text-anchor="middle" font-size="23" fill="#293329" font-weight="700">S</text><text x="105" y="239" text-anchor="middle" font-size="16" fill="#293329">Station</text>
+<circle cx="343" cy="130" r="27" fill="#eef3e8" stroke="#536240" stroke-width="3"/><text x="343" y="136" text-anchor="middle" font-size="23" fill="#293329" font-weight="700">C</text><text x="343" y="179" text-anchor="middle" font-size="16" fill="#293329">Clinic</text>
+<circle cx="778" cy="185" r="27" fill="#eef3e8" stroke="#536240" stroke-width="3"/><text x="778" y="191" text-anchor="middle" font-size="23" fill="#293329" font-weight="700">H</text><text x="778" y="234" text-anchor="middle" font-size="16" fill="#293329">Hospital</text>
+<circle cx="341" cy="283" r="27" fill="#eef3e8" stroke="#536240" stroke-width="3"/><text x="341" y="289" text-anchor="middle" font-size="23" fill="#293329" font-weight="700">L</text><text x="341" y="332" text-anchor="middle" font-size="16" fill="#293329">Library</text>
+<circle cx="583" cy="275" r="27" fill="#eef3e8" stroke="#536240" stroke-width="3"/><text x="583" y="281" text-anchor="middle" font-size="23" fill="#293329" font-weight="700">P</text><text x="583" y="324" text-anchor="middle" font-size="16" fill="#293329">Park</text></g>
+<path d="M40 350 H860" stroke="#d8ddcd" stroke-width="2"/>
+<text x="40" y="384" font-size="17" font-family="Arial, sans-serif" fill="#17677a">Station–Clinic–Hospital: 2 links, 17 min. Via Library and Park: 3 links, 12 min.</text>
+</svg>
