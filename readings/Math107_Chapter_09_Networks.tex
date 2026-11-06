@@ -541,11 +541,11 @@ The half-neighbor rule is an invented model, not a measured law of human behavio
 
 \begin{tcolorbox}[title={A different social network \textperiodcentered{} Joining a study group},breakable]
 
-Five students, P, Q, R, S, and T, talk directly along PQ, PR, QR, RS, RT, and ST. Imagine that an undecided student joins a study group if at least half of their contacts have joined. With only Q participating at the start, P joins in round 1 because Q is one of P's two contacts. R sees only one of four contacts participating, and T and S see none. The process stops with P and Q.
+Five students, P, Q, R, S, and T, talk directly along PQ, PS, QR, RS, RT, and ST. Imagine that an undecided student joins a study group if at least half of their contacts have joined. With only Q participating at the start, P joins in round 1 because Q is one of P's two contacts. R sees only one of three contacts participating, and T and S see none. The process stops with P and Q.
 
 
 
-If Q \emph{and} S start together, P joins in round 1 because Q is one of two contacts, R joins because Q and S are two of four, and T joins because S is one of two. All five participate after one round. This is a second network with a different arrangement of connections, and it shows how the initial group matters. The rule is a mathematical experiment, not a prediction of anyone's actual decision.
+If Q \emph{and} S start together, P joins in round 1 because Q and S are both of P's contacts, R joins because Q and S are two of three, and T joins because S is one of two. All five participate after one round. This is a second network with a different arrangement of connections, and it shows how the initial group matters. The rule is a mathematical experiment, not a prediction of anyone's actual decision.
 
 
 \end{tcolorbox}
@@ -693,7 +693,7 @@ For questions about the county alert network, use nodes A--G and edges AB, AC, B
 \item Compare adding AD with adding DF. With all links working, at which round is everyone informed from A under automatic sending? Which proposal meets the goal of surviving failure of DE?
 \item In the adjacency table, find row A/column D, row D/column E, and row E/column E. What is the sum of row D? Explain why a zero at A/G does not mean G is unreachable from A.
 \item A alone is informed at round 0. List the newly informed and total informed nodes after rounds 1--4 under the automatic rule. Explain why two senders contacting D do not count as two new locations.
-\item Five students P, Q, R, S, T have conversation links PQ, PR, QR, RS, RT, ST. Each joins a study group if at least half of their neighbors have joined. Starting with Q alone, list the active students after each round until the process stops. Now start with Q and S. What happens after one round?
+\item Five students P, Q, R, S, T have conversation links PQ, PS, QR, RS, RT, ST. Each joins a study group if at least half of their neighbors have joined. Starting with Q alone, list the active students after each round until the process stops. Now start with Q and S. What happens after one round?
 \item A node has five neighbors and a 60\% threshold. How many active neighbors are required? Does that local count determine the outcome of the whole network?
 \item A clinic C refers to specialist S and laboratory L; both may send a report to coordinator R. The directed links are $C\to S$, $C\to L$, $S\to R$, $L\to R$. Find C's out-degree, R's in-degree, and whether R can return to C along the same arrows. In the walking network, compare a two-link walk of 8+9 minutes with a three-link walk of 4+3+5 minutes.
 \item For the AI network with inputs 2 and 4, find $H_1,H_2,O$. Remove $x_2\to H_1$ and recalculate. Why does changing $x_2$ have no net effect in the original sum-only model?
@@ -757,7 +757,7 @@ It needs 3 because 60\% of 5 is 3. That is only a local requirement. The network
 \item AD gives complete delivery by round 3 with all links working; DF gives complete delivery by round 4. DF, unlike AD, supplies a cross-region route after DE fails. Both give 10 edges and density $10/21$ before failures.
 \item The entries are 0,1,0; row D sums to 3. A zero at A/G only rules out a direct link; paths using intermediate locations still exist.
 \item New nodes by rounds 1--4: $\{B,C\},\{D\},\{E\},\{F,G\}$. Cumulative totals: 3,4,5,7, including the initial A. Multiple message copies arriving at D inform the same one location.
-\item With Q alone, P joins in round 1 because Q is one of P's two neighbors. R sees one active neighbor out of four, and S and T see none, so the active set stops at $\{P,Q\}$. With Q and S initially active, P sees one of two, R sees two of four, and T sees one of two. All five students are active after round 1.
+\item With Q alone, P joins in round 1 because Q is one of P's two neighbors. R sees one active neighbor out of three, and S and T see none, so the active set stops at $\{P,Q\}$. With Q and S initially active, P sees both of two, R sees two of three, and T sees one of two. All five students are active after round 1.
 \item Three active neighbors, since $0.60(5)=3$. The outcome also depends on other thresholds, the network, and seeds.
 \item C has two outgoing referrals, R has two incoming reports, and R cannot return to C without a reverse arrow. The two-link walk takes $8+9=17$ minutes; the three-link walk takes $4+3+5=12$ minutes. Fewest connections and least travel time need not agree.
 \item $H_1=2,H_2=2,O=2$. After removal, $H_1=1,H_2=2,O=0.5$. The original two paths from $x_2$ contribute $+0.375$ and $-0.375$ per input unit, so their net effect is zero.
