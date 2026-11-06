@@ -118,7 +118,7 @@ L 515.920428 39.357656
      </g>
     </g>
     <g id="text_6">
-     <text style="font-size: 12.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="320.013906" y="407.593359" transform="rotate(-0 320.013906 407.593359)">Chairs per week, x</text>
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="320.013906" y="407.593359" transform="rotate(-0 320.013906 407.593359)">Chairs restored, x</text>
     </g>
    </g>
    <g id="matplotlib.axis_2">
@@ -263,7 +263,7 @@ L 585.063906 39.357656
      </g>
     </g>
     <g id="text_16">
-     <text style="font-size: 12.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="22.458047" y="205.677656" transform="rotate(-90 22.458047 205.677656)">Tables per week, y</text>
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="22.458047" y="205.677656" transform="rotate(-90 22.458047 205.677656)">Tables restored, y</text>
     </g>
    </g>
    <g id="patch_3">
@@ -306,10 +306,10 @@ Q 267.040402 235.558263 241.186564 246.48032
    </g>
    <g id="text_17">
     <text style="font-size: 12.5px; font-family: 'DejaVu Sans'; fill: #a55c21" transform="translate(271.346515 205.260391)">8 chairs + 6 tables</text>
-    <text style="font-size: 12.5px; font-family: 'DejaVu Sans'; fill: #a55c21" transform="translate(271.346515 219.257656)">contribution $540</text>
+    <text style="font-size: 12.5px; font-family: 'DejaVu Sans'; fill: #a55c21" transform="translate(271.346515 219.257656)">contribution $540 after parts</text>
    </g>
    <g id="text_18">
-    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #293329" x="54.963906" y="24.357656" transform="rotate(-0 54.963906 24.357656)">Workshop: two resources, one production decision</text>
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #293329" x="54.963906" y="24.357656" transform="rotate(-0 54.963906 24.357656)">Furniture repair: two limits, one schedule</text>
    </g>
    <g id="PathCollection_1">
     <defs>
