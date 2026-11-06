@@ -73,7 +73,7 @@ cover1=r'''
 {\large Turn resource limits into a picture of allowable plans. Learn what a point means, what a boundary means, and why every condition must hold.\par}
 \begin{center}\includegraphics[width=\linewidth]{../assets/week8/constraints-overlap.pdf}\end{center}
 \begin{tcolorbox}[title={The setting for the week}]
-A school club makes two kinds of snack packs. It has eight packing slots and twelve ingredient portions. Type A uses twice as many portions as type B. Which complete production plans can it actually carry out?
+A neighborhood bike shop can accept eight bicycles and has twelve mechanic-hours available. A tune-up takes two hours; a quick repair takes one. Which schedules can it finish?
 \end{tcolorbox}
 Week 7 compared costs, revenue, and profit. Here we add limits. Use multiplication, fractions, coordinate pairs, and simple equations to describe what is allowed before choosing what is best. No previous study of linear programming is assumed.
 
@@ -92,7 +92,7 @@ cover2=r'''
 {\large Keep the allowable choices fixed, state a goal, and compare the consequences. A mathematical optimum answers the question you actually put into the model.\par}
 \begin{center}\includegraphics[width=\linewidth]{../assets/week8/objective-levels.pdf}\end{center}
 \begin{tcolorbox}[title={From geometry to a decision}]
-The club's feasible region has corners $(0,0),(6,0),(4,4),(0,8)$. With contribution $P=3x+2y$, four packs of each type give the largest total. A different goal can choose a different corner, or leave an entire edge tied.
+The bike shop's feasible region has corners $(0,0),(6,0),(4,4),(0,8)$. With after-parts contribution $P=30x+20y$, scheduling four tune-ups and four quick repairs earns the largest total of \$200. A different goal can favor a different schedule or leave an entire edge tied.
 \end{tcolorbox}
 Part I developed the variables, inequalities, and feasible geometry. Part II combines them with an objective. We study maximum and minimum values, tied solutions, infeasible models, unbounded scores, and whole-number restrictions. Worked examples and review solutions show how to verify each conclusion.
 
@@ -106,16 +106,16 @@ review1=r'''
 \section*{Part I Review}
 Use nonnegative real coordinates unless the question explicitly asks for whole numbers. Show a substitution, boundary calculation, or segment argument.
 \begin{enumerate}
-\item Define variables for a workshop making chairs and tables. What does the plan $(5,2)$ mean? Explain why $(2,5)$ is different.
-\item A type-A item uses 3 labor-hours and a type-B item 2. Write a 60-hour upper limit with units. Test $(10,10)$ and $(15,8)$ and report slack or the shortfall.
-\item For $x+2y\leq8$, find both boundary intercepts. Identify the permitted side by testing a point off the boundary. Classify $(2,3)$ and $(4,3)$.
-\item Find every feasible corner for $x+y\leq7$, $2x+y\leq10$, $x,y\geq0$. Show the intersection calculation. Why is $(7,0)$ not a corner of the feasible region?
+\item A community cooperative restores donated chairs and tables. Let $x$ count chairs and $y$ count tables. What do the plans $(5,2)$ and $(2,5)$ mean, and why might their repair times differ?
+\item Volunteer drivers have 60 driver-hours. Long rides take 3 hours; local rides take 2. If $x$ counts long rides and $y$ local rides, write the limit, test $(10,10)$ and $(15,8)$, and report unused hours or the shortfall.
+\item A community center has eight room-hours. Drop-ins take one hour and workshops take two. For $x+2y\leq8$, find the boundary intercepts, test which side is permitted, and classify $(2,3)$ and $(4,3)$.
+\item A pop-up bike clinic can accept seven bikes in ten mechanic-hours. Tune-ups take two hours and quick repairs one. Find the feasible corners under $x+y\leq7$, $2x+y\leq10$, $x,y\geq0$. Why is $(7,0)$ infeasible?
 \item Find the corners for $3x+2y\leq120$, $x+2y\leq60$, $x,y\geq0$. Test $(20,20)$ and $(25,20)$ against both resource limits.
-\item For the workshop constraints $2x+4y\leq40$, $x+y\leq14$, find the four corners. Check proposed plans $(8,5)$ and $(10,5)$.
+\item A furniture repair cooperative has 40 restoration hours and 14 pickup appointments. Chairs take two hours and tables four. Find the corners under $2x+4y\leq40$, $x+y\leq14$, then check schedules $(8,5)$ and $(10,5)$.
 \item Which sets are convex: a filled disk, a circle's circumference alone, a filled rectangle, a ring, a line segment? Explain a counterexample segment for each nonconvex set.
 \item Why is an intersection of convex sets convex? Give a counterexample showing that a union need not be convex.
-\item For the club's region, average $(6,0)$ and $(0,8)$. Check the resulting plan against $x+y\leq8$ and $2x+y\leq12$. Why need a midpoint of two whole-number plans not be a whole-number plan?
-\item Keep the club's packing limit at 8 and raise the ingredient allowance from 12 to 16. Do old feasible plans remain feasible? Give one newly feasible plan.
+\item For the bike shop region, average $(6,0)$ and $(0,8)$. Check it against $x+y\leq8$ and $2x+y\leq12$. Why can an average of whole-number schedules fail to describe a single workday?
+\item Keep the bike shop's eight-bike limit and increase mechanic-hours from 12 to 16. Do old feasible schedules remain feasible? Give a newly feasible schedule.
 \item If $x+y\leq8$ is already imposed, does adding $x+y\leq10$ remove any choices? What does it mean for a constraint to be redundant?
 \item Describe the feasible sets for (a) $x+y\leq4$ and $x+y\geq6$; (b) $x+y\leq0$ with $x,y\geq0$. Why should we not assume every system creates a filled four-sided polygon?
 \end{enumerate}
@@ -195,10 +195,10 @@ review2=r'''
 \section*{Part II Review}
 Use nonnegative variables and included boundaries. Show a corner table or explicit calculation and report both a plan and its objective value.
 \begin{enumerate}
-\item For the club's corners $(0,0),(6,0),(4,4),(0,8)$, maximize $P=3x+2y$. What is the minimum if there is no lower production requirement?
-\item On the same region, maximize $R=x+4y$ and then $T=x+y$. Describe the complete optimal edge for $T$, including its whole-number points.
-\item Maximize $f=5x+8y$ subject to $x+2y\leq16$, $3x+2y\leq24$. Find all corners and compare. Check resource use at the best plan.
-\item Minimize $C=3x+5y$ subject to $x+y\geq8$, $2x+y\geq10$. Find the boundary vertices. Explain why the mixed boundary intersection is not automatically best.
+\item For the bike shop's corners $(0,0),(6,0),(4,4),(0,8)$, maximize contribution $P=30x+20y$. What is the minimum if the shop is not required to serve anyone that day?
+\item On the same bike-shop region, maximize priority score $R=x+4y$ and then the number of bikes served, $T=x+y$. Describe the optimal edge for $T$ and its whole-number schedules.
+\item A library has sixteen materials kits and twenty-four volunteer-hours. Information tables need one kit and three hours and reach five people; reading circles need two kits and two hours and reach eight. Maximize $f=5x+8y$ under $x+2y\leq16$, $3x+2y\leq24$.
+\item A group needs eight folders and ten cards. Bag A has one folder and two cards for \$3; bag B has one folder and one card for \$5. Minimize $C=3x+5y$ subject to $x+y\geq8$, $2x+y\geq10$. Compare the boundary vertices.
 \item For the furniture model in the worked example, compare the best plan with producing only desks. Does the higher per-item contribution determine the answer by itself?
 \item For the three-limit print shop, why is $(80/3,50/3)$ not a feasible corner? Which corner maximizes $15x+35y$?
 \item A toy workshop has $3x+y\leq120$, $x+2y\leq80$, and contribution $P=8x+5y$. Find the corners and best plan. Then change the contribution to $5x+8y$ and compare.
@@ -207,8 +207,8 @@ Use nonnegative variables and included boundaries. Show a corner table or explic
 \item For $x+2y\leq8$, $3x+2y\leq10$, maximize $5x+8y$ continuously and then using whole numbers. Check rounding up and rounding down from the continuous best point.
 \item Compute $0.75A+0.25B$ for $A=(2,1),B=(8,5)$. Add $C=(2,7)$ and normalize amounts $2,1,1$. Where do the resulting points lie? Why do weights $1.2,-0.2$ fail the convex-combination test?
 \item Explain the difference between an infeasible model and an unbounded objective. Give an example of an unbounded region with a finite minimum. Explain why $0\leq x<1$ has no largest allowable x.
-\item Keep $x+y\leq8$ and increase the club's ingredient allowance from 12 to 16, then 20. Maximize $3x+2y$ at each stage. Why does the extra ingredient allowance eventually stop helping?
-\item Recommend a plan for the original chair-and-table workshop with wood limit 40, assembly limit 14, and contribution $30x+50y$. Use resource totals and a comparison with another feasible plan. Name a relevant missing feature.
+\item Keep the shop's eight-bike limit and increase mechanic-hours from twelve to sixteen and then twenty. Maximize $30x+20y$ at each stage. Why do extra hours eventually stop improving contribution?
+\item A repair cooperative has 40 restoration hours, can arrange 14 pickups, and earns after-parts contribution $30x+50y$ from chairs and tables. Recommend a schedule, compare another feasible schedule, and name a missing real-world consideration.
 \end{enumerate}
 '''
 answers2=r'''
