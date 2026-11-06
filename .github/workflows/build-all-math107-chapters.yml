@@ -5,6 +5,7 @@ on:
       - "readings/week*_reading.html"
       - "scripts/build_week*_chapter*.py"
       - "assets/week8/*.svg"
+      - "assets/week9/*.svg"
       - "scripts/chapter_editorial.py"
       - ".github/workflows/build-all-math107-chapters.yml"
   workflow_dispatch:
@@ -34,14 +35,18 @@ jobs:
               python "scripts/build_week${n}_chapter.py"
             fi
           done
-      - name: Rebuild Week 8 PDF figures from revised SVG labels
+      - name: Build PDF companions for illustrated Week 8 and Week 9 examples
         run: |
           python - <<'PY'
           from pathlib import Path
           import cairosvg
-          for source in sorted(Path("assets/week8").glob("*.svg")):
-              cairosvg.svg2pdf(url=str(source), write_to=str(source.with_suffix(".pdf")))
-              print("Rendered", source.name)
+          for directory in (Path("assets/week8"), Path("assets/week9")):
+              for source in sorted(directory.glob("*.svg")):
+                  target = source.with_suffix(".pdf")
+                  if directory.name == "week9" and target.exists():
+                      continue  # Preserve the matching Matplotlib-exported PDF illustrations.
+                  cairosvg.svg2pdf(url=str(source), write_to=str(target))
+                  print("Rendered", source.name, "to", target.name)
           PY
       - name: Compile all chapter PDFs
         uses: xu-cheng/latex-action@v4
