@@ -121,7 +121,7 @@
 <details><summary>Check your reasoning</summary><p>The values become 32 and 32.8. The absolute gap is 0.8. Relative to 32, the gap is \(0.8/32=0.025=2.5\%\), exactly the initial relative gap.</p></details>
 </div>
 </section>
-<section class="card" id="logistic"><div class="kicker">05 / The logistic map</div>
+<section class="card" id="logistic"><div class="kicker">02 / The logistic map</div>
 <h2>Predicting a population using a limited model</h2><p>The conservation group wants to know when its survey and management plans should be revisited. The logistic map makes the update calculation clear, but it omits migration, habitat changes, age structure, and imperfect measurements. It is a mathematical demonstration, not a fitted forecast for any particular lake.</p>
 <div class="example" id="logistic-setting">
 <h3>A small population model</h3>
@@ -228,7 +228,7 @@
 <details><summary>Check your reasoning</summary><p>\(x_1=2.8(0.2)(0.8)=0.448\). It is not the fixed point; it is the first update from the chosen start.</p></details>
 </div>
 </section>
-<section class="card" id="prediction"><div class="kicker">06 / Prediction</div>
+<section class="card" id="prediction"><div class="kicker">03 / Prediction</div>
 <h2>When do plausible forecasts become too different?</h2><p>A conservation decision may tolerate small differences between population estimates but require a new survey when the predictions diverge too much. That acceptable difference is a question about the management goal, not a special number supplied by the formula.</p>
 <p>Suppose a survey estimates 40,000 fish, but a count of 40,010 is also plausible. We have one lake and two possible descriptions of its initial state. Running the same model from both estimates lets us ask whether that small uncertainty matters later.</p>
 <p>Using a reference population of 100,000 fish, those starts become \(40{,}000/100{,}000=0.4000\) and \(40{,}010/100{,}000=0.4001\). We call the two forecast sequences \(x_n\) and \(y_n\), so that we can compare their values at matching update numbers.</p>
@@ -291,7 +291,7 @@
 <details><summary>Check your reasoning</summary><p>No. The first crossing is still generation 8. The trajectories can later move closer again. “First exceeds” does not mean “stays above forever.”</p></details>
 </div>
 </section>
-<section class="card" id="collatz"><div class="kicker">02 / The Collatz number machine</div>
+<section class="card" id="collatz"><div class="kicker">04 / The Collatz number machine</div>
 <h2>An exact rule can leave an open question</h2><p>Our lake model involved an uncertain initial measurement. Now take an <em>exact</em> positive integer and follow a completely specified next-step rule. Even with perfect arithmetic, calculating examples does not necessarily answer a question about every possible starting integer.</p>
 <p>Here the mathematical world is the positive integers: 1, 2, 3, and so on. We are not modeling fish or money yet. We are exploring what a particular arithmetic instruction does to a whole number. One update means applying the instruction once.</p>
 <p>Choose a positive whole number. If it is even, divide it by 2. If it is odd, multiply it by 3 and add 1. Use the result as the next input.</p>
@@ -352,7 +352,7 @@
 <details><summary>Check your reasoning</summary><p>\(5\to16\to8\to4\to2\to1\): 5 updates, peak 16. Count arrows, not recorded numbers.</p></details>
 </div>
 </section>
-<section class="card" id="evidence"><div class="kicker">03 / Evidence and proof</div>
+<section class="card" id="evidence"><div class="kicker">05 / Evidence and proof</div>
 <h2>How much do tested cases establish?</h2>
 <p>A <em>conjecture</em> is a proposed mathematical statement that has not yet been proved. A <em>proof</em> is an argument that covers every case described by the statement. The words “every positive integer” ask for much more than a large collection of successful examples.</p>
 <p>The <em>Collatz conjecture</em> says that every positive integer eventually reaches 1. Extensive computer searches support the conjecture, but a proof for every positive integer is still unknown. The exact rule is easy to state; the universal claim is difficult to establish.</p>
@@ -373,7 +373,7 @@
 <details><summary>Check your reasoning</summary><p>The conjecture holds for those 10,000 starting integers. The experiment provides evidence for the universal conjecture; it does not prove it for all positive integers.</p></details>
 </div>
 </section>
-<section class="card" id="fractals"><div class="kicker">04 / Fractal construction</div>
+<section class="card" id="fractals"><div class="kicker">06 / Fractal construction</div>
 <h2>An intricate boundary can follow a simple rule</h2><p>Suppose a restoration team needs to estimate how much shoreline to inspect or protect. First we use exact geometric constructions to see how the number of pieces, their lengths, and their areas change under repeated refinement. Then we return to the real issue of measuring an irregular bank.</p>
 <p>Now one update changes a drawing rather than a single population or balance. Think of a drawing program with a replacement instruction. Stage 0 is the original drawing. Stage 1 applies the instruction once to every original piece. Stage 2 applies it once to every piece produced at stage 1.</p>
 <p>A self-similar object contains smaller copies of its overall pattern. We can build ideal fractals by repeating a geometric instruction at finer and finer scales. A displayed stage is a finite approximation; the ideal fractal is the limit of all stages.</p>
