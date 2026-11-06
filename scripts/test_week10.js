@@ -48,7 +48,7 @@ for(const file of Object.keys(snapshots)){
   // Changing a mastered response invalidates only its section.
   fields[0].value='';fields[0].dispatch('input');assert.equal(t.$('progressText').textContent,`${groups.length-1} / ${groups.length} sections checked`);
   let again=open(file,t.data);assert.equal(again.$(fields[1].id).value,fields[1].value,'saved response survives reload');
-  t.document.querySelector('[data-print-work]').click();assert.equal(t.window.prints,0,'printing completed work requires a name');t.$('studentName').value='Test Student';t.document.querySelector('[data-print-work]').click();assert.equal(t.window.prints,1);assert.equal(t.document.querySelectorAll('.print-answer').length,fields.length);assert.equal(t.$('printName').textContent,'Student: Test Student');
+  t.document.querySelector('[data-print-work]').click();assert.equal(t.window.prints,0,'printing completed work requires a name');t.$('studentName').value='Test Student';t.document.querySelector('[data-print-work]').click();assert.equal(t.window.prints,1);assert.equal(t.document.querySelectorAll('.print-answer').length,fields.length+t.document.querySelectorAll('textarea[data-save]').length,'graded and written responses both appear in printed work');assert.equal(t.$('printName').textContent,'Student: Test Student');
  }
 }
 // Legacy data is loaded without assuming unchecked responses are complete.
