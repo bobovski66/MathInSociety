@@ -1,0 +1,30 @@
+name: Verify Week 9 networks
+on:
+  push:
+    paths:
+      - "readings/week9_reading.html"
+      - "readings/Math107_Chapter_09_Networks.*"
+      - "labs/week9_lab.html"
+      - "applications/week9_*.html"
+      - "demos/network_systems.html"
+      - "discussions/week9_discussion.html"
+      - "assets/week9/**"
+      - "scripts/verify_week9.py"
+      - "scripts/test_week9.js"
+      - ".github/workflows/verify-week9.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install HTML verification dependency
+        run: python -m pip install lxml
+      - name: Check Week 9 pages and answer contracts
+        run: python scripts/verify_week9.py
+      - name: Check network mathematics and interactive behavior
+        run: |
+          node --check assets/week9/week9.js
+          node scripts/test_week9.js
