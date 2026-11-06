@@ -73,5 +73,7 @@ jobs:
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Regenerate taught Math 107 chapter PDFs"
           git fetch origin main
-          git rebase origin/main
+          # Generated PDFs are binary; if another chapter build finished first,
+          # keep the newer generated files while rebasing onto its commit.
+          git rebase -X theirs origin/main
           git push origin HEAD:main
