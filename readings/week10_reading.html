@@ -3,25 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Follow a number through a maze, build a curve that keeps getting longer, and discover why an exact rule can still leave a forecast uncertain.">
-<title>Week 10 Reading — Simple rules. Surprising worlds. | Math in Society</title>
+<meta name="description" content="A useful forecast needs a rule, a reliable starting measurement, and a clear question. This week we ask what each can—and cannot—give us.">
+<title>Week 10 Reading — How far can a prediction go? | Math in Society</title>
 <link rel="stylesheet" href="../assets/week10/week10.css">
 <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week10/week10.js"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html" aria-current="page">Reading</a><a href="../demos/fractal_recursion.html">Explorer</a><a href="../labs/week10_lab.html">Laboratory</a><a href="../applications/week10_application.html">Fish forecast</a><a href="../applications/week10_ai.html">AI application</a><a href="../discussions/week10_discussion.html">Discussion</a></nav><main class="wrap" id="main"><header class="hero"><div class="eyebrow">Week 10 / Reading</div>
-<h1>Recursion, fractals, and prediction</h1>
-<p class="lead">Follow a number through a maze, build a curve that keeps getting longer, and discover why an exact rule can still leave a forecast uncertain.</p>
+<h1>How far can a prediction go?</h1>
+<p class="lead">A useful forecast needs a rule, a reliable starting measurement, and a clear question. This week we ask what each can—and cannot—give us.</p>
 </header>
-<div class="card">
-<div class="kicker">The question for the week</div>
-<h2>What a rule can tell us</h2>
-<p>A computer can follow a short instruction perfectly and still produce a result that surprises us. That surprise can have several causes. A number sequence can take an unexpectedly long route. A shape can acquire finer detail forever. A prediction can depend on a starting measurement more precisely than we can make it.</p>
-<p>These examples share an initial condition and a rule applied repeatedly. They lead to different questions: whether a number sequence reaches 1, how a geometric construction's length or area changes, and how accurately two nearby starting measurements can predict later states.</p>
-
-</div>
+<div class="card"><div class="kicker">Our question / What can we actually conclude?</div><h2>Three limits worth knowing</h2><p>A conservation group gets an estimated fish count, not an exact count. A computer can test thousands of integers without proving a claim about every integer. A shoreline can have different reported lengths depending on the ruler used. These are three different reasons to be careful with a conclusion.</p><p>We'll begin with the reliability of a forecast, then ask what calculation and proof establish, and finally consider what happens when the measurement depends on scale. Recursion, fractals, and chaos give us the mathematics for answering these questions.</p></div>
 <section class="card" id="start-here"><div class="kicker">Start here / The mathematical setting</div>
-<h2>A quantity, a rule, and a question</h2>
+<h2>Before trusting a forecast: state, rule, and question</h2>
 <p>In an interest calculation or thermostat update, the current state determines the next state. The same kind of rule can define a number sequence, a population model, or a geometric construction.</p>
 <p>A <em>mathematical model</em> is a deliberately simplified description of a situation. We choose what to keep track of and write a rule relating the quantities. For example, a savings model might include interest and omit fees. A population model might include crowding and omit migration. A calculated answer describes what the model predicts under those assumptions.</p>
 <div class="example">
@@ -42,20 +36,8 @@
 <h3>What do “complexity” and “chaos” mean here?</h3>
 <p>We will use <em>complexity</em> broadly for behavior or structure with many details: a long number route, an intricate boundary, or a changing forecast. We will give the more specific word <em>chaos</em> a mathematical meaning by comparing nearby forecasts later in the reading. We begin with familiar arithmetic and build toward that idea.</p>
 <p class="small">The calculations rely on arithmetic, percentages, tables, and graphs. The <a href="../demos/fractal_recursion.html">explorer</a> provides longer trajectories that can be compared with calculations by hand.</p></section>
-<nav class="toc" aria-label="Reading contents"><div class="kicker">Read in order; try the short checks</div>
-<p><a href="#start-here">Begin with the mathematical setting: a quantity, a rule, and a question.</a></p>
-<ol>
-<li><a href="#recursion">One rule, many updates</a></li>
-<li><a href="#collatz">The Collatz number machine</a></li>
-<li><a href="#evidence">Evidence and proof</a></li>
-<li><a href="#fractals">Build a fractal; keep the accounts</a></li>
-<li><a href="#logistic">Growth, limits, and the logistic map</a></li>
-<li><a href="#prediction">How far can a forecast travel?</a></li>
-<li><a href="#scale">What does a shorter ruler reveal?</a></li>
-<li><a href="#connections">The observation thread</a></li>
-</ol></nav>
 <section class="card" id="recursion"><div class="kicker">01 / Recursion</div>
-<h2>One rule, many updates</h2>
+<h2>How nearby starting estimates change</h2>
 <p>A <em>recursion</em> uses a current value to calculate the next value. A <em>trajectory</em> is the sequence of values it produces. The starting value has index 0; the result after one update has index 1.</p>
 <div class="example">
 <h3>Read the formula as an instruction</h3>
@@ -139,8 +121,178 @@
 <details><summary>Check your reasoning</summary><p>The values become 32 and 32.8. The absolute gap is 0.8. Relative to 32, the gap is \(0.8/32=0.025=2.5\%\), exactly the initial relative gap.</p></details>
 </div>
 </section>
+<section class="card" id="logistic"><div class="kicker">05 / The logistic map</div>
+<h2>Predicting a population using a limited model</h2>
+<div class="example" id="logistic-setting">
+<h3>A small population model</h3>
+<p>Imagine a pond whose population is measured once per breeding season. Let 1,000 fish be our reference population. We can describe 200 fish by the fraction \(200/1{,}000=0.2\), or 20% of the reference population.</p>
+<p>Writing a quantity on this common 0-to-1 scale is called <em>normalizing</em> it. In this model, \(x=0\) means zero fish, \(x=0.5\) means 500 fish, and \(x=1\) means 1,000 fish. A model state such as 0.2 is a fraction, not a count of 0.2 fish.</p>
+<p>To model a next season, we want growth to depend on the present population and to weaken when crowding is high. The logistic map is one simple rule built for that purpose. It is a mathematical example, with a chosen reference scale, rather than a complete ecological account of a pond.</p>
+</div>
+<p>The rule combines the current fraction with a growth setting and a limiting factor. In words: next fraction = growth setting × current fraction × remaining fraction.</p>
+<p>We write the current fraction as \(x_n\). The next season’s fraction is \(x_{n+1}\). The setting \(r\) is a <em>parameter</em>: a number we hold fixed during a run. Choosing a different \(r\) changes the model’s response strength, much as changing the controller’s strength changed the temperature sequence in Week 5.</p>
+<p>In mathematics, a <em>map</em> is an input-output rule. The name <em>logistic map</em> refers to this particular population-style update. Repeating an update is also called <em>iterating</em> the rule.</p>
+<div class="formula">\[x_{n+1}=r x_n(1-x_n).\]</div>
+<ul>
+<li>\(x_n\) is the current state, normalized between 0 and 1.</li>
+<li>\(r\) is a fixed parameter controlling the update.</li>
+<li>\(1-x_n\) is a limiting factor: it gets smaller when \(x_n\) gets larger.</li>
+</ul>
+<p>If \(x_n=0.2\), then \(1-x_n=0.8\). If \(x_n=0.8\), then \(1-x_n=0.2\). This complement is the limiting factor in the model: a larger current fraction leaves a smaller factor to multiply by.</p>
+<h3>Read r as a setting, not a percentage</h3>
+<p>In Week 6, multiplying a balance by 1.05 represented 5% growth each period. Here the whole multiplier is \(r(1-x_n)\), so it changes when \(x_n\) changes. For example, with \(r=2\):</p>
+<div class="table-wrap"><table>
+<thead><tr>
+<th scope="col">Current fraction</th>
+<th scope="col">Limiting factor</th>
+<th scope="col">Whole multiplier</th>
+<th scope="col">Next fraction</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>0.2</td>
+<td>1 − 0.2 = 0.8</td>
+<td>2 × 0.8 = 1.6</td>
+<td>1.6 × 0.2 = 0.32</td>
+</tr>
+<tr>
+<td>0.5</td>
+<td>1 − 0.5 = 0.5</td>
+<td>2 × 0.5 = 1</td>
+<td>1 × 0.5 = 0.5</td>
+</tr>
+<tr>
+<td>0.8</td>
+<td>1 − 0.8 = 0.2</td>
+<td>2 × 0.2 = 0.4</td>
+<td>0.4 × 0.8 = 0.32</td>
+</tr>
+</tbody>
+</table></div>
+<p>At a low population, the model’s multiplier can exceed 1 and the next population grows. At a high population, the limiting factor can make the multiplier smaller than 1 and the population falls. The chosen rule can make a strong correction. This dependence on the current state makes the update <em>nonlinear</em>: its effects do not follow one fixed additive or multiplicative pattern.</p>
+<p>For \(0\le r\le4\), a starting state in \([0,1]\) stays in that interval. We can use \(x_n\) as a simplified population index, but a real population requires more information than this one equation includes.</p>
+<div class="example">
+<h3>Example 5 · Do not reuse the old input</h3>
+<p>Let \(r=2\) and \(x_0=0.2\).</p>
+<ol class="steps">
+<li>\(x_1=2(0.2)(1-0.2)=2(0.2)(0.8)=0.32\).</li>
+<li>\(x_2=2(0.32)(1-0.32)=2(0.32)(0.68)=0.4352\).</li>
+<li>\(x_3=2(0.4352)(0.5648)=0.49160192\).</li>
+</ol>
+<p>Each new result replaces the previous input. The values approach 0.5.</p>
+</div>
+<p>In the 1,000-fish setting, those fractions represent approximately 200, 320, 435, and 492 fish. These are model estimates; we round fish counts for reporting while keeping the fractional calculation unrounded. A “generation” or “update” on the graph means one breeding season in this example.</p>
+<h3>A fixed point: an update that leaves the state alone</h3>
+<p>Try \(r=2\) and \(x=0.5\). The next value is \(2(0.5)(1-0.5)=0.5\). If the model reaches exactly 0.5, it keeps returning 0.5. This unchanged value is called a <em>fixed point</em>.</p>
+<p>A sequence can also <em>approach</em> a fixed point: its later values get closer and closer to it. Our earlier run, \(0.2,0.32,0.4352,0.49160192,\ldots\), moves toward 0.5. A fixed point describes a lasting balance, whereas a first update describes what happens immediately from a particular start.</p>
+<p>For the nonzero fixed point of this rule, we can use \(x^*=1-1/r\). The star is a label for the fixed-point value; it is not multiplication. To use the formula, divide 1 by the chosen \(r\), then subtract that result from 1. For \(r=2.8\), this gives approximately 0.642857.</p>
+<details><summary>Why does the fixed-point formula work?</summary><p>A fixed point has the same value before and after the update, so it satisfies \(x=rx(1-x)\). For \(x\ne0\), divide both sides by \(x\), giving \(1=r(1-x)\). Divide by \(r\), then rearrange: \(1/r=1-x\), so \(x=1-1/r\). Zero is also a fixed point: without any starting population, this model produces none.</p></details>
+<h3>Three behaviors from the same formula</h3>
+<p>Now keep the initial state at 0.4 and change only \(r\). Read each panel like the time graphs in Week 5: move left to right through the updates, and read the vertical value at each dot. Joining the dots helps the eye follow the sequence; the calculation itself happens at the numbered updates.</p>
+<p>A <em>cycle</em> is a repeating sequence of states. A <em>two-cycle</em> alternates between two values, as a high-low-high-low pattern. The early values may still be settling toward that pattern. A nearly horizontal row of late dots indicates approach to a fixed point instead.</p>
+<p>In Week 5, a feedback sequence could swing because of a strong correction or delayed information. This rule uses the current population fraction directly at each season; it does not include a delayed sensor report. Here we investigate what happens as the response setting changes.</p>
+<figure class="figure"><img src="../assets/week10/logistic-behaviors.svg" alt="For the logistic map starting at .4, r=2.8 approaches one value, r=3.2 approaches a two-cycle, and r=3.9 shows irregular variation over 40 updates." loading="lazy"><figcaption>Each panel starts at x₀ = 0.4 and shows 40 updates. The parameter changes; the formula stays the same. A finite plot shows numerical behavior, not a proof about every future update.</figcaption></figure><h3>Giving chaotic behavior a meaning</h3>
+<p>The third panel does not settle into the visible one-value or two-value pattern. Its states remain between 0 and 1 while moving irregularly. To investigate further, we will run the rule twice from almost identical starts.</p>
+<p>Mathematicians use <em>chaos</em> for a kind of deterministic behavior in which very small initial differences can be amplified enough to limit detailed long-range forecasts. <em>Deterministic</em> means that an exactly specified input has one specified next result. In our chaotic logistic examples, later values also do not settle into a fixed point or a repeating cycle. This amplification of uncertainty about the start is called <em>sensitivity to initial conditions</em>. The comparison ahead shows what that means numerically.</p>
+<div class="table-wrap"><table>
+<thead><tr>
+<th scope="col">Behavior</th>
+<th scope="col">What to look for</th>
+<th scope="col">Example</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Fixed point</td>
+<td>Later values approach one state.</td>
+<td>r = 2.8 approaches 1 − 1/2.8 ≈ 0.642857.</td>
+</tr>
+<tr>
+<td>Cycle</td>
+<td>Later values approach a repeating pattern.</td>
+<td>r = 3.2 approaches a two-cycle near 0.5130 and 0.7995.</td>
+</tr>
+<tr>
+<td>Chaotic dynamics</td>
+<td>Bounded irregular motion with sensitivity to nearby starts.</td>
+<td>At r = 3.9, the nearby trajectories below separate substantially.</td>
+</tr>
+</tbody>
+</table></div>
+<div class="insight">
+<h3>A larger r does not mean “more chaos” every time</h3>
+<p>For some ranges of \(r\), repeating behavior returns. At \(r=3.83\), for example, ordinary nearby starts settle toward three values that repeat. Such a range is called a <em>periodic window</em>. The phrase simply means a range of parameter settings with repeating behavior.</p>
+<p>There can also be special starting values. At \(r=4\), the exact start \(x_0=0.5\) gives \(0.5\to1\to0\to0\). These examples are why we study both the setting and the starting value, rather than labeling every run from the formula alone.</p>
+</div>
+<div class="quick-check">
+<p>With \(r=2.8\) and \(x_0=0.2\), calculate just the next state.</p>
+<details><summary>Check your reasoning</summary><p>\(x_1=2.8(0.2)(0.8)=0.448\). It is not the fixed point; it is the first update from the chosen start.</p></details>
+</div>
+</section>
+<section class="card" id="prediction"><div class="kicker">06 / Prediction</div>
+<h2>When do plausible forecasts become too different?</h2>
+<p>Suppose a survey estimates 40,000 fish, but a count of 40,010 is also plausible. We have one lake and two possible descriptions of its initial state. Running the same model from both estimates lets us ask whether that small uncertainty matters later.</p>
+<p>Using a reference population of 100,000 fish, those starts become \(40{,}000/100{,}000=0.4000\) and \(40{,}010/100{,}000=0.4001\). We call the two forecast sequences \(x_n\) and \(y_n\), so that we can compare their values at matching update numbers.</p>
+<p>A deterministic rule gives the same next state whenever its input is exactly the same. In practice, an observation usually identifies a range of possible starting states. We can follow two nearby starts to see whether their forecasts remain close.</p>
+<div class="example">
+<h3>Example 6 · A difference of one ten-thousandth</h3>
+<p>Use \(r=3.9\) with \(x_0=0.4000\) and \(y_0=0.4001\). The first updates are</p>
+<div class="math">\[x_1=3.9(0.4)(0.6)=0.936,\qquad y_1=3.9(0.4001)(0.5999)=0.936077961.\]</div>
+<p>The initial gap is 0.0001; after the first update it is about 0.000078. The gap <em>shrinks initially</em>. Sensitivity does not require the gap to grow at every step.</p>
+</div>
+<div class="example">
+<h3>Read the two panels as two different questions</h3>
+<p>In the upper panel, each line answers “what state does this starting estimate predict at generation \(n\)?” In the lower panel, each dot answers “how far apart are those two predictions at that same generation?”</p>
+<p>The gap \(|x_n-y_n|\) is found by subtracting the smaller state from the larger. It is zero when the forecasts agree. A gap of 0.01 means one hundredth of the reference population, or 1,000 fish in this setting. It does not mean 0.01 fish.</p>
+</div>
+<figure class="figure"><img src="../assets/week10/forecast-sensitivity.svg" alt="Two logistic trajectories starting at .4000 and .4001. Their gap first exceeds .01 at generation 8 and .10 at generation 14. The gap sometimes shrinks between generations." loading="lazy"><figcaption>The upper plot shows the states; the lower plot shows their absolute gap. Both calculations use full stored precision. Displayed decimals are rounded only for reading.</figcaption></figure>
+<h3>Choose how much disagreement matters</h3>
+<p>A <em>threshold</em> is a chosen cutoff. Suppose the question is “when does the gap first become greater than 0.01?” Read down the gap column and stop at the first value above that cutoff:</p>
+<div class="table-wrap"><table>
+<thead><tr>
+<th scope="col">Generation</th>
+<th scope="col">Absolute gap</th>
+<th scope="col">Is the gap greater than 0.01?</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>6</td>
+<td>0.001174</td>
+<td>No</td>
+</tr>
+<tr>
+<td>7</td>
+<td>0.004172</td>
+<td>No</td>
+</tr>
+<tr>
+<td>8</td>
+<td>0.010896</td>
+<td>Yes — this is the first crossing</td>
+</tr>
+<tr>
+<td>9</td>
+<td>0.003207</td>
+<td>No — the forecasts have moved closer again</td>
+</tr>
+</tbody>
+</table></div>
+<p>In this example, the earlier gaps at generations 0 through 5 are also below 0.01. “Greater than” means strictly above; a gap of exactly 0.01 would not cross this threshold. The comparison symbol in \(|x_n-y_n|&gt;0.01\) is a compact way to ask the same question.</p>
+<p>A <em>tolerance</em> is how much disagreement a decision can accept. For this pair, a tolerance of 0.01 is first exceeded at generation 8; a tolerance of 0.10 is first exceeded at generation 14. That first-crossing time gives a practical <em>forecast horizon</em> for the comparison: how long the forecasts initially stay within the chosen tolerance. A more demanding tolerance can give a shorter useful horizon.</p>
+<p>The two runs explore two plausible starting estimates. To assess a whole range of plausible starts, we would need to study more than these two. Their separation also does not prove that a real population follows this particular model.</p>
+<div class="insight">
+<h3>Round for display, not between updates</h3>
+<p>If 0.4001 is rounded to 0.400 before the experiment begins, the two starts become identical and their apparent difference disappears. During iteration, premature rounding changes the input to every later calculation. Keep the calculator’s stored value and round only the numbers you report.</p>
+<p>For the first few updates, substitute the current value into the rule. For longer sequences, use the explorer's table. Keep full precision during the updates so that rounding does not change the modeled trajectory.</p>
+</div>
+<h3>Deterministic does not mean easily forecast</h3>
+<p>The logistic rule contains no random-number generator. Its sensitivity concerns the consequences of imperfectly known initial conditions. Random sampling, incomplete models, and noisy measurements can also limit prediction, but they are distinct sources of uncertainty.</p>
+<div class="quick-check">
+<p>At generation 8, the gap is about 0.010896. At generation 9 it is about 0.003207. Has the first crossing of 0.01 moved to a later generation?</p>
+<details><summary>Check your reasoning</summary><p>No. The first crossing is still generation 8. The trajectories can later move closer again. “First exceeds” does not mean “stays above forever.”</p></details>
+</div>
+</section>
 <section class="card" id="collatz"><div class="kicker">02 / The Collatz number machine</div>
-<h2>The Collatz problem</h2>
+<h2>An exact rule can leave an open question</h2>
 <p>Here the mathematical world is the positive integers: 1, 2, 3, and so on. We are not modeling fish or money yet. We are exploring what a particular arithmetic instruction does to a whole number. One update means applying the instruction once.</p>
 <p>Choose a positive whole number. If it is even, divide it by 2. If it is odd, multiply it by 3 and add 1. Use the result as the next input.</p>
 <p>An <em>even</em> integer divides by 2 without a remainder, such as 6 or 10. An <em>odd</em> integer does not, such as 3 or 5. The displayed formula below simply puts those two verbal instructions into one statement. The brace says “choose the appropriate row.”</p>
@@ -201,7 +353,7 @@
 </div>
 </section>
 <section class="card" id="evidence"><div class="kicker">03 / Evidence and proof</div>
-<h2>A million successful trials still leave a question</h2>
+<h2>How much do tested cases establish?</h2>
 <p>A <em>conjecture</em> is a proposed mathematical statement that has not yet been proved. A <em>proof</em> is an argument that covers every case described by the statement. The words “every positive integer” ask for much more than a large collection of successful examples.</p>
 <p>The <em>Collatz conjecture</em> says that every positive integer eventually reaches 1. Extensive computer searches support the conjecture, but a proof for every positive integer is still unknown. The exact rule is easy to state; the universal claim is difficult to establish.</p>
 <div class="example">
@@ -222,7 +374,7 @@
 </div>
 </section>
 <section class="card" id="fractals"><div class="kicker">04 / Fractal construction</div>
-<h2>Repeated geometric constructions</h2>
+<h2>An intricate boundary can follow a simple rule</h2>
 <p>Now one update changes a drawing rather than a single population or balance. Think of a drawing program with a replacement instruction. Stage 0 is the original drawing. Stage 1 applies the instruction once to every original piece. Stage 2 applies it once to every piece produced at stage 1.</p>
 <p>A self-similar object contains smaller copies of its overall pattern. We can build ideal fractals by repeating a geometric instruction at finer and finer scales. A displayed stage is a finite approximation; the ideal fractal is the limit of all stages.</p>
 <p>For these examples, <em>self-similar</em> means a smaller part is an exact scaled copy of the whole limiting pattern. A <em>fractal</em> has structure that remains intricate as we inspect finer scales. We can draw only finitely many stages, but we can ask what the measurements do as the number of stages increases.</p>
@@ -343,178 +495,8 @@
 <details><summary>Check your reasoning</summary><p>Each segment has length \((1/3)^3=1/27\). There are 64 segments, so \(L_3=64/27\). The one-third factor is applied three times.</p></details>
 </div>
 </section>
-<section class="card" id="logistic"><div class="kicker">05 / The logistic map</div>
-<h2>Growth meets a limiting factor</h2>
-<div class="example" id="logistic-setting">
-<h3>A small population model</h3>
-<p>Imagine a pond whose population is measured once per breeding season. Let 1,000 fish be our reference population. We can describe 200 fish by the fraction \(200/1{,}000=0.2\), or 20% of the reference population.</p>
-<p>Writing a quantity on this common 0-to-1 scale is called <em>normalizing</em> it. In this model, \(x=0\) means zero fish, \(x=0.5\) means 500 fish, and \(x=1\) means 1,000 fish. A model state such as 0.2 is a fraction, not a count of 0.2 fish.</p>
-<p>To model a next season, we want growth to depend on the present population and to weaken when crowding is high. The logistic map is one simple rule built for that purpose. It is a mathematical example, with a chosen reference scale, rather than a complete ecological account of a pond.</p>
-</div>
-<p>The rule combines the current fraction with a growth setting and a limiting factor. In words: next fraction = growth setting × current fraction × remaining fraction.</p>
-<p>We write the current fraction as \(x_n\). The next season’s fraction is \(x_{n+1}\). The setting \(r\) is a <em>parameter</em>: a number we hold fixed during a run. Choosing a different \(r\) changes the model’s response strength, much as changing the controller’s strength changed the temperature sequence in Week 5.</p>
-<p>In mathematics, a <em>map</em> is an input-output rule. The name <em>logistic map</em> refers to this particular population-style update. Repeating an update is also called <em>iterating</em> the rule.</p>
-<div class="formula">\[x_{n+1}=r x_n(1-x_n).\]</div>
-<ul>
-<li>\(x_n\) is the current state, normalized between 0 and 1.</li>
-<li>\(r\) is a fixed parameter controlling the update.</li>
-<li>\(1-x_n\) is a limiting factor: it gets smaller when \(x_n\) gets larger.</li>
-</ul>
-<p>If \(x_n=0.2\), then \(1-x_n=0.8\). If \(x_n=0.8\), then \(1-x_n=0.2\). This complement is the limiting factor in the model: a larger current fraction leaves a smaller factor to multiply by.</p>
-<h3>Read r as a setting, not a percentage</h3>
-<p>In Week 6, multiplying a balance by 1.05 represented 5% growth each period. Here the whole multiplier is \(r(1-x_n)\), so it changes when \(x_n\) changes. For example, with \(r=2\):</p>
-<div class="table-wrap"><table>
-<thead><tr>
-<th scope="col">Current fraction</th>
-<th scope="col">Limiting factor</th>
-<th scope="col">Whole multiplier</th>
-<th scope="col">Next fraction</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>0.2</td>
-<td>1 − 0.2 = 0.8</td>
-<td>2 × 0.8 = 1.6</td>
-<td>1.6 × 0.2 = 0.32</td>
-</tr>
-<tr>
-<td>0.5</td>
-<td>1 − 0.5 = 0.5</td>
-<td>2 × 0.5 = 1</td>
-<td>1 × 0.5 = 0.5</td>
-</tr>
-<tr>
-<td>0.8</td>
-<td>1 − 0.8 = 0.2</td>
-<td>2 × 0.2 = 0.4</td>
-<td>0.4 × 0.8 = 0.32</td>
-</tr>
-</tbody>
-</table></div>
-<p>At a low population, the model’s multiplier can exceed 1 and the next population grows. At a high population, the limiting factor can make the multiplier smaller than 1 and the population falls. The chosen rule can make a strong correction. This dependence on the current state makes the update <em>nonlinear</em>: its effects do not follow one fixed additive or multiplicative pattern.</p>
-<p>For \(0\le r\le4\), a starting state in \([0,1]\) stays in that interval. We can use \(x_n\) as a simplified population index, but a real population requires more information than this one equation includes.</p>
-<div class="example">
-<h3>Example 5 · Do not reuse the old input</h3>
-<p>Let \(r=2\) and \(x_0=0.2\).</p>
-<ol class="steps">
-<li>\(x_1=2(0.2)(1-0.2)=2(0.2)(0.8)=0.32\).</li>
-<li>\(x_2=2(0.32)(1-0.32)=2(0.32)(0.68)=0.4352\).</li>
-<li>\(x_3=2(0.4352)(0.5648)=0.49160192\).</li>
-</ol>
-<p>Each new result replaces the previous input. The values approach 0.5.</p>
-</div>
-<p>In the 1,000-fish setting, those fractions represent approximately 200, 320, 435, and 492 fish. These are model estimates; we round fish counts for reporting while keeping the fractional calculation unrounded. A “generation” or “update” on the graph means one breeding season in this example.</p>
-<h3>A fixed point: an update that leaves the state alone</h3>
-<p>Try \(r=2\) and \(x=0.5\). The next value is \(2(0.5)(1-0.5)=0.5\). If the model reaches exactly 0.5, it keeps returning 0.5. This unchanged value is called a <em>fixed point</em>.</p>
-<p>A sequence can also <em>approach</em> a fixed point: its later values get closer and closer to it. Our earlier run, \(0.2,0.32,0.4352,0.49160192,\ldots\), moves toward 0.5. A fixed point describes a lasting balance, whereas a first update describes what happens immediately from a particular start.</p>
-<p>For the nonzero fixed point of this rule, we can use \(x^*=1-1/r\). The star is a label for the fixed-point value; it is not multiplication. To use the formula, divide 1 by the chosen \(r\), then subtract that result from 1. For \(r=2.8\), this gives approximately 0.642857.</p>
-<details><summary>Why does the fixed-point formula work?</summary><p>A fixed point has the same value before and after the update, so it satisfies \(x=rx(1-x)\). For \(x\ne0\), divide both sides by \(x\), giving \(1=r(1-x)\). Divide by \(r\), then rearrange: \(1/r=1-x\), so \(x=1-1/r\). Zero is also a fixed point: without any starting population, this model produces none.</p></details>
-<h3>Three behaviors from the same formula</h3>
-<p>Now keep the initial state at 0.4 and change only \(r\). Read each panel like the time graphs in Week 5: move left to right through the updates, and read the vertical value at each dot. Joining the dots helps the eye follow the sequence; the calculation itself happens at the numbered updates.</p>
-<p>A <em>cycle</em> is a repeating sequence of states. A <em>two-cycle</em> alternates between two values, as a high-low-high-low pattern. The early values may still be settling toward that pattern. A nearly horizontal row of late dots indicates approach to a fixed point instead.</p>
-<p>In Week 5, a feedback sequence could swing because of a strong correction or delayed information. This rule uses the current population fraction directly at each season; it does not include a delayed sensor report. Here we investigate what happens as the response setting changes.</p>
-<figure class="figure"><img src="../assets/week10/logistic-behaviors.svg" alt="For the logistic map starting at .4, r=2.8 approaches one value, r=3.2 approaches a two-cycle, and r=3.9 shows irregular variation over 40 updates." loading="lazy"><figcaption>Each panel starts at x₀ = 0.4 and shows 40 updates. The parameter changes; the formula stays the same. A finite plot shows numerical behavior, not a proof about every future update.</figcaption></figure><h3>Giving chaotic behavior a meaning</h3>
-<p>The third panel does not settle into the visible one-value or two-value pattern. Its states remain between 0 and 1 while moving irregularly. To investigate further, we will run the rule twice from almost identical starts.</p>
-<p>Mathematicians use <em>chaos</em> for a kind of deterministic behavior in which very small initial differences can be amplified enough to limit detailed long-range forecasts. <em>Deterministic</em> means that an exactly specified input has one specified next result. In our chaotic logistic examples, later values also do not settle into a fixed point or a repeating cycle. This amplification of uncertainty about the start is called <em>sensitivity to initial conditions</em>. The comparison ahead shows what that means numerically.</p>
-<div class="table-wrap"><table>
-<thead><tr>
-<th scope="col">Behavior</th>
-<th scope="col">What to look for</th>
-<th scope="col">Example</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>Fixed point</td>
-<td>Later values approach one state.</td>
-<td>r = 2.8 approaches 1 − 1/2.8 ≈ 0.642857.</td>
-</tr>
-<tr>
-<td>Cycle</td>
-<td>Later values approach a repeating pattern.</td>
-<td>r = 3.2 approaches a two-cycle near 0.5130 and 0.7995.</td>
-</tr>
-<tr>
-<td>Chaotic dynamics</td>
-<td>Bounded irregular motion with sensitivity to nearby starts.</td>
-<td>At r = 3.9, the nearby trajectories below separate substantially.</td>
-</tr>
-</tbody>
-</table></div>
-<div class="insight">
-<h3>A larger r does not mean “more chaos” every time</h3>
-<p>For some ranges of \(r\), repeating behavior returns. At \(r=3.83\), for example, ordinary nearby starts settle toward three values that repeat. Such a range is called a <em>periodic window</em>. The phrase simply means a range of parameter settings with repeating behavior.</p>
-<p>There can also be special starting values. At \(r=4\), the exact start \(x_0=0.5\) gives \(0.5\to1\to0\to0\). These examples are why we study both the setting and the starting value, rather than labeling every run from the formula alone.</p>
-</div>
-<div class="quick-check">
-<p>With \(r=2.8\) and \(x_0=0.2\), calculate just the next state.</p>
-<details><summary>Check your reasoning</summary><p>\(x_1=2.8(0.2)(0.8)=0.448\). It is not the fixed point; it is the first update from the chosen start.</p></details>
-</div>
-</section>
-<section class="card" id="prediction"><div class="kicker">06 / Prediction</div>
-<h2>Knowing a rule and measuring a state are different tasks</h2>
-<p>Suppose a survey estimates 40,000 fish, but a count of 40,010 is also plausible. We have one lake and two possible descriptions of its initial state. Running the same model from both estimates lets us ask whether that small uncertainty matters later.</p>
-<p>Using a reference population of 100,000 fish, those starts become \(40{,}000/100{,}000=0.4000\) and \(40{,}010/100{,}000=0.4001\). We call the two forecast sequences \(x_n\) and \(y_n\), so that we can compare their values at matching update numbers.</p>
-<p>A deterministic rule gives the same next state whenever its input is exactly the same. In practice, an observation usually identifies a range of possible starting states. We can follow two nearby starts to see whether their forecasts remain close.</p>
-<div class="example">
-<h3>Example 6 · A difference of one ten-thousandth</h3>
-<p>Use \(r=3.9\) with \(x_0=0.4000\) and \(y_0=0.4001\). The first updates are</p>
-<div class="math">\[x_1=3.9(0.4)(0.6)=0.936,\qquad y_1=3.9(0.4001)(0.5999)=0.936077961.\]</div>
-<p>The initial gap is 0.0001; after the first update it is about 0.000078. The gap <em>shrinks initially</em>. Sensitivity does not require the gap to grow at every step.</p>
-</div>
-<div class="example">
-<h3>Read the two panels as two different questions</h3>
-<p>In the upper panel, each line answers “what state does this starting estimate predict at generation \(n\)?” In the lower panel, each dot answers “how far apart are those two predictions at that same generation?”</p>
-<p>The gap \(|x_n-y_n|\) is found by subtracting the smaller state from the larger. It is zero when the forecasts agree. A gap of 0.01 means one hundredth of the reference population, or 1,000 fish in this setting. It does not mean 0.01 fish.</p>
-</div>
-<figure class="figure"><img src="../assets/week10/forecast-sensitivity.svg" alt="Two logistic trajectories starting at .4000 and .4001. Their gap first exceeds .01 at generation 8 and .10 at generation 14. The gap sometimes shrinks between generations." loading="lazy"><figcaption>The upper plot shows the states; the lower plot shows their absolute gap. Both calculations use full stored precision. Displayed decimals are rounded only for reading.</figcaption></figure>
-<h3>Choose how much disagreement matters</h3>
-<p>A <em>threshold</em> is a chosen cutoff. Suppose the question is “when does the gap first become greater than 0.01?” Read down the gap column and stop at the first value above that cutoff:</p>
-<div class="table-wrap"><table>
-<thead><tr>
-<th scope="col">Generation</th>
-<th scope="col">Absolute gap</th>
-<th scope="col">Is the gap greater than 0.01?</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>6</td>
-<td>0.001174</td>
-<td>No</td>
-</tr>
-<tr>
-<td>7</td>
-<td>0.004172</td>
-<td>No</td>
-</tr>
-<tr>
-<td>8</td>
-<td>0.010896</td>
-<td>Yes — this is the first crossing</td>
-</tr>
-<tr>
-<td>9</td>
-<td>0.003207</td>
-<td>No — the forecasts have moved closer again</td>
-</tr>
-</tbody>
-</table></div>
-<p>In this example, the earlier gaps at generations 0 through 5 are also below 0.01. “Greater than” means strictly above; a gap of exactly 0.01 would not cross this threshold. The comparison symbol in \(|x_n-y_n|&gt;0.01\) is a compact way to ask the same question.</p>
-<p>A <em>tolerance</em> is how much disagreement a decision can accept. For this pair, a tolerance of 0.01 is first exceeded at generation 8; a tolerance of 0.10 is first exceeded at generation 14. That first-crossing time gives a practical <em>forecast horizon</em> for the comparison: how long the forecasts initially stay within the chosen tolerance. A more demanding tolerance can give a shorter useful horizon.</p>
-<p>The two runs explore two plausible starting estimates. To assess a whole range of plausible starts, we would need to study more than these two. Their separation also does not prove that a real population follows this particular model.</p>
-<div class="insight">
-<h3>Round for display, not between updates</h3>
-<p>If 0.4001 is rounded to 0.400 before the experiment begins, the two starts become identical and their apparent difference disappears. During iteration, premature rounding changes the input to every later calculation. Keep the calculator’s stored value and round only the numbers you report.</p>
-<p>For the first few updates, substitute the current value into the rule. For longer sequences, use the explorer's table. Keep full precision during the updates so that rounding does not change the modeled trajectory.</p>
-</div>
-<h3>Deterministic does not mean easily forecast</h3>
-<p>The logistic rule contains no random-number generator. Its sensitivity concerns the consequences of imperfectly known initial conditions. Random sampling, incomplete models, and noisy measurements can also limit prediction, but they are distinct sources of uncertainty.</p>
-<div class="quick-check">
-<p>At generation 8, the gap is about 0.010896. At generation 9 it is about 0.003207. Has the first crossing of 0.01 moved to a later generation?</p>
-<details><summary>Check your reasoning</summary><p>No. The first crossing is still generation 8. The trajectories can later move closer again. “First exceeds” does not mean “stays above forever.”</p></details>
-</div>
-</section>
 <section class="card" id="scale"><div class="kicker">07 / Observation scale</div>
-<h2>What does a shorter ruler reveal?</h2>
+<h2>How long is the shoreline, at what scale?</h2>
 <p>Imagine laying a straight ruler along a winding shoreline on a map. Mark where one ruler length ends, move the ruler to begin there, and keep going. Every placement contributes one ruler length to the estimate. A long ruler can bridge across a small inlet; a shorter ruler can turn into it.</p>
 <p>The ruler length sets the <em>measurement scale</em>. A finer scale follows smaller details. For these idealized tables, we treat every placement as a full ruler length, so multiplying the count by the ruler length gives the reported total.</p>
 <p>A coarse map skips small bends in a boundary. A finer map follows more of them. The <em>coastline paradox</em> asks what happens to a reported length as the observation scale changes.</p>
@@ -569,7 +551,7 @@
 </div>
 </section>
 <section class="card" id="connections"><div class="kicker">08 / The observation thread</div>
-<h2>What kind of question are we asking?</h2>
+<h2>Three limits of prediction, one habit of reasoning</h2>
 <p>The same mathematical habit has appeared in different settings. Week 2 asked what a distribution describes. Weeks 3 and 4 asked how data and uncertain measurements support a conclusion. Week 5 studied how the present affects the next update. Weeks 7 and 8 asked which choices a model permits and what “best” means. Week 9 made the connections themselves visible.</p>
 <p>Here we have asked what repeated rules can reveal, and how the answer changes with the quantity and observation scale. A large number, a long route, a finely detailed picture, and an uncertain forecast are different observations. The table helps keep their meanings clear.</p>
 <div class="table-wrap"><table>
