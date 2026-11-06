@@ -106,14 +106,14 @@ This is why we multiply along a path. The notation $P(\text{slowly}\mid\text{mov
 review_answers=r'''
 \subsection*{Review answers}
 \begin{enumerate}
-\item From 11: 14 updates, peak 52. Routes that reach 11 follow its future route.
-\item $256$ segments, each of length $1/81$, total $256/81\approx3.1605$. From a 9-meter original, total length is $9(256/81)=256/9\approx28.4444$ meters.
-\item $81$ triangles; area $81/256\approx0.3164$. Each new triangle has one-quarter its parent's area; the three remaining pieces together retain only three quarters.
 \item First update $0.448$; nonzero fixed point $1-1/2.8\approx0.642857$. The first depends on the chosen start; the second is unchanged by the update.
 \item Update 4, with gap approximately 0.078197. The preceding three gaps are about 0.007220, 0.022805, and 0.035779.
 \item 40,000 and 40,010 fish; first gaps above 1,000 and 10,000 fish occur at generations 8 and 14. At generation 14, the gap is approximately 19,074 fish. The reference population is a scale chosen for this toy model, rather than a fitted carrying capacity for a real lake.
-\item 13 km using the 50-meter ruler; 14.5 km using the 25-meter ruler.
+\item From 11: 14 updates, peak 52. Routes that reach 11 follow its future route.
 \item The tested interval only. Every power of 2 reaches 1 by repeated halving.
+\item $256$ segments, each of length $1/81$, total $256/81\approx3.1605$. From a 9-meter original, total length is $9(256/81)=256/9\approx28.4444$ meters.
+\item $81$ triangles; area $81/256\approx0.3164$. Each new triangle has one-quarter its parent's area; the three remaining pieces together retain only three quarters.
+\item 13 km using the 50-meter ruler; 14.5 km using the 25-meter ruler.
 \item $0.45(0.60)=0.27<0.35(0.80)=0.28$. Model continuation probabilities do not verify claims about the world.
 \end{enumerate}
 \subsection*{Further reading}
