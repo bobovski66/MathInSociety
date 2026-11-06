@@ -294,17 +294,17 @@ A segment between any two points in one filled rectangle stays in that rectangle
 
 \subsection*{Part I Review: solutions}
 \begin{enumerate}
-\item Let $x$ count chairs per week and $y$ tables per week. $(5,2)$ means five chairs and two tables. Switching the coordinates switches the products, which may change resource use and value.
-\item $3x+2y\leq60$ hours, where the coefficients are hours per item. $(10,10)$ uses $30+20=50$ hours, leaving 10. $(15,8)$ uses $45+16=61$ hours and exceeds the allowance by 1.
+\item Let $x$ count restored chairs and $y$ restored tables. $(5,2)$ means five chairs and two tables; $(2,5)$ reverses them. Since tables take longer to restore, those schedules use different amounts of volunteer time.
+\item $3x+2y\leq60$ driver-hours, with hours per ride in the coefficients. $(10,10)$ requires $30+20=50$ hours, leaving ten; $(15,8)$ requires $45+16=61$, exceeding the volunteer allowance by one.
 \item Intercepts are $(8,0)$ and $(0,4)$. The origin gives $0\leq8$, so its side is permitted. $(2,3)$ is on the included boundary; $(4,3)$ is outside because its total is 10.
 \item Subtract $x+y=7$ from $2x+y=10$: $x=3$, then $y=4$. Corners are $(0,0),(5,0),(3,4),(0,7)$. $(7,0)$ uses 14 under the second limit, exceeding 10.
 \item Subtract the resource equations to get $2x=60$, so $x=30,y=15$. Corners are $(0,0)$, $(40,0)$, $(30,15)$, and $(0,30)$. At $(20,20)$, use is 100 and 60: feasible. At $(25,20)$, use is 115 and 65: the second limit fails.
-\item Divide the first boundary by 2 and subtract $x+y=14$ from $x+2y=20$, obtaining $y=6,x=8$. Corners are $(0,0),(14,0),(8,6),(0,10)$. $(8,5)$ uses 36 wood units and 13 slots: feasible. $(10,5)$ uses 40 wood units but 15 slots: infeasible.
+\item Divide the first boundary by 2 and subtract $x+y=14$ from $x+2y=20$, obtaining $y=6,x=8$. Corners are $(0,0),(14,0),(8,6),(0,10)$. $(8,5)$ needs 36 restoration hours and 13 pickups, so it fits. $(10,5)$ needs 40 hours but 15 pickups, one more than the partner can provide.
 \newpage
 \item The filled disk, filled rectangle, and line segment are convex. Opposite points of a circle's circumference have a segment through the missing interior. Opposite sides of a ring have a segment through the hole. These counterexamples establish nonconvexity.
 \item If two points lie in every set, their joining segment lies in every convex set and thus in the intersection. For a union, take two separated filled rectangles and join a point of one to a point of the other: the segment crosses a gap.
-\item The midpoint is $(3,4)$, using 7 slots and 10 ingredient portions. It is feasible. But the midpoint of whole-number points $(1,0)$ and $(0,1)$ is $(0.5,0.5)$, which is not a whole-number plan.
-\item Every old feasible plan remains feasible because the ingredient upper limit is relaxed. $(8,0)$ is newly feasible: it uses 8 slots and 16 portions.
+\item The midpoint is $(3,4)$, using seven bikes and ten mechanic-hours. It is feasible. But the midpoint of whole-number points $(1,0)$ and $(0,1)$ is $(0.5,0.5)$, which is not a whole-number plan.
+\item Every old feasible schedule remains so because the mechanic-hour upper limit is relaxed. $(8,0)$ is newly feasible, using eight bikes and sixteen mechanic-hours.
 \item No choices are removed: a total at most 8 is automatically at most 10. A redundant constraint adds no restriction beyond those already imposed.
 \item (a) The set is empty: one total cannot be at most 4 and at least 6. (b) Only $(0,0)$ is feasible. Other systems can produce triangles, larger polygons, line segments, or unbounded sets. The shape must be established from the actual conditions.
 \end{enumerate}
