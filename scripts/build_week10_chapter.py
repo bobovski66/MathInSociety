@@ -74,19 +74,19 @@ cover=r'''
 \begin{document}
 {\small\sffamily\color{olive}CHAPTER 10 / COMPLEXITY AND THE LIMITS OF PREDICTION\par}
 \vspace{8pt}
-{\fontsize{31}{35}\selectfont\bfseries\color{olive}Simple rules.\\Surprising worlds.\par}
+{\fontsize{31}{35}\selectfont\bfseries\color{olive}How far can a\\prediction go?\par}
 \vspace{8pt}
-{\large Follow a number through a maze, build a curve that keeps getting longer, and discover why an exact rule can still leave a forecast uncertain.\par}
+{\large Explore why uncertain starting data limit forecast horizons, why finite tests cannot prove every case, and why observation scale changes measured length.\par}
 
-Repeated updates are already familiar: a balance earns interest; a controller acts on a temperature reading. This chapter builds on those examples from Weeks 1--9, using arithmetic, percentages, tables, and graph reading to investigate less familiar patterns.
+Repeated updates are familiar from budgets and feedback. We begin with the usefulness of a population forecast, then ask what exact computation can prove, and finally examine how measurement scale changes a reported length.
 
 \begin{center}\includegraphics[width=\linewidth]{../assets/week10/logistic-behaviors.pdf}\end{center}
 {\small\color{teal}Three patterns we will learn to read: settling toward one value, repeating between two values, and moving irregularly within fixed bounds. Each plot follows one value through repeated updates.\par}
 
 \begin{tcolorbox}[title={The question for the week}]
-If we know the rule, do we know the future? Begin by defining the quantity, what one update means, the starting information, and the question we want the calculation to answer.
+Knowing a rule is only the beginning. We also need a reliable starting estimate, clarity about the reach of finite tests, and a specified measurement scale. What can each calculation legitimately establish?
 \end{tcolorbox}
-By the end, you can trace Collatz routes, distinguish tested examples from proof, calculate fractal counts and measures, compare logistic forecasts, and report a measurement together with its observation scale.
+We will compare population forecasts, distinguish computed examples from proof, and explain why boundary measurement depends on scale. Recursion, Collatz, and fractals make these three limits visible.
 
 Work through the examples before the short checks. The explorer handles long calculations; no prior study of chaos or fractals is assumed. The dimension extension is optional. Solutions to the short checks and the chapter review appear at the end.
 
@@ -131,11 +131,11 @@ These sources provide background, not additional required assignments.
 if __name__=='__main__':
  tree=html.fromstring((ROOT/'readings/week10_reading.html').read_text())
  parts=[(PAGES/'week10_chapter_preamble.tex').read_text(),cover]
- for id in ['start-here','recursion','collatz','evidence','fractals','logistic','prediction','scale','connections']:
+ for id in ['start-here','recursion','logistic','prediction','collatz','evidence','fractals','scale','connections']:
   node=tree.get_element_by_id(id);s=conv(node)
-  if id=='start-here':s=s.replace(r'\section{A quantity, a rule, and a question}',r'\section*{Start here: a quantity, a rule, and a question}')
+  if id=='start-here':s=s.replace(r'\section{Before trusting a forecast: state, rule, and question}',r'\section*{Start here: state, rule, and question}')
   # Begin the largest subject changes on a fresh page; let related explanations flow.
-  parts.append(('\n\\clearpage\n' if id in ['start-here','recursion','fractals','logistic','prediction','scale'] else '\n')+s)
+  parts.append(('\n\\clearpage\n' if id in ['start-here','recursion','logistic','collatz','fractals','scale'] else '\n')+s)
   if id=='connections':parts.append(extra_ai)
  parts.extend(['\n\\clearpage\n',(PAGES/'week10_chapter_review.tex').read_text(),'\n\\clearpage\n{\\small\\setlength{\\parskip}{3pt}\\setlist{itemsep=2pt,topsep=2pt}\\titlespacing*{\\paragraph}{0pt}{4pt}{.75em}\n\\section*{Solutions and Further Reading}\n'])
  for i,(q,a) in enumerate(checks,1):parts.append('\n\\paragraph{Check '+str(i)+'.} '+a)
