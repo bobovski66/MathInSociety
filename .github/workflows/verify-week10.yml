@@ -1,0 +1,30 @@
+name: Verify Week 10 prediction investigations
+on:
+  push:
+    paths:
+      - "index.html"
+      - "readings/week10_reading.html"
+      - "labs/week10_lab.html"
+      - "applications/week10_*.html"
+      - "demos/fractal_recursion.html"
+      - "discussions/week10_discussion.html"
+      - "assets/week10/**"
+      - "scripts/verify_week10.py"
+      - "scripts/test_week10.js"
+      - ".github/workflows/verify-week10.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install HTML verification dependency
+        run: python -m pip install lxml
+      - name: Check Week 10 pages, links, and answer contracts
+        run: python scripts/verify_week10.py
+      - name: Check recursive model calculations and UI interactions
+        run: |
+          node --check assets/week10/week10.js
+          node scripts/test_week10.js
