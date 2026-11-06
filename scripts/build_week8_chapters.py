@@ -146,12 +146,12 @@ extra2=r'''
 \clearpage
 \section*{Further Worked Models}
 \subsection*{Furniture: compare every feasible corner}
-A furniture maker produces chairs $x$ and desks $y$ per week. Two resource constraints are $2x+3y\leq120$ and $x+2y\leq70$, with nonnegativity. Maximize contribution $P=40x+70y$.
+A small furniture maker has 120 standard boards and 70 hours available for finishing. Each chair $x$ needs two boards and one finishing hour; each desk $y$ needs three boards and two finishing hours. After materials, their contributions are \$40 and \$70. The constraints are $2x+3y\leq120$ and $x+2y\leq70$, with nonnegative counts, and the objective is to maximize $P=40x+70y$.
 
 The first boundary has intercepts $(60,0)$ and $(0,40)$; the second has $(70,0)$ and $(0,35)$. The tighter axis limits give $(60,0)$ and $(0,35)$. To find the non-axis intersection, double $x+2y=70$ and subtract $2x+3y=120$: $y=20$, then $x=30$.
 
 {\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYYY@{}}\toprule
-Corner & First resource & Second resource & Contribution\\\midrule
+Corner & Boards & Finishing hours & Contribution\\\midrule
 $(0,0)$ & 0 & 0 & \$0\\
 $(60,0)$ & 120 & 60 & \$2,400\\
 $(30,20)$ & 120 & 70 & \$2,600\\
@@ -165,11 +165,11 @@ Suppose a different model has limits $x+2y\leq20$ and $x+2y\leq24$. Every point 
 
 \clearpage
 \subsection*{A third real constraint can create a fifth corner}
-A print shop has three limits:
+A neighborhood print shop has 60 standard sheets of printing material, room for 40 separate orders, and 70 finishing hours. One poster uses one sheet, one order, and two finishing hours. One banner uses two sheets, one order, and one finishing hour. Its constraints are:
 \[
 x+2y\leq60,\quad x+y\leq40,\quad2x+y\leq70,\quad x,y\geq0.
 \]
-Here $x$ counts posters and $y$ banners. Maximize the invented contribution $P=15x+35y$.
+Here $x$ counts poster orders and $y$ banner orders. The shop estimates contributions after materials of \$15 per poster and \$35 per banner. Maximize $P=15x+35y$.
 
 Intersect the first two non-axis boundaries to get $(20,20)$; the third total is 60, so it passes. Intersect the second and third to get $(30,10)$; the first total is 50, so it passes. The first and third meet at $(80/3,50/3)$, but this candidate has $x+y=130/3>40$, so it must be discarded.
 
@@ -200,7 +200,7 @@ Use nonnegative variables and included boundaries. Show a corner table or explic
 \item A library has sixteen materials kits and twenty-four volunteer-hours. Information tables need one kit and three hours and reach five people; reading circles need two kits and two hours and reach eight. Maximize $f=5x+8y$ under $x+2y\leq16$, $3x+2y\leq24$.
 \item A group needs eight folders and ten cards. Bag A has one folder and two cards for \$3; bag B has one folder and one card for \$5. Minimize $C=3x+5y$ subject to $x+y\geq8$, $2x+y\geq10$. Compare the boundary vertices.
 \item For the furniture model in the worked example, compare the best plan with producing only desks. Does the higher per-item contribution determine the answer by itself?
-\item For the three-limit print shop, why is $(80/3,50/3)$ not a feasible corner? Which corner maximizes $15x+35y$?
+\item For the print shop with limits on material, orders, and finishing hours, why is $(80/3,50/3)$ not a feasible corner? Which corner maximizes $15x+35y$?
 \item A toy workshop has $3x+y\leq120$, $x+2y\leq80$, and contribution $P=8x+5y$. Find the corners and best plan. Then change the contribution to $5x+8y$ and compare.
 \item A municipality divides an invented \$500-thousand budget between roads $x$ and parks $y$, measured in thousands of dollars. Require $x\geq100$, $y\geq80$, $x+y\leq500$. Maximize an invented score $S=3x+4y$. What does the score leave for people to decide?
 \item A polygon has corners $(0,0),(8,0),(5,4),(0,6)$. For cost $C=4x+6y$, which of the three listed nonzero corners is cheapest? Why is that not the minimum over the full polygon? Give a different positive feasible plan with lower cost.
