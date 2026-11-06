@@ -45,7 +45,7 @@ For the core method you need only substitution and comparison. Equal-score lines
 
 \Needspace{6\baselineskip}\section{An objective gives each plan a score}
 
-The club earns a \$3 contribution from each type-A pack and \$2 from each type-B pack. Its total contribution is
+Suppose the shop earns \$30 after replacement parts for each tune-up and \$20 for each quick repair. The total contribution for a day is \[P=30x+20y.\]
 
 \[P=3x+2y.\]
 This is the \emph{objective function}: a rule assigning a number to each plan. The letter P names the total contribution in dollars. To \emph{maximize} it means to find the largest value among feasible plans.
@@ -53,20 +53,20 @@ This is the \emph{objective function}: a rule assigning a number to each plan. T
 
 \begin{tcolorbox}[title={Example \textperiodcentered{} Feasible does not mean optimal},breakable]
 
-The feasible plan (3,3) gives \(P=3(3)+2(3)=15\) dollars. The feasible plan (4,4) gives \(P=3(4)+2(4)=20\) dollars. So (3,3) is possible but does not give the largest contribution.
+Three tune-ups and three quick repairs give \(P=30(3)+20(3)=150\) dollars. Four of each give \(P=30(4)+20(4)=200\) dollars. Both are possible schedules, but the second earns more.
 
 
-The infeasible plan (5,3) would give \$21. That larger score does not make it an allowable choice: it exceeds the ingredient supply. We optimize \emph{within} the feasible region.
+Five tune-ups and three quick repairs would bring in \$210. A larger earnings figure cannot make an impossible schedule workable: it requires more mechanic time than the shop has.
 
 
 \end{tcolorbox}
 
-A function such as \(3x+2y\) is \emph{linear}: each extra unit of x adds the same amount, and each extra unit of y adds the same amount. There is no product \(xy\), squared quantity, or changing rate. A \emph{linear program} combines a linear objective with linear constraints. ``Programming'' here means planning or optimization; writing computer code is not required.
+A function such as \(30x+20y\) is \emph{linear}: every additional tune-up adds the same \$30 and every quick repair adds the same \$20. There is no product \(xy\), squared quantity, or changing rate. A \emph{linear program} combines a linear objective with linear constraints. Here ``programming'' means planning; writing computer code is not required.
 
 
 
 \begin{tcolorbox}[title={Pause and try 1},breakable]
-At (2,5), what is P=3x+2y? Does the value alone tell you the plan is feasible?
+At (2,5), what is P=30x+20y? Does knowing the money earned tell you whether the schedule is feasible?
 \end{tcolorbox}
 
 
@@ -80,16 +80,16 @@ This guarantees that at least one vertex gives the best value. It does not guara
 
 
 \par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYY@{}}\toprule
-Feasible vertex & Calculation of P = 3x + 2y & Contribution\\
+Feasible vertex & Calculation of P = 30x + 20y & Contribution\\
 \midrule
-(0,0) & 3(0)+2(0) & \$0\\
-(6,0) & 3(6)+2(0) & \$18\\
-(4,4) & 3(4)+2(4) & \$20\\
-(0,8) & 3(0)+2(8) & \$16\\
+(0,0) & 30(0)+20(0) & \$0\\
+(6,0) & 30(6)+20(0) & \$180\\
+(4,4) & 30(4)+20(4) & \$200\\
+(0,8) & 30(0)+20(8) & \$160\\
 \bottomrule\end{tabularx}}\par\medskip
 
 
-The largest entry is \$20 at (4,4). The recommendation is to make \emph{four of each type}, with contribution \emph{\$20}. Report both the plan and its value; they answer different parts of the question.
+The largest contribution is \$200 at (4,4). The shop should schedule four tune-ups and four quick repairs. Report both the schedule and the money earned; they answer different questions.
 
 
 \begin{tcolorbox}[title={Why a corner comparison can work},breakable,colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35]
@@ -106,7 +106,7 @@ Any point in a filled convex polygon can be expressed as a mixture of its vertic
 \end{minipage}\par\medskip
 
 
-In our model, the best plan is also a whole-number plan, so it remains optimal if we restrict production to whole packs. A continuous optimum is an upper bound for the integer choices; when a whole-number plan attains it, the integer problem is solved too.
+In our model, the best plan is also a whole-number plan, so it remains optimal if we restrict production to whole bicycles. A continuous optimum is an upper bound for the integer choices; when a whole-number plan attains it, the integer problem is solved too.
 
 
 
@@ -117,22 +117,22 @@ Why is checking just the two axis corners insufficient?
 
 \Needspace{6\baselineskip}\section{The feasible region stays; the goal can change}
 
-Suppose a new contribution schedule favors type B, with objective \(R=x+4y\). At the same four vertices its values are 0, 6, 20, and 32. Now (0,8) is best. The resource limits and region did not change. The objective changed.
+Suppose a new service contract favors quick repairs. To see how a change in priorities changes the answer, use the alternative score \(R=x+4y\). At the same four vertices its values are 0, 6, 20, and 32. Now (0,8) is best. The resource limits and region did not change. The objective changed.
 
 
-Alternatively, suppose the club wants the largest \emph{number of packs}, regardless of type. Maximize \(T=x+y\). The packing limit already tells us \(T\leq8\). Both (4,4) and (0,8) attain 8, and every point on the segment between them also attains 8.
+Alternatively, suppose the shop wants to return the largest \emph{number of bikes} to customers, regardless of type. Maximize \(T=x+y\). The eight-bike limit already tells us \(T\leq8\). Both (4,4) and (0,8) attain 8, and every point on the segment between them also attains 8.
 
 
 
 \par\medskip\noindent\begin{minipage}{\linewidth}
 \centering\includegraphics[width=\linewidth,height=3.2in,keepaspectratio]{../assets/week8/optimal-edge.pdf}
-\captionof*{figure}{These are multiple optimal solutions. If actual packs must be whole, the five plans (0,8), (1,7), (2,6), (3,5), and (4,4) all attain the same largest total.}
+\captionof*{figure}{These are multiple optimal solutions. If actual bicycles must be whole, the five plans (0,8), (1,7), (2,6), (3,5), and (4,4) all attain the same largest total.}
 \end{minipage}\par\medskip
 
 
 \begin{tcolorbox}[title={Example \textperiodcentered{} A tie leaves room for another consideration},breakable]
 
-Under the objective ``make as many packs as possible,'' (4,4) and (0,8) are equally good. Their ingredient use differs: 12 portions versus 8. If the club also wants to save ingredients among tied plans, it can choose (0,8). If it wants the larger contribution among those tied plans, it can choose (4,4).
+If the goal is to help as many customers as possible, (4,4) and (0,8) both serve eight bikes. But the first needs twelve mechanic-hours and the second needs only eight. To save mechanic time, choose (0,8); to earn more after parts, choose (4,4).
 
 
 A second goal can distinguish plans that tie under the first. We should name that goal rather than pretend the first objective made the whole decision.
@@ -149,7 +149,7 @@ If two adjacent feasible vertices both give the maximum score for a linear objec
 
 \Needspace{6\baselineskip}\section{``At least'' often reverses the feasible side}
 
-An invented supply order offers two bundles. Bundle A contains 1 notebook and 2 pencils and costs \$4. Bundle B contains 1 notebook and 1 pencil and costs \$3. We need at least 6 notebooks and at least 8 pencils. Let x and y be the respective bundle counts.
+A neighborhood group is organizing a back-to-school supply drive. A store offers two bundles. Bundle A contains 1 notebook and 2 pencils and costs \$4. Bundle B contains 1 notebook and 1 pencil and costs \$3. The group needs at least six notebooks and eight pencils for the students it is helping. Let x and y be the respective bundle counts.
 
 \[x+y\geq6,\qquad 2x+y\geq8,\qquad x,y\geq0;\qquad \text{minimize }C=4x+3y.\]
 We can buy extra supplies, so there is no upper limit in this model. The feasible region extends up and to the right. It is \emph{unbounded}, but that does not mean its minimum cost is missing.
@@ -170,10 +170,10 @@ Boundary vertex & Notebooks & Pencils & Cost 4x+3y\\
 \bottomrule\end{tabularx}}\par\medskip
 
 
-The minimum is \$20 at 2 A-bundles and 4 B-bundles. For this nonnegative-variable model, the least cost occurs at a feasible vertex. On an unbounded region, we must also check whether some allowed direction keeps improving the objective. Here all costs are positive, so going farther out cannot make the cost decrease forever.
+The group can meet both requirements for \$20 with two A-bundles and four B-bundles. For this nonnegative-variable model, the least cost occurs at a feasible vertex. On an unbounded region, we must also check whether some allowed direction keeps improving the objective. Here all costs are positive, so going farther out cannot make the cost decrease forever.
 
 
-The origin has cost zero but violates the supply requirements. This is why minimizing cost cannot be separated from stating what must be provided. If the only restrictions were upper limits and nonnegativity, doing nothing could indeed be the mathematical minimum-cost plan.
+Buying nothing costs zero but would leave students without the supplies. This is why minimizing cost cannot be separated from stating what must be provided. If the only restrictions were upper limits and nonnegativity, doing nothing could indeed be the mathematical minimum-cost plan.
 
 
 
@@ -217,7 +217,7 @@ Does an unbounded feasible region always imply that there is no minimum? Give an
 
 \Needspace{6\baselineskip}\section*{Extension: whole-number plans}
 
-Acres, mixture amounts, and hours can often be treated as divisible. Chairs, buses, and finished packs usually cannot. Requiring whole-number decisions adds an \emph{integer constraint}. It changes which points are allowed, even when the drawn continuous region stays the same.
+Acres, mixture amounts, and hours can often be treated as divisible. Chairs, buses, and repaired bicycles usually cannot. Requiring whole-number decisions adds an \emph{integer constraint}. It changes which points are allowed, even when the drawn continuous region stays the same.
 
 
 \begin{tcolorbox}[title={Example \textperiodcentered{} Rounding can fail in two ways},breakable]
@@ -273,15 +273,15 @@ Why do weights 0.6 and 0.4 define a convex combination, while 1.2 and $-$0.2 do 
 
 \Needspace{6\baselineskip}\section{A clear recommendation names its goal and assumptions}
 
-Linear models assume constant rates: every extra pack uses the same resource amounts and adds the same contribution. They may omit bulk discounts, setup time, uncertain demand, waste, changing prices, staffing constraints, or a minimum service requirement. The graph is the consequence of those modeling choices.
+Linear models assume constant rates: each tune-up takes the same two hours and earns the same \$30 after parts; each quick repair takes one hour and earns \$20. Actual work can involve cancellations, unusually difficult repairs, different mechanics, and changing parts prices. The graph describes the consequences of the assumptions we have made.
 
 
 Increasing a resource allowance in a ``$\le$'' constraint expands the feasible set or leaves it unchanged. Therefore the best maximum score cannot decrease. But it need not improve: another resource may still block every better plan. Tightening a limit can shrink the set or even make it empty.
 
 
-\begin{tcolorbox}[title={Example \textperiodcentered{} More ingredients do not create more packing slots},breakable]
+\begin{tcolorbox}[title={Example \textperiodcentered{} More mechanic-hours do not create more customers},breakable]
 
-Keep \(x+y\leq8\), but increase the ingredient allowance from 12 to 16. All eight packs can now be type A: (8,0) uses 8 slots and 16 portions and contributes \$24. Increasing ingredients beyond 16 cannot improve this particular objective further while the eight-slot limit stays fixed: no pack contributes more than \$3, so eight packs can contribute at most \$24.
+Keep \(x+y\leq8\), but suppose the shop can now staff sixteen mechanic-hours. It could schedule eight full tune-ups: (8,0) involves eight bikes and sixteen hours and earns \$240 after parts. Adding more hours alone would not increase the maximum while the shop still accepts only eight bikes. At \$30 per tune-up, eight bikes could earn at most \$240.
 
 
 \end{tcolorbox}
@@ -289,13 +289,13 @@ Keep \(x+y\leq8\), but increase the ingredient allowance from 12 to 16. All eigh
 \Needspace{5\baselineskip}\subsection*{A practical routine}
 
 \begin{enumerate}
-\item Define the decision variables, units, and whether fractions are meaningful.
+\item Identify what the people involved can choose, what the units mean, and whether fractions make sense.
 \item Translate every resource limit and minimum requirement into a constraint.
 \item State the objective and whether to maximize or minimize it.
 \item Find all feasible vertices and check candidate intersections.
 \item Compare objective values and identify ties or improving directions.
 \item Check whole-number restrictions and interpret the plan and value.
-\item Name a missing feature and explain what information would improve the model.
+\item Ask whom the decision affects, what the model leaves out, and what information could change the recommendation.
 
 \end{enumerate}
 
@@ -374,11 +374,11 @@ Use nonnegative variables and included boundaries. Show a corner table or explic
 \section*{Solutions and Reasoning}
 
 \paragraph{Short check 1.}
-P=3(2)+2(5)=16. The score alone does not prove feasibility; check the constraints. Here packing uses 7 and ingredients use 9, so the plan is feasible.
+P=30(2)+20(5)=160 dollars. The score alone does not prove feasibility; check the constraints. Here the schedule has 7 bikes and uses 9 mechanic-hours, so the plan is feasible.
 
 
 \paragraph{Short check 2.}
-The best corner can occur where two non-axis boundaries meet. Here (4,4) gives \$20, exceeding the \$18 and \$16 at the axis corners. The method requires every feasible vertex.
+The best corner can occur where two non-axis boundaries meet. Here (4,4) gives \$200, exceeding the \$180 and \$160 at the axis corners. The method requires every feasible vertex.
 
 
 \paragraph{Short check 3.}

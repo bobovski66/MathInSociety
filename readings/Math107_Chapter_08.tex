@@ -44,33 +44,33 @@ Each resource constraint defines a set of possible plans. Their intersection is 
 
 \Needspace{6\baselineskip}\section{One point records one complete plan}
 
-Let \(x\) be the number of type-A snack packs and \(y\) the number of type-B packs. These are \emph{decision variables}: quantities the club chooses. The plan \((4,4)\) means four of A and four of B. The first coordinate is always \(x\); the second is \(y\).
+Let \(x\) be the number of full tune-ups and \(y\) the number of quick repairs. These are \emph{decision variables}: the quantities the shop chooses. A schedule \((4,4)\) means four tune-ups and four quick repairs. The first coordinate counts tune-ups; the second counts quick repairs.
 
 
-On the graph, move horizontally to the x-value, then vertically to the y-value. The point is a whole production plan, not a moment in time. The line between two plans will later represent mixtures or averages of those plans.
+On the graph, move horizontally to the x-value, then vertically to the y-value. The point is a whole production plan, not a moment in time. Later, the line between two schedules will help us understand averages of possible workdays.
 
 
 
 \par\medskip\noindent\begin{minipage}{\linewidth}
 \centering\includegraphics[width=\linewidth,height=3.2in,keepaspectratio]{../assets/week8/plan-coordinates.pdf}
-\captionof*{figure}{Read (2,6) as ``2 type-A packs and 6 type-B packs.'' This is a graph of choices. Neither axis measures time, and a higher point is not automatically a better plan.}
+\captionof*{figure}{Read (2,6) as ``2 tune-ups and 6 quick repairs.'' This is a graph of choices. Neither axis measures time, and a higher point is not automatically a better plan.}
 \end{minipage}\par\medskip
 
 \par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYYY@{}}\toprule
-Per pack or resource & Type A, x & Type B, y & Available\\
+Per bicycle or resource & Tune-up, x & Quick repair, y & Available\\
 \midrule
-Packing slots & 1 & 1 & 8 slots\\
-Ingredient portions & 2 & 1 & 12 portions\\
-Fundraiser contribution &  \$3 &  \$2 & This is what we want to increase\\
+Bicycles accepted & 1 & 1 & 8 bikes\\
+Mechanic hours & 2 & 1 & 12 hours\\
+Contribution after parts &  \$30 &  \$20 & What the shop wants to increase\\
 \bottomrule\end{tabularx}}\par\medskip
 
 
-In this example, contribution means money remaining after per-pack costs. Subtracting the same fixed event fee from every plan changes profit totals but not which plan has the greatest contribution.
+Here, \emph{contribution} means money remaining after buying the replacement parts. A real shop also has wages, rent, and other expenses. We use simple amounts so that the different schedules are easy to compare. Subtracting the same fixed daily expense from every schedule would not change which one has the greatest contribution.
 
 
-\begin{tcolorbox}[title={The drawing and the actual products},breakable,colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35]
+\begin{tcolorbox}[title={The graph and the real workday},breakable,colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35]
 
-For the geometry, fractional pack quantities are initially allowed. Actual snack packs must be whole. A final decision must therefore satisfy both the resource constraints and the whole-number requirement.
+For the geometry, the shaded region includes points with fractional coordinates. A real shop cannot finish half a bicycle, so we will check that a final schedule uses whole numbers of jobs.
 
 
 \end{tcolorbox}
@@ -83,21 +83,21 @@ What does (5,2) mean? What would (2,5) mean, and why is it a different decision?
 
 \Needspace{6\baselineskip}\section{Each constraint compares a total with a limit}
 
-Each pack uses one packing slot, so making \(x\) of A and \(y\) of B uses \(x+y\) slots. With at most eight available, the club needs \(x+y\leq8\). The symbol \(\leq\) means ``less than or equal to'': using all eight is allowed, but using nine is not.
+Each repair involves one bicycle. Since the shop can accept at most eight bikes, the total number of repairs must satisfy \(x+y\leq8\). The symbol \(\leq\) means ``less than or equal to'': eight are fine, but nine would exceed the limit.
 
 
-A type-A pack uses two ingredient portions and a type-B pack uses one. Their total use is \(2x+y\), giving \(2x+y\leq12\). The coefficient 2 means \emph{2 portions per pack}. Multiplying by \(x\) packs gives portions; both sides of this comparison have the same units.
+A full tune-up takes two mechanic-hours, and a quick repair takes one. That gives \(2x+y\) hours of work, so \(2x+y\leq12\). The coefficient 2 means \emph{two hours per tune-up}. Multiplying hours per job by the number of jobs gives total hours.
 
 \[x+y\leq8,\qquad 2x+y\leq12,\qquad x\geq0,\quad y\geq0.\]
-The last two constraints forbid negative production. A plan is \emph{feasible} if it satisfies \emph{every} constraint. Every resource limit must be satisfied at the same time.
+The last two constraints rule out negative numbers of repairs. A plan is \emph{feasible} if it satisfies \emph{every} constraint. Every resource limit must be satisfied at the same time.
 
 
 \begin{tcolorbox}[title={Example \textperiodcentered{} Test (5,3) and (3,3)},breakable]
 
-At (5,3), packing uses \(5+3=8\) slots, which is allowed. Ingredients use \(2(5)+3=13\) portions, which exceeds 12. The plan is infeasible despite passing the packing test.
+Five tune-ups and three quick repairs involve \(5+3=8\) bikes, which fits the capacity. But the schedule requires \(2(5)+3=13\) mechanic-hours, one more than the shop has. It is \emph{infeasible} even though the number of bikes is acceptable.
 
 
-At (3,3), packing uses 6 and ingredients use 9; both coordinates are nonnegative. This plan is feasible. It leaves 2 packing slots and 3 ingredient portions unused. These unused amounts are called \emph{slack} for the upper limits.
+Three tune-ups and three quick repairs involve six bikes and nine mechanic-hours. This is a feasible schedule, leaving room for two more bikes and three hours of mechanic time. The unused amounts are called \emph{slack}.
 
 
 \end{tcolorbox}
@@ -118,14 +118,14 @@ A constraint is \emph{binding}, or active, at a plan when it holds with equality
 
 
 \begin{tcolorbox}[title={Pause and try 2},breakable]
-Does (6,1) satisfy the club's full system? Show both resource calculations.
+Could the shop complete six tune-ups and one quick repair? Show both calculations.
 \end{tcolorbox}
 
 \clearpage
 
 \Needspace{6\baselineskip}\section{The boundary is a line; the inequality permits a whole side}
 
-First consider a separate practice inequality, \(x+2y\leq8\). Its \emph{boundary line} is \(x+2y=8\). An equality identifies the plans that use exactly the limit; the inequality also includes plans using less.
+Here is another situation. A community center has eight room-hours available. If \(x\) counts one-hour activities and \(y\) counts two-hour workshops, the schedule must satisfy \(x+2y\leq8\). The \emph{boundary line} \(x+2y=8\) represents schedules that use all eight hours; the inequality also allows schedules that use fewer.
 
 
 \begin{tcolorbox}[title={Example \textperiodcentered{} Find two intercepts, then test one point},breakable]
@@ -150,7 +150,7 @@ First consider a separate practice inequality, \(x+2y\leq8\). Its \emph{boundary
 For \(\leq\) or \(\geq\), draw the boundary as a solid line because equality is allowed. For a strict inequality, such as \(<\), use a dashed boundary to show exclusion. Our optimization examples use included boundaries. If the origin lies on the boundary, choose a different test point that does not.
 
 
-In the club model, \(x\geq0\) and \(y\geq0\) restrict us to the \emph{first quadrant including its axes}. This restriction does not make a single half-plane a bounded region on its own; we must inspect all the conditions together.
+Back at the bike shop, \(x\geq0\) and \(y\geq0\) restrict us to the \emph{first quadrant including its axes}. This restriction does not make a single half-plane a bounded region on its own; we must inspect all the conditions together.
 
 
 
@@ -162,7 +162,7 @@ For x + 2y $\le$ 8, is (2,3) on the boundary, strictly on the permitted side, or
 
 \Needspace{6\baselineskip}\section{The feasible region is the overlap}
 
-Return to the club's limits, \(x+y\leq8\) and \(2x+y\leq12\), with nonnegative coordinates. Each limit permits its own side of a boundary. The \emph{feasible region} is their \emph{intersection}: the points common to all the permitted sets.
+Return to the bike shop's limits, \(x+y\leq8\) and \(2x+y\leq12\), with nonnegative coordinates. Each limit permits its own side of a boundary. The \emph{feasible region} is their \emph{intersection}: the points common to all the permitted sets.
 
 
 
@@ -194,20 +194,20 @@ On the x-axis, \(y=0\). The limits require both \(x\leq8\) and \(x\leq6\), so th
 
 \par\medskip\noindent\begin{minipage}{\linewidth}
 \centering\includegraphics[width=\linewidth,height=3.8in,keepaspectratio]{../assets/week8/feasible-vertices.pdf}
-\captionof*{figure}{Two different ideas: (8,0) is an intercept of the packing boundary, but it is not a feasible corner because it needs 16 ingredient portions. Likewise, (0,12) violates the packing limit.}
+\captionof*{figure}{Two different ideas: (8,0) is an intercept of the bike-capacity boundary, but it is not a feasible corner because it needs 16 mechanic-hour portions. Likewise, (0,12) violates the bike limit.}
 \end{minipage}\par\medskip
 
 \par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYYY@{}}\toprule
-Corner & Packing use x+y $\le$ 8 & Ingredient use 2x+y $\le$ 12 & Binding resource limits\\
+Corner & Bikes x+y $\le$ 8 & Hours 2x+y $\le$ 12 & Binding resource limits\\
 \midrule
 (0,0) & 0 & 0 & Neither\\
-(6,0) & 6 & 12 & Ingredients\\
+(6,0) & 6 & 12 & Hours\\
 (4,4) & 8 & 12 & Both\\
-(0,8) & 8 & 8 & Packing\\
+(0,8) & 8 & 8 & Bikes\\
 \bottomrule\end{tabularx}}\par\medskip
 
 
-The axes are also boundaries: at (6,0), for example, the nonnegativity condition \(y\geq0\) binds along with the ingredient limit. A corner does not always use up both resources.
+The axes are also boundaries: at (6,0), for example, the nonnegativity condition \(y\geq0\) binds along with the mechanic-hour limit. A corner does not always use up both resources.
 
 
 
@@ -230,7 +230,7 @@ A set is \emph{convex} if the straight segment between \emph{any two} points in 
 
 \begin{tcolorbox}[title={Example \textperiodcentered{} Average two feasible plans},breakable]
 
-The halfway plan between (6,0) and (0,8) is \(((6+0)/2,(0+8)/2)=(3,4)\). It uses \(3+4=7\) packing slots and \(2(3)+4=10\) ingredient portions, both within the limits.
+The halfway plan between (6,0) and (0,8) is \(((6+0)/2,(0+8)/2)=(3,4)\). It involves seven bikes and ten mechanic-hours, both within the daily limits.
 
 
 Why does averaging work for any two feasible real-valued plans? Each resource total at the average plan is the average of the two resource totals. If each total is at most a limit, their average is too. The same reasoning works for any mixture with nonnegative weights adding to 1.
@@ -241,7 +241,7 @@ Why does averaging work for any two feasible real-valued plans? Each resource to
 Every half-plane is convex, and intersections of convex sets are convex. This explains the shape of our feasible region. A \emph{union} is different: two separated filled rectangles are individually convex, but taking all points in either rectangle produces a set with a gap.
 
 
-Whole-number plans are a separate issue: the halfway plan between (1,0) and (0,1) is (0.5,0.5), which is not a whole-number production plan. Convexity applies to the continuous region we drew, not to the isolated integer points within it.
+Averages are different from actual workdays. Halfway between (1,0) and (0,1) is (0.5,0.5), which can describe an average over several days but not a day's schedule of whole bicycles.
 
 
 
@@ -272,11 +272,11 @@ Use nonnegative real coordinates unless the question explicitly asks for whole n
 \section*{Solutions and Reasoning}
 
 \paragraph{Short check 1.}
-The first means 5 type-A packs and 2 type-B packs; the second means 2 of A and 5 of B. The products have different ingredient use and contributions, so exchanging the coordinates changes the plan.
+The first schedule has five tune-ups and two quick repairs; the second has two tune-ups and five quick repairs. They use different amounts of mechanic time and earn different amounts.
 
 
 \paragraph{Short check 2.}
-Packing uses 6+1 = 7 $\le$ 8, but ingredients use 2(6)+1 = 13 \textgreater{} 12. It is not feasible. A feasible plan must satisfy both resource limits.
+The seven bikes fit the daily bike limit, since 6+1 = 7 $\le$ 8. But the work takes thirteen hours, since 2(6)+1 = 13 \textgreater{} 12. The shop cannot finish that schedule in the time available.
 
 
 \paragraph{Short check 3.}
