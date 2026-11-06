@@ -123,17 +123,17 @@ Use nonnegative real coordinates unless the question explicitly asks for whole n
 answers1=r'''
 \subsection*{Part I Review: solutions}
 \begin{enumerate}
-\item Let $x$ count chairs per week and $y$ tables per week. $(5,2)$ means five chairs and two tables. Switching the coordinates switches the products, which may change resource use and value.
-\item $3x+2y\leq60$ hours, where the coefficients are hours per item. $(10,10)$ uses $30+20=50$ hours, leaving 10. $(15,8)$ uses $45+16=61$ hours and exceeds the allowance by 1.
+\item Let $x$ count restored chairs and $y$ restored tables. $(5,2)$ means five chairs and two tables; $(2,5)$ reverses them. Since tables take longer to restore, those schedules use different amounts of volunteer time.
+\item $3x+2y\leq60$ driver-hours, with hours per ride in the coefficients. $(10,10)$ requires $30+20=50$ hours, leaving ten; $(15,8)$ requires $45+16=61$, exceeding the volunteer allowance by one.
 \item Intercepts are $(8,0)$ and $(0,4)$. The origin gives $0\leq8$, so its side is permitted. $(2,3)$ is on the included boundary; $(4,3)$ is outside because its total is 10.
 \item Subtract $x+y=7$ from $2x+y=10$: $x=3$, then $y=4$. Corners are $(0,0),(5,0),(3,4),(0,7)$. $(7,0)$ uses 14 under the second limit, exceeding 10.
 \item Subtract the resource equations to get $2x=60$, so $x=30,y=15$. Corners are $(0,0)$, $(40,0)$, $(30,15)$, and $(0,30)$. At $(20,20)$, use is 100 and 60: feasible. At $(25,20)$, use is 115 and 65: the second limit fails.
-\item Divide the first boundary by 2 and subtract $x+y=14$ from $x+2y=20$, obtaining $y=6,x=8$. Corners are $(0,0),(14,0),(8,6),(0,10)$. $(8,5)$ uses 36 wood units and 13 slots: feasible. $(10,5)$ uses 40 wood units but 15 slots: infeasible.
+\item Divide the first boundary by 2 and subtract $x+y=14$ from $x+2y=20$, obtaining $y=6,x=8$. Corners are $(0,0),(14,0),(8,6),(0,10)$. $(8,5)$ needs 36 restoration hours and 13 pickups, so it fits. $(10,5)$ needs 40 hours but 15 pickups, one more than the partner can provide.
 \newpage
 \item The filled disk, filled rectangle, and line segment are convex. Opposite points of a circle's circumference have a segment through the missing interior. Opposite sides of a ring have a segment through the hole. These counterexamples establish nonconvexity.
 \item If two points lie in every set, their joining segment lies in every convex set and thus in the intersection. For a union, take two separated filled rectangles and join a point of one to a point of the other: the segment crosses a gap.
-\item The midpoint is $(3,4)$, using 7 slots and 10 ingredient portions. It is feasible. But the midpoint of whole-number points $(1,0)$ and $(0,1)$ is $(0.5,0.5)$, which is not a whole-number plan.
-\item Every old feasible plan remains feasible because the ingredient upper limit is relaxed. $(8,0)$ is newly feasible: it uses 8 slots and 16 portions.
+\item The midpoint is $(3,4)$, using seven bikes and ten mechanic-hours. It is feasible. But the midpoint of whole-number points $(1,0)$ and $(0,1)$ is $(0.5,0.5)$, which is not a whole-number plan.
+\item Every old feasible schedule remains so because the mechanic-hour upper limit is relaxed. $(8,0)$ is newly feasible, using eight bikes and sixteen mechanic-hours.
 \item No choices are removed: a total at most 8 is automatically at most 10. A redundant constraint adds no restriction beyond those already imposed.
 \item (a) The set is empty: one total cannot be at most 4 and at least 6. (b) Only $(0,0)$ is feasible. Other systems can produce triangles, larger polygons, line segments, or unbounded sets. The shape must be established from the actual conditions.
 \end{enumerate}
@@ -214,20 +214,20 @@ Use nonnegative variables and included boundaries. Show a corner table or explic
 answers2=r'''
 \subsection*{Part II Review: solutions}
 \begin{enumerate}
-\item Corner values are $0,18,20,16$. Maximum \$20 is at $(4,4)$. With only upper limits and nonnegativity, minimum contribution is 0 at zero production. A minimum-cost model may need minimum service requirements.
+\item Corner contributions are \$0, \$180, \$200, and \$160. The maximum is \$200 at $(4,4)$: four tune-ups and four quick repairs. With only upper limits, the minimum contribution is zero when no repairs are scheduled; a minimum service requirement would change that decision.
 \item R-values are $0,6,20,32$, so $(0,8)$ is best. T reaches 8 along the edge from $(4,4)$ to $(0,8)$. Its whole-number plans are $(0,8),(1,7),(2,6),(3,5),(4,4)$.
-\item Subtraction gives $x=4,y=6$. Corners are $(0,0),(8,0),(4,6),(0,8)$; scores are $0,40,68,64$. The maximum is 68 at $(4,6)$, using 16 units of the first resource and 24 of the second.
-\item Corners are $(8,0),(2,6),(0,10)$, with costs $24,36,50$. The minimum is 24 at $(8,0)$. It provides 8 of the first requirement and 16 of the second, exceeding its 10-unit minimum by 6. A feasible axis corner can outperform a mixed intersection.
+\item Subtraction gives $x=4,y=6$. The corners are $(0,0),(8,0),(4,6),(0,8)$ and the expected numbers of people reached are 0, 40, 68, 64. Four information tables and six reading circles reach an estimated 68 people, using all sixteen kits and twenty-four volunteer-hours.
+\item Corners are $(8,0),(2,6),(0,10)$, with costs $24,36,50$. The minimum is 24 at $(8,0)$. It provides eight folders and sixteen cards, six more cards than required. Under the stated assumptions bag A is less expensive than bag B and includes more cards; a real purchase might also depend on availability or quality. A feasible axis corner can outperform a mixed intersection.
 \item $(30,20)$ gives \$2,600; desks only gives $(0,35)$ and \$2,450. The best mix depends on both resource limits, not just the larger contribution per item.
 \item That intersection has $x+y=130/3>40$ and violates the middle constraint. The maximum is \$1,050 at $(0,30)$, which passes all three limits.
 \item Corners are $(0,0),(40,0),(32,24),(0,40)$. Original scores are $0,320,376,200$, so $(32,24)$ is best at 376. Under $5x+8y$, scores are $0,200,352,320$; the same plan remains best but its score changes. Changing an objective need not always move the optimum.
 \item Corners are $(100,80),(420,80),(100,400)$. Scores are $620,1580,1900$. The score selects roads \$100,000 and parks \$400,000. Its coefficients and minimum allocations are modeling choices, not facts establishing what a community ought to value.
-\item The three costs are 32,44,36, so $(8,0)$ is cheapest among those candidates. The full polygon includes $(0,0)$ at cost 0 and, for example, $(1,0)$ at cost 4. A real production floor needs an explicit constraint, not deletion of one point.
+\item The three costs are 32,44,36, so $(8,0)$ is cheapest among those candidates. The full polygon includes $(0,0)$ at cost 0 and, for example, $(1,0)$ at cost 4. A real community program needs an explicit minimum service requirement, rather than deleting just one zero-events corner from a comparison.
 \item Continuous maximum 33 is at $(1,3.5)$. Rounding up to $(1,4)$ gives resource totals 9 and 11, both too large. Rounding down to $(1,3)$ is feasible but scores 29. The best whole plan is $(0,4)$ at 32; enumerate y-values 0--4 to verify.
 \item The first point is $(3.5,2)$, on the A--B segment. Normalized amounts give weights $(0.5,0.25,0.25)$ and point $(3.5,3.5)$ inside the triangle. A negative weight violates nonnegativity even if the weights sum to 1.
 \item Infeasible means no plan satisfies every condition. Unbounded objective means feasible plans improve the score without finite limit. The supply-order model $x+y\geq6$, $2x+y\geq8$ has unbounded choices but minimum $4x+3y=20$ at $(2,4)$. Under $0\leq x<1$, any allowed x can be increased while remaining below 1; the limiting bound 1 is excluded.
-\item With allowance 12, the maximum is 20 at $(4,4)$. At 16 and 20, it is 24 at $(8,0)$. The packing limit permits at most eight packs, and each contributes at most 3; no plan can exceed 24 while that limit stays fixed. Beyond 16, the ingredient constraint is redundant.
-\item Produce 8 chairs and 6 tables: wood use $2(8)+4(6)=40$, assembly use $8+6=14$, contribution \$540. Ten tables alone are feasible but contribute \$500. Demand, waste, setup time, resource uncertainty, and variable production rates are examples of missing features that could change a real recommendation.
+\item With twelve mechanic-hours, the maximum is \$200 at $(4,4)$. At sixteen or twenty hours, the maximum is \$240 at $(8,0)$. The shop can serve at most eight bikes, each worth at most \$30 after parts; beyond sixteen hours extra mechanic time cannot increase this maximum. The time constraint then becomes redundant.
+\item Restore eight chairs and six tables: $2(8)+4(6)=40$ restoration hours and $8+6=14$ pickups, yielding \$540 after parts. Ten tables are feasible but yield \$500. The cooperative should check donated-item availability, demand, volunteer schedules, and actual repair times.
 \end{enumerate}
 \subsection*{Optional primary source for the AI connection}
 Vaswani et al., \href{https://arxiv.org/html/1706.03762v7#S3.SS2}{\emph{Attention Is All You Need}, Section 3.2}. The geometry applies to the normalized weighted value combination at that step; later transformations can move a representation beyond the original hull. The vectors and weights in this unit are constructed examples.
