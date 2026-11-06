@@ -118,7 +118,7 @@ L 268.474097 28.078125
      </g>
     </g>
     <g id="text_6">
-     <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="175.976875" y="298.3775" transform="rotate(-0 175.976875 298.3775)">x packs</text>
+     <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="175.976875" y="298.3775" transform="rotate(-0 175.976875 298.3775)">x tune-ups</text>
     </g>
    </g>
    <g id="matplotlib.axis_2">
@@ -233,7 +233,7 @@ L 294.901875 46.007356
      </g>
     </g>
     <g id="text_14">
-     <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="23.597813" y="144.618125" transform="rotate(-90 23.597813 144.618125)">y packs</text>
+     <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="23.597813" y="144.618125" transform="rotate(-90 23.597813 144.618125)">y quick repairs</text>
     </g>
    </g>
    <g id="patch_3">
@@ -259,7 +259,7 @@ L 294.901875 261.158125
 " style="fill: none; stroke: #293329; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_15">
-    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #293329" x="57.051875" y="22.078125" transform="rotate(-0 57.051875 22.078125)">Packing: x + y ≤ 8</text>
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #293329" x="57.051875" y="22.078125" transform="rotate(-0 57.051875 22.078125)">Bikes: x + y ≤ 8</text>
    </g>
   </g>
   <g id="axes_2">
@@ -348,7 +348,7 @@ L 563.974097 28.078125
      </g>
     </g>
     <g id="text_21">
-     <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="471.476875" y="298.3775" transform="rotate(-0 471.476875 298.3775)">x packs</text>
+     <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="471.476875" y="298.3775" transform="rotate(-0 471.476875 298.3775)">x tune-ups</text>
     </g>
    </g>
    <g id="matplotlib.axis_4">
@@ -458,7 +458,7 @@ L 590.401875 46.007356
      </g>
     </g>
     <g id="text_29">
-     <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="319.097813" y="144.618125" transform="rotate(-90 319.097813 144.618125)">y packs</text>
+     <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="319.097813" y="144.618125" transform="rotate(-90 319.097813 144.618125)">y quick repairs</text>
     </g>
    </g>
    <g id="patch_7">
@@ -484,7 +484,7 @@ L 590.401875 261.158125
 " style="fill: none; stroke: #293329; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_30">
-    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #293329" x="352.551875" y="22.078125" transform="rotate(-0 352.551875 22.078125)">Ingredients: 2x + y ≤ 12</text>
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #293329" x="352.551875" y="22.078125" transform="rotate(-0 352.551875 22.078125)">Hours: 2x + y ≤ 12</text>
    </g>
   </g>
   <g id="axes_3">
@@ -573,7 +573,7 @@ L 859.474097 28.078125
      </g>
     </g>
     <g id="text_36">
-     <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="766.976875" y="298.3775" transform="rotate(-0 766.976875 298.3775)">x packs</text>
+     <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="766.976875" y="298.3775" transform="rotate(-0 766.976875 298.3775)">x tune-ups</text>
     </g>
    </g>
    <g id="matplotlib.axis_6">
@@ -683,7 +683,7 @@ L 885.901875 46.007356
      </g>
     </g>
     <g id="text_44">
-     <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="614.597813" y="144.618125" transform="rotate(-90 614.597813 144.618125)">y packs</text>
+     <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="614.597813" y="144.618125" transform="rotate(-90 614.597813 144.618125)">y quick repairs</text>
     </g>
    </g>
    <g id="patch_11">
