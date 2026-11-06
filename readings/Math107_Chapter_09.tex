@@ -31,7 +31,7 @@
 {\large Keep the allowable choices fixed, state a goal, and compare the consequences. A mathematical optimum answers the question you actually put into the model.\par}
 \begin{center}\includegraphics[width=\linewidth]{../assets/week8/objective-levels.pdf}\end{center}
 \begin{tcolorbox}[title={From geometry to a decision}]
-The club's feasible region has corners $(0,0),(6,0),(4,4),(0,8)$. With contribution $P=3x+2y$, four packs of each type give the largest total. A different goal can choose a different corner, or leave an entire edge tied.
+The bike shop's feasible region has corners $(0,0),(6,0),(4,4),(0,8)$. With after-parts contribution $P=30x+20y$, scheduling four tune-ups and four quick repairs earns the largest total of \$200. A different goal can favor a different schedule or leave an entire edge tied.
 \end{tcolorbox}
 A feasible point represents an allowable plan. A linear objective assigns a score to each plan; examining the feasible region identifies the highest or lowest attainable score, including ties and possible unboundedness.
 
@@ -353,10 +353,10 @@ A constraint is \emph{binding at a plan} when it holds with equality there. It i
 \section*{Part II Review}
 Use nonnegative variables and included boundaries. Show a corner table or explicit calculation and report both a plan and its objective value.
 \begin{enumerate}
-\item For the club's corners $(0,0),(6,0),(4,4),(0,8)$, maximize $P=3x+2y$. What is the minimum if there is no lower production requirement?
-\item On the same region, maximize $R=x+4y$ and then $T=x+y$. Describe the complete optimal edge for $T$, including its whole-number points.
-\item Maximize $f=5x+8y$ subject to $x+2y\leq16$, $3x+2y\leq24$. Find all corners and compare. Check resource use at the best plan.
-\item Minimize $C=3x+5y$ subject to $x+y\geq8$, $2x+y\geq10$. Find the boundary vertices. Explain why the mixed boundary intersection is not automatically best.
+\item For the bike shop's corners $(0,0),(6,0),(4,4),(0,8)$, maximize contribution $P=30x+20y$. What is the minimum if the shop is not required to serve anyone that day?
+\item On the same bike-shop region, maximize priority score $R=x+4y$ and then the number of bikes served, $T=x+y$. Describe the optimal edge for $T$ and its whole-number schedules.
+\item A library has sixteen materials kits and twenty-four volunteer-hours. Information tables need one kit and three hours and reach five people; reading circles need two kits and two hours and reach eight. Maximize $f=5x+8y$ under $x+2y\leq16$, $3x+2y\leq24$.
+\item A group needs eight folders and ten cards. Bag A has one folder and two cards for \$3; bag B has one folder and one card for \$5. Minimize $C=3x+5y$ subject to $x+y\geq8$, $2x+y\geq10$. Compare the boundary vertices.
 \item For the furniture model in the worked example, compare the best plan with producing only desks. Does the higher per-item contribution determine the answer by itself?
 \item For the three-limit print shop, why is $(80/3,50/3)$ not a feasible corner? Which corner maximizes $15x+35y$?
 \item A toy workshop has $3x+y\leq120$, $x+2y\leq80$, and contribution $P=8x+5y$. Find the corners and best plan. Then change the contribution to $5x+8y$ and compare.
@@ -365,8 +365,8 @@ Use nonnegative variables and included boundaries. Show a corner table or explic
 \item For $x+2y\leq8$, $3x+2y\leq10$, maximize $5x+8y$ continuously and then using whole numbers. Check rounding up and rounding down from the continuous best point.
 \item Compute $0.75A+0.25B$ for $A=(2,1),B=(8,5)$. Add $C=(2,7)$ and normalize amounts $2,1,1$. Where do the resulting points lie? Why do weights $1.2,-0.2$ fail the convex-combination test?
 \item Explain the difference between an infeasible model and an unbounded objective. Give an example of an unbounded region with a finite minimum. Explain why $0\leq x<1$ has no largest allowable x.
-\item Keep $x+y\leq8$ and increase the club's ingredient allowance from 12 to 16, then 20. Maximize $3x+2y$ at each stage. Why does the extra ingredient allowance eventually stop helping?
-\item Recommend a plan for the original chair-and-table workshop with wood limit 40, assembly limit 14, and contribution $30x+50y$. Use resource totals and a comparison with another feasible plan. Name a relevant missing feature.
+\item Keep the shop's eight-bike limit and increase mechanic-hours from twelve to sixteen and then twenty. Maximize $30x+20y$ at each stage. Why do extra hours eventually stop improving contribution?
+\item A repair cooperative has 40 restoration hours, can arrange 14 pickups, and earns after-parts contribution $30x+50y$ from chairs and tables. Recommend a schedule, compare another feasible schedule, and name a missing real-world consideration.
 \end{enumerate}
 
 \clearpage
