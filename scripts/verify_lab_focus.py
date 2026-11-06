@@ -14,7 +14,7 @@ EXPECTED = {
     6: [],
     7: ["tutoring-graph.svg"],
     8: [],
-    9: ["community-network.svg"],
+    9: ["community-network.svg", "food-partners.svg", "walking-routes.svg", "study-group.svg"],
     10: ["koch-stages.svg"],
     "extension": [],
 }
