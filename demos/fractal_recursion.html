@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Explore recursion, fractals, and how measurement changes with scale.">
-<title>Week 10 Explorer — Investigating recursive models | Math in Society</title>
+<meta name="description" content="Compare three limits: the useful horizon of a forecast, what exact arithmetic can prove, and how measurement scale changes an answer.">
+<title>Week 10 Explorer — Limits of Prediction | Math in Society</title>
 <link rel="stylesheet" href="../assets/week10/week10.css">
 <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week10/week10.js"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html">Reading</a><a href="../demos/fractal_recursion.html" aria-current="page">Explorer</a><a href="../labs/week10_lab.html">Laboratory</a><a href="../applications/week10_application.html">Fish forecast</a><a href="../applications/week10_ai.html">AI application</a><a href="../discussions/week10_discussion.html">Discussion</a></nav><main class="wrap" id="main"><header class="hero"><div class="eyebrow">Week 10 / Explorer</div>
-<h1>Investigating recursive models</h1>
-<p class="lead">Explore recursion, fractals, and how measurement changes with scale.</p>
+<h1>Exploring the limits of prediction</h1>
+<p class="lead">Try a forecasting rule, test an exact number problem, and measure a boundary at different scales. Notice what each experiment can establish.</p>
 </header>
-<section class="card"><h2>Explore the update rules and compare the calculated values.</h2>
-<p>Choose an investigation and change its controls. Use the table when you want exact values.</p>
+<section class="card"><h2>Three questions, four experiments</h2>
+<p>First ask how long nearby forecasts agree, then what can be learned from testing exact numbers, and finally why a complicated boundary changes length when measured more finely. The fractal construction prepares you for that final question. Each tab keeps its own controls and calculated values.</p>
 <p class="small">Step 0 is the starting value.</p>
 <h3>A first route through the workshop</h3>
 <ol class="steps">
@@ -29,8 +29,8 @@
 <button id="tab-log" role="tab" type="button" aria-selected="true" aria-controls="panel-log" tabindex="0">Logistic trajectories</button><button id="tab-col" role="tab" type="button" aria-selected="false" aria-controls="panel-col" tabindex="-1">Collatz routes</button><button id="tab-frac" role="tab" type="button" aria-selected="false" aria-controls="panel-frac" tabindex="-1">Fractal workshop</button><button id="tab-scale" role="tab" type="button" aria-selected="false" aria-controls="panel-scale" tabindex="-1">Rulers &amp; scale</button>
 </div>
 <section class="card" id="panel-log" role="tabpanel" aria-labelledby="tab-log"><div class="kicker">Investigation 1</div>
-<h2>One formula, two starting measurements</h2>
-<p>The state is a fraction between 0 and 1. Change the starting fraction and the parameter r.</p>
+<h2>How long do two population forecasts agree?</h2>
+<p>Consider two plausible starting estimates for the same lake population. The fractions use a reference count of 100,000 fish. Change the starting fraction or the parameter r, and ask whether the forecasts stay close enough for a chosen decision.</p>
 <p>The update rule is \(x_{n+1}=r x_n(1-x_n)\).</p>
 <div class="formula">\(x_{n+1}=r x_n(1-x_n)\)</div>
 <p>Compare two nearby starting states with the same rule.</p>
@@ -73,11 +73,11 @@
 <div class="chart" id="logPlot"></div>
 <details><summary>Show the trajectory table</summary><div class="trace table-wrap" id="logTable"></div></details><div class="insight">
 <h3>Notice</h3>
-<p>Try several r values. Which patterns repeat, settle, or separate?</p>
+<p>Try the fixed-point and sensitive-pair presets. Does a small difference in starting estimates always grow? Which patterns make the long-range numbers less useful for a management decision?</p>
 </div></section>
 <section class="card" id="panel-col" role="tabpanel" aria-labelledby="tab-col" hidden><div class="kicker">Investigation 2</div>
-<h2>Follow the Collatz number machine</h2>
-<p>For an even integer, divide by 2. For an odd integer, multiply by 3 and add 1. We stop recording when the trajectory first reaches 1, and count the arrows from the starting number.</p>
+<h2>What can exact arithmetic tell us—and what remains unknown?</h2>
+<p>Here both the initial value and the update rule are exact. Halve even integers; for odd integers multiply by 3 and add 1. Record each trajectory until its first 1. You can verify individual starts, but a collection of tests is not a proof about all positive integers.</p>
 <p>This tab studies whole numbers rather than population fractions. “Peak” is the largest integer on the recorded route. “Updates” counts its arrows: \(5\to16\to8\to4\to2\to1\) has five updates and peak 16.</p>
 <div class="actions">
 <button type="button" class="secondary" data-col-preset="6">Compare 6 &amp; 7</button><button type="button" class="secondary" data-col-preset="26">Compare 26 &amp; 27</button><button type="button" class="secondary" data-col-preset="31">Compare 31 &amp; 32</button>
@@ -119,8 +119,8 @@
 <p>Try 31 and 32. Does a larger start require more updates? These experiments test particular integers. They do not settle the conjecture for all positive integers.</p>
 </div></section>
 <section class="card" id="panel-frac" role="tabpanel" aria-labelledby="tab-frac" hidden><div class="kicker">Investigation 3</div>
-<h2>Build the next stage; account for every piece</h2>
-<p>Move through the stages and compare the counts, lengths, and areas.</p>
+<h2>What happens when a boundary gains finer detail?</h2>
+<p>Use the Koch and Sierpinski constructions to track several quantities that change differently. An intricate boundary can have predictable mathematical stage counts even when its geometry becomes harder to see at a glance.</p>
 
 <div class="controls"><div class="wide">
 <label for="fracStage">Construction stage: <output id="fracRead">0</output></label><input id="fracStage" type="range" min="0" max="6" value="0" step="1">
@@ -158,8 +158,8 @@
 <p>The Koch route gets longer while its endpoints stay fixed. The Sierpinski piece count rises while total area falls. Which quantity are you observing?</p>
 </div></section>
 <section class="card" id="panel-scale" role="tabpanel" aria-labelledby="tab-scale" hidden><div class="kicker">Investigation 4</div>
-<h2>One coastline, four reported lengths</h2>
-<p>These invented survey counts illustrate how smaller rulers can follow more boundary detail. The bars all use the same length scale.</p>
+<h2>Which shoreline length should a restoration team use?</h2>
+<p>A shoreline restoration team needs to know how much bank to inspect. These invented survey counts show how smaller rulers capture more detail. The bars use the same kilometer scale; the reported lengths differ because the measurement resolution differs.</p>
 <p>Change the ruler size and compare the measured coastline length.</p>
 <p>The bars show measured lengths in kilometers.</p>
 <div class="controls"><div>
@@ -206,7 +206,7 @@
 </table></div>
 <div class="insight">
 <h3>Notice</h3>
-<p>How does the measurement change with ruler size?</p>
+<p>What would you report to the restoration team: just a number of kilometers, or the number together with the ruler size and method? Why?</p>
 </div></section>
 <div class="next">
 <a href="../index.html">← Course home</a><a class="button" href="../labs/week10_lab.html">Begin the laboratory →</a>
