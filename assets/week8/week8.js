@@ -20,7 +20,7 @@ const Math8={
  mix(points,amounts){if(points.length!==amounts.length||!points.length||amounts.some(x=>!Number.isFinite(x)||x<0))throw Error('Use a nonnegative amount for every input.');const total=amounts.reduce((s,x)=>s+x,0);if(!Number.isFinite(total)||total<=0)throw Error('Use at least one positive amount; zero total cannot be normalized.');const n=points[0].length;if(points.some(p=>p.length!==n||p.some(x=>!Number.isFinite(x))))throw Error('All vectors must have the same number of finite coordinates.');const weights=amounts.map(x=>x/total),point=Array.from({length:n},(_,j)=>points.reduce((s,p,i)=>s+weights[i]*p[j],0));return {weights,point,total};}
 };
 Math8.models={
- snacks:model([C(1,1,8),C(2,1,12)],3,2,'max','x = type-A snack packs, y = type-B packs. Packing has 8 slots; ingredients have 12 portions. Maximize contribution dollars.','Type A packs, x','Type B packs, y'),
+ snacks:model([C(1,1,8),C(2,1,12)],30,20,'max','x = full tune-ups, y = quick repairs. The shop can handle 8 bikes and has 12 mechanic-hours. Maximize contribution dollars after parts.','Tune-ups, x','Quick repairs, y'),
  lab:model([C(2,1,10),C(1,1,7)],1,1,'max','x and y are production quantities. The lab example has limits 2x+y≤10 and x+y≤7.','Product A quantity, x','Product B quantity, y'),
  workshop:model([C(2,4,40),C(1,1,14)],30,50,'max','x = chairs per week, y = tables. Wood allows 40 units; assembly allows 14 slots. Contribution is in dollars.','Chairs per week, x','Tables per week, y'),
  textbook:model([C(3,2,120),C(1,2,60)],4,5,'max','Two production quantities share resources with allowances 120 and 60. Each coefficient is resource use per unit.','Product A quantity, x','Product B quantity, y'),
@@ -93,7 +93,7 @@ function preparePrint(){
 }
 function initGeometry(){
  if(!$('geomPreset'))return;
- const info={snacks:['type-A packs','type-B packs','packing slots','ingredient portions'],lab:['A quantity','B quantity','resource-1 units','resource-2 units'],workshop:['chairs per week','tables per week','wood units','assembly slots'],textbook:['product-A units','product-B units','resource-1 units','resource-2 units']};
+ const info={snacks:['tune-ups','quick repairs','bikes','mechanic-hours'],lab:['A quantity','B quantity','resource-1 units','resource-2 units'],workshop:['chairs per week','tables per week','wood units','assembly slots'],textbook:['product-A units','product-B units','resource-1 units','resource-2 units']};
  function current(){const b=Math8.models[$('geomPreset').value];return {...b,cons:b.cons.map((q,i)=>({...q,c:+$(i?'c2':'c1').value}))};}
  function draw(){const g=current(),s=Math8.solve(g),i=info[$('geomPreset').value],x=Math8.number($('testX').value),y=Math8.number($('testY').value),valid=[x,y].every(Number.isFinite);text('c1v',g.cons[0].c);text('c2v',g.cons[1].c);text('geomContext',`x = ${i[0]}; y = ${i[1]}. Current allowances: ${g.cons[0].c} ${i[2]} and ${g.cons[1].c} ${i[3]}.`);text('geomConstraints',constraints(g));text('geomCount',s.vertices.length);text('geomShape',s.vertices.length===1?'Single feasible point':s.vertices.length===2?'Feasible line segment':'Bounded polygon');plot('geomPlot',g,{test:valid?[x,y]:null,half:$('showHalf').checked,labels:$('showLabels').checked,title:'The intersection of the current resource limits'});
  table('geomVertices',['True feasible vertex','Binding boundaries'],s.vertices.map(p=>[point(p),Math8.constraints(g).map((q,j)=>near(q.a*p[0]+q.b*p[1],q.c)?j<g.cons.length?'Resource '+(j+1):j===g.cons.length?'x = 0':'y = 0':null).filter(Boolean).join('; ')]));
