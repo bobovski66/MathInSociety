@@ -193,7 +193,7 @@ L 577.110781 39.357656
      </g>
     </g>
     <g id="text_11">
-     <text style="font-size: 12.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="312.060781" y="385.417359" transform="rotate(-0 312.060781 385.417359)">Type A packs, x</text>
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="312.060781" y="385.417359" transform="rotate(-0 312.060781 385.417359)">Tune-ups, x</text>
     </g>
    </g>
    <g id="matplotlib.axis_2">
@@ -353,7 +353,7 @@ L 577.110781 39.357656
      </g>
     </g>
     <g id="text_22">
-     <text style="font-size: 12.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="22.458047" y="194.589656" transform="rotate(-90 22.458047 194.589656)">Type B packs, y</text>
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="22.458047" y="194.589656" transform="rotate(-90 22.458047 194.589656)">Quick repairs, y</text>
     </g>
    </g>
    <g id="line2d_41">
@@ -382,13 +382,13 @@ L 273.375076 352.321656
 " style="fill: none; stroke: #a55c21; stroke-width: 2; stroke-linecap: round"/>
    </g>
    <g id="text_23">
-    <text style="font-size: 12.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #a55c21" x="164.810781" y="337.748056" transform="rotate(-0 164.810781 337.748056)">4 of type A</text>
+    <text style="font-size: 12.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #a55c21" x="164.810781" y="337.748056" transform="rotate(-0 164.810781 337.748056)">4 tune-ups</text>
    </g>
    <g id="text_24">
-    <text style="font-size: 12.5px; font-family: 'DejaVu Sans'; fill: #17677a" transform="translate(68.288828 315.040594) rotate(-90)">4 of type B</text>
+    <text style="font-size: 12.5px; font-family: 'DejaVu Sans'; fill: #17677a" transform="translate(68.288828 315.040594) rotate(-90)">4 quick repairs</text>
    </g>
    <g id="text_25">
-    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #293329" x="47.010781" y="24.357656" transform="rotate(-0 47.010781 24.357656)">One point records one complete plan</text>
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #293329" x="47.010781" y="24.357656" transform="rotate(-0 47.010781 24.357656)">One point represents one workday</text>
    </g>
    <g id="PathCollection_1">
     <defs>
