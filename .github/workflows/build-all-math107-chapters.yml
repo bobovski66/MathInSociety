@@ -4,6 +4,7 @@ on:
     paths:
       - "readings/week*_reading.html"
       - "scripts/build_week*_chapter*.py"
+      - "assets/week8/*.svg"
       - "scripts/chapter_editorial.py"
       - ".github/workflows/build-all-math107-chapters.yml"
   workflow_dispatch:
@@ -21,7 +22,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Install HTML conversion dependency
-        run: python -m pip install lxml
+        run: python -m pip install lxml cairosvg
       - name: Check Python chapter scripts
         run: python -m py_compile scripts/chapter_editorial.py scripts/build_week*_chapter*.py
       - name: Regenerate chapter LaTeX sources
@@ -33,6 +34,15 @@ jobs:
               python "scripts/build_week${n}_chapter.py"
             fi
           done
+      - name: Rebuild Week 8 PDF figures from revised SVG labels
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import cairosvg
+          for source in sorted(Path("assets/week8").glob("*.svg")):
+              cairosvg.svg2pdf(url=str(source), write_to=str(source.with_suffix(".pdf")))
+              print("Rendered", source.name)
+          PY
       - name: Compile all chapter PDFs
         uses: xu-cheng/latex-action@v4
         with:
@@ -59,7 +69,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add readings/Math107_Chapter_*.tex readings/Math107_Chapter_*.pdf readings/chapter3/*.tex
+          git add readings/Math107_Chapter_*.tex readings/Math107_Chapter_*.pdf readings/chapter3/*.tex assets/week8/*.pdf
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Regenerate taught Math 107 chapter PDFs"
           git fetch origin main
