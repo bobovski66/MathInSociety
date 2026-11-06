@@ -43,8 +43,8 @@ jobs:
           for directory in (Path("assets/week8"), Path("assets/week9")):
               for source in sorted(directory.glob("*.svg")):
                   target = source.with_suffix(".pdf")
-                  if directory.name == "week9" and target.exists():
-                      continue  # Preserve the matching Matplotlib-exported PDF illustrations.
+                  if directory.name == "week9" and target.exists() and source.stem not in ("food-partners", "walking-routes", "study-group"):
+                      continue  # Preserve existing Matplotlib figures; rebuild the three new diagrams.
                   cairosvg.svg2pdf(url=str(source), write_to=str(target))
                   print("Rendered", source.name, "to", target.name)
           PY
