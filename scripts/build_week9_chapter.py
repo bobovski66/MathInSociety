@@ -70,12 +70,12 @@ cover=r'''
 \vspace{10pt}
 {\fontsize{31}{35}\selectfont\bfseries\color{olive}Small connections.\\Collective effects.\par}
 \vspace{8pt}
-{\large Follow a community alert through seven locations. Discover how direct contacts, alternate routes, and local decisions shape the whole system.\par}
+{\large Explore food-sharing partners, walking routes, public alerts, and student groups to see how local connections shape whole systems.\par}
 \begin{center}\includegraphics[width=\linewidth]{../assets/week9/community-network.pdf}\end{center}
 \begin{tcolorbox}[title={The question for the week}]
-A community has seven locations and nine direct communication links. Can an alert reach everyone? How many rounds does it need? Which one-link improvement helps it survive an outage?
+A public alert may depend on a fragile communication link. A senior hub may depend on one food-sharing partner. A walk with fewer segments may take more time. What can network mathematics tell us about these choices?
 \end{tcolorbox}
-This chapter begins with the meaning of a dot and a line, then builds a language for neighbors, paths, vulnerability, and spread. It uses arithmetic, fractions, averages, and repeated updates from Weeks 1--8. No earlier study of networks is assumed.
+The seven-location alert network provides continuity across the calculations. Different examples involving food-sharing, walking routes, social adoption, referrals, and neural signals let us compare what changes when a connection means something different. No earlier study of network theory is assumed.
 
 \medskip
 \href{https://bobovski66.github.io/MathInSociety/readings/week9_reading.html}{Online reading}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/demos/network_systems.html}{Network explorer}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/labs/week9_lab.html}{Guided laboratory}
@@ -83,7 +83,7 @@ This chapter begins with the meaning of a dot and a line, then builds a language
 ai=r'''
 \clearpage
 \section{AI connection: signals along weighted arrows}
-Imagine a small program combining two indoor sensor scores. The heat score is $x_1=2$ and the motion score is $x_2=4$. The subscripts identify two different inputs. These invented scores are rescaled to numbers from 0 to 6; they are not temperatures or probabilities.
+Imagine a community center testing a small program that combines two indoor sensor scores. The heat score is $x_1=2$ and the motion score is $x_2=4$. The subscripts identify two different inputs. These invented scores are rescaled to numbers from 0 to 6; they are not temperatures or probabilities.
 
 The diagram is a tiny \emph{linear signal network}. Every arrow has a multiplier called a weight. Each receiving node adds its incoming weighted signals. The intermediate nodes $H_1,H_2$ form a hidden layer: a set of calculations between the inputs and output. ``Hidden'' means intermediate, not secret.
 \begin{center}\includegraphics[width=\linewidth,height=3.2in,keepaspectratio]{../assets/week9/neural-signals.pdf}\end{center}
@@ -132,20 +132,20 @@ The weights, scores, and targets here are invented and have not been fitted to s
 review=r'''
 \clearpage
 \section*{Chapter Review}
-Use the seven-node base network with edges AB, AC, BC, BD, CD, DE, EF, EG, FG unless a question changes it. Links are two-way and unweighted. Show a count, route, or update sequence to support each answer. No centrality formula is required.
+For questions about the county alert network, use nodes A--G and edges AB, AC, BC, BD, CD, DE, EF, EG, FG. Other questions provide different networks. Unless a problem says otherwise, links are two-way. Show a count, route, or update sequence and interpret the result in its setting.
 \begin{enumerate}
 \item Find all seven degrees. Check the sum against the number of edges, then calculate the mean degree.
-\item How many simple undirected links are possible among seven nodes? Find the base network's density as a fraction, decimal, and percentage. Explain what that percentage describes.
+\item Five food-sharing partners P, L, S, F, H have direct two-way partnerships PL, PS, LS, SF, FH. Find the degrees of S and H, the number of possible pairings, and the density. What does that density say about the partnerships?
 \item Find two different shortest paths from A to G. State their lengths. Find the distances from B to F and from D to every other node.
 \item What are the connected components after DE is removed? Is the distance from A to F then zero, very large, or unreachable? Explain.
-\item Which base-network edges are bridges? Which nodes are articulation points? Explain the difference between the two tests.
+\item In the food-sharing network PL, PS, LS, SF, FH, which edges are bridges and which nodes are articulation points? Describe what losing the community fridge F would do to the senior hub H.
 \item Add DF. Give an A-to-G route that survives loss of DE. Does this addition also protect against loss of D itself?
 \item Compare adding AD with adding DF. With all links working, at which round is everyone informed from A under automatic sending? Which proposal meets the goal of surviving failure of DE?
 \item In the adjacency table, find row A/column D, row D/column E, and row E/column E. What is the sum of row D? Explain why a zero at A/G does not mean G is unreachable from A.
 \item A alone is informed at round 0. List the newly informed and total informed nodes after rounds 1--4 under the automatic rule. Explain why two senders contacting D do not count as two new locations.
-\item Use the half-neighbor adoption rule. With seeds B,C, list the active sets at rounds 0,1,2. Repeat with seeds B,C,F. Which first-round activation makes the second case different on the right side?
+\item Five students P, Q, R, S, T have conversation links PQ, PR, QR, RS, RT, ST. Each joins a study group if at least half of their neighbors have joined. Starting with Q alone, list the active students after each round until the process stops. Now start with Q and S. What happens after one round?
 \item A node has five neighbors and a 60\% threshold. How many active neighbors are required? Does that local count determine the outcome of the whole network?
-\item For arrows $P\to Q$, $Q\to R$, can R reach P? State Q's in-degree and out-degree. Then compare a two-link trip of 12+12 minutes with a three-link trip of 4+4+4 minutes.
+\item A clinic C refers to specialist S and laboratory L; both may send a report to coordinator R. The directed links are $C\to S$, $C\to L$, $S\to R$, $L\to R$. Find C's out-degree, R's in-degree, and whether R can return to C along the same arrows. In the walking network, compare a two-link walk of 8+9 minutes with a three-link walk of 4+3+5 minutes.
 \item For the AI network with inputs 2 and 4, find $H_1,H_2,O$. Remove $x_2\to H_1$ and recalculate. Why does changing $x_2$ have no net effect in the original sum-only model?
 \item With target 3 and prediction 2, use signed error = target minus prediction. Change only the $H_1$-to-output weight to 2.00 and recalculate. What does matching this one target establish, and what does it leave unknown?
 \item Choose a real network. Define nodes, edges, a useful question, and one limitation of a simple undirected, unweighted representation.
@@ -159,17 +159,17 @@ answers=r'''
 \subsection*{Chapter Review: solutions and reasoning}
 \begin{enumerate}
 \item In order A--G, degrees are $2,3,3,3,3,2,2$. Their sum is 18, which equals $2(9)$. The mean is $18/7\approx2.57$ neighbors.
-\item There are $7(6)/2=21$ pairs. Density is $9/21=3/7\approx0.429$, about $42.9\%$. It is the fraction of possible \emph{pairs} with direct links, not a transmission probability.
+\item S connects to P, L, F and has degree 3, while H connects only to F and has degree 1. Among five nodes, $5(4)/2=10$ pairs are possible. Five partnerships give density $5/10=0.5$, or $50\%$. Density counts direct partnerships, not the amount of food supplied.
 \item A--B--D--E--G and A--C--D--E--G each use 4 edges. B-to-F distance is 3 via B--D--E--F. From D to A,B,C,E,F,G the distances are $2,1,1,1,2,2$; their sum is 9 and mean is 1.5.
 \item The components are $\{A,B,C,D\}$ and $\{E,F,G\}$. F is unreachable from A. Waiting cannot create a missing path. Zero is the distance from A to itself.
-\item DE is the only bridge. D and E are articulation points. An edge test removes one connection; a node test removes the location and every connection touching it.
+\item SF and FH are bridges. S and F are articulation points. If F stops coordinating, H loses its only partner, though P, L, and S remain connected. An edge test removes one relationship; a node test removes an organization and every link touching it.
 \item A--B--D--F--G survives loss of DE. But removing D itself leaves $\{A,B,C\}$ separate from $\{E,F,G\}$ even with DF added. Both cross-region links depended on D.
 \item AD gives complete delivery by round 3 with all links working; DF gives complete delivery by round 4. DF, unlike AD, supplies a cross-region route after DE fails. Both give 10 edges and density $10/21$ before failures.
 \item The entries are 0,1,0; row D sums to 3. A zero at A/G only rules out a direct link; paths using intermediate locations still exist.
 \item New nodes by rounds 1--4: $\{B,C\},\{D\},\{E\},\{F,G\}$. Cumulative totals: 3,4,5,7, including the initial A. Multiple message copies arriving at D inform the same one location.
-\item Seeds BC give $BC\to ABCD\to ABCD$; the process stalls because E sees only one of its three neighbors active. Seeds BCF give $BCF\to ABCDFG\to ABCDEFG$. G activates in round 1 because F is one of its two neighbors. E uses the new D and G states beginning in round 2.
+\item With Q alone, P joins in round 1 because Q is one of P's two neighbors. R sees one active neighbor out of four, and S and T see none, so the active set stops at $\{P,Q\}$. With Q and S initially active, P sees one of two, R sees two of four, and T sees one of two. All five students are active after round 1.
 \item Three active neighbors, since $0.60(5)=3$. The outcome also depends on other thresholds, the network, and seeds.
-\item No, R has no outgoing route to P. Q has one incoming and one outgoing arrow. The two-link trip takes 24 minutes; the three-link trip takes 12. Fewest links and least time need not agree.
+\item C has two outgoing referrals, R has two incoming reports, and R cannot return to C without a reverse arrow. The two-link walk takes $8+9=17$ minutes; the three-link walk takes $4+3+5=12$ minutes. Fewest connections and least travel time need not agree.
 \item $H_1=2,H_2=2,O=2$. After removal, $H_1=1,H_2=2,O=0.5$. The original two paths from $x_2$ contribute $+0.375$ and $-0.375$ per input unit, so their net effect is zero.
 \item Error is 1. The new output is $2.00(2)-0.50(2)=3$, giving error 0 for this example. It matches one target; performance on other examples remains untested.
 \item Answers vary. For a transit network, nodes might be stops and edges direct routes between stops. A useful question is whether a closure separates a neighborhood. An unweighted graph omits waiting and travel times; an undirected graph omits one-way service.
