@@ -39,23 +39,23 @@
 <p>Use \(a_{n+1}=a_n+5\), starting once from 10 and once from 10.1.</p>
 <div class="grid">
 <div class="question">
-<label for="p1a">After five additions of 5, what value results from a starting value of 10?</label><input id="p1a" type="text" inputmode="decimal" autocomplete="off" data-answer="35" data-tolerance="0.001" data-hint="Five updates add 5 five times: 10 + 5 × 5." data-success="Correct." aria-describedby="p1a-feedback"><span class="field-feedback" id="p1a-feedback" aria-live="polite"></span>
+<label for="p1a">Projected funds after five months, in thousands of dollars, starting at $10,000</label><input id="p1a" type="text" inputmode="decimal" autocomplete="off" data-answer="35" data-tolerance="0.001" data-hint="Five updates add 5 five times: 10 + 5 × 5." data-success="Correct." aria-describedby="p1a-feedback"><span class="field-feedback" id="p1a-feedback" aria-live="polite"></span>
 </div>
 <div class="question">
-<label for="p1b">After five additions of 5, what value results from a starting value of 10.1?</label><input id="p1b" type="text" inputmode="decimal" autocomplete="off" data-answer="35.1" data-tolerance="0.001" data-hint="Start at 10.1 and add the same total as in the first trajectory." data-success="Correct." aria-describedby="p1b-feedback"><span class="field-feedback" id="p1b-feedback" aria-live="polite"></span>
+<label for="p1b">Projected funds after five months, in thousands of dollars, starting at $10,100</label><input id="p1b" type="text" inputmode="decimal" autocomplete="off" data-answer="35.1" data-tolerance="0.001" data-hint="Start at 10.1 and add the same total as in the first trajectory." data-success="Correct." aria-describedby="p1b-feedback"><span class="field-feedback" id="p1b-feedback" aria-live="polite"></span>
 </div>
 </div>
 <div class="question">
-<label for="p1c">Absolute difference after those 5 updates</label><input id="p1c" type="text" inputmode="decimal" autocomplete="off" data-answer="0.1" data-tolerance="0.0001" data-hint="Subtract the smaller final value from the larger." data-success="Correct." aria-describedby="p1c-feedback"><span class="field-feedback" id="p1c-feedback" aria-live="polite"></span>
+<label for="p1c">Difference between the two budget forecasts, in thousands of dollars</label><input id="p1c" type="text" inputmode="decimal" autocomplete="off" data-answer="0.1" data-tolerance="0.0001" data-hint="Subtract the smaller final value from the larger." data-success="Correct." aria-describedby="p1c-feedback"><span class="field-feedback" id="p1c-feedback" aria-live="polite"></span>
 </div>
 <h3>B. Multiply by 3 at every update</h3>
 <p>Imagine a post that triples its number of viewers each round during its earliest spread. Two initial estimates are 1.00 thousand and 1.01 thousand viewers. Multiply by 3 for six rounds. Such growth cannot continue indefinitely: the audience is finite, and people may see a post more than once.</p>
 <p>Use \(a_{n+1}=3a_n\), starting once from 1.00 and once from 1.01. Work through six updates.</p>
 <div class="question">
-<label for="p1d">Absolute difference after 6 updates</label><input id="p1d" type="text" inputmode="decimal" autocomplete="off" data-answer="7.29" data-tolerance="0.001" data-hint="The initial absolute gap 0.01 is multiplied by 3 six times." data-success="Correct." aria-describedby="p1d-feedback"><span class="field-feedback" id="p1d-feedback" aria-live="polite"></span>
+<label for="p1d">Difference between the two message-view forecasts after six rounds, in thousands of views</label><input id="p1d" type="text" inputmode="decimal" autocomplete="off" data-answer="7.29" data-tolerance="0.001" data-hint="The initial absolute gap 0.01 is multiplied by 3 six times." data-success="Correct." aria-describedby="p1d-feedback"><span class="field-feedback" id="p1d-feedback" aria-live="polite"></span>
 </div>
 <div class="question">
-<label for="p1e">Relative difference after 6 updates, using the first trajectory as reference</label><select id="p1e" data-answer="right" data-hint="Divide the absolute gap by 3⁶, then multiply by 100." data-success="Correct. The absolute gap grows, but the relative gap stays at 1%." aria-describedby="p1e-feedback"><option value="">Choose a response…</option>
+<label for="p1e">Relative difference in projected viewers after six rounds</label><select id="p1e" data-answer="right" data-hint="Divide the absolute gap by 3⁶, then multiply by 100." data-success="Correct. The absolute gap grows, but the relative gap stays at 1%." aria-describedby="p1e-feedback"><option value="">Choose a response…</option>
 <option value="right">1%</option>
 <option value="7.29">7.29%</option>
 <option value="729">729%</option></select><span class="field-feedback" id="p1e-feedback" aria-live="polite"></span>
@@ -83,7 +83,7 @@
 </div>
 </div>
 <div class="question">
-<label for="p4d">Which description fits this trajectory?</label><select id="p4d" data-answer="right" data-hint="Compare later values with x*. Approaching a fixed point does not require each update to move in the same direction." data-success="Correct." aria-describedby="p4d-feedback"><option value="">Choose a response…</option>
+<label for="p4d">Which description fits this modeled lake population trajectory?</label><select id="p4d" data-answer="right" data-hint="Compare later values with x*. Approaching a fixed point does not require each update to move in the same direction." data-success="Correct." aria-describedby="p4d-feedback"><option value="">Choose a response…</option>
 <option value="right">It approaches the nonzero fixed point.</option>
 <option value="infinity">It grows without bound.</option>
 <option value="zero">It becomes zero immediately.</option></select><span class="field-feedback" id="p4d-feedback" aria-live="polite"></span>
@@ -218,16 +218,16 @@
 
 <div class="grid">
 <div class="question">
-<label for="p5a">Measured length with the 100-meter ruler, in meters</label><input id="p5a" type="text" inputmode="decimal" autocomplete="off" data-answer="8000" data-tolerance="0" data-hint="Multiply 100 meters by 80." data-success="Correct." aria-describedby="p5a-feedback"><span class="field-feedback" id="p5a-feedback" aria-live="polite"></span>
+<label for="p5a">Reported shoreline length using a 100-meter ruler (meters)</label><input id="p5a" type="text" inputmode="decimal" autocomplete="off" data-answer="8000" data-tolerance="0" data-hint="Multiply 100 meters by 80." data-success="Correct." aria-describedby="p5a-feedback"><span class="field-feedback" id="p5a-feedback" aria-live="polite"></span>
 </div>
 <div class="question">
-<label for="p5b">Measured length with the 50-meter ruler, in meters</label><input id="p5b" type="text" inputmode="decimal" autocomplete="off" data-answer="10000" data-tolerance="0" data-hint="Multiply 50 meters by 200." data-success="Correct." aria-describedby="p5b-feedback"><span class="field-feedback" id="p5b-feedback" aria-live="polite"></span>
+<label for="p5b">Reported shoreline length using a 50-meter ruler (meters)</label><input id="p5b" type="text" inputmode="decimal" autocomplete="off" data-answer="10000" data-tolerance="0" data-hint="Multiply 50 meters by 200." data-success="Correct." aria-describedby="p5b-feedback"><span class="field-feedback" id="p5b-feedback" aria-live="polite"></span>
 </div>
 <div class="question">
-<label for="p5c">Measured length with the 25-meter ruler, in meters</label><input id="p5c" type="text" inputmode="decimal" autocomplete="off" data-answer="13000" data-tolerance="0" data-hint="Multiply 25 meters by 520." data-success="Correct." aria-describedby="p5c-feedback"><span class="field-feedback" id="p5c-feedback" aria-live="polite"></span>
+<label for="p5c">Reported shoreline length using a 25-meter ruler (meters)</label><input id="p5c" type="text" inputmode="decimal" autocomplete="off" data-answer="13000" data-tolerance="0" data-hint="Multiply 25 meters by 520." data-success="Correct." aria-describedby="p5c-feedback"><span class="field-feedback" id="p5c-feedback" aria-live="polite"></span>
 </div>
 <div class="question">
-<label for="p5d">Measured length with the 12.5-meter ruler, in meters</label><input id="p5d" type="text" inputmode="decimal" autocomplete="off" data-answer="16750" data-tolerance="0" data-hint="Multiply 12.5 meters by 1,340." data-success="Correct." aria-describedby="p5d-feedback"><span class="field-feedback" id="p5d-feedback" aria-live="polite"></span>
+<label for="p5d">Reported shoreline length using a 12.5-meter ruler (meters)</label><input id="p5d" type="text" inputmode="decimal" autocomplete="off" data-answer="16750" data-tolerance="0" data-hint="Multiply 12.5 meters by 1,340." data-success="Correct." aria-describedby="p5d-feedback"><span class="field-feedback" id="p5d-feedback" aria-live="polite"></span>
 </div>
 </div>
 <div class="question">
@@ -244,6 +244,7 @@
 </div>
 <div class="actions no-print"><button type="button" data-check>Check this section</button></div>
 <p class="section-feedback" role="status"></p></section>
+<div class="card"><h2>Put the three limits together</h2><p>The population calculation compares two possible forecasts. The Collatz experiment checks exact routes for particular integers. The shoreline survey reports a length at a chosen resolution. Each calculation supports a different kind of claim.</p><div class="question"><label for="predictionReflection">Choose one of these investigations. What result did you calculate, what conclusion can you defend, and what additional information or reasoning would be needed to answer a broader question?</label><textarea id="predictionReflection" data-save rows="5"></textarea></div></div>
 <div class="card no-print">
 <h2>Keep a copy of your work</h2>
 <p>Enter your name and print or save your work when finished.</p>
