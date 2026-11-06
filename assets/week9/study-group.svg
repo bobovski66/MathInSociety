@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420" role="img" aria-label="Study-group participation: two starting conditions">
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420" role="img" aria-label="Five students and their direct conversations">
 <rect width="900" height="420" fill="#fff"/>
 <text x="40" y="47" font-size="24" font-weight="700" font-family="Arial, sans-serif" fill="#293329">Study-group participation: two starting conditions</text>
-<text x="40" y="78" font-size="16" font-family="Arial, sans-serif" fill="#17677a">Edges PQ, PR, QR, RS, RT, ST; gold rings mark initial participants</text>
-<g font-family="Arial, sans-serif"><path d="M125 216L307 120" stroke="#536240" stroke-width="4" fill="none"/>
-<path d="M125 216L445 225" stroke="#536240" stroke-width="4" fill="none"/>
-<path d="M307 120L445 225" stroke="#536240" stroke-width="4" fill="none"/>
-<path d="M445 225L647 120" stroke="#536240" stroke-width="4" fill="none"/>
-<path d="M445 225L763 247" stroke="#536240" stroke-width="4" fill="none"/>
-<path d="M647 120L763 247" stroke="#536240" stroke-width="4" fill="none"/><circle cx="125" cy="216" r="27" fill="#eef3e8" stroke="#536240" stroke-width="3"/><text x="125" y="222" text-anchor="middle" font-size="23" fill="#293329" font-weight="700">P</text><text x="125" y="265" text-anchor="middle" font-size="16" fill="#293329">P</text>
-<circle cx="307" cy="120" r="33" fill="#fff4dc" stroke="#a55c21" stroke-width="5"/><text x="307" y="126" text-anchor="middle" font-size="23" fill="#293329" font-weight="700">Q</text><text x="307" y="169" text-anchor="middle" font-size="16" fill="#293329">Q</text>
-<circle cx="445" cy="225" r="27" fill="#eef3e8" stroke="#536240" stroke-width="3"/><text x="445" y="231" text-anchor="middle" font-size="23" fill="#293329" font-weight="700">R</text><text x="445" y="274" text-anchor="middle" font-size="16" fill="#293329">R</text>
-<circle cx="647" cy="120" r="33" fill="#fff4dc" stroke="#a55c21" stroke-width="5"/><text x="647" y="126" text-anchor="middle" font-size="23" fill="#293329" font-weight="700">S</text><text x="647" y="169" text-anchor="middle" font-size="16" fill="#293329">S</text>
-<circle cx="763" cy="247" r="27" fill="#eef3e8" stroke="#536240" stroke-width="3"/><text x="763" y="253" text-anchor="middle" font-size="23" fill="#293329" font-weight="700">T</text><text x="763" y="296" text-anchor="middle" font-size="16" fill="#293329">T</text></g>
+<text x="40" y="78" font-size="16" font-family="Arial, sans-serif" fill="#17677a">Edges PQ, PS, QR, RS, RT, ST; gold rings mark starting participants</text>
+<g font-family="Arial, sans-serif">
+<path d="M150 220L325 124" stroke="#536240" stroke-width="4" fill="none"/>
+<path d="M150 220L350 280" stroke="#536240" stroke-width="4" fill="none"/>
+<path d="M325 124L510 124" stroke="#536240" stroke-width="4" fill="none"/>
+<path d="M510 124L350 280" stroke="#536240" stroke-width="4" fill="none"/>
+<path d="M510 124L680 240" stroke="#536240" stroke-width="4" fill="none"/>
+<path d="M350 280L680 240" stroke="#536240" stroke-width="4" fill="none"/>
+<circle cx="150" cy="220" r="27" fill="#eef3e8" stroke="#536240" stroke-width="3"/><text x="150" y="227" text-anchor="middle" font-size="23" fill="#293329" font-weight="700">P</text>
+<circle cx="325" cy="124" r="33" fill="#fff4dc" stroke="#a55c21" stroke-width="5"/><text x="325" y="131" text-anchor="middle" font-size="23" fill="#293329" font-weight="700">Q</text>
+<circle cx="510" cy="124" r="27" fill="#eef3e8" stroke="#536240" stroke-width="3"/><text x="510" y="131" text-anchor="middle" font-size="23" fill="#293329" font-weight="700">R</text>
+<circle cx="350" cy="280" r="33" fill="#fff4dc" stroke="#a55c21" stroke-width="5"/><text x="350" y="287" text-anchor="middle" font-size="23" fill="#293329" font-weight="700">S</text>
+<circle cx="680" cy="240" r="27" fill="#eef3e8" stroke="#536240" stroke-width="3"/><text x="680" y="247" text-anchor="middle" font-size="23" fill="#293329" font-weight="700">T</text>
+</g>
 <path d="M40 350 H860" stroke="#d8ddcd" stroke-width="2"/>
-<text x="40" y="384" font-size="17" font-family="Arial, sans-serif" fill="#17677a">With half-neighbor thresholds, Q alone stalls; starting with Q and S activates all five.</text>
+<text x="40" y="384" font-size="17" font-family="Arial, sans-serif" fill="#17677a">With the half-neighbor rule, Q alone stalls; starting with Q and S activates all five.</text>
 </svg>
