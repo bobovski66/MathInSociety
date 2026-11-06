@@ -193,7 +193,7 @@ L 405.913906 28.837969
      </g>
     </g>
     <g id="text_11">
-     <text style="font-size: 12.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="230.438906" y="363.033672" transform="rotate(-0 230.438906 363.033672)">x packs</text>
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="230.438906" y="363.033672" transform="rotate(-0 230.438906 363.033672)">x tune-ups</text>
     </g>
    </g>
    <g id="matplotlib.axis_2">
@@ -293,7 +293,7 @@ L 405.913906 28.837969
      </g>
     </g>
     <g id="text_18">
-     <text style="font-size: 12.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="22.458047" y="178.137969" transform="rotate(-90 22.458047 178.137969)">y packs</text>
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="22.458047" y="178.137969" transform="rotate(-90 22.458047 178.137969)">y quick repairs</text>
     </g>
    </g>
    <g id="patch_3">
@@ -341,10 +341,10 @@ L 405.913906 327.437969
    </g>
    <g id="text_19">
     <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #a55c21" transform="translate(228.941684 180.680375)">best (4, 4)</text>
-    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #a55c21" transform="translate(228.941684 192.997969)">value 20</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #a55c21" transform="translate(228.941684 192.997969)">value $200</text>
    </g>
    <g id="text_20">
-    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #293329" x="54.963906" y="22.837969" transform="rotate(-0 54.963906 22.837969)">Maximize P = 3x + 2y</text>
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #293329" x="54.963906" y="22.837969" transform="rotate(-0 54.963906 22.837969)">Maximize P = 30x + 20y</text>
    </g>
    <g id="PathCollection_1">
     <defs>
@@ -560,7 +560,7 @@ L 813.163906 28.837969
      </g>
     </g>
     <g id="text_31">
-     <text style="font-size: 12.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="637.688906" y="363.033672" transform="rotate(-0 637.688906 363.033672)">x packs</text>
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="637.688906" y="363.033672" transform="rotate(-0 637.688906 363.033672)">x tune-ups</text>
     </g>
    </g>
    <g id="matplotlib.axis_4">
@@ -655,7 +655,7 @@ L 813.163906 28.837969
      </g>
     </g>
     <g id="text_38">
-     <text style="font-size: 12.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="429.708047" y="178.137969" transform="rotate(-90 429.708047 178.137969)">y packs</text>
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #293329" x="429.708047" y="178.137969" transform="rotate(-90 429.708047 178.137969)">y quick repairs</text>
     </g>
    </g>
    <g id="patch_7">
