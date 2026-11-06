@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420" role="img" aria-label="A neighborhood food-sharing network">
+<rect width="900" height="420" fill="#fff"/>
+<text x="40" y="47" font-size="24" font-weight="700" font-family="Arial, sans-serif" fill="#293329">A neighborhood food-sharing network</text>
+<text x="40" y="78" font-size="16" font-family="Arial, sans-serif" fill="#17677a">Edges PL, PS, LS, SF, FH — five different partnerships</text>
+<g font-family="Arial, sans-serif"><path d="M145 173L320 140" stroke="#536240" stroke-width="4" fill="none"/>
+<path d="M145 173L325 282" stroke="#536240" stroke-width="4" fill="none"/>
+<path d="M320 140L325 282" stroke="#536240" stroke-width="4" fill="none"/>
+<path d="M325 282L578 230" stroke="#536240" stroke-width="4" fill="none"/>
+<path d="M578 230L760 185" stroke="#536240" stroke-width="4" fill="none"/><circle cx="145" cy="173" r="27" fill="#eef3e8" stroke="#536240" stroke-width="3"/><text x="145" y="179" text-anchor="middle" font-size="23" fill="#293329" font-weight="700">P</text><text x="145" y="222" text-anchor="middle" font-size="16" fill="#293329">Food pantry</text>
+<circle cx="320" cy="140" r="27" fill="#eef3e8" stroke="#536240" stroke-width="3"/><text x="320" y="146" text-anchor="middle" font-size="23" fill="#293329" font-weight="700">L</text><text x="320" y="189" text-anchor="middle" font-size="16" fill="#293329">Library shelf</text>
+<circle cx="325" cy="282" r="27" fill="#eef3e8" stroke="#536240" stroke-width="3"/><text x="325" y="288" text-anchor="middle" font-size="23" fill="#293329" font-weight="700">S</text><text x="325" y="331" text-anchor="middle" font-size="16" fill="#293329">School</text>
+<circle cx="578" cy="230" r="27" fill="#eef3e8" stroke="#536240" stroke-width="3"/><text x="578" y="236" text-anchor="middle" font-size="23" fill="#293329" font-weight="700">F</text><text x="578" y="279" text-anchor="middle" font-size="16" fill="#293329">Community fridge</text>
+<circle cx="760" cy="185" r="27" fill="#eef3e8" stroke="#536240" stroke-width="3"/><text x="760" y="191" text-anchor="middle" font-size="23" fill="#293329" font-weight="700">H</text><text x="760" y="234" text-anchor="middle" font-size="16" fill="#293329">Senior hub</text></g>
+<path d="M40 350 H860" stroke="#d8ddcd" stroke-width="2"/>
+<text x="40" y="384" font-size="17" font-family="Arial, sans-serif" fill="#17677a">Five links out of ten possible pairs: density = 5/10 = 50%.</text>
+</svg>
