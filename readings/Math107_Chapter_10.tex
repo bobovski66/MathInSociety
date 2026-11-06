@@ -22,19 +22,19 @@
 \begin{document}
 {\small\sffamily\color{olive}CHAPTER 10 / COMPLEXITY AND THE LIMITS OF PREDICTION\par}
 \vspace{8pt}
-{\fontsize{31}{35}\selectfont\bfseries\color{olive}Recursion, fractals, and prediction\par}
+{\fontsize{31}{35}\selectfont\bfseries\color{olive}How far can a\\prediction go?\par}
 \vspace{8pt}
-{\large Follow a number through a maze, build a curve that keeps getting longer, and discover why an exact rule can still leave a forecast uncertain.\par}
+{\large Explore why uncertain starting data limit forecast horizons, why finite tests cannot prove every case, and why observation scale changes measured length.\par}
 
-Repeated updates are already familiar: a balance earns interest; a controller acts on a temperature reading. This chapter builds on those examples from Weeks 1--9, using arithmetic, percentages, tables, and graph reading to investigate less familiar patterns.
+Repeated updates are familiar from budgets and feedback. We begin with the usefulness of a population forecast, then ask what exact computation can prove, and finally examine how measurement scale changes a reported length.
 
 \begin{center}\includegraphics[width=\linewidth]{../assets/week10/logistic-behaviors.pdf}\end{center}
 {\small\color{teal}Three patterns we will learn to read: settling toward one value, repeating between two values, and moving irregularly within fixed bounds. Each plot follows one value through repeated updates.\par}
 
 \begin{tcolorbox}[title={The question for the week}]
-If we know the rule, do we know the future? Begin by defining the quantity, what one update means, the starting information, and the question we want the calculation to answer.
+Knowing a rule is only the beginning. We also need a reliable starting estimate, clarity about the reach of finite tests, and a specified measurement scale. What can each calculation legitimately establish?
 \end{tcolorbox}
-One rule can produce a long number trajectory, intricate geometry, or sensitivity to a starting measurement. We will distinguish calculation for chosen examples from the stronger conclusions that require proof.
+We will compare population forecasts, distinguish computed examples from proof, and explain why boundary measurement depends on scale. Recursion, Collatz, and fractals make these three limits visible.
 
 Repeated updates show how a result develops. Calculating many particular cases helps us investigate a pattern, but it does not by itself establish a claim for every starting value.
 
@@ -44,7 +44,7 @@ Repeated updates show how a result develops. Calculating many particular cases h
 \clearpage
 
 
-\Needspace{6\baselineskip}\section{Before trusting a forecast: state, rule, and question}
+\Needspace{6\baselineskip}\section*{Start here: state, rule, and question}
 
 
 Imagine a local conservation group deciding whether a fish-population forecast is reliable enough to guide its work next season. A rule takes an estimated current state and calculates a future state. Before acting, the group needs to know how the state was measured, which rule was chosen, and what the decision requires.
@@ -193,341 +193,6 @@ For an idealized message-sharing process, we might suppose that views triple eac
 
 \begin{tcolorbox}[title={Pause and try 1},breakable]
 Start at 4 and 4.1. Double both values three times. What are the absolute and relative differences?
-\end{tcolorbox}
-
-
-
-
-\Needspace{6\baselineskip}\section{An exact rule can leave an open question}
-
-Our lake model involved an uncertain initial measurement. Now take an \emph{exact} positive integer and follow a completely specified next-step rule. Even with perfect arithmetic, calculating examples does not necessarily answer a question about every possible starting integer.
-
-
-
-Here the mathematical world is the positive integers: 1, 2, 3, and so on. We are not modeling fish or money yet. We are exploring what a particular arithmetic instruction does to a whole number. One update means applying the instruction once.
-
-
-
-Choose a positive whole number. If it is even, divide it by 2. If it is odd, multiply it by 3 and add 1. Use the result as the next input.
-
-
-
-An \emph{even} integer divides by 2 without a remainder, such as 6 or 10. An \emph{odd} integer does not, such as 3 or 5. The displayed formula below simply puts those two verbal instructions into one statement. The brace says ``choose the appropriate row.''
-
-
-\[a_{n+1}=\begin{cases}a_n/2,&a_n\text{ is even},\\3a_n+1,&a_n\text{ is odd}.\end{cases}\]
-
-\par\medskip\noindent\begin{minipage}{\linewidth}
-\centering\includegraphics[width=\linewidth,height=3.1in,keepaspectratio]{../assets/week10/collatz-rule.pdf}
-\captionof*{figure}{The even/odd test chooses the branch. No coin is tossed; each next value is determined by the current integer.}
-\end{minipage}\par\medskip
-
-
-\begin{tcolorbox}[title={Example \textperiodcentered{} Trace the route from 6},breakable]
-
-
-First, 6 is even, so \(6/2=3\). Then 3 is odd, so \(3(3)+1=10\). Continue by checking the \emph{new} value each time.
-
-
-
-\[6\to3\to10\to5\to16\to8\to4\to2\to1.\]
-
-
-There are 8 arrows, so the trajectory first reaches 1 after \emph{8 updates}. Its largest value, or \emph{peak}, is 16. If we continue after 1, we get the repeating cycle \(1\to4\to2\to1\).
-
-
-
-\end{tcolorbox}
-
-
-\Needspace{5\baselineskip}\subsection*{Nearby starts can take very different routes}
-
-
-\begin{tcolorbox}[title={Read this graph before comparing the routes},breakable]
-
-
-The horizontal axis counts updates: a point above 20 describes the value after 20 instructions. The vertical axis gives the current integer.
-
-
-
-That vertical axis uses a \emph{logarithmic scale}. Read its labels: 1, 10, 100, 1,000, 10,000. Moving up one equal-sized interval multiplies the value by 10. This lets a peak of 40 and a peak of 9,232 appear on the same graph. The labels, rather than the visual height alone, tell us the values.
-
-
-
-First compare the horizontal endpoints to see which route lasts longer. Then use the vertical labels and the table to compare peaks.
-
-
-
-\end{tcolorbox}
-
-
-\par\medskip\noindent\begin{minipage}{\linewidth}
-\centering\includegraphics[width=\linewidth,height=3.1in,keepaspectratio]{../assets/week10/collatz-comparison.pdf}
-\captionof*{figure}{Read the horizontal axis as an update count. On the logarithmic vertical axis, equal spacing represents multiplication by 10, so both the short and the tall trajectory remain visible.}
-\end{minipage}\par\medskip
-
-\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYY@{}}\toprule
-Start & Updates to first 1 & Peak\\
-\midrule
-6 & 8 & 16\\
-7 & 16 & 52\\
-26 & 10 & 40\\
-27 & 111 & 9,232\\
-\bottomrule\end{tabularx}}\par\medskip
-
-
-``Larger start'' does not reliably mean ``longer journey.'' For example, 32 reaches 1 in just five updates because \(32\to16\to8\to4\to2\to1\). The explorer lets you trace an entire route and compare neighboring starts.
-
-
-
-\begin{tcolorbox}[title={A connection to networks},breakable,colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35]
-
-
-Imagine each positive integer as a node, with an arrow to its next Collatz value. If two trajectories meet at the same number, their remaining routes agree exactly. Starting at 6 and 7, both routes eventually meet at 10. This is a directed network generated by a rule.
-
-
-
-\end{tcolorbox}
-
-
-\begin{tcolorbox}[title={Pause and try 2},breakable]
-Starting at 5, record the trajectory to its first 1. How many updates are there? What is the peak?
-\end{tcolorbox}
-
-
-
-
-\Needspace{6\baselineskip}\section{How much do tested cases establish?}
-
-
-A \emph{conjecture} is a proposed mathematical statement that has not yet been proved. A \emph{proof} is an argument that covers every case described by the statement. The words ``every positive integer'' ask for much more than a large collection of successful examples.
-
-
-
-The \emph{Collatz conjecture} says that every positive integer eventually reaches 1. Extensive computer searches support the conjecture, but a proof for every positive integer is still unknown. The exact rule is easy to state; the universal claim is difficult to establish.
-
-
-
-\begin{tcolorbox}[title={Example \textperiodcentered{} A family we really can prove},breakable]
-
-
-Recall that a power counts repeated multiplications: \(2^3=2\cdot2\cdot2=8\), and \(2^4=16\). Starting from 8 gives \(8\to4\to2\to1\); starting from 16 gives one extra halving first. The same reasoning works however many factors of 2 we start with.
-
-
-
-If the starting number is a power of 2, say \(2^k\), each even step halves it:
-
-
-\[2^k\to2^{k-1}\to\cdots\to2\to1.\]
-
-It reaches 1 after exactly \(k\) updates. This argument works for \emph{every} nonnegative integer \(k\), so it covers infinitely many starts. It does not cover all positive integers: 7 and 27, for example, are not powers of 2.
-
-
-
-\end{tcolorbox}
-
-
-A finite computation can settle a stated finite range. A universal proof must explain why no positive integer outside that range can escape. Conversely, a single positive integer proved never to reach 1 would refute the conjecture.
-
-
-
-\begin{tcolorbox}[title={Two different questions about prediction},breakable,colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35]
-
-
-For any chosen Collatz integer, the next arithmetic step is straightforward. The unresolved question concerns every possible starting integer. In the population example earlier in this chapter, the rule was fixed while the initial count was uncertain. Here the starting integer and rule are exact, but a finite test does not settle a statement about every integer. These are different limits.
-
-
-
-\end{tcolorbox}
-
-
-\begin{tcolorbox}[title={Pause and try 3},breakable]
-A program tests every starting integer from 1 through 10,000, and they all reach 1. Which statement is justified?
-\end{tcolorbox}
-
-
-\clearpage
-
-
-\Needspace{6\baselineskip}\section{An intricate boundary can follow a simple rule}
-
-Suppose a restoration team needs to estimate how much shoreline to inspect or protect. First we use exact geometric constructions to see how the number of pieces, their lengths, and their areas change under repeated refinement. Then we return to the real issue of measuring an irregular bank.
-
-
-
-Now one update changes a drawing rather than a single population or balance. Think of a drawing program with a replacement instruction. Stage 0 is the original drawing. Stage 1 applies the instruction once to every original piece. Stage 2 applies it once to every piece produced at stage 1.
-
-
-
-A self-similar object contains smaller copies of its overall pattern. We can build ideal fractals by repeating a geometric instruction at finer and finer scales. A displayed stage is a finite approximation; the ideal fractal is the limit of all stages.
-
-
-
-For these examples, \emph{self-similar} means a smaller part is an exact scaled copy of the whole limiting pattern. A \emph{fractal} has structure that remains intricate as we inspect finer scales. We can draw only finitely many stages, but we can ask what the measurements do as the number of stages increases.
-
-
-
-\Needspace{5\baselineskip}\subsection*{The Koch curve: more pieces, longer total}
-
-
-The distance straight across between two endpoints is different from the distance along a route between them. A winding trail can be much longer than the straight path with the same endpoints. The Koch construction makes that distinction visible and calculable.
-
-
-
-\begin{enumerate}
-
-\item Begin with a straight segment of length 1.
-
-\item Divide it into thirds. Replace the middle third with the two sides of an equilateral triangular bump.
-
-\item Apply that replacement to \emph{every} segment of the new curve.
-
-
-\end{enumerate}
-
-
-\par\medskip\noindent\begin{minipage}{\linewidth}
-\centering\includegraphics[width=\linewidth,height=3.1in,keepaspectratio]{../assets/week10/koch-stages.pdf}
-\captionof*{figure}{The endpoints stay the same distance apart. The route between them gets longer because each old segment becomes four segments, each one-third as long.}
-\end{minipage}\par\medskip
-
-
-\begin{tcolorbox}[title={Two accounts to keep: how many, and how long?},breakable]
-
-
-After the first Koch replacement there are \emph{four} pieces. Each piece is only \emph{one-third} as long as the original. So four pieces do not make a total length of 4; their total is \(4\cdot(1/3)=4/3\).
-
-
-
-After the second replacement, each of those four pieces becomes four smaller pieces: \(4\cdot4=16\) in all. Each new piece is one-third of one-third of the original: \((1/3)(1/3)=1/9\). Total length is therefore \(16\cdot(1/9)=16/9\).
-
-
-
-The formulas below abbreviate these repeated multiplications. \(N_n\) counts segments, \(\ell_n\) is the length of one segment, and \(L_n\) is the total length. The expression \((4/3)^n\) means multiply by \(4/3\) once for each stage.
-
-
-
-\end{tcolorbox}
-
-\[N_n=4^n,\qquad \ell_n=\left(\frac13\right)^n,\qquad L_n=N_n\ell_n=\left(\frac43\right)^n.\]
-
-\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYYY@{}}\toprule
-Stage n & Segment count N$_n$ & Length per segment $\ell$$_n$ & Total length L$_n$\\
-\midrule
-0 & 1 & 1 & 1\\
-1 & 4 & 1/3 & 4/3 $\approx$ 1.3333\\
-2 & 16 & 1/9 & 16/9 $\approx$ 1.7778\\
-3 & 64 & 1/27 & 64/27 $\approx$ 2.3704\\
-4 & 256 & 1/81 & 256/81 $\approx$ 3.1605\\
-\bottomrule\end{tabularx}}\par\medskip
-
-
-\begin{tcolorbox}[title={Example \textperiodcentered{} A 9-meter starting segment},breakable]
-
-
-Imagine a nine-meter decorative border designed with a repeating zigzag. After one replacement there are four 3-meter segments, totaling 12 meters. After two replacements there are sixteen 1-meter segments, totaling 16 meters.
-
-
-
-Using the formula gives the same result: \(L_2=9(4/3)^2=16\) meters. The formula \((4/3)^n\) by itself assumes the original length is 1.
-
-
-
-\end{tcolorbox}
-
-
-\Needspace{5\baselineskip}\subsection*{The Sierpinski triangle: more pieces, less area}
-
-
-Here we measure a filled region. Its \emph{area} tells how much flat surface it covers, in square units. Keeping track of area differs from measuring the length of an edge.
-
-
-
-Start with a filled triangle of area 1. Split it into four congruent triangles and remove the central one. Repeat on each remaining filled triangle. Each step keeps three quarters of the currently filled area.
-
-
-
-\par\medskip\noindent\begin{minipage}{\linewidth}
-\centering\includegraphics[width=\linewidth,height=3.1in,keepaspectratio]{../assets/week10/sierpinski-stages.pdf}
-\captionof*{figure}{The number of pieces multiplies by 3, but each piece has one-quarter the area of its parent. Count and area answer different questions.}
-\end{minipage}\par\medskip
-
-
-\begin{tcolorbox}[title={Why does each small triangle have one-quarter the area?},breakable]
-
-
-Each small triangle has half the base and half the height of its parent. The area formula, \(\tfrac12\times\text{base}\times\text{height}\), is therefore multiplied by \((1/2)(1/2)=1/4\). Keeping three such pieces keeps \(3\cdot(1/4)=3/4\) of the parent's area.
-
-
-
-\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYYY@{}}\toprule
-Stage & Filled pieces & Area of each piece & Total remaining area\\
-\midrule
-0 & 1 & 1 & 1\\
-1 & 3 & 1/4 & 3/4 = 0.75\\
-2 & 9 & 1/16 & 9/16 = 0.5625\\
-\bottomrule\end{tabularx}}\par\medskip
-
-
-For a concrete size, start with a triangle of area 16 square centimeters. After one stage, 12 square centimeters remain. After two, 9 remain. The \emph{number} of pieces increases while the \emph{total area} decreases.
-
-
-
-\end{tcolorbox}
-
-\[T_n=3^n,\qquad A_n=\left(\frac34\right)^n.\]
-
-At stage 4, there are \(3^4=81\) filled triangles, yet only \((3/4)^4=81/256\approx0.3164\) of the original area remains. That is about 31.64\%, not 0.3164\%. In the ideal limit, the remaining area tends to zero while a rich self-similar set remains.
-
-
-
-\Needspace{5\baselineskip}\subsection*{What does ``in the limit'' mean?}
-
-
-We never finish infinitely many drawing stages. Instead, we study the pattern in their measurements. Koch lengths are multiplied by a factor greater than 1, so they eventually exceed any chosen length. Sierpinski areas are multiplied by a positive factor less than 1, so they get as close to zero as we choose.
-
-
-
-The ideal Sierpinski set can have infinitely many points and still cover zero square units. A straight line segment also contains infinitely many points while having zero area in the plane. Counting points, measuring length, and measuring area ask different questions.
-
-
-
-\begin{tcolorbox}[title={Geometric complexity can be exactly predictable},breakable,colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35]
-
-
-The Koch curve acquires intricate detail, but its finite-stage counts and lengths have exact formulas. A fractal shape does not automatically imply an unpredictable time evolution.
-
-
-
-\end{tcolorbox}
-
-
-\begin{tcolorbox}[title={Optional extension \textperiodcentered{} What could a dimension between 1 and 2 mean?},colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35,breakable]
-
-A line segment can be made of two half-length copies of itself. A filled square can be made of four half-size copies: two across and two up. The number of copies needed at a smaller scale helps distinguish a line from a filled region.
-
-
-
-A Koch curve has four copies at one-third scale. Four is more than the three copies needed to make a straight segment at that scale, but fewer than the nine third-size squares needed to cover a square. Its scaling falls between those familiar cases. The dimension numbers below describe this scaling relationship.
-
-
-
-The logarithm formula records that relationship for readers who want it. You do not need to calculate logarithms for this week's laboratory or quiz. Here \(b\) is the reduction factor: \(b=3\) means each copy has one-third the original length.
-
-
-
-For these exact self-similar examples, dimension compares the number of smaller copies with their scale. If there are \(N\) copies, each shrunk by a factor \(b\), the similarity dimension satisfies \(b^D=N\), so \(D=\log N/\log b\).
-
-
-
-Koch: \(D=\log4/\log3\approx1.262\). Sierpinski: \(D=\log3/\log2\approx1.585\). These dimensions describe scaling; they are not percentages of the plane that the shape fills.
-
-
-\end{tcolorbox}
-
-
-\begin{tcolorbox}[title={Pause and try 4},breakable]
-At Koch stage 3, does each segment have length 1/3 or 1/27? How does that produce the total length?
 \end{tcolorbox}
 
 
@@ -718,12 +383,11 @@ There can also be special starting values. At \(r=4\), the exact start \(x_0=0.5
 \end{tcolorbox}
 
 
-\begin{tcolorbox}[title={Pause and try 5},breakable]
+\begin{tcolorbox}[title={Pause and try 2},breakable]
 With \(r=2.8\) and \(x_0=0.2\), calculate just the next state.
 \end{tcolorbox}
 
 
-\clearpage
 
 
 \Needspace{6\baselineskip}\section{When do plausible forecasts become too different?}
@@ -829,8 +493,344 @@ The logistic rule contains no random-number generator. Its sensitivity concerns 
 
 
 
-\begin{tcolorbox}[title={Pause and try 6},breakable]
+\begin{tcolorbox}[title={Pause and try 3},breakable]
 At generation 8, the gap is about 0.010896. At generation 9 it is about 0.003207. Has the first crossing of 0.01 moved to a later generation?
+\end{tcolorbox}
+
+
+\clearpage
+
+
+\Needspace{6\baselineskip}\section{An exact rule can leave an open question}
+
+Our lake model involved an uncertain initial measurement. Now take an \emph{exact} positive integer and follow a completely specified next-step rule. Even with perfect arithmetic, calculating examples does not necessarily answer a question about every possible starting integer.
+
+
+
+Here the mathematical world is the positive integers: 1, 2, 3, and so on. We are not modeling fish or money yet. We are exploring what a particular arithmetic instruction does to a whole number. One update means applying the instruction once.
+
+
+
+Choose a positive whole number. If it is even, divide it by 2. If it is odd, multiply it by 3 and add 1. Use the result as the next input.
+
+
+
+An \emph{even} integer divides by 2 without a remainder, such as 6 or 10. An \emph{odd} integer does not, such as 3 or 5. The displayed formula below simply puts those two verbal instructions into one statement. The brace says ``choose the appropriate row.''
+
+
+\[a_{n+1}=\begin{cases}a_n/2,&a_n\text{ is even},\\3a_n+1,&a_n\text{ is odd}.\end{cases}\]
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=3.1in,keepaspectratio]{../assets/week10/collatz-rule.pdf}
+\captionof*{figure}{The even/odd test chooses the branch. No coin is tossed; each next value is determined by the current integer.}
+\end{minipage}\par\medskip
+
+
+\begin{tcolorbox}[title={Example \textperiodcentered{} Trace the route from 6},breakable]
+
+
+First, 6 is even, so \(6/2=3\). Then 3 is odd, so \(3(3)+1=10\). Continue by checking the \emph{new} value each time.
+
+
+
+\[6\to3\to10\to5\to16\to8\to4\to2\to1.\]
+
+
+There are 8 arrows, so the trajectory first reaches 1 after \emph{8 updates}. Its largest value, or \emph{peak}, is 16. If we continue after 1, we get the repeating cycle \(1\to4\to2\to1\).
+
+
+
+\end{tcolorbox}
+
+
+\Needspace{5\baselineskip}\subsection*{Nearby starts can take very different routes}
+
+
+\begin{tcolorbox}[title={Read this graph before comparing the routes},breakable]
+
+
+The horizontal axis counts updates: a point above 20 describes the value after 20 instructions. The vertical axis gives the current integer.
+
+
+
+That vertical axis uses a \emph{logarithmic scale}. Read its labels: 1, 10, 100, 1,000, 10,000. Moving up one equal-sized interval multiplies the value by 10. This lets a peak of 40 and a peak of 9,232 appear on the same graph. The labels, rather than the visual height alone, tell us the values.
+
+
+
+First compare the horizontal endpoints to see which route lasts longer. Then use the vertical labels and the table to compare peaks.
+
+
+
+\end{tcolorbox}
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=3.1in,keepaspectratio]{../assets/week10/collatz-comparison.pdf}
+\captionof*{figure}{Read the horizontal axis as an update count. On the logarithmic vertical axis, equal spacing represents multiplication by 10, so both the short and the tall trajectory remain visible.}
+\end{minipage}\par\medskip
+
+\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYY@{}}\toprule
+Start & Updates to first 1 & Peak\\
+\midrule
+6 & 8 & 16\\
+7 & 16 & 52\\
+26 & 10 & 40\\
+27 & 111 & 9,232\\
+\bottomrule\end{tabularx}}\par\medskip
+
+
+``Larger start'' does not reliably mean ``longer journey.'' For example, 32 reaches 1 in just five updates because \(32\to16\to8\to4\to2\to1\). The explorer lets you trace an entire route and compare neighboring starts.
+
+
+
+\begin{tcolorbox}[title={A connection to networks},breakable,colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35]
+
+
+Imagine each positive integer as a node, with an arrow to its next Collatz value. If two trajectories meet at the same number, their remaining routes agree exactly. Starting at 6 and 7, both routes eventually meet at 10. This is a directed network generated by a rule.
+
+
+
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[title={Pause and try 4},breakable]
+Starting at 5, record the trajectory to its first 1. How many updates are there? What is the peak?
+\end{tcolorbox}
+
+
+
+
+\Needspace{6\baselineskip}\section{How much do tested cases establish?}
+
+
+A \emph{conjecture} is a proposed mathematical statement that has not yet been proved. A \emph{proof} is an argument that covers every case described by the statement. The words ``every positive integer'' ask for much more than a large collection of successful examples.
+
+
+
+The \emph{Collatz conjecture} says that every positive integer eventually reaches 1. Extensive computer searches support the conjecture, but a proof for every positive integer is still unknown. The exact rule is easy to state; the universal claim is difficult to establish.
+
+
+
+\begin{tcolorbox}[title={Example \textperiodcentered{} A family we really can prove},breakable]
+
+
+Recall that a power counts repeated multiplications: \(2^3=2\cdot2\cdot2=8\), and \(2^4=16\). Starting from 8 gives \(8\to4\to2\to1\); starting from 16 gives one extra halving first. The same reasoning works however many factors of 2 we start with.
+
+
+
+If the starting number is a power of 2, say \(2^k\), each even step halves it:
+
+
+\[2^k\to2^{k-1}\to\cdots\to2\to1.\]
+
+It reaches 1 after exactly \(k\) updates. This argument works for \emph{every} nonnegative integer \(k\), so it covers infinitely many starts. It does not cover all positive integers: 7 and 27, for example, are not powers of 2.
+
+
+
+\end{tcolorbox}
+
+
+A finite computation can settle a stated finite range. A universal proof must explain why no positive integer outside that range can escape. Conversely, a single positive integer proved never to reach 1 would refute the conjecture.
+
+
+
+\begin{tcolorbox}[title={Two different questions about prediction},breakable,colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35]
+
+
+For any chosen Collatz integer, the next arithmetic step is straightforward. The unresolved question concerns every possible starting integer. In the population example earlier in this chapter, the rule was fixed while the initial count was uncertain. Here the starting integer and rule are exact, but a finite test does not settle a statement about every integer. These are different limits.
+
+
+
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[title={Pause and try 5},breakable]
+A program tests every starting integer from 1 through 10,000, and they all reach 1. Which statement is justified?
+\end{tcolorbox}
+
+
+\clearpage
+
+
+\Needspace{6\baselineskip}\section{An intricate boundary can follow a simple rule}
+
+Suppose a restoration team needs to estimate how much shoreline to inspect or protect. First we use exact geometric constructions to see how the number of pieces, their lengths, and their areas change under repeated refinement. Then we return to the real issue of measuring an irregular bank.
+
+
+
+Now one update changes a drawing rather than a single population or balance. Think of a drawing program with a replacement instruction. Stage 0 is the original drawing. Stage 1 applies the instruction once to every original piece. Stage 2 applies it once to every piece produced at stage 1.
+
+
+
+A self-similar object contains smaller copies of its overall pattern. We can build ideal fractals by repeating a geometric instruction at finer and finer scales. A displayed stage is a finite approximation; the ideal fractal is the limit of all stages.
+
+
+
+For these examples, \emph{self-similar} means a smaller part is an exact scaled copy of the whole limiting pattern. A \emph{fractal} has structure that remains intricate as we inspect finer scales. We can draw only finitely many stages, but we can ask what the measurements do as the number of stages increases.
+
+
+
+\Needspace{5\baselineskip}\subsection*{The Koch curve: more pieces, longer total}
+
+
+The distance straight across between two endpoints is different from the distance along a route between them. A winding trail can be much longer than the straight path with the same endpoints. The Koch construction makes that distinction visible and calculable.
+
+
+
+\begin{enumerate}
+
+\item Begin with a straight segment of length 1.
+
+\item Divide it into thirds. Replace the middle third with the two sides of an equilateral triangular bump.
+
+\item Apply that replacement to \emph{every} segment of the new curve.
+
+
+\end{enumerate}
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=3.1in,keepaspectratio]{../assets/week10/koch-stages.pdf}
+\captionof*{figure}{The endpoints stay the same distance apart. The route between them gets longer because each old segment becomes four segments, each one-third as long.}
+\end{minipage}\par\medskip
+
+
+\begin{tcolorbox}[title={Two accounts to keep: how many, and how long?},breakable]
+
+
+After the first Koch replacement there are \emph{four} pieces. Each piece is only \emph{one-third} as long as the original. So four pieces do not make a total length of 4; their total is \(4\cdot(1/3)=4/3\).
+
+
+
+After the second replacement, each of those four pieces becomes four smaller pieces: \(4\cdot4=16\) in all. Each new piece is one-third of one-third of the original: \((1/3)(1/3)=1/9\). Total length is therefore \(16\cdot(1/9)=16/9\).
+
+
+
+The formulas below abbreviate these repeated multiplications. \(N_n\) counts segments, \(\ell_n\) is the length of one segment, and \(L_n\) is the total length. The expression \((4/3)^n\) means multiply by \(4/3\) once for each stage.
+
+
+
+\end{tcolorbox}
+
+\[N_n=4^n,\qquad \ell_n=\left(\frac13\right)^n,\qquad L_n=N_n\ell_n=\left(\frac43\right)^n.\]
+
+\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYYY@{}}\toprule
+Stage n & Segment count N$_n$ & Length per segment $\ell$$_n$ & Total length L$_n$\\
+\midrule
+0 & 1 & 1 & 1\\
+1 & 4 & 1/3 & 4/3 $\approx$ 1.3333\\
+2 & 16 & 1/9 & 16/9 $\approx$ 1.7778\\
+3 & 64 & 1/27 & 64/27 $\approx$ 2.3704\\
+4 & 256 & 1/81 & 256/81 $\approx$ 3.1605\\
+\bottomrule\end{tabularx}}\par\medskip
+
+
+\begin{tcolorbox}[title={Example \textperiodcentered{} A 9-meter starting segment},breakable]
+
+
+Imagine a nine-meter decorative border designed with a repeating zigzag. After one replacement there are four 3-meter segments, totaling 12 meters. After two replacements there are sixteen 1-meter segments, totaling 16 meters.
+
+
+
+Using the formula gives the same result: \(L_2=9(4/3)^2=16\) meters. The formula \((4/3)^n\) by itself assumes the original length is 1.
+
+
+
+\end{tcolorbox}
+
+
+\Needspace{5\baselineskip}\subsection*{The Sierpinski triangle: more pieces, less area}
+
+
+Here we measure a filled region. Its \emph{area} tells how much flat surface it covers, in square units. Keeping track of area differs from measuring the length of an edge.
+
+
+
+Start with a filled triangle of area 1. Split it into four congruent triangles and remove the central one. Repeat on each remaining filled triangle. Each step keeps three quarters of the currently filled area.
+
+
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\centering\includegraphics[width=\linewidth,height=3.1in,keepaspectratio]{../assets/week10/sierpinski-stages.pdf}
+\captionof*{figure}{The number of pieces multiplies by 3, but each piece has one-quarter the area of its parent. Count and area answer different questions.}
+\end{minipage}\par\medskip
+
+
+\begin{tcolorbox}[title={Why does each small triangle have one-quarter the area?},breakable]
+
+
+Each small triangle has half the base and half the height of its parent. The area formula, \(\tfrac12\times\text{base}\times\text{height}\), is therefore multiplied by \((1/2)(1/2)=1/4\). Keeping three such pieces keeps \(3\cdot(1/4)=3/4\) of the parent's area.
+
+
+
+\par\medskip{\small\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{@{}YYYY@{}}\toprule
+Stage & Filled pieces & Area of each piece & Total remaining area\\
+\midrule
+0 & 1 & 1 & 1\\
+1 & 3 & 1/4 & 3/4 = 0.75\\
+2 & 9 & 1/16 & 9/16 = 0.5625\\
+\bottomrule\end{tabularx}}\par\medskip
+
+
+For a concrete size, start with a triangle of area 16 square centimeters. After one stage, 12 square centimeters remain. After two, 9 remain. The \emph{number} of pieces increases while the \emph{total area} decreases.
+
+
+
+\end{tcolorbox}
+
+\[T_n=3^n,\qquad A_n=\left(\frac34\right)^n.\]
+
+At stage 4, there are \(3^4=81\) filled triangles, yet only \((3/4)^4=81/256\approx0.3164\) of the original area remains. That is about 31.64\%, not 0.3164\%. In the ideal limit, the remaining area tends to zero while a rich self-similar set remains.
+
+
+
+\Needspace{5\baselineskip}\subsection*{What does ``in the limit'' mean?}
+
+
+We never finish infinitely many drawing stages. Instead, we study the pattern in their measurements. Koch lengths are multiplied by a factor greater than 1, so they eventually exceed any chosen length. Sierpinski areas are multiplied by a positive factor less than 1, so they get as close to zero as we choose.
+
+
+
+The ideal Sierpinski set can have infinitely many points and still cover zero square units. A straight line segment also contains infinitely many points while having zero area in the plane. Counting points, measuring length, and measuring area ask different questions.
+
+
+
+\begin{tcolorbox}[title={Geometric complexity can be exactly predictable},breakable,colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35]
+
+
+The Koch curve acquires intricate detail, but its finite-stage counts and lengths have exact formulas. A fractal shape does not automatically imply an unpredictable time evolution.
+
+
+
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[title={Optional extension \textperiodcentered{} What could a dimension between 1 and 2 mean?},colback=warm,colbacktitle=warm,coltitle=gold,colframe=gold!35,breakable]
+
+A line segment can be made of two half-length copies of itself. A filled square can be made of four half-size copies: two across and two up. The number of copies needed at a smaller scale helps distinguish a line from a filled region.
+
+
+
+A Koch curve has four copies at one-third scale. Four is more than the three copies needed to make a straight segment at that scale, but fewer than the nine third-size squares needed to cover a square. Its scaling falls between those familiar cases. The dimension numbers below describe this scaling relationship.
+
+
+
+The logarithm formula records that relationship for readers who want it. You do not need to calculate logarithms for this week's laboratory or quiz. Here \(b\) is the reduction factor: \(b=3\) means each copy has one-third the original length.
+
+
+
+For these exact self-similar examples, dimension compares the number of smaller copies with their scale. If there are \(N\) copies, each shrunk by a factor \(b\), the similarity dimension satisfies \(b^D=N\), so \(D=\log N/\log b\).
+
+
+
+Koch: \(D=\log4/\log3\approx1.262\). Sierpinski: \(D=\log3/\log2\approx1.585\). These dimensions describe scaling; they are not percentages of the plane that the shape fills.
+
+
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[title={Pause and try 6},breakable]
+At Koch stage 3, does each segment have length 1/3 or 1/27? How does that produce the total length?
 \end{tcolorbox}
 
 
@@ -982,23 +982,23 @@ The values become 32 and 32.8. The absolute gap is 0.8. Relative to 32, the gap 
 
 
 \paragraph{Check 2.}
-\(5\to16\to8\to4\to2\to1\): 5 updates, peak 16. Count arrows, not recorded numbers.
-
-
-\paragraph{Check 3.}
-The conjecture holds for those 10,000 starting integers. The experiment provides evidence for the universal conjecture; it does not prove it for all positive integers.
-
-
-\paragraph{Check 4.}
-Each segment has length \((1/3)^3=1/27\). There are 64 segments, so \(L_3=64/27\). The one-third factor is applied three times.
-
-
-\paragraph{Check 5.}
 \(x_1=2.8(0.2)(0.8)=0.448\). It is not the fixed point; it is the first update from the chosen start.
 
 
-\paragraph{Check 6.}
+\paragraph{Check 3.}
 No. The first crossing is still generation 8. The trajectories can later move closer again. ``First exceeds'' does not mean ``stays above forever.''
+
+
+\paragraph{Check 4.}
+\(5\to16\to8\to4\to2\to1\): 5 updates, peak 16. Count arrows, not recorded numbers.
+
+
+\paragraph{Check 5.}
+The conjecture holds for those 10,000 starting integers. The experiment provides evidence for the universal conjecture; it does not prove it for all positive integers.
+
+
+\paragraph{Check 6.}
+Each segment has length \((1/3)^3=1/27\). There are 64 segments, so \(L_3=64/27\). The one-third factor is applied three times.
 
 
 \paragraph{Check 7.}
