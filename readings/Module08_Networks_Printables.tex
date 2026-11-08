@@ -5,7 +5,7 @@
 \definecolor{olive}{HTML}{4D5430}\definecolor{gold}{HTML}{9A7B22}\definecolor{pale}{HTML}{F5F1DC}\definecolor{softgreen}{HTML}{EDF0E2}\definecolor{softgray}{HTML}{F5F5F2}\definecolor{ink}{HTML}{292D20}
 \color{ink}\pagestyle{fancy}\fancyhf{}\lhead{\textcolor{olive}{MATH\& 107: Math in Society}}\rhead{\textcolor{gold}{Module 8 / Fall 2026}}\cfoot{\thepage}\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
 \setlist[enumerate]{leftmargin=*,itemsep=7pt,topsep=5pt}
-\newtcolorbox{keybox}[1]{colback=pale,colframe=olive,boxrule=.7pt,arc=1.5mm,title=\textbf{#1},fonttitle=\color{olive},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+\newtcolorbox{keybox}[1]{colback=pale,colframe=olive,boxrule=.7pt,arc=1.5mm,title=\textbf{#1},fonttitle=\color{white},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
 \newtcolorbox{examplebox}[1]{colback=softgreen,colframe=gold,boxrule=.7pt,arc=1.5mm,title=\textbf{#1},fonttitle=\color{ink},left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
 \newcommand{\phead}[2]{\clearpage{\Large\bfseries\textcolor{olive}{Module 8: Graph Theory and Networks — #1}}\par\vspace{2pt}\textcolor{gold}{\rule{\linewidth}{1.2pt}}\par\smallskip #2\par}
 \newcommand{\name}{Name: \rule{2.6in}{.35pt}\hfill Date: \rule{1.2in}{.35pt}\par}
@@ -17,37 +17,40 @@
 \newcommand{\checknet}{\begin{tikzpicture}[scale=.84,baseline=(current bounding box.center)]
 \coordinate(U)at(0,1.2);\coordinate(V)at(1.25,2.25);\coordinate(W)at(1.25,0);\coordinate(X)at(3.05,1.2);\coordinate(Y)at(4.6,1.2);\coordinate(Z)at(5.9,1.2);
 \foreach\a/\b in {U/V,U/W,V/W,W/X,X/Y,Y/Z}{\draw[e](\a)--(\b);}\foreach\v in{U,V,W,X,Y,Z}{\node[n] at(\v){\v};}\end{tikzpicture}}
+\newcommand{\countynet}{\begin{tikzpicture}[scale=.77,baseline=(current bounding box.center)]
+\coordinate(A)at(0,1.15);\coordinate(B)at(1.4,2.5);\coordinate(C)at(1.4,0);\coordinate(D)at(3.1,1.15);\coordinate(E)at(5,1.15);\coordinate(F)at(6.35,2.5);\coordinate(G)at(6.35,0);
+\foreach\a/\b in {A/B,A/C,B/C,B/D,C/D,D/E,E/F,E/G,F/G}{\draw[e](\a)--(\b);}\foreach\v in{A,B,C,D,E,F,G}{\node[n] at(\v){\v};}\end{tikzpicture}}
 \begin{document}
 \phead{Summary}{\textbf{Central idea:} The arrangement of connections determines who can reach whom and whether a system can continue working after a failure.}
-\begin{center}\smallnet\end{center}
+\begin{center}\countynet\end{center}
 \begin{keybox}{Represent a network}
-A \textbf{node} (vertex) is a place or person. An \textbf{edge} is a direct connection. The graph above has nodes A--E and edges AB, AC, BC, CD, DE. A line that passes near a node without meeting it does not create a connection. The drawing is not a map to scale.
+A \textbf{node} (vertex) is a place or organization. An \textbf{edge} is a direct connection. The county network has nodes A--G and nine two-way links: AB, AC, BC, BD, CD, DE, EF, EG, FG. The diagram is not a map to scale: nearby dots are not automatically connected.
 \end{keybox}
 \begin{examplebox}{Count direct neighbors}
-The \textbf{degree} of C is 3, because it touches A, B, and D. Degrees A--E are 2, 2, 3, 2, 1; their sum is 10. Each of the five edges gets counted at two ends: \(\text{sum of degrees}=2\times\text{number of edges}\).
+The \textbf{degree} of D is 3 because D connects to B, C, E. The degrees of A--G are 2, 3, 3, 3, 3, 2, 2; their sum is 18. Each of the nine edges is counted at two ends. This is the \textbf{handshake rule}: \(\text{sum of degrees}=2\times\text{number of edges}\).
 \end{examplebox}
 \begin{keybox}{Paths and distance}
-A \textbf{path} travels along existing edges. A--C--D--E uses \textbf{three edges}, so its length is 3. A \textbf{shortest path} uses the fewest edges when links are unweighted. A and E are connected through this path even though they are not direct neighbors. If edges have travel times, add those times instead of counting links.
+A \textbf{path} follows existing edges. A--B--D--E--G uses \textbf{four edges}, so its length is 4. A \textbf{shortest path} uses the fewest edges in an unweighted network. A and G can reach each other even without a direct A--G link. When paths represent travel, we may attach times to the links and add minutes instead.
 \end{keybox}
 \begin{keybox}{Connected components and bridges}
-A \textbf{connected component} is a group in which any node can reach any other. The original graph has one component. If C--D fails, the components are \(\{A,B,C\}\) and \(\{D,E\}\). The edge C--D is a \textbf{bridge}, because removing it separates the graph. By contrast A--B is not a bridge: A and B can still reach each other through C.
+The original network has one \textbf{connected component}: all locations can reach one another. If D--E fails, there are two: \(\{A,B,C,D\}\) and \(\{E,F,G\}\). D--E is a \textbf{bridge}, because losing it separates the network. B--C is not a bridge; B can still reach C through A or D.
 \end{keybox}
 \phead{Summary (continued)}{\textbf{Use the mathematics to compare choices.}}
 \begin{examplebox}{One new link, different outcomes}
-Suppose C--D might fail. Adding A--C would not help: that link already exists. Adding B--E creates a new route B--E between the two sides. After C--D fails, A--B--E--D still works. The \textbf{location} of the new edge matters more than the count alone.
+Suppose the county can add either A--D or D--F. Both give ten links. A--D makes it easier for A to reach the school directly, but D--E remains a bridge. D--F creates an alternate route between regions. If D--E fails, A--B--D--F--G still works. The \textbf{arrangement} of links matters more than their number alone.
 \end{examplebox}
 \begin{keybox}{An alert moves one link per round}
-Begin with A informed in round 0. In each round, informed nodes send to their direct neighbors. Recipients can relay in the \emph{next} round; all direct links work.
-\begin{center}\begin{tabular}{@{}cll@{}}\toprule Round & Newly informed & Total informed\\\midrule0&A&A\\1&B, C&A, B, C\\2&D&A, B, C, D\\3&E&A, B, C, D, E\\\bottomrule\end{tabular}\end{center}
-With this rule, the first round a node receives an alert equals the shortest-path distance from A. A failed bridge can prevent delivery entirely.
+Begin with A informed in round 0. In each round, informed locations send to direct neighbors. Newly informed locations relay in the \emph{next} round; every available link works.
+\begin{center}\begin{tabular}{@{}cll@{}}\toprule Round & Newly informed & Total informed\\\midrule0&A&A\\1&B, C&A, B, C\\2&D&A, B, C, D\\3&E&A, B, C, D, E\\4&F, G&all seven\\\bottomrule\end{tabular}\end{center}
+Under this rule, the first arrival round equals a location's shortest-path distance from A. A failed bridge can prevent delivery to some locations entirely.
 \end{keybox}
 \begin{keybox}{A five-step method}
 \begin{enumerate}[leftmargin=1.25em,itemsep=2pt]
 \item Say what nodes and edges mean in the situation.
-\item Decide whether the question concerns direct contacts, routes, failure, or spreading.
+\item Decide whether the question is about direct contacts, routes, failure, or spreading.
 \item Count neighbors or trace paths; verify every link exists.
 \item Compare the original network with one specific change.
-\item Explain a limitation (such as travel time, unreliable contacts, or accessibility).
+\item Explain a limitation (for example travel time, unreliable contacts, or accessibility).
 \end{enumerate}
 \end{keybox}
 \textbf{Remember:} Two networks can have the same number of edges and very different routes and vulnerabilities. The arrangement matters.
