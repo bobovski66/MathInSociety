@@ -95,7 +95,7 @@ Imagine a code that never uses two 1s together. The allowed two-digit strings ar
 \begin{taskbox}{Try it}
 (a) List the allowable three-digit strings that begin with 1. (b) Write two allowed four-digit strings and one forbidden four-digit string. (c) Without listing everything, explain why every allowed string ending in 1 must be followed by 0 if we extend it one step.
 \end{taskbox}
-A finite decision tree is one kind of program: it makes choices and stops after a bounded number of questions. Real programs can also repeat instructions in loops. A short program can therefore do a very long calculation. That distinction is one reason the study of computation is interesting.
+The phone menu occupies a \textbf{finite subtree} of the full binary tree: it keeps the junctions needed to reach the four services, with a stopping instruction at each service. This decision program always finishes after a limited number of questions. More general programs can repeat instructions in loops, so a short program may run for many steps. That distinction is one reason the study of computation is interesting.
 \sect{6. What have we discovered?}
 Binary digits can stand for numbers or for instructions. The meaning comes from the rule we choose. In a decision tree, a code is a path. A stopping instruction makes the tree into a simple program. By counting the paths and questions, we can compare how much work different designs require. Even a short rule can organize an ever-growing set of possible routes.
 \begin{worked}{One reliable way to investigate a decision program}
