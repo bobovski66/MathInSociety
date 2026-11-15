@@ -1,0 +1,61 @@
+
+/* Week 10: examples first, a common design for reading, workshop, and written investigations. */
+.lesson-tag{font-weight:750;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.lead strong{color:var(--olive-dark)}
+.narrative{max-width:80ch}
+.narrative p{max-width:77ch;line-height:1.75}
+.example-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:22px 0}
+.example-list a{display:block;background:var(--soft);border:1px solid var(--line);padding:18px;border-radius:12px;text-decoration:none;color:var(--olive-dark)}
+.example-list a:hover{border-color:var(--teal)}
+.example-list strong,.example-list span{display:block}.example-list span{font-size:.88rem;line-height:1.5;margin-top:7px}
+.figure img{max-height:460px;object-fit:contain}
+.figure .figure-note{font-size:.88rem;color:var(--muted);line-height:1.55}
+.math-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
+.math-row>div{min-width:0}
+.scratch{font:600 1.01rem/1.6 ui-monospace,Consolas,monospace;white-space:pre-wrap;background:#f1f4e9;border:1px solid var(--line);padding:15px 18px;border-radius:10px;max-width:760px;overflow:auto}
+.key-definition{background:#edf5ee;border-left:4px solid var(--teal);padding:16px 20px;border-radius:0 10px 10px 0;margin:20px 0}
+.key-definition strong{color:var(--olive-dark)}
+.w10-workshop{display:grid;grid-template-columns:minmax(285px,330px) minmax(0,1fr);gap:20px;align-items:start;margin-top:26px}
+.w10-control-rail{position:sticky;top:15px;max-height:calc(100dvh - 30px);overflow-y:auto;overscroll-behavior:contain;background:var(--soft);border:1px solid var(--line);padding:18px;border-radius:16px}
+.w10-control-rail h2{font-size:1.1rem;margin:0 0 14px}
+.w10-control-rail label{font-size:.85rem;display:block;font-weight:650;margin:14px 0 6px}
+.w10-control-rail input[type=number]{width:100%;max-width:100%!important}
+.w10-control-rail input[type=range]{accent-color:var(--olive);width:100%}
+.w10-control-rail select{width:100%}
+.w10-control-rail .small{max-width:none}
+.w10-control-rail .btn-row{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 0}
+.w10-control-rail button{padding:9px 13px}
+.w10-stage{min-width:0}
+.w10-stage .card:first-child{margin-top:0}
+.w10-stage .card{margin:0 0 18px}
+.w10-stage svg[data-graph]{width:100%;height:auto;display:block;overflow:visible;background:#fff;border:1px solid var(--line);border-radius:10px}
+.w10-tabs{display:grid;gap:8px}
+.w10-tabs button{width:100%;text-align:left;background:#fff;color:var(--olive-dark);border:1px solid var(--line)}
+.w10-tabs button[aria-pressed=true]{border-color:var(--teal);background:#e0edf0;box-shadow:inset 4px 0 var(--teal)}
+.w10-pane[hidden]{display:none!important}
+.w10-metric-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin:16px 0}
+.w10-metric{padding:12px;background:#f0f4e9;border:1px solid var(--line);border-radius:10px}
+.w10-metric strong{font-size:1.2rem;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.w10-metric span{font-size:.82rem;color:var(--muted)}
+.w10-compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.w10-compare>div{min-width:0}
+.data-output{max-height:320px;overflow:auto}
+.data-output table{font-size:.84rem}
+.data-output th,.data-output td{padding:7px 8px}
+.display-error{border-left:4px solid var(--error);padding:10px 14px;background:#fff4ed}
+.explore-prompt{padding:14px 18px;background:#f6f7ef;border:1px solid var(--line);border-radius:10px}
+.student-bar{display:flex;align-items:end;flex-wrap:wrap;gap:12px;margin:20px 0}
+.student-bar>div{min-width:190px;max-width:270px}
+.student-bar label{font-size:.83rem;font-weight:700}
+.student-bar input{margin-top:6px}
+.question textarea{min-height:115px}
+.student-instructions{background:var(--soft);padding:18px 22px;border:1px solid var(--line);border-radius:12px;margin:20px 0}
+.student-instructions ol{margin-bottom:0}
+.reference-table td,.reference-table th{padding:7px 12px}
+.section-label{font-size:.75rem;text-transform:uppercase;letter-spacing:.09em;color:var(--teal);font-weight:750;margin-bottom:10px}
+.argument-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.argument-grid>div{padding:16px;background:var(--soft);border:1px solid var(--line);border-radius:10px}
+.print-name{display:none}
+@media(max-width:950px){.w10-workshop{grid-template-columns:1fr}.w10-control-rail{position:relative;top:auto;max-height:none;overflow:visible}.w10-tabs{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:710px){.example-list,.argument-grid,.math-row,.w10-compare{grid-template-columns:1fr}.w10-metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.wrap{padding:24px 14px 50px}.card{padding:20px 17px}.w10-tabs{grid-template-columns:1fr}}
+@media print{.w10-control-rail,.no-print,[data-print-page]{display:none!important}.w10-workshop{display:block}.w10-pane{display:block!important}.data-output{max-height:none;overflow:visible}.w10-stage svg{max-height:380px}.card,.key-definition{box-shadow:none;break-inside:auto}body{background:white}.wrap{padding:0 4mm}.question textarea{min-height:48px}}

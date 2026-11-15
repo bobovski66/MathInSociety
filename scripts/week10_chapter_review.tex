@@ -1,16 +1,14 @@
 \section*{Chapter Review}
-Compare the three limits in order: uncertain forecasts, finite computation, and measurement scale. State what each calculation supports, and distinguish model outputs from observations.
-
+The problems below bring together the three main investigations. Explain your working rather than providing only the final number.
 \begin{enumerate}
-\item For $r=2.8$, start at 0.2. Calculate the first update and the nonzero fixed point. Why are they different quantities?
-\item For $r=3.8$ with starts 0.40 and 0.41, calculate the first update at which the absolute gap exceeds 0.05. Retain full stored precision between updates.
-\item In the $r=3.9$ example, let a model population be $N_n=100{,}000x_n$ fish. How many fish do the starting states 0.4000 and 0.4001 represent? At which generations does their gap first exceed 1,000 fish and 10,000 fish?
-\item Follow Collatz from 11. Record its update count and peak. If another trajectory later reaches 11, what happens to its remaining route?
-\item A computer verifies Collatz for every integer in a finite interval. What conclusion is justified? Give a family of infinitely many starting integers whose convergence can be proved directly.
-\item At Koch stage 4, with an original segment of length 1, find the segment count, length per segment, and total length. How does the total change if the original length is 9 meters?
-\item At Sierpinski stage 4, find the filled-triangle count and remaining area fraction. How can these move in different directions?
-\item A 50-meter ruler requires 260 placements and a 25-meter ruler requires 580. Report both measured coastline lengths with their scales.
-\item In a toy AI model, $P(\text{moving})=0.45$ and $P(\text{slowly}\mid\text{moving})=0.60$, while $P(\text{flickering})=0.35$ and $P(\text{faintly}\mid\text{flickering})=0.80$. Compare the two path probabilities. Does either probability establish what an actual light in a forest was doing?
+\item Follow the Collatz rule from 10 until first reaching 1. Report the number of updates and the largest value visited.
+\item Compare Collatz starts 6 and 7. Why is a collection of successfully tested starting values not a proof that all positive integers reach 1?
+\item A program checks every binary string of length 10. How many strings must it inspect? A balanced search can distinguish that many options in how many binary decisions?
+\item For $x_{n+1}=2.8x_n(1-x_n)$ with $x_0=0.2$, calculate $x_1$ and $x_2$. Why must the second update use the new value?
+\item Describe the behavior of logistic-map trajectories for $r=2.8$, $r=3.2$, and $r=3.9$ from the same initial state. Which setting demonstrates sensitive dependence?
+\item Two logistic-map starts are $0.4000$ and $0.4001$. Find the gap between the initial states. Explain how a fixed rule can eventually produce separated forecasts without introducing randomness.
+\item Construct stages 0 through 4 of the Sierpi\'nski triangle. How many small triangles remain at stage 4? What fraction of the original filled area remains?
+\item A stage-3 Sierpi\'nski triangle has 27 small triangles. How long is each small side relative to the original? Why does the total area decrease even though the number of triangles grows?
+\item (Extension.) Three half-size copies reproduce the Sierpi\'nski triangle. Solve $2^D=3$ for its similarity dimension $D$.
+\item Write a short comparison showing why computational complexity, chaotic sensitivity, and self-similar geometry are distinct properties. Name one computation or observation that supports each.
 \end{enumerate}
-
-
