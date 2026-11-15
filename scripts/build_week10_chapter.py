@@ -1,4 +1,4 @@
-"""Build the chapter's LaTeX body from the student-facing HTML reading.
+"""Build the new Complexity, Chaos, and Fractals PDF from the Week 10 HTML reading.
 
 Compile the generated complete source from readings/. The small template files
 retain the existing typography and the chapter review. This keeps explanatory
@@ -63,7 +63,7 @@ def conv(e):
   checks.append((children(p),''.join(conv(c) for c in answer if c.tag!='summary')))
   return '\n\\begin{tcolorbox}[title={Pause and try '+str(num)+'},breakable]\n'+children(p)+'\n\\end{tcolorbox}\n'
  if tag=='div' and 'route' in cls:return '\n\\[6\\to3\\to10\\to5\\to16\\to8\\to4\\to2\\to1.\\]\n'
- if tag=='div' and cls in ['eyebrow','kicker','meta']:return ''
+ if tag=='div' and cls in ['eyebrow','kicker','meta','section-label']:return ''
  if tag=='div' and ('example' in cls or 'insight' in cls):
   h=e.find('h3');title=children(h) if h is not None else ''
   body=esc(e.text)+''.join(conv(c)+esc(c.tail) for c in e if c is not h)
@@ -72,76 +72,64 @@ def conv(e):
  return content()
 cover=r'''
 \begin{document}
-{\small\sffamily\color{olive}CHAPTER 10 / COMPLEXITY AND THE LIMITS OF PREDICTION\par}
+{\small\sffamily\color{olive}CHAPTER 10 / MATHEMATICAL RULES AND THEIR CONSEQUENCES\par}
 \vspace{8pt}
-{\fontsize{31}{35}\selectfont\bfseries\color{olive}How far can a\\prediction go?\par}
-\vspace{8pt}
-{\large Explore why uncertain starting data limit forecast horizons, why finite tests cannot prove every case, and why observation scale changes measured length.\par}
+{\fontsize{31}{35}\selectfont\bfseries\color{olive}Complexity, Chaos,\\and Fractals\par}
+\vspace{10pt}
+{\large Three different mathematical questions, explored through Collatz, the logistic map, and the Sierpi\'nski triangle.\par}
 
-Repeated updates are familiar from budgets and feedback. We begin with the usefulness of a population forecast, then ask what exact computation can prove, and finally examine how measurement scale changes a reported length.
+Repeated rules have appeared throughout the course. An account grows, a thermostat corrects a temperature, and a binary address extends one choice at a time. This chapter looks at three more rules. Their differences explain why a computation can be difficult, why a deterministic prediction can be sensitive, and why a geometric construction can repeat at every scale.
 
-\begin{center}\includegraphics[width=\linewidth]{../assets/week10/logistic-behaviors.pdf}\end{center}
-{\small\color{teal}Three patterns we will learn to read: settling toward one value, repeating between two values, and moving irregularly within fixed bounds. Each plot follows one value through repeated updates.\par}
+\begin{center}
+\includegraphics[width=.96\linewidth]{../assets/week10/sierpinski-lesson.pdf}
+\end{center}
+{\small\color{teal}The Sierpi\'nski construction at stages zero through three: 1, 3, 9 and 27 surviving triangles.\par}
 
-\begin{tcolorbox}[title={The question for the week}]
-Knowing a rule is only the beginning. We also need a reliable starting estimate, clarity about the reach of finite tests, and a specified measurement scale. What can each calculation legitimately establish?
+\begin{tcolorbox}[title={The three questions}]
+\begin{enumerate}
+\item \textbf{Complexity:} How much work does a computation require, and what has testing established?
+\item \textbf{Chaos:} Why can a fixed rule give very different long-term trajectories from close starting values?
+\item \textbf{Fractals:} What happens when the same geometric replacement is repeated at smaller scales?
+\end{enumerate}
 \end{tcolorbox}
-We will compare population forecasts, distinguish computed examples from proof, and explain why boundary measurement depends on scale. Recursion, Collatz, and fractals make these three limits visible.
-
-Work through the examples before the short checks. The explorer handles long calculations; no prior study of chaos or fractals is assumed. The dimension extension is optional. Solutions to the short checks and the chapter review appear at the end.
+The calculations require arithmetic, elementary algebra, and careful reading of a recursive rule. The fractal dimension calculation is an optional extension.
 
 \medskip
-\href{https://bobovski66.github.io/MathInSociety/readings/week10_reading.html}{Online reading}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/demos/fractal_recursion.html}{Week 10 explorer}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/labs/week10_lab.html}{Guided laboratory}
-'''
-extra_ai=r'''
-\Needspace{7\baselineskip}\subsection*{The AI connection: the output becomes the next input}
-A language model uses its current text context to predict a next token, appends the chosen token, and then repeats with the updated context. A token is a piece of text; a probability distribution gives the weights of possible next pieces. This repeated process is called autoregressive generation.
-
-The invented tree below treats each listed word or punctuation mark as a toy token. Begin at the prompt and follow one arrow at a time. Each second set of probabilities belongs to the first token already chosen.
-\begin{center}\includegraphics[width=\linewidth]{../assets/week10/ai-branches.pdf}\end{center}
-For a relative-frequency picture, imagine 100 hypothetical runs divided in the stated proportions. Of the 45 that choose ``moving,'' 60\% then choose ``slowly'': $45(0.60)=27$ out of the original 100, giving a path probability of 0.27. The path ``flickering then faintly'' has probability $0.35(0.80)=0.28$.
-
-This is why we multiply along a path. The notation $P(\text{slowly}\mid\text{moving})$ means the probability of ``slowly'' \emph{given} that ``moving'' was chosen. A likely continuation still needs observations or sources to establish whether a claim about an actual light is true. The online AI application develops this example with a selectable tree.
+\href{https://bobovski66.github.io/MathInSociety/readings/week10_reading.html}{Online reading}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/demos/fractal_recursion.html}{Interactive explorer}\quad\textperiodcentered\quad\href{https://bobovski66.github.io/MathInSociety/labs/week10_lab.html}{Guided laboratory}
 '''
 review_answers=r'''
-\subsection*{Review answers}
+\subsection*{Chapter review answers and guidance}
 \begin{enumerate}
-\item First update $0.448$; nonzero fixed point $1-1/2.8\approx0.642857$. The first depends on the chosen start; the second is unchanged by the update.
-\item Update 4, with gap approximately 0.078197. The preceding three gaps are about 0.007220, 0.022805, and 0.035779.
-\item 40,000 and 40,010 fish; first gaps above 1,000 and 10,000 fish occur at generations 8 and 14. At generation 14, the gap is approximately 19,074 fish. The reference population is a scale chosen for this toy model, rather than a fitted carrying capacity for a real lake.
-\item From 11: 14 updates, peak 52. Routes that reach 11 follow its future route.
-\item The tested interval only. Every power of 2 reaches 1 by repeated halving.
-\item $256$ segments, each of length $1/81$, total $256/81\approx3.1605$. From a 9-meter original, total length is $9(256/81)=256/9\approx28.4444$ meters.
-\item $81$ triangles; area $81/256\approx0.3164$. Each new triangle has one-quarter its parent's area; the three remaining pieces together retain only three quarters.
-\item 13 km using the 50-meter ruler; 14.5 km using the 25-meter ruler.
-\item $0.45(0.60)=0.27<0.35(0.80)=0.28$. Model continuation probabilities do not verify claims about the world.
+\item $10\to5\to16\to8\to4\to2\to1$. Six updates, peak $16$.
+\item From $6$, eight updates and peak 16; from $7$, sixteen updates and peak 52. Each finite list is a calculation for specific inputs. The Collatz conjecture concerns \emph{all} positive integers.
+\item $2^{10}=1{,}024$ strings for exhaustive search; a balanced search distinguishes 1,024 possibilities in ten binary choices, when the necessary structure is available.
+\item $x_1=2.8(0.2)(0.8)=0.448$. Then $x_2=2.8(0.448)(0.552)=0.6924288$. Each step uses the preceding output.
+\item $r=2.8$ settles toward a fixed point; $r=3.2$ approaches a period-two cycle; $r=3.9$ is a chaotic setting with sensitive dependence.
+\item The initial gap is $0.0001$. Both starts follow exactly the same deterministic recurrence, but repeated updates can amplify the difference over time; the gap need not increase on every step.
+\item The surviving piece count is $3^4=81$. The retained fraction of area is $(3/4)^4=81/256$.
+\item Each small side is $(1/2)^3=1/8$ of the original. Each stage creates three children of one quarter the parent area, retaining three quarters of the previous filled area.
+\item $D=\log 3/\log 2\approx1.585$ (the similarity dimension).
+\item Good answers distinguish resources used by a procedure, sensitive dynamics, and self-similar geometric structure. Recursion alone does not establish any of the three.
 \end{enumerate}
-\subsection*{Further reading}
-These sources provide background, not additional required assignments.
-\begin{itemize}
-\item R. M. May (1976), \emph{Simple mathematical models with very complicated dynamics}. \href{https://doi.org/10.1038/261459a0}{Nature 261, 459--467}.
-\item R. De Leo and J. A. Yorke (2021), \emph{The graph of the logistic map is a tower}. \href{https://doi.org/10.3934/dcds.2021075}{DCDS 41, 5243--5269}.
-\item A.-S. Elsenhans (2026), \href{https://www.antsxvii.org/papers/antsxvii-elsenhans-paper.pdf}{\emph{Numerical verification of the Collatz conjecture for billion digit random numbers}}.
-\item B. Mandelbrot (1967), \emph{How long is the coast of Britain?} \href{https://doi.org/10.1126/science.156.3775.636}{Science 156, 636--638}.
-\item A. Vaswani et al. (2017), \href{https://arxiv.org/abs/1706.03762}{\emph{Attention Is All You Need}}.
-\end{itemize}
 }
 \end{document}
 '''
 if __name__=='__main__':
- tree=html.fromstring((ROOT/'readings/week10_reading.html').read_text())
- parts=[(PAGES/'week10_chapter_preamble.tex').read_text(),cover]
- for id in ['start-here','recursion','logistic','prediction','collatz','evidence','fractals','scale','connections']:
-  node=tree.get_element_by_id(id);s=conv(node)
-  if id=='start-here':s=s.replace(r'\section{Before trusting a forecast: state, rule, and question}',r'\section*{Start here: state, rule, and question}')
-  # Begin the largest subject changes on a fresh page; let related explanations flow.
-  parts.append(('\n\\clearpage\n' if id in ['start-here','recursion','logistic','collatz','fractals','scale'] else '\n')+s)
-  if id=='connections':parts.append(extra_ai)
- parts.extend(['\n\\clearpage\n',(PAGES/'week10_chapter_review.tex').read_text(),'\n\\clearpage\n{\\small\\setlength{\\parskip}{3pt}\\setlist{itemsep=2pt,topsep=2pt}\\titlespacing*{\\paragraph}{0pt}{4pt}{.75em}\n\\section*{Solutions and Further Reading}\n'])
- for i,(q,a) in enumerate(checks,1):parts.append('\n\\paragraph{Check '+str(i)+'.} '+a)
+ tree=html.fromstring((ROOT/'readings/week10_reading.html').read_text(encoding='utf-8'))
+ parts=[(PAGES/'week10_chapter_preamble.tex').read_text(encoding='utf-8'),cover]
+ sections=['return-to-recursion','complexity','collatz','chaos','sensitivity','sierpinski','dimension','connections','sources']
+ for section in sections:
+  node=tree.get_element_by_id(section)
+  # Start the major subject changes on fresh pages; preserve the reading's order.
+  pagebreak='\n\\clearpage\n' if section in ('complexity','chaos','sierpinski','connections') else '\n'
+  parts.append(pagebreak+conv(node))
+ parts.extend(['\n\\clearpage\n',(PAGES/'week10_chapter_review.tex').read_text(encoding='utf-8'),
+               '\n\\clearpage\n{\\small\\setlength{\\parskip}{3pt}\\setlist{itemsep=2pt,topsep=2pt}\\section*{Solutions}\\n'])
+ for i,(q,a) in enumerate(checks,1):
+  parts.append('\n\\paragraph{Check '+str(i)+'.} '+a)
  parts.append('\n'+review_answers)
- (ROOT/'readings/Math107_Chapter_10.tex').write_text('\n'.join(line.rstrip() for line in ''.join(parts).splitlines())+'\n')
- print('Built complete LaTeX source with',len(checks),'short checks.')
-
-from chapter_editorial import polish_generated_chapters
-polish_generated_chapters([ROOT / "readings/Math107_Chapter_10.tex"])
+ output=ROOT/'readings/Math107_Chapter_10.tex'
+ output.write_text('\n'.join(line.rstrip() for line in ''.join(parts).splitlines())+'\n',encoding='utf-8')
+ print('Generated new Week 10 TeX with',len(checks),'worked checks and',len(sections),'sections.')
+ from chapter_editorial import polish_generated_chapters
+ polish_generated_chapters([output])
