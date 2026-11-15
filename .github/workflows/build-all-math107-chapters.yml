@@ -1,6 +1,7 @@
 name: Build Math 107 Illustrated Chapters
 on:
   push:
+    branches: [main]
     paths:
       - "readings/week*_reading.html"
       - "scripts/build_week*_chapter*.py"
