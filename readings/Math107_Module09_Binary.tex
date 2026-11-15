@@ -13,7 +13,7 @@
 \setlength{\parindent}{0pt}\setlength{\parskip}{4.5pt}
 \setlist[enumerate]{leftmargin=*,itemsep=4pt,topsep=5pt}
 \setlist[itemize]{leftmargin=*,itemsep=3pt,topsep=4pt}
-\pagestyle{fancy}\fancyhf{}\lhead{\textcolor{olive}{MATH\& 107 | Module 9}}\rhead{\textcolor{gold}{Computing with Two Choices}}\cfoot{\thepage}\setlength{\headheight}{14pt}
+\pagestyle{fancy}\fancyhf{}\lhead{\textcolor{olive}{MATH\& 107 | Module 9}}\rhead{\textcolor{gold}{Numbers, Codes, and Computation}}\cfoot{\thepage}\setlength{\headheight}{14pt}
 \newtcolorbox{worked}[1]{enhanced,breakable,colback=cream,colframe=olive!55!white,boxrule=.65pt,arc=2mm,title={\bfseries #1},fonttitle=\color{ink},colbacktitle=olive!14!white,coltitle=ink}
 \newtcolorbox{taskbox}[1]{enhanced,breakable,colback=white,colframe=gold!75!white,boxrule=.65pt,arc=2mm,title={\bfseries #1},fonttitle=\color{ink},colbacktitle=gold!13!white,coltitle=ink}
 \newcommand{\sect}[1]{\medskip\section*{\color{olive}#1}\vspace{-5pt}}
@@ -39,24 +39,131 @@
 \foreach \x/\p/\lab in {-4.4/0/00,-1.6/0/01,1.6/1/10,4.4/1/11}{\node[place] (y\lab) at (\x,-2.25) {\lab};\draw[conn] (x\p)--node[above,font=\small]{\ifnum\pdfstrcmp{\lab}{00}=0 0\else\ifnum\pdfstrcmp{\lab}{10}=0 0\else 1\fi\fi}(y\lab);}
 \end{tikzpicture}}
 \begin{document}
-{\small\bfseries\color{teal}MATH IN SOCIETY / MODULE 9}\par\vspace{6pt}
-{\fontsize{29}{32}\selectfont\bfseries\color{olive}Computing with Two Choices}\par\vspace{5pt}
-{\large Binary numbers, decision trees, and short programs}\par\vspace{10pt}
-\begin{worked}{A question for the week}
-A community center needs to direct callers to the right service. It could ask everyone the same two questions, or it could use a branching menu that takes fewer questions for common requests. How can a few yes-or-no choices describe numbers, routes, and useful instructions?
+{\small\bfseries\color{teal}MATH IN SOCIETY / WEEK 9}\par\vspace{6pt}
+{\fontsize{27}{30}\selectfont\bfseries\color{olive}Numbers, Codes, and Computation}\par\vspace{5pt}
+{\large Counting and calculating in binary and octal; decision trees and short programs}\par\vspace{10pt}
+\begin{worked}{Why use another base?}
+A row of on/off switches describes more possibilities as we add switches. One switch has two states, two switches have four combinations, and three switches have eight. A computer can use the patterns as numbers, addresses, or instructions. How do we count and calculate with those patterns?
 \end{worked}
-We will start by counting with two symbols. Then we will follow branches in a tree, build a small decision program, count the work it requires, and ask what happens when we keep extending the tree. The calculations use counting, addition, and multiplication. You do not need to know how to code.
-\sect{1. Counting with zeros and ones}
-Our usual decimal system has ten digits. Its positions count ones, tens, hundreds, and so on. The \textbf{binary} system has two digits: 0 and 1. Each position is worth twice the one to its right.
-\begin{center}\begin{tabular}{c|ccccc}\toprule Position & 5th & 4th & 3rd & 2nd & 1st\\\midrule Worth & 16 & 8 & 4 & 2 & 1\\\bottomrule\end{tabular}\end{center}
-For example, the binary word \texttt{1101} represents $8+4+0+1=13$ in decimal. The leftmost 1 uses the 8's place, the next 1 uses the 4's place, the 0 skips the 2's place, and the last 1 uses the 1's place.
-\begin{worked}{From decimal 11 to binary}
-Find the largest power of two not exceeding 11: that is 8. We have 3 left, so use 2 and 1 as well. The place values 8, 4, 2, 1 receive digits $1,0,1,1$. Thus $11=1011_2$.
+Binary uses two symbols, 0 and 1. Octal uses eight digits, 0 through 7, and gives us a compact way to write groups of three binary digits. These symbols represent ordinary quantities. For example, $13_{10}=1101_2=15_8$. Changing the notation does not change the number of objects being counted. First we will work with the numbers; then we will use binary strings as routes through a decision tree.
+
+\sect{1. Place values and binary conversion}
+In decimal, 347 means $3(100)+4(10)+7(1)$. In any positional system, each place is worth the base times the one to its right. Carrying exchanges a full group of smaller units for one unit of the next place.
+
+\begin{center}\begin{tabular}{lcccccc}\toprule
+System & \multicolumn{6}{c}{Place values, from left to right}\\\midrule
+Binary &32&16&8&4&2&1\\
+Octal &512&64&8&1&&\\
+Decimal &1000&100&10&1&&\\\bottomrule
+\end{tabular}\end{center}
+A binary digit is called a \textbf{bit}. It is 0 or 1. In $101101_2$, the 1s select the places 32, 8, 4, and 1, giving $45_{10}$. The zero bits skip the places 16 and 2.
+
+\begin{worked}{Write decimal 29 in binary}
+Find the largest power of two not exceeding 29. We take 16, leaving 13, then 8, leaving 5, then 4 and 1. The 2's place is skipped. Reading the places $16,8,4,2,1$ gives digits $1,1,1,0,1$, so $29_{10}=11101_2$.
+
+You can also divide by two repeatedly and record the remainders:
+\begin{center}\begin{tabular}{ccc}\toprule
+Number & Whole quotient after division by 2 & Remainder\\\midrule
+29 & 14 & 1\\14 & 7 & 0\\7 & 3 & 1\\3 & 1 & 1\\1 & 0 & 1\\\bottomrule
+\end{tabular}\end{center}
+Read the remainders from the bottom upward: $11101_2$.
 \end{worked}
-\begin{taskbox}{Try it}
-(a) Find the decimal value of $10110_2$ using the place values $16,8,4,2,1$. (b) Write 14 in binary. (c) How many distinct three-digit strings of zeros and ones are possible if leading zeros are allowed? (Here a \emph{string} is a code, not necessarily the usual way to write a number.)
+\begin{taskbox}{Try binary conversion}
+(a) Convert $110010_2$ to decimal, showing the place values. (b) Write 38 in binary. (c) Why is $10_2$ equal to two rather than ten?
 \end{taskbox}
-\sect{2. A code can be a route}
+
+\sect{2. Adding and subtracting in binary}
+Binary arithmetic works in columns just as decimal arithmetic does. But we carry when a column reaches \emph{two}, since $1+1=10_2$. A column total of three is $11_2$: write 1 in the current place and carry 1.
+
+\begin{worked}{Binary addition with carries}
+\[
+\begin{array}{r}
+\phantom{+}1011_2\\[-2pt]
++\,0110_2\\ \hline
+10001_2
+\end{array}
+\]
+Starting from the right, $1+0=1$. In the twos, fours, and eights columns, the total reaches two each time, so we write 0 and carry to the left. The final carry creates a sixteens place. Check the result in decimal: $11+6=17$ and $10001_2=17$.
+\end{worked}
+\begin{worked}{Binary subtraction with a borrow}
+\[
+\begin{array}{r}
+1101_2\\[-2pt]
+-\,0011_2\\ \hline
+1010_2
+\end{array}
+\]
+After subtracting the ones, the twos column would require $0-1$. Borrow one four from the next place. It supplies \emph{two} twos, leaving one two after subtraction. The answer is $1010_2$, or $13-3=10$ in decimal.
+\end{worked}
+\begin{taskbox}{Practice the columns}
+(a) Add $1110_2+0111_2$, writing each carry. (b) Add $10110_2+01101_2$. (c) Subtract $10010_2-00111_2$. Verify your answers in decimal.
+\end{taskbox}
+
+\sect{3. Octal place values and conversion}
+Octal is base eight, so its digits are $0,1,2,3,4,5,6,7$. After seven comes $10_8$, one eight and zero ones. The next places are 64 and 512.
+\[
+157_8=1(64)+5(8)+7(1)=111_{10}.
+\]
+To write a decimal number in octal, collect groups of 64, then groups of 8, then leftover ones.
+
+\begin{worked}{Convert decimal 83 to octal}
+We have $83=1(64)+2(8)+3(1)$, giving $83_{10}=123_8$. Repeated division by eight also works: 83 divided by 8 gives quotient 10 remainder 3; 10 divided by 8 gives quotient 1 remainder 2; 1 divided by 8 gives quotient 0 remainder 1. Read the remainders upward to obtain $123_8$.
+\end{worked}
+\begin{taskbox}{Try octal conversion}
+(a) Convert $247_8$ to decimal. (b) Write 97 in octal. (c) Explain why a numeral in base eight can never contain the digit 8.
+\end{taskbox}
+
+\sect{4. Adding and subtracting in octal}
+In octal, eight ones form one eight, so we carry when a column totals eight or more. Thirteen ones become one eight and five ones.
+
+\begin{worked}{Add two octal numbers}
+\[
+\begin{array}{r}
+\phantom{+}57_8\\[-2pt]
++\,26_8\\ \hline
+105_8
+\end{array}
+\]
+In the ones column, $7+6=13=8+5$: write 5 and carry one eight. In the eights column, $5+2+1=8$: write 0 and carry one sixty-four. The decimal check is $47+22=69$, and $105_8=69_{10}$.
+\end{worked}
+\begin{worked}{Octal subtraction}
+\[
+\begin{array}{r}
+123_8\\[-2pt]
+-\,047_8\\ \hline
+054_8
+\end{array}
+\]
+Borrow one eight for the ones column: $3+8-7=4$. The eights column now has $1-4$, so borrow a sixty-four, giving $1+8-4=5$ eights. The result $54_8$ represents 44 in decimal, agreeing with $83-39$.
+\end{worked}
+\begin{taskbox}{Practice octal arithmetic}
+(a) Add $346_8+157_8$. (b) Add $75_8+17_8$. (c) Subtract $70_8-25_8$. Show carries and borrows, then check one result in decimal.
+\end{taskbox}
+
+\sect{5. Three bits make one octal digit}
+Since $8=2^3$, a group of three binary bits can express one of eight possibilities. Each group represents exactly one octal digit:
+\begin{center}\small\begin{tabular}{c|cccccccc}\toprule
+Octal &0&1&2&3&4&5&6&7\\\midrule
+Binary &000&001&010&011&100&101&110&111\\\bottomrule
+\end{tabular}\end{center}
+To convert binary to octal, group the bits in threes from the \emph{right}, padding on the left with zeros if necessary.
+\begin{worked}{Convert between binary and octal}
+The binary number $110101_2$ splits into $110\mid101$. Those are the digits 6 and 5, so $110101_2=65_8$. In the reverse direction, $725_8$ becomes $111\mid010\mid101$, hence $111010101_2$. Keep the middle groups at three bits: their zeros carry place-value information.
+\end{worked}
+Octal has been used in computing as a shorter notation for groups of three on/off settings. The binary pattern does not change when we write it in octal; we are simply using fewer symbols.
+\begin{taskbox}{Group the bits}
+(a) Convert $1011010_2$ to octal. (b) Convert $34_8$ to binary. (c) How many possible three-bit strings are there, and why does that match one octal digit?
+\end{taskbox}
+
+\sect{6. Multiplication, briefly}
+Multiplication is repeated addition in either base. In binary, multiplying by a digit 0 contributes nothing, while multiplying by 1 copies the other number. A left shift places a partial product into the next larger binary place.
+\[
+101_2 \times 11_2=1111_2,
+\quad\text{because }5\times3=15.
+\]
+In octal, $6_8\times3_8=22_8$: the product is eighteen in decimal, which contains two eights and two ones. Likewise, $12_8\times3_8=36_8$. Practice addition, subtraction, and conversion first; these multiplication examples show that the same grouping principles carry farther.
+
+\sect{7. A code can be a route}
 Suppose 0 means ``go left'' and 1 means ``go right.'' Beginning at a dot, each choice follows one branch. A string like \texttt{101} tells you exactly which route to take: right, left, right.
 \begin{center}\addresstree\end{center}
 The four addresses after two choices are \texttt{00}, \texttt{01}, \texttt{10}, and \texttt{11}. Every additional choice doubles the number of possibilities. With one choice there are 2 addresses; with two there are 4; with three there are 8; with four there are 16. In general, there are $2^n$ binary strings with exactly $n$ digits.
@@ -66,7 +173,7 @@ The address \texttt{011} means left, then right, then right. The first two digit
 \begin{taskbox}{Try it}
 (a) List all eight three-digit binary addresses. (b) How many four-digit addresses begin with \texttt{10}? (c) Is \texttt{10} a prefix of \texttt{1011}? Is \texttt{11}?
 \end{taskbox}
-\sect{3. Turning a tree into a program}
+\sect{8. Turning a tree into a program}
 A community center answers questions about food pantry hours, bus schedules, regular ride help, and urgent ride help. A caller enters 0 or 1 at each junction and stops when a service appears.
 \begin{center}\resizebox{.94\linewidth}{!}{\menutree}\end{center}
 This is a \textbf{finite decision program}: follow the branch named by each digit until you arrive at an instruction to stop and show a service. It has four stopping codes:
@@ -75,7 +182,7 @@ Notice that \texttt{0} is never the beginning of another \emph{complete} code. N
 \begin{taskbox}{Try it}
 (a) Trace the code \texttt{110}. Which service answers? (b) Why would using \texttt{1} as an additional stopping code cause a problem? (c) Design a new two-question menu for four services, with a distinct two-digit code for each service.
 \end{taskbox}
-\sect{4. Counting the work a program does}
+\sect{9. Counting the work a program does}
 A decision menu is useful when it answers common requests quickly. Suppose the center receives 16 calls:
 \begin{center}\begin{tabular}{lrrr}\toprule Service & Calls & Questions per call & Total questions\\\midrule Food pantry & 8 & 1 & 8\\Bus times & 4 & 2 & 8\\Regular ride help & 2 & 3 & 6\\Urgent ride help & 2 & 3 & 6\\\midrule All calls & 16 && 28\\\bottomrule\end{tabular}\end{center}
 The total is $8(1)+4(2)+2(3)+2(3)=28$ questions. If every caller answered exactly two questions, the total would be $16(2)=32$. For this group of callers, the branching menu saves four questions.
@@ -85,7 +192,7 @@ A different community center might receive urgent requests most often. The tree'
 \begin{taskbox}{Try it}
 Suppose the call counts are 6 for food pantry, 5 for bus times, 3 for regular ride help, and 2 for urgent help. How many questions does the current menu ask in total? How many would a two-question menu ask? Which one uses fewer questions?
 \end{taskbox}
-\sect{5. A tree that keeps growing}
+\sect{10. A tree that keeps growing}
 A decision program can stop after a few choices. But we can also imagine a binary tree with no final level: every address has two longer addresses beneath it, one ending in 0 and one ending in 1. A three-digit address is a location \emph{within} that tree, not the end of the whole tree.
 \begin{center}\begin{tabular}{c|rrrrr}\toprule Choices made & 0 & 1 & 2 & 3 & 4\\\midrule Possible addresses & 1 & 2 & 4 & 8 & 16\\\bottomrule\end{tabular}\end{center}
 An \textbf{infinite path} would be a never-ending sequence of choices. At any finite stage we know only its beginning, called a \textbf{finite prefix}. For example, after seeing \texttt{101}, the next digit could be 0 or 1. Both paths agree on everything observed so far.
@@ -96,21 +203,36 @@ Imagine a code that never uses two 1s together. The allowed two-digit strings ar
 (a) List the allowable three-digit strings that begin with 1. (b) Write two allowed four-digit strings and one forbidden four-digit string. (c) Without listing everything, explain why every allowed string ending in 1 must be followed by 0 if we extend it one step.
 \end{taskbox}
 The phone menu occupies a \textbf{finite subtree} of the full binary tree: it keeps the junctions needed to reach the four services, with a stopping instruction at each service. This decision program always finishes after a limited number of questions. More general programs can repeat instructions in loops, so a short program may run for many steps. That distinction is one reason the study of computation is interesting.
-\sect{6. What have we discovered?}
-Binary digits can stand for numbers or for instructions. The meaning comes from the rule we choose. In a decision tree, a code is a path. A stopping instruction makes the tree into a simple program. By counting the paths and questions, we can compare how much work different designs require. Even a short rule can organize an ever-growing set of possible routes.
+\sect{11. What have we discovered?}
+Binary and octal represent quantities through different place values; carrying and borrowing follow the base. Binary digits can also stand for addresses or instructions. Their meaning comes from the rule we choose. In a decision tree, a code is a path. A stopping instruction makes the tree into a simple program. By counting the paths and questions, we can compare how much work different designs require. Even a short rule can organize an ever-growing set of possible routes.
 \begin{worked}{One reliable way to investigate a decision program}
 (1) Say what each choice means. (2) Trace the path for a particular input. (3) Identify when the process stops. (4) Count the questions or possible outcomes. (5) Explain one detail that the model leaves out.
 \end{worked}
 \sect{Practice}
 \begin{enumerate}
-\item Convert $11010_2$ to decimal. Write 9 in binary.
-\item How many addresses have exactly five binary digits? How many of them begin with \texttt{011}?
-\item In the menu above, which code reaches urgent ride help? Why can the code \texttt{1} not also mean ``stop''?
-\item A desk receives 10 pantry requests, 3 bus requests, 2 regular ride requests, and 1 urgent request. Count the total questions using the menu above. Compare with a fixed two-question menu.
-\item List all allowed two-digit and three-digit codes that avoid \texttt{11}. Explain why the number is smaller than $2^n$.
-\item Describe a useful decision tree from daily life. Name one thing the tree would need to know that is not represented by a simple yes-or-no choice.
+\item Convert $11010_2$ to decimal and write 19 in binary.
+\item Convert $236_8$ to decimal and write 79 in octal.
+\item Add $1101_2+0101_2$ and subtract $10110_2-00101_2$. Show the carries or borrows.
+\item Add $64_8+27_8$ and subtract $132_8-45_8$.
+\item Convert $11001101_2$ to octal by grouping in threes; convert $416_8$ to binary.
+\item How many binary addresses have exactly five digits? How many begin with \texttt{011}?
+\item Which stopping code reaches urgent ride help? Why would \texttt{1} be an unsuitable additional stopping code?
+\item A desk receives 10 pantry requests, 3 bus requests, 2 regular ride requests, and 1 urgent request. Count questions using the menu above and compare with a two-question menu.
+\item List all two- and three-digit codes that avoid \texttt{11}.
+\item Describe a decision tree from everyday life, and identify something important that its yes-or-no questions would leave out.
 \end{enumerate}
-\begin{worked}{Answers to calculation questions}
-1. $11010_2=16+8+2=26$ and $9=1001_2$. 2. $2^5=32$ total; four begin with \texttt{011} because two positions remain free. 3. \texttt{111}; stopping at \texttt{1} would prevent distinguishing the three codes that begin with 1. 4. $10(1)+3(2)+2(3)+1(3)=25$ questions, versus $16(2)=32$. 5. Two digits: \texttt{00}, \texttt{01}, \texttt{10}; three: \texttt{000}, \texttt{001}, \texttt{010}, \texttt{100}, \texttt{101}. The rule removes all addresses with adjacent 1s. 6. Answers vary.
+\begin{worked}{Answers to numerical questions}
+\begin{enumerate}
+\item $11010_2=16+8+2=26$; $19=10011_2$.
+\item $236_8=2(64)+3(8)+6=158$; $79=117_8$.
+\item $1101_2+0101_2=10010_2$; $10110_2-00101_2=10001_2$.
+\item $64_8+27_8=113_8$; $132_8-45_8=65_8$.
+\item $11001101_2=011\mid001\mid101=315_8$; $416_8=100\mid001\mid110=100001110_2$.
+\item $2^5=32$; four begin with \texttt{011}.
+\item \texttt{111}; stopping at \texttt{1} would prevent the longer codes beginning in 1.
+\item $10(1)+3(2)+2(3)+1(3)=25$ versus $16(2)=32$ questions.
+\item Two digits: \texttt{00}, \texttt{01}, \texttt{10}; three digits: \texttt{000}, \texttt{001}, \texttt{010}, \texttt{100}, \texttt{101}.
+\item Examples and limitations will vary.
+\end{enumerate}
 \end{worked}
 \end{document}
