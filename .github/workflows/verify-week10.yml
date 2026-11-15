@@ -1,4 +1,4 @@
-name: Verify Week 10 prediction investigations
+name: Verify Week 10 complexity, chaos and fractals
 on:
   push:
     paths:
@@ -22,9 +22,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install HTML verification dependency
         run: python -m pip install lxml
-      - name: Check Week 10 pages, links, and answer contracts
+      - name: Check Week 10 pages, accessibility, and quiz
         run: python scripts/verify_week10.py
-      - name: Check recursive model calculations and UI interactions
+      - name: Check Collatz, logistic, Sierpinski and quiz fixtures
         run: |
           node --check assets/week10/week10.js
           node scripts/test_week10.js
