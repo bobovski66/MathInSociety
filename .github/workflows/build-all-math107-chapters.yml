@@ -6,6 +6,7 @@ on:
       - "scripts/build_week*_chapter*.py"
       - "assets/week8/*.svg"
       - "assets/week9/*.svg"
+      - "assets/week10/*-lesson.svg"
       - "scripts/chapter_editorial.py"
       - ".github/workflows/build-all-math107-chapters.yml"
   workflow_dispatch:
@@ -47,6 +48,10 @@ jobs:
                       continue  # Preserve existing Matplotlib figures; rebuild the three new diagrams.
                   cairosvg.svg2pdf(url=str(source), write_to=str(target))
                   print("Rendered", source.name, "to", target.name)
+          for source in sorted(Path("assets/week10").glob("*-lesson.svg")):
+              target = source.with_suffix(".pdf")
+              cairosvg.svg2pdf(url=str(source), write_to=str(target))
+              print("Rendered Week 10", source.name, "to", target.name)
           PY
       - name: Compile all chapter PDFs
         uses: xu-cheng/latex-action@v4
@@ -74,7 +79,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add readings/Math107_Chapter_*.tex readings/Math107_Chapter_*.pdf readings/chapter3/*.tex assets/week8/*.pdf assets/week9/*.pdf
+          git add readings/Math107_Chapter_*.tex readings/Math107_Chapter_*.pdf readings/chapter3/*.tex assets/week8/*.pdf assets/week9/*.pdf assets/week10/*-lesson.pdf
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Regenerate taught Math 107 chapter PDFs"
           git fetch origin main
