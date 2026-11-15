@@ -1,193 +1,31 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="A conservation group compares two plausible fish counts to decide when another survey could be useful. The same update rule can produce forecasts that eventually disagree.">
-<title>Week 10 Application — Comparing population forecasts | Math in Society</title>
-<link rel="stylesheet" href="../assets/week10/week10.css">
-<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week10/week10.js"></script>
-</head>
-<body>
-<a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Dr Lee</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html">Reading</a><a href="../demos/fractal_recursion.html">Explorer</a><a href="../labs/week10_lab.html">Laboratory</a><a href="../applications/week10_application.html" aria-current="page">Fish forecast</a><a href="../applications/week10_ai.html">AI application</a><a href="../discussions/week10_discussion.html">Discussion</a></nav><main class="wrap" id="main" data-answer-store="math107_week10_application_v3" data-legacy-store="math107_week10_application_v2"><header class="hero"><div class="eyebrow">Week 10 / Application</div>
-<h1>When should the lake be surveyed again?</h1>
-<p class="lead">A conservation group compares two plausible fish counts to decide when another survey could be useful. The same update rule can produce forecasts that eventually disagree.</p>
-</header><div class="student-bar no-print">
-<div>
-<label for="studentName">Student name</label><input id="studentName" type="text" autocomplete="name">
-</div>
-<button type="button" data-print-work>Print completed work / Save PDF</button><p id="printStatus" class="small" role="status"></p>
-</div>
-<div id="printName" class="print-name"></div>
-<p id="saveStatus" class="small save-status" role="status"></p>
-<section class="card"><div class="kicker">The situation</div>
-<h2>Two possible counts, one survey decision</h2>
-<p>A lake conservation group is planning its next population survey. Two plausible estimates of the current population differ by just ten fish. How far ahead do their predictions remain close enough to inform a plan? Each update in this simplified model represents one breeding season.</p>
-<p>A field team is studying a lake population using a deliberately simplified model. They choose a reference population of \(K=100{,}000\) fish and write the current population as a fraction \(x=N/K\).</p>
-<div class="example">
-<h3>Why change a fish count into a fraction?</h3>
-<p>The reference population makes a convenient common scale. Dividing by 100,000 converts fish into a fraction; multiplying by 100,000 converts the fraction back into fish. This is the same relationship between a part and a whole used for relative frequencies in Week 2.</p>
-<div class="table-wrap"><table>
-<thead><tr>
-<th scope="col">Fish estimate</th>
-<th scope="col">Fraction of 100,000</th>
-<th scope="col">Percentage</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>20,000</td>
-<td>0.20</td>
-<td>20%</td>
-</tr>
-<tr>
-<td>50,000</td>
-<td>0.50</td>
-<td>50%</td>
-</tr>
-<tr>
-<td>100,000</td>
-<td>1.00</td>
-<td>100%</td>
-</tr>
-</tbody>
-</table></div>
-<p>The letters \(x_n\) and \(y_n\) name two forecast sequences. They describe alternative estimates of the same lake, not two different lakes. The subscript \(n\) counts breeding seasons from the initial survey.</p>
-</div>
-<div class="formula">\(x_{n+1}=3.9x_n(1-x_n),\qquad N_n=100{,}000x_n.\)</div>
-<p>Read the update as “next fraction = 3.9 × current fraction × (1 − current fraction).” The setting 3.9 is held fixed. The limiting factor \(1-x_n\) changes with the population, so the whole multiplier changes from season to season. To obtain a second generation, insert the first result into the formula.</p>
-<p>The survey is consistent with either \(x_0=0.4000\) or \(y_0=0.4001\). Those are nearby estimates of the same starting population. The model’s parameter remains 3.9 in both calculations.</p>
-<div class="insight">
-<h3>What this model lets us investigate</h3>
-<p>This is a mathematical experiment about measurement uncertainty. The reference population gives the fractions a scale; it does not establish a real lake’s ecological carrying capacity. No field data have been fitted here.</p>
-</div>
-<div class="example">
-<h3>Example · Convert the model’s units</h3>
-<p>A state of 0.25 represents \(0.25(100{,}000)=25{,}000\) fish. A difference of 0.01 represents 1,000 fish. The phrase “1% of the reference population” means this fixed difference, not 1% of whichever population happens to occur later.</p>
-</div></section>
-<section class="card"><h2>Follow both forecasts</h2>
-<p>Move the marker through 25 generations. The values below are model populations rounded to the nearest fish. The trajectory calculations retain full stored precision.</p>
-<div class="example">
-<h3>Read a generation before moving to the next</h3>
-<ol class="steps">
-<li>At generation 0, compare the two starting estimates shown in the readouts.</li>
-<li>Move to generation 1. Each forecast has been updated once using its own previous fraction.</li>
-<li>At any generation, compare the two curves at the same horizontal position. Their heights are fractions, while the readouts convert them to fish.</li>
-<li>Open the table to find exact rows. A gap can grow at one generation and shrink at the next.</li>
-</ol>
-</div>
-<div class="controls"><div class="wide">
-<label for="fishN">Generation: <output id="fishGeneration">0</output></label><input id="fishN" type="range" min="0" max="25" step="1" value="0">
-</div></div>
-<div class="stats">
-<div class="stat">
-<span>Forecast A · fish</span><output id="fishA"></output>
-</div>
-<div class="stat">
-<span>Forecast B · fish</span><output id="fishB"></output>
-</div>
-<div class="stat">
-<span>Absolute gap · fish</span><output id="fishGap"></output>
-</div>
-</div>
-<div class="legend">
-<span class="a">Start A = 0.4000</span><span class="b">Start B = 0.4001</span>
-</div>
-<div class="chart" id="fishPlot"></div>
-<details><summary>Show the generation-by-generation table</summary><p class="small">Fractions are displayed to six decimal places. Use the stored trajectories, not these rounded cells, for subsequent updates.</p>
-<div class="table-wrap trace" id="fishTable"></div></details></section>
-<div class="progress no-print">
-<span id="progressText">0 / 3 sections checked</span><div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
-</div>
-<section class="card" data-check-group="1"><div class="kicker">Part 1 / Starting population</div>
-<h2>Translate fractions into fish</h2>
-<div class="grid">
-<div class="question">
-<label for="a1">Initial population from x₀ = 0.4000, in fish</label><input id="a1" type="text" inputmode="decimal" autocomplete="off" data-answer="40000" data-tolerance="0" data-hint="Multiply .4000 by 100,000." data-success="Correct." aria-describedby="a1-feedback"><span class="field-feedback" id="a1-feedback" aria-live="polite"></span>
-</div>
-<div class="question">
-<label for="a2">Initial population from y₀ = 0.4001, in fish</label><input id="a2" type="text" inputmode="decimal" autocomplete="off" data-answer="40010" data-tolerance="0" data-hint="Multiply .4001 by 100,000." data-success="Correct." aria-describedby="a2-feedback"><span class="field-feedback" id="a2-feedback" aria-live="polite"></span>
-</div>
-</div>
-<div class="actions no-print"><button type="button" data-check>Check this section</button></div>
-<p class="section-feedback" role="status"></p></section>
-<section class="card" data-check-group="2"><div class="kicker">Part 2 / One update</div>
-<h2>Use the same formula twice</h2>
-<div class="example">
-<h3>Practice the substitution on a different start</h3>
-<p>If the current fraction were 0.25, the next fraction would be \(3.9(0.25)(1-0.25)=3.9(0.25)(0.75)=0.73125\). The subtraction in parentheses comes first. This answer is a fraction; multiplying it by 100,000 would convert it to the model’s fish count.</p>
-<p>For the two starts below, do the same calculation separately. Keep both starting decimals exactly as written.</p>
-</div>
-<p>For each start, substitute its own value into \(3.9x(1-x)\). Report the resulting fraction, rather than the fish count. Give the second result to at least six decimal places.</p>
-<div class="grid">
-<div class="question">
-<label for="a3">x₁ from the start x₀ = 0.4000</label><input id="a3" type="text" inputmode="decimal" autocomplete="off" data-answer="0.936" data-tolerance="1e-06" data-hint="Compute 3.9 × .4000 × .6000." data-success="Correct." aria-describedby="a3-feedback"><span class="field-feedback" id="a3-feedback" aria-live="polite"></span>
-</div>
-<div class="question">
-<label for="a4">y₁ from the start y₀ = 0.4001</label><input id="a4" type="text" inputmode="decimal" autocomplete="off" data-answer="0.936077961" data-tolerance="5e-07" data-hint="Compute 3.9 × .4001 × .5999. Do not round the starting value to .400." data-success="Correct." aria-describedby="a4-feedback"><span class="field-feedback" id="a4-feedback" aria-live="polite"></span>
-</div>
-</div>
-<div class="actions no-print"><button type="button" data-check>Check this section</button></div>
-<p class="section-feedback" role="status"></p></section>
-<section class="card" data-check-group="3"><div class="kicker">Part 3 / Forecast horizons</div>
-<h2>When does the gap matter?</h2>
-<p>A <em>tolerance</em> says how much disagreement a particular decision can accept. Compare two illustrative limits: 1,000 fish and 10,000 fish. These are chosen for mathematical comparison, not established ecological management thresholds.</p>
-<div class="table-wrap"><table>
-<thead><tr>
-<th scope="col">Fractional gap</th>
-<th scope="col">Gap as percentage of the reference</th>
-<th scope="col">Difference in fish</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>0.01</td>
-<td>1%</td>
-<td>1,000</td>
-</tr>
-<tr>
-<td>0.10</td>
-<td>10%</td>
-<td>10,000</td>
-</tr>
-</tbody>
-</table></div>
-<div class="example">
-<h3>How to find the first crossing</h3>
-<p>Read the absolute-gap column from generation 0 downward. For the 0.01 question, ignore rows at or below 0.01 and stop at the first row above it. Repeat separately for the 0.10 question. The generations need not be the same.</p>
-<p>At the first row above 0.10, multiply that row’s fractional gap by 100,000 and round to the nearest fish. This asks for the size of the difference at that generation, rather than either forecast’s total population.</p>
-</div>
-<p>Find the first generation at which the forecasts differ by more than the chosen tolerance. A later shrinkage in their gap does not undo that first crossing.</p>
-<div class="question">
-<label for="a5">First generation with |xₙ − yₙ| &gt; 0.01 (more than 1,000 fish)</label><input id="a5" type="text" inputmode="decimal" autocomplete="off" data-answer="8" data-tolerance="0" data-hint="Find the first table row whose absolute fractional gap exceeds .01. Start checking at n = 0." data-success="Correct." aria-describedby="a5-feedback"><span class="field-feedback" id="a5-feedback" aria-live="polite"></span>
-</div>
-<div class="question">
-<label for="a6">First generation with |xₙ − yₙ| &gt; 0.10 (more than 10,000 fish)</label><input id="a6" type="text" inputmode="decimal" autocomplete="off" data-answer="14" data-tolerance="0" data-hint="Continue through the first row whose absolute fractional gap exceeds .10." data-success="Correct." aria-describedby="a6-feedback"><span class="field-feedback" id="a6-feedback" aria-live="polite"></span>
-</div>
-<div class="question">
-<label for="a7">Absolute population difference at that first &gt; 0.10 generation, rounded to the nearest fish</label><input id="a7" type="text" inputmode="decimal" autocomplete="off" data-answer="19074" data-tolerance="1" data-hint="Use |xₙ − yₙ| × 100,000 at the generation in the preceding question. Round only at the end." data-success="Correct." aria-describedby="a7-feedback"><span class="field-feedback" id="a7-feedback" aria-live="polite"></span>
-</div>
-<div class="question">
-<label for="a8">Which conclusion is supported?</label><select id="a8" data-answer="right" data-hint="Distinguish a two-trajectory comparison from a full uncertainty interval or a random update." data-success="Correct." aria-describedby="a8-feedback"><option value="">Choose a response…</option>
-<option value="right">The deterministic model can amplify a small uncertainty in the measured starting population.</option>
-<option value="random">The formula must secretly add random numbers.</option>
-<option value="guaranteed">The two curves give guaranteed bounds for every possible real population.</option></select><span class="field-feedback" id="a8-feedback" aria-live="polite"></span>
-</div>
-<div class="actions no-print"><button type="button" data-check>Check this section</button></div>
-<p class="section-feedback" role="status"></p></section>
-<div class="card">
-<h2>Use the calculation to plan better observations</h2>
-<p>This is called <em>sensitivity to initial conditions</em>: the calculated future can depend strongly on a small difference in the starting information. The model is still <em>deterministic</em>, meaning the same exact input always has the same next result. We changed the starting estimate, not the formula.</p>
-<p>The first gap above 1,000 fish occurs sooner than the first gap above 10,000 fish. That is why a useful forecast horizon must name a tolerance. Monitoring again can reduce current uncertainty and restart the comparison, although it cannot make an incomplete model exact.</p>
-<p>Even if one long-range number cannot be trusted, a new survey or a range of possible outcomes might still support a practical decision. Before acting, the group needs real observations, realistic measurement errors, and evidence that the model describes its lake.</p>
-</div>
-<div class="card"><h2>Recommend a monitoring plan</h2><p>Imagine the group decides that two predictions differing by more than 1,000 fish are too far apart for its current plan. Use your first-crossing calculation to suggest when the group should collect fresh observations or reassess the model. Why is this a warning from an illustration, rather than a survey schedule established for a real lake?</p><div class="question"><label for="surveyRecommendation">Your monitoring recommendation: when to check again, what evidence would help, and which model assumptions should be verified.</label><textarea id="surveyRecommendation" data-save rows="5"></textarea></div></div>
-<div class="card no-print">
-<h2>Keep a copy of your work</h2>
-<p>Your responses save in this browser. To submit them, enter your name above, choose <em>Print completed work / Save PDF</em>, and use the browser’s printer or PDF option. Follow the submission instructions in Canvas.</p>
-<button type="button" data-print-work>Print completed work / Save PDF</button>
-</div>
-<div class="next">
-<a href="../index.html">← Course home</a><a class="button" href="../applications/week10_ai.html">Explore the AI connection →</a>
-</div>
-<footer class="footer"><span>MATH&amp; 107 · Complexity and the Limits of Prediction</span><span>Simple rules · Patterns · Observation</span></footer></main>
-</body>
-</html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Week 10 Application — When a Forecast Becomes Unreliable | Math in Society</title><link rel="stylesheet" href="../assets/week10/week10.css"><link rel="stylesheet" href="../assets/week10/complexity-chaos-fractals.css"><link rel="stylesheet" href="../assets/lab-focus.css"><script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week10/week10.js"></script><script defer src="../assets/lab-submission.js"></script></head><body class="lab-focus"><a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Week 10</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html">Reading</a><a href="../demos/fractal_recursion.html">Explorer</a><a href="../labs/week10_lab.html">Laboratory</a><a href="../applications/week10_application.html" aria-current="page">Application</a><a href="../applications/week10_ai.html">AI extension</a><a href="../discussions/week10_discussion.html">Discussion</a></nav><main class="wrap" id="main" data-answer-store="math107_week10_forecast_v1">
+<header class="hero"><div class="eyebrow">Week 10 / Application</div><h1>How long can a prediction guide a decision?</h1>
+<p class="lead">A conservation team is comparing two forecasts made from almost identical starting measurements. The question is not which formula to invent; it is how much confidence to place in a forecast before collecting new observations.</p></header>
+<div class="student-bar no-print"><div><label for="studentName">Student name</label><input id="studentName" type="text" autocomplete="name"></div><button data-print-work type="button">Print / save PDF</button><button data-download-filled-html type="button">Download completed HTML</button><p id="printStatus" class="small" role="status"></p></div><div id="printName" class="print-name"></div><p id="saveStatus" class="small" role="status"></p>
+<section class="card"><div class="section-label">The situation</div><h2>Two close measurements of a lake population</h2>
+<p>A lake conservation team estimates a fish population. It uses a fraction of a reference population, rather than an exact head count. Two surveys produce starting fractions 0.4000 and 0.4001. The team tests a simplified logistic model, \(x_{n+1}=3.9x_n(1-x_n)\), to see how these small differences might affect its projected values.</p>
+<p>The fraction \(x\) is a mathematical state between zero and one. Each update represents one hypothetical breeding season. <strong>The logistic equation has not been calibrated to this lake.</strong> Its role here is to show what can happen when a forecast depends sensitively on an uncertain starting state.</p>
+<div class="table-wrap"><table><thead><tr><th>Quantity</th><th>Survey A</th><th>Survey B</th></tr></thead><tbody><tr><td>Starting fraction</td><td>0.4000</td><td>0.4001</td></tr><tr><td>Parameter \(r\)</td><td>3.9</td><td>3.9</td></tr><tr><td>Update rule</td><td colspan="2">Multiply the current fraction by \(3.9(1-\text{current fraction})\)</td></tr></tbody></table></div>
+<p>The team chooses a difference of 0.1 between predicted fractions as an illustration of a decision threshold. This is a teaching threshold, not an established biological safety standard.</p>
+</section>
+<section class="card" id="appcalc"><div class="section-label">1 · Calculate before interpreting</div><h2>The first prediction</h2>
+<p>Use the rule for Survey A first. Substitute 0.4000 into both appearances of the current fraction. Then do the same for Survey B.</p>
+<div class="question"><label for="lake1">1. What is the first predicted fraction for Survey A (starting at 0.4000)?</label><input type="text" id="lake1" data-save data-answer="0.936" data-tolerance=".000001" data-hint="Calculate 3.9 × 0.4 × (1−0.4)."><span class="field-feedback" data-feedback-for="lake1" aria-live="polite"></span></div>
+<div class="question"><label for="lake2">2. What is the first predicted fraction for Survey B (starting at 0.4001)? Give at least six decimal places.</label><input type="text" id="lake2" data-save data-answer="0.936077961" data-tolerance=".000003" data-hint="Calculate 3.9 × 0.4001 × (1−0.4001)."><span class="field-feedback" data-feedback-for="lake2" aria-live="polite"></span></div>
+<div class="question"><label for="lake3">3. What is the absolute difference between these two first-step predictions?</label><input type="text" id="lake3" data-save data-answer="0.000077961" data-tolerance=".000003" data-hint="Subtract the smaller first-step prediction from the larger."><span class="field-feedback" data-feedback-for="lake3" aria-live="polite"></span></div>
+<div class="actions no-print"><button type="button" id="appCheck" class="secondary">Check the calculations</button><span id="appCheckStatus" role="status" class="small"></span></div>
+</section>
+<section class="card" id="appCompare"><div class="section-label">2 · Follow the consequences</div><h2>Look beyond the first update</h2>
+<p>Open the <a href="../demos/fractal_recursion.html" target="_blank" rel="noopener">Week 10 Explorer</a>, choose the logistic map, and enter the same two starting values with \(r=3.9\). Compare the two trajectories over 40 updates.</p>
+<div class="question"><label for="lake4">4. At what update does their absolute difference first exceed 0.1? Report the step shown by the explorer.</label><textarea id="lake4" data-save></textarea></div>
+<div class="question"><label for="lake5">5. Does the gap increase at every step? Describe a few observations from the graph that support your answer.</label><textarea id="lake5" data-save></textarea></div>
+<p>Now change the parameter to \(r=2.8\), keeping the two starting values. Compare the resulting behavior. What does that tell us about the role of the rule's parameter?</p>
+<div class="question"><label for="lake6">6. Describe the difference between the \(r=2.8\) and \(r=3.9\) experiments.</label><textarea id="lake6" data-save></textarea></div>
+</section>
+<section class="card" id="appDecide"><div class="section-label">3 · Make a recommendation</div><h2>What would the field team need next?</h2>
+<p>These experiments show that the mathematical forecast can be sensitive. They do not prove that the real lake follows the logistic map, or that two actual surveys are equally reliable. A sensible monitoring plan would need observations, a tested model, and a clear decision criterion.</p>
+<div class="question"><label for="lake7">7. Write a short recommendation to the team. Would you rely on a long-term projection from this untested model? What additional measurements or checks would make it more useful?</label><textarea id="lake7" data-save rows="5"></textarea></div>
+<div class="question"><label for="lake8">8. What is the difference between “our rule gives an exact next number” and “our prediction about the lake will be accurate”?</label><textarea id="lake8" data-save rows="4"></textarea></div>
+</section>
+<div class="next"><a href="../labs/week10_lab.html">← Guided laboratory</a><a class="button" href="../applications/week10_ai.html">AI and computational search →</a></div>
+<footer class="footer">MATH&amp; 107 · Complexity, Chaos, and Fractals · Application</footer></main><script>(function(){function init(){const button=document.getElementById("appCheck");if(!button)return;button.addEventListener("click",()=>{let all=true;for(const input of document.querySelectorAll("#appcalc [data-answer]")){const n=Number(input.value),ans=Number(input.dataset.answer),tol=Number(input.dataset.tolerance||.001);const good=input.value.trim()!==""&&Number.isFinite(n)&&Math.abs(n-ans)<=tol;input.setAttribute("aria-invalid",String(!good));const feedback=document.querySelector('[data-feedback-for="'+input.id+'"]');if(feedback)feedback.textContent=good?"Correct.":input.dataset.hint;all=all&&good;}document.getElementById("appCheckStatus").textContent=all?"All three calculations are correct. Continue to the model comparison.":"Review the marked calculation(s).";});}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();})();</script></body></html>
