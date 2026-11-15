@@ -124,7 +124,7 @@ if __name__=='__main__':
   pagebreak='\n\\clearpage\n' if section in ('complexity','chaos','sierpinski','connections') else '\n'
   parts.append(pagebreak+conv(node))
  parts.extend(['\n\\clearpage\n',(PAGES/'week10_chapter_review.tex').read_text(encoding='utf-8'),
-               '\n\\clearpage\n{\\small\\setlength{\\parskip}{3pt}\\setlist{itemsep=2pt,topsep=2pt}\\section*{Solutions}\\n'])
+               '\n\\clearpage\n{\\small\\setlength{\\parskip}{3pt}\\setlist{itemsep=2pt,topsep=2pt}\\section*{Solutions}\n'])
  for i,(q,a) in enumerate(checks,1):
   parts.append('\n\\paragraph{Check '+str(i)+'.} '+a)
  parts.append('\n'+review_answers)
