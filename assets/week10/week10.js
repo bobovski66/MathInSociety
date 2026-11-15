@@ -1,97 +1,209 @@
-/* Exact computations and shared controls for the Week 10 investigations. */
+/* Week 10 — Complexity, Chaos, and Fractals.
+   Core mathematics kept separate from the page controls for transparent testing. */
 (function(root){
-'use strict';
+"use strict";
 const Math10={
- number(raw){
-  const s=String(raw).trim();if(!s)return NaN;
-  const m=s.match(/^([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*\/\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))$/);
-  if(m){const d=Number(m[2]);return d===0?NaN:Number(m[1])/d;}
-  return /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i.test(s)?Number(s):NaN;
- },
- logistic(r,x,n=30,places=null){
-  if(!Number.isFinite(r)||r<0||r>4||!Number.isFinite(x)||x<0||x>1||!Number.isInteger(n)||n<0||n>2000)throw Error('Use 0 ≤ r ≤ 4, 0 ≤ x₀ ≤ 1, and a whole number of updates from 0 to 2,000.');
-  const out=[x];for(let i=0;i<n;i++){x=r*x*(1-x);if(places!==null)x=Number(x.toFixed(places));out.push(x);}return out;
- },
- crossing(a,b,threshold){if(a.length!==b.length||!Number.isFinite(threshold)||threshold<0)throw Error('The trajectories must have equal lengths and the threshold must be nonnegative.');return a.findIndex((v,i)=>Math.abs(v-b[i])>threshold);},
- collatz(n,limit=10000){
-  if(!Number.isSafeInteger(n)||n<1||n>1000000)throw Error('Choose a whole starting integer from 1 to 1,000,000.');
-  if(!Number.isInteger(limit)||limit<0||limit>100000)throw Error('Invalid update limit.');
-  const values=[n];let peak=n;for(let i=0;n!==1&&i<limit;i++){n=n%2===0?n/2:3*n+1;if(!Number.isSafeInteger(n))throw Error('This trajectory exceeded exact integer arithmetic.');values.push(n);peak=Math.max(peak,n);}return{values,peak,steps:values.length-1,reachedOne:n===1};
- },
- koch(n,a=[0,0],b=[1,0]){
-  if(!Number.isInteger(n)||n<0||n>6)throw Error('Choose a Koch stage from 0 to 6.');
-  if(n===0)return[a,b];const dx=(b[0]-a[0])/3,dy=(b[1]-a[1])/3,p=[a[0]+dx,a[1]+dy],q=[a[0]+2*dx,a[1]+2*dy],c=[p[0]+dx*.5-dy*Math.sqrt(3)/2,p[1]+dx*Math.sqrt(3)/2+dy*.5];const out=[];[[a,p],[p,c],[c,q],[q,b]].forEach(([u,v])=>out.push(...Math10.koch(n-1,u,v).slice(0,-1)));return out.concat([b]);
- },
- triangles(n,a=[0,0],b=[1,0],c=[.5,Math.sqrt(3)/2]){
-  if(!Number.isInteger(n)||n<0||n>6)throw Error('Choose a Sierpinski stage from 0 to 6.');
-  if(n===0)return[[a,b,c]];const mid=(u,v)=>[(u[0]+v[0])/2,(u[1]+v[1])/2],ab=mid(a,b),bc=mid(b,c),ca=mid(c,a);return[...Math10.triangles(n-1,a,ab,ca),...Math10.triangles(n-1,ab,b,bc),...Math10.triangles(n-1,ca,bc,c)];
- }
+  collatz(start,limit=500){
+    if(!Number.isSafeInteger(start)||start<1||start>100000)throw Error("Choose an integer from 1 to 100,000.");
+    if(!Number.isSafeInteger(limit)||limit<1||limit>5000)throw Error("Choose a limit between 1 and 5,000 updates.");
+    let x=start,values=[x],peak=x;
+    for(let i=0;i<limit&&x!==1;i++){
+      x=(x%2===0)?x/2:3*x+1;
+      if(!Number.isSafeInteger(x))throw Error("The calculation exceeded exact integer precision.");
+      values.push(x);peak=Math.max(x,peak);
+    }
+    return {start,values,steps:values.length-1,peak,reachedOne:x===1};
+  },
+  logistic(r,start,steps=40){
+    if(!Number.isFinite(r)||r<0||r>4)throw Error("Use 0 ≤ r ≤ 4.");
+    if(!Number.isFinite(start)||start<0||start>1)throw Error("Start between zero and one.");
+    if(!Number.isSafeInteger(steps)||steps<0||steps>1000)throw Error("Use 0–1,000 updates.");
+    const values=[start];let x=start;
+    for(let i=0;i<steps;i++){x=r*x*(1-x);values.push(x)}
+    return values;
+  },
+  sierpinski(stage){
+    if(!Number.isInteger(stage)||stage<0||stage>7)throw Error("Choose a stage 0–7.");
+    let tris=[[[50,575],[650,575],[350,55]]];
+    for(let k=0;k<stage;k++){
+      const mid=(a,b)=>[(a[0]+b[0])/2,(a[1]+b[1])/2];
+      const next=[];
+      for(const [a,b,c] of tris){
+        const ab=mid(a,b),bc=mid(b,c),ca=mid(c,a);
+        next.push([a,ab,ca],[ab,b,bc],[ca,bc,c]);
+      }
+      tris=next;
+    }
+    return {stage,triangles:tris,count:3**stage,areaFraction:(3/4)**stage,sideFraction:1/(2**stage)};
+  },
+  searchTable(bits){if(!Number.isInteger(bits)||bits<0||bits>30)throw Error("Bits must be from 0 to 30.");return {possibilities:2**bits,balancedQuestions:bits,sequentialWorst:2**bits}}
 };
-root.Math10=Math10;if(typeof module!=='undefined'&&module.exports)module.exports=Math10;
-if(typeof document==='undefined')return;
-const $=id=>document.getElementById(id), fmt=(v,p=6)=>Number.isInteger(v)?v.toLocaleString('en-US'):v.toFixed(p), text=(id,v)=>{if($(id))$(id).textContent=v;};
-const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function table(id,headers,rows){const el=$(id);if(!el)return;el.replaceChildren();const t=document.createElement('table'),head=document.createElement('thead'),tr=document.createElement('tr');headers.forEach(h=>{let x=document.createElement('th');x.scope='col';x.textContent=h;tr.append(x);});head.append(tr);t.append(head);let b=document.createElement('tbody');rows.forEach(row=>{let r=document.createElement('tr');row.forEach(v=>{let c=document.createElement('td');c.className='num';c.textContent=v;r.append(c);});b.append(r);});t.append(b);el.append(t);}
-function plot(id,series,opts={}){
- const el=$(id);if(!el)return;const w=920,h=335,L=72,R=25,T=25,B=53,n=Math.max(...series.map(s=>s.values.length))-1,ymax=opts.ymax||1,log=!!opts.log;
- const X=i=>L+(w-L-R)*i/Math.max(1,n),Y=v=>T+(h-T-B)*(1-(log?Math.log10(Math.max(1,v))/Math.log10(ymax):v/ymax));
- let s=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" role="img" aria-label="${escape(opts.title||'Sequence chart')}"><title>${escape(opts.title||'Sequence chart')}</title><desc>${escape(opts.desc||'The horizontal axis counts updates from the starting value at zero. A data table follows the chart.')}</desc><rect width="920" height="335" fill="white"/>`;
- let ticks=log?[1,10,100,1000,10000,100000,1000000,10000000,100000000,1000000000,10000000000,100000000000,1000000000000].filter(v=>v<=ymax):[0,.25,.5,.75,1].map(v=>v*ymax);
- ticks.forEach(v=>{const y=Y(v);s+=`<path d="M${L} ${y}H${w-R}" stroke="#d8ddcd"/><text x="${L-12}" y="${y+5}" text-anchor="end" font-size="13" fill="#52604f">${log?fmt(v):v.toFixed(ymax===1?2:3)}</text>`;});
- for(let k=0;k<=5;k++){const i=Math.round(n*k/5),x=X(i);s+=`<text x="${x}" y="${h-27}" text-anchor="middle" font-size="13" fill="#52604f">${i}</text>`;}
- series.forEach((a,j)=>{const color=j?'#a55c21':'#17677a';s+=`<path d="${a.values.map((v,i)=>(i?'L':'M')+X(i).toFixed(2)+' '+Y(v).toFixed(2)).join(' ')}" fill="none" stroke="${color}" stroke-width="2.3" ${j?'stroke-dasharray="7 4"':''}/>`;if(n<=60)a.values.forEach((v,i)=>{s+=`<circle cx="${X(i)}" cy="${Y(v)}" r="2.3" fill="${color}"/>`;});});
- if(Number.isInteger(opts.mark)&&opts.mark<=n){let x=X(opts.mark);s+=`<path d="M${x} ${T}V${h-B}" stroke="#536240" stroke-dasharray="3 3"/><text x="${Math.min(w-80,x+6)}" y="17" fill="#536240" font-size="12">n = ${opts.mark}</text>`;}
- s+=`<text x="${w/2}" y="${h-5}" text-anchor="middle" font-size="14" fill="#293329">${escape(opts.xlabel||'Update number n')}</text><text x="18" y="${h/2}" transform="rotate(-90 18 ${h/2})" text-anchor="middle" font-size="14" fill="#293329">${escape(opts.ylabel||(log?'Current integer (log scale)':'State'))}</text></svg>`;el.innerHTML=s;
+root.Math10=Math10;
+if(typeof module!=="undefined"&&module.exports)module.exports=Math10;
+if(typeof document==="undefined")return;
+const $=id=>document.getElementById(id);
+const fmt=(x,d=5)=>Number.isInteger(x)?x.toLocaleString("en-US"):Number(x).toFixed(d).replace(/0+$/,"").replace(/\.$/,"");
+const escape=s=>String(s).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+function getNum(id,fallback){const node=$(id),v=node?Number(node.value):NaN;return Number.isFinite(v)?v:fallback}
+function svg(tag,attributes){const e=document.createElementNS("http://www.w3.org/2000/svg",tag);for(const [name,value] of Object.entries(attributes||{}))e.setAttribute(name,String(value));return e}
+function pointChart(id,series,{maxY=1,minY=0,labels=[],logarithmic=false}={}){
+  const node=$(id);if(!node)return;
+  node.replaceChildren();node.setAttribute("viewBox","0 0 740 270");
+  const w=740,h=270,left=45,top=18,right=13,bottom=37,innerW=w-left-right,innerH=h-top-bottom;
+  const N=Math.max(1,...series.map(x=>x.values.length-1));
+  const transform=v=>logarithmic?Math.log10(Math.max(1,v)):v;
+  const upper=Math.max(.00001,transform(maxY)),lower=transform(minY);
+  const xx=i=>left+innerW*i/N,yy=v=>top+innerH*(1-(transform(v)-lower)/(upper-lower||1));
+  for(let i=0;i<=4;i++){
+    const y=top+innerH*i/4;
+    node.appendChild(svg("line",{x1:left,y1:y,x2:w-right,y2:y,stroke:"#e0e5d9","stroke-width":1}));
+    const label=svg("text",{x:left-8,y:y+4,"text-anchor":"end","font-size":12,fill:"#52604f"});
+    const value=lower+(upper-lower)*(1-i/4);
+    label.textContent=logarithmic?(10**value).toPrecision(2):fmt(value,2);
+    node.appendChild(label);
+  }
+  for(const i of [0,Math.round(N/2),N]){
+    const t=svg("text",{x:xx(i),y:h-10,"text-anchor":"middle","font-size":12,fill:"#52604f"});t.textContent="step "+i;node.appendChild(t)
+  }
+  series.forEach((line,j)=>{
+    const points=line.values.map((value,i)=>xx(i).toFixed(2)+","+yy(value).toFixed(2)).join(" ");
+    node.appendChild(svg("polyline",{points,fill:"none",stroke:line.color||["#17677a","#a55c21"][j%2],"stroke-width":2.6,"stroke-linejoin":"round"}))
+  });
+}
+function dataTable(id,heads,rows){const el=$(id);if(!el)return;const table=document.createElement("table");
+  const thead=document.createElement("thead"),hr=document.createElement("tr");
+  heads.forEach(head=>{const cell=document.createElement("th");cell.textContent=head;hr.appendChild(cell)});
+  thead.appendChild(hr);table.appendChild(thead);const tbody=document.createElement("tbody");
+  rows.forEach(row=>{const tr=document.createElement("tr");row.forEach((value,i)=>{const td=document.createElement(i===0?"th":"td");td.textContent=String(value);tr.appendChild(td)});tbody.appendChild(tr)});
+  table.appendChild(tbody);el.replaceChildren(table)
+}
+function setText(id,value){if($(id))$(id).textContent=String(value)}
+function renderCollatz(){
+ if(!$("ccStart"))return;
+ const start=getNum("ccStart",7),limit=Math.round(getNum("ccLimit",300));
+ try{
+ const result=Math10.collatz(start,limit);
+ setText("ccSteps",result.reachedOne?result.steps:result.steps+"+");
+ setText("ccPeak",fmt(result.peak));setText("ccEnd",result.reachedOne?"Reached 1":"Not reached within limit");
+ setText("ccExplanation",result.reachedOne?
+   "This start reached 1 in "+result.steps+" updates; the highest value was "+fmt(result.peak)+". That is a result for this start only.":
+   "The sequence has not reached 1 within the displayed "+limit+" updates. That does not establish that it will never reach 1.");
+ const max=Math.max(...result.values,1),log=$("ccLog")?.checked;
+ pointChart("ccGraph",[{values:result.values,color:"#17677a"}],{minY:log?1:0,maxY:max,logarithmic:log});
+ const entries=result.values;const indices=entries.length<=27?entries.map((_,i)=>i):[...Array.from({length:17},(_,i)=>i),...Array.from({length:10},(_,i)=>entries.length-10+i)];
+ dataTable("ccTable",["Update","Value"],indices.map(i=>[i,fmt(entries[i])]));
+ }catch(e){setText("ccExplanation",e.message);setText("ccEnd","Check input");if($("ccGraph"))$("ccGraph").replaceChildren()}
+}
+function renderLogistic(){
+ if(!$("clR"))return;
+ const r=getNum("clR",3.9),x=getNum("clX",0.4),delta=getNum("clDelta",.0001),steps=Math.round(getNum("clSteps",45));
+ setText("clRLabel",fmt(r,2));setText("clDeltaLabel",fmt(delta,6));
+ try{
+ if(x+delta>1||x+delta<0)throw Error("The second starting value must also be between zero and one.");
+ const a=Math10.logistic(r,x,steps),b=Math10.logistic(r,x+delta,steps);
+ const difference=a.map((v,i)=>Math.abs(v-b[i]));
+ const crossing=difference.findIndex(d=>d>0.1);
+ setText("clFirst",fmt(a[1],6));setText("clGap",fmt(difference.at(-1),6));
+ setText("clCross",crossing>=0?"Step "+crossing:"Not within "+steps+" steps");
+ setText("clDescription","Both trajectories follow xₙ₊₁ = r xₙ(1−xₙ) with the same r. The separation need not grow on every single update.");
+ pointChart("clGraph",[{values:a,color:"#17677a"},{values:b,color:"#a55c21"}],{minY:0,maxY:1});
+ pointChart("clDiffGraph",[{values:difference,color:"#a55c21"}],{minY:0,maxY:1});
+ const indices=[0,1,2,3,4,5,10,15,20,30,steps].filter((n,i,all)=>n<=steps&&all.indexOf(n)===i);
+ dataTable("clTable",["Update","First start","Second start","Absolute gap"],indices.map(i=>[i,fmt(a[i],6),fmt(b[i],6),fmt(difference[i],6)]));
+ }catch(e){setText("clDescription",e.message);setText("clCross","Check input")}
+}
+function renderSierpinski(){
+ if(!$("cfStage"))return;
+ const stage=Math.round(getNum("cfStage",3));
+ try{
+ const data=Math10.sierpinski(stage);
+ setText("cfStageLabel",String(stage));
+ setText("cfPieces",fmt(data.count));setText("cfArea",fmt(data.areaFraction,6));setText("cfSide","1/"+(2**stage));
+ const stageSvg=$("cfGraph");if(stageSvg){
+   stageSvg.replaceChildren();stageSvg.setAttribute("viewBox","0 0 700 610");
+   data.triangles.forEach(tri=>stageSvg.appendChild(svg("polygon",{points:tri.map(p=>p.join(",")).join(" "),fill:"#536240",stroke:stage<=4?"#fffefa":"none","stroke-width":.5})));
+ }
+ const n=Math.max(0,Math.min(stage,7));dataTable("cfTable",["Stage","Number of triangles","Fraction of original area"],Array.from({length:n+1},(_,i)=>[i,fmt(3**i),fmt((3/4)**i,6)]));
+ setText("cfDescription","At stage "+stage+", each small triangle has side length 1/"+(2**stage)+" of the original. There are "+data.count+" pieces, but they cover only "+fmt(100*data.areaFraction,2)+"% of the original area.");
+ }catch(e){setText("cfDescription",e.message)}
+}
+function initExplorer(){
+ const workspace=$("w10Explorer");if(!workspace)return;
+ const tabs=[...workspace.querySelectorAll("[data-w10-tab]")];
+ function select(tab){
+   tabs.forEach(b=>{const on=b.dataset.w10Tab===tab;b.setAttribute("aria-pressed",String(on));});
+   [...workspace.querySelectorAll("[data-w10-pane]")].forEach(e=>e.hidden=e.dataset.w10Pane!==tab);
+   [...workspace.querySelectorAll("[data-w10-controls]")].forEach(e=>e.hidden=e.dataset.w10Controls!==tab);
+ }
+ tabs.forEach(b=>b.addEventListener("click",()=>select(b.dataset.w10Tab)));
+ for(const id of ["ccStart","ccLimit","ccLog"]){const e=$(id);if(e)e.addEventListener(id==="ccLog"?"change":"input",renderCollatz)}
+ for(const id of ["clR","clX","clDelta","clSteps"]){const e=$(id);if(e)e.addEventListener("input",renderLogistic)}
+ if($("cfStage"))$("cfStage").addEventListener("input",renderSierpinski);
+ for(const b of workspace.querySelectorAll("[data-logistic-preset]")){
+   b.addEventListener("click",()=>{if($("clR"))$("clR").value=b.dataset.logisticPreset;renderLogistic()});
+ }
+ for(const b of workspace.querySelectorAll("[data-collatz-preset]")){
+   b.addEventListener("click",()=>{if($("ccStart"))$("ccStart").value=b.dataset.collatzPreset;renderCollatz()});
+ }
+ select("collatz");renderCollatz();renderLogistic();renderSierpinski();
 }
 function initAnswers(){
- const form=document.querySelector('[data-answer-store]');if(!form)return;
- const fields=[...form.querySelectorAll('[data-answer],textarea[data-save]')],key=form.dataset.answerStore,legacy=form.dataset.legacyStore,groups=[...form.querySelectorAll('[data-check-group]')],done=new Set();let storageOK=true;
- function numericCorrect(el){const v=Math10.number(el.value);return Number.isFinite(v)&&Math.abs(v-Number(el.dataset.answer))<=Number(el.dataset.tolerance||.001);}
- const correct=el=>el.tagName==='SELECT'?el.value!==''&&el.value===el.dataset.answer:numericCorrect(el);
- function update(){text('progressText',`${done.size} / ${groups.length} sections checked`);if($('progressFill'))$('progressFill').style.width=(groups.length?100*done.size/groups.length:0)+'%';}
- function save(){let o={fields:{}};fields.forEach(el=>o.fields[el.id]=el.value);try{localStorage.setItem(key,JSON.stringify(o));text('saveStatus','Saved in this browser.');}catch{storageOK=false;text('saveStatus','Autosave is unavailable here. Print your completed work to keep a copy.');}}
- try{let raw=localStorage.getItem(key)||(legacy&&localStorage.getItem(legacy));if(raw){let o=JSON.parse(raw),data=o.fields||o;fields.forEach(el=>{if(Object.hasOwn(data,el.id))el.value=String(data[el.id]);});}}catch{storageOK=false;text('saveStatus','Autosave is unavailable here. Print your completed work to keep a copy.');}
- groups.forEach(group=>{
-  const entries=[...group.querySelectorAll('[data-answer]')],id=group.dataset.checkGroup;
-  group.querySelector('[data-check]')?.addEventListener('click',()=>{
-   let count=0;entries.forEach(el=>{let ok=correct(el),q=el.closest('.question'),feedback=q.querySelector('.field-feedback');q.classList.toggle('correct',ok);q.classList.toggle('incorrect',!ok);el.setAttribute('aria-invalid',String(!ok));feedback.textContent=ok?(el.dataset.success||'Correct.'):(el.value.trim()?'Try again. ':'Enter a response. ')+(el.dataset.hint||'Use the worked example above.');if(ok)count++;});
-   if(count===entries.length)done.add(id);else done.delete(id);
-   const fb=group.querySelector('.section-feedback');if(fb)fb.textContent=count===entries.length?'Section complete. Every response is correct.':`${count} of ${entries.length} correct. Use the feedback beside each response, then check again.`;
-   update();save();
-  });
-  if(entries.length&&entries.every(correct))done.add(id);
+ const container=$("main");if(!container)return;
+ const keyBase=container.dataset.answerStore||"math107_week10_ccf_v1";
+ const fields=[...container.querySelectorAll("input[data-save],textarea[data-save],select[data-save]")];
+ const load=(k)=>{try{return localStorage.getItem(k)}catch(_){return null}};
+ const save=(k,v)=>{try{localStorage.setItem(k,v);setText("saveStatus","Saved in this browser.")}catch(e){setText("saveStatus","Saving is unavailable. Print or download your completed work.")}};
+ for(const field of fields){
+   const k=keyBase+"_"+field.id;
+   const original=load(k);if(original!==null)field.value=original;
+   field.addEventListener("input",()=>save(k,field.value));
+   field.addEventListener("change",()=>save(k,field.value))
+ }
+ const name=$("studentName"),prior=load(keyBase+"_studentName");if(name){
+   if(prior!==null)name.value=prior;
+   name.addEventListener("input",()=>save(keyBase+"_studentName",name.value))
+ }
+ const groups=[...container.querySelectorAll("[data-check-group]")];
+ for(const group of groups){
+   const marker=group.dataset.checkGroup;const button=group.querySelector("[data-check]");
+   const status=group.querySelector(".section-feedback");
+   const prior=load(keyBase+"_section_"+marker);if(prior==="done")group.dataset.checked="true";
+   if(button)button.addEventListener("click",()=>{
+     const graded=[...group.querySelectorAll("[data-answer]")];
+     let all=true;
+     graded.forEach(input=>{
+       const raw=(input.value||"").trim(),expected=input.dataset.answer;
+       const tolerance=Number(input.dataset.tolerance||"0.001");
+       let correct=false;
+       if(raw){if(input.dataset.answerType==="text")correct=raw.toLowerCase()===expected.toLowerCase();else {
+        const value=raw.includes("/")?(()=>{const [a,b]=raw.split("/").map(Number);return b? a/b : NaN})():Number(raw);
+        correct=Number.isFinite(value)&&Math.abs(value-Number(expected))<=tolerance;
+       }}
+       input.setAttribute("aria-invalid",String(!correct));
+       const feedback=group.querySelector('[data-feedback-for="'+input.id+'"]');
+       if(feedback)feedback.textContent=correct?"Correct.":(input.dataset.hint||"Check your calculation and try again.");
+       if(!correct)all=false;
+     });
+     if(all){
+       group.dataset.checked="true";save(keyBase+"_section_"+marker,"done");
+       if(status)status.textContent="Section checked. Explain your reasoning in the written responses.";
+     }else if(status)status.textContent="Revise the marked calculations; your written responses are still saved.";
+     updateCount()
+   })
+ }
+ function updateCount(){setText("sectionCount",groups.filter(g=>g.dataset.checked==="true").length+" / "+groups.length+" sections checked")}
+ updateCount();
+}
+function initPrint(){
+ document.querySelectorAll("[data-print-page],[data-print-work]").forEach(b=>b.addEventListener("click",()=>root.print&&root.print()));
+ if(!root.addEventListener)return;
+ root.addEventListener("beforeprint",()=>{
+   const name=$("studentName");if($("printName"))$("printName").textContent=name&&name.value?"Student: "+name.value:"";
+   document.querySelectorAll("textarea[data-save]").forEach(el=>{
+     if(el.value){el.style.height="auto";el.style.height=Math.max(95,el.scrollHeight+8)+"px"}
+   })
  });
- fields.forEach(el=>el.addEventListener('input',()=>{const q=el.closest('.question');q?.classList.remove('correct','incorrect');el.removeAttribute('aria-invalid');if(q)q.querySelector('.field-feedback').textContent='';const group=el.closest('[data-check-group]');if(group){done.delete(group.dataset.checkGroup);let fb=group.querySelector('.section-feedback');if(fb)fb.textContent='';}update();save();}));
- update();if(storageOK)text('saveStatus','Your responses save in this browser as you work.');
- const name=$('studentName');if(name){try{name.value=localStorage.getItem('math107_submission_student_name')||'';}catch{}name.addEventListener('input',()=>{try{localStorage.setItem('math107_submission_student_name',name.value);}catch{}});}
- document.querySelectorAll('[data-print-work]').forEach(b=>b.addEventListener('click',()=>{if(name&&!name.value.trim()){text('printStatus','Enter your name before printing your completed work.');name.focus();return;}save();window.print();}));
 }
-function preparePrint(){
- document.querySelectorAll('.print-answer').forEach(e=>e.remove());
- document.querySelectorAll('.question input,.question select,.question textarea').forEach(el=>{let s=document.createElement('div');s.className='print-answer';s.textContent=el.tagName==='SELECT'?(el.value?el.selectedOptions[0].textContent:'No response'):el.value||'';el.after(s);});
- const name=$('studentName');if(name){let out=$('printName');if(out)out.textContent='Student: '+(name.value||'');}
-}
-function initTabs(){const tabs=[...document.querySelectorAll('[role=tab]')];tabs.forEach((b,i)=>{function activate(){tabs.forEach(t=>{let yes=t===b;t.setAttribute('aria-selected',String(yes));t.tabIndex=yes?0:-1;$(t.getAttribute('aria-controls')).hidden=!yes;});}b.addEventListener('click',activate);b.addEventListener('keydown',e=>{let j=e.key==='ArrowRight'?(i+1)%tabs.length:e.key==='ArrowLeft'?(i+tabs.length-1)%tabs.length:e.key==='Home'?0:e.key==='End'?tabs.length-1:-1;if(j>=0){e.preventDefault();tabs[j].click();tabs[j].focus();}});});}
-function initExplorer(){
- if(!$('logR'))return;
- function drawLog(){try{const r=+$('logR').value,x=+$('logStart').value,delta=+$('logDelta').value,n=+$('logN').value;if([$ ('logR'),$('logStart'),$('logDelta'),$('logN')].some(e=>e.value.trim()===''))throw Error('Enter all four inputs.');if(n<1||n>100||!Number.isInteger(n))throw Error('Choose 1 to 100 updates.');if(!Number.isFinite(delta)||delta<0||x+delta>1)throw Error('Use a nonnegative gap so that both starting states stay between 0 and 1.');const a=Math10.logistic(r,x,n),b=Math10.logistic(r,x+delta,n),first=Math10.crossing(a,b,.05);plot('logPlot',[{values:a},{values:b}],{title:`Logistic trajectories at r = ${r}`,desc:`Starts ${x} and ${x+delta}. Both follow the same deterministic rule. See the table for values.`});text('logError','');text('logStartRead',`${x.toFixed(6)} / ${(x+delta).toFixed(6)}`);text('logCross',first<0?`None in ${n} updates`:first===0?'Already at n = 0':`n = ${first}`);text('logEndGap',Math.abs(a[n]-b[n]).toFixed(6));table('logTable',['n','Start A','Start B','Absolute gap'],a.map((v,i)=>[i,v.toFixed(6),b[i].toFixed(6),Math.abs(v-b[i]).toFixed(6)]));}catch(e){text('logError',e.message);$('logPlot').replaceChildren();$('logTable').replaceChildren();['logStartRead','logCross','logEndGap'].forEach(id=>text(id,'—'));}}
- ['logR','logStart','logDelta','logN'].forEach(id=>$(id).addEventListener('input',drawLog));document.querySelectorAll('[data-log-preset]').forEach(b=>b.addEventListener('click',()=>{let [r,x,d]=b.dataset.logPreset.split(',');$('logR').value=r;$('logStart').value=x;$('logDelta').value=d;drawLog();text('logPresetNote',b.dataset.note);}));drawLog();
- let currentA=null,currentB=null;
- function drawCol(){try{if(!$('colStart').value.trim())throw Error('Enter a starting integer.');const n=+$('colStart').value,a=Math10.collatz(n),compare=$('colCompare').checked,b=compare?Math10.collatz(n+1):null;currentA=a;currentB=b;const pk=Math.max(a.peak,b?.peak||1);plot('colPlot',b?[{values:a.values},{values:b.values}]:[{values:a.values}],{log:true,ymax:Math.max(10,10**Math.ceil(Math.log10(pk))),title:`Collatz trajectory from ${n}${b?' and '+(n+1):''}`,desc:'The vertical axis is logarithmic: equal vertical distances represent multiplication by 10.'});text('colSteps',a.reachedOne?a.steps:'Limit reached');text('colPeak',fmt(a.peak));text('colOther',b?`${n+1}: ${b.steps} updates; peak ${fmt(b.peak)}`:'Comparison off');text('colLegendA',`Start ${n}`);text('colLegendB',b?`Start ${n+1}`:'');text('colError','');$('colStep').max=a.steps;$('colStep').value=0;drawStep();table('colTable',['n',`Start ${n}`,...(b?[`Start ${n+1}`]:[])],Array.from({length:Math.max(a.values.length,b?.values.length||0)},(_,i)=>[i,i<a.values.length?fmt(a.values[i]):'Reached 1',...(b?[i<b.values.length?fmt(b.values[i]):'Reached 1']:[])]));}catch(e){currentA=null;currentB=null;text('colError',e.message);$('colPlot').replaceChildren();$('colTable').replaceChildren();text('colStepRead','Enter a valid starting value to trace its updates.');['colSteps','colPeak','colOther'].forEach(id=>text(id,'—'));}}
- function drawStep(){if(!currentA)return;let i=+$('colStep').value,n=currentA.values[i],next=currentA.values[i+1];text('colStepRead',next===undefined?`Update ${i}: reached 1. If continued, the rule cycles 1 → 4 → 2 → 1.`:`Update ${i}: ${fmt(n)} is ${n%2?'odd':'even'}, so ${n%2?'3 × '+fmt(n)+' + 1':fmt(n)+' ÷ 2'} = ${fmt(next)}.`);}
- $('colStart').addEventListener('input',drawCol);$('colCompare').addEventListener('change',drawCol);$('colStep').addEventListener('input',drawStep);$('colNext').addEventListener('click',()=>{if(currentA){$('colStep').value=Math.min(currentA.steps,+$('colStep').value+1);drawStep();}});document.querySelectorAll('[data-col-preset]').forEach(b=>b.addEventListener('click',()=>{$('colStart').value=b.dataset.colPreset;$('colCompare').checked=true;drawCol();}));drawCol();
- function drawFrac(){const n=+$('fracStage').value;const pts=Math10.koch(n).map(p=>`${20+p[0]*560},${240-p[1]*560}`).join(' ');$('kochPlot').innerHTML=`<svg viewBox="0 0 600 280" role="img" aria-label="Koch curve at stage ${n}"><title>Koch curve, stage ${n}</title><polyline points="${pts}" fill="none" stroke="#17677a" stroke-width="1.7"/></svg>`;const polys=Math10.triangles(n).map(t=>`<polygon points="${t.map(p=>`${140+p[0]*320},${275-p[1]*320}`).join(' ')}"/>`).join('');$('sierpinskiPlot').innerHTML=`<svg viewBox="0 0 600 300" role="img" aria-label="Sierpinski triangle at stage ${n}"><title>Sierpinski triangle, stage ${n}</title><g fill="#536240">${polys}</g></svg>`;text('fracRead',n);text('kochCount',fmt(4**n));text('kochLength',((4/3)**n).toFixed(6));text('sierCount',fmt(3**n));text('sierArea',((3/4)**n).toFixed(6));table('fracTable',['Stage','Koch segments','Koch length','Filled triangles','Area fraction'],Array.from({length:7},(_,i)=>[i,fmt(4**i),((4/3)**i).toFixed(6),fmt(3**i),((3/4)**i).toFixed(6)]));} $('fracStage').addEventListener('input',drawFrac);drawFrac();
- const rulers=[100,50,25,12.5],counts=[80,200,520,1340];function drawScale(){let i=+$('scaleChoice').value;const bars=rulers.map((v,j)=>{let length=v*counts[j]/1000;return `<text x="100" y="${48+j*55}" text-anchor="end" font-size="15">${v} m ruler</text><rect x="120" y="${25+j*55}" width="${length/16.75*610}" height="32" rx="3" fill="${i===j?'#a55c21':'#b5c5ae'}"/><text x="${132+length/16.75*610}" y="${47+j*55}" font-size="15">${length.toFixed(2)} km</text>`;}).join('');$('scalePlot').innerHTML=`<svg viewBox="0 0 850 290" role="img" aria-label="Coastline measurement: 8, 10, 13, and 16.75 kilometers using successively shorter rulers"><title>Measured length at four observation scales</title>${bars}<text x="430" y="275" text-anchor="middle" font-size="14">Measured length (bar lengths share a common scale)</text></svg>`;text('scaleRead',`${rulers[i]} m × ${fmt(counts[i])} placements = ${fmt(rulers[i]*counts[i])} m = ${(rulers[i]*counts[i]/1000).toFixed(2)} km`);}$('scaleChoice').addEventListener('change',drawScale);drawScale();
-}
-function initFish(){if(!$('fishN'))return;const a=Math10.logistic(3.9,.4,25),b=Math10.logistic(3.9,.4001,25);function draw(){const n=+$('fishN').value;text('fishGeneration',n);text('fishA',fmt(Math.round(a[n]*100000)));text('fishB',fmt(Math.round(b[n]*100000)));text('fishGap',fmt(Math.round(Math.abs(a[n]-b[n])*100000)));plot('fishPlot',[{values:a},{values:b}],{mark:n,title:'Two model fish-population forecasts',xlabel:'Generation n',ylabel:'Fraction of reference population'});} $('fishN').addEventListener('input',draw);table('fishTable',['n','xₙ (start .4000)','yₙ (start .4001)','Absolute gap','Gap in fish (rounded)'],a.map((v,i)=>[i,v.toFixed(6),b[i].toFixed(6),Math.abs(v-b[i]).toFixed(6),fmt(Math.round(Math.abs(v-b[i])*100000))]));draw();}
-function initDiscussion(){if(!$('discussionPair'))return;function draw(){const x=+$('discussionPair').value,a=Math10.logistic(3.9,x,30),b=Math10.logistic(3.9,x+.0001,30),k=Math10.crossing(a,b,.05);text('discussionCross',k<0?'Not within 30 updates':`First gap above 0.05: n = ${k}`);plot('discussionPlot',[{values:a},{values:b}],{title:`Two trajectories starting at ${x} and ${x+.0001}`});table('discussionTable',['n','Start A','Start B','Absolute gap'],a.map((v,i)=>[i,v.toFixed(6),b[i].toFixed(6),Math.abs(v-b[i]).toFixed(6)]));} $('discussionPair').addEventListener('change',draw);draw();}
-function initAI(){if(!$('aiChoose'))return;const tree=[{token:'moving',p:.45,next:[['slowly',.6],['away',.4]]},{token:'flickering',p:.35,next:[['faintly',.8],['brightly',.2]]},{token:'Venus',p:.2,next:[['.',.9],['again',.1]]}];let chosen=null;
- function choose(i){chosen=i;const branch=tree[i];text('aiContext','The light in the forest was '+branch.token);text('aiJoint','First token probability: '+branch.p.toFixed(2)+'. Now choose or sample the next token.');$('aiNext').replaceChildren();branch.next.forEach(([token,p])=>{let b=document.createElement('button');b.className='secondary';b.textContent=token+'  ('+p.toFixed(2)+')';b.addEventListener('click',()=>finish(token,p));$('aiNext').append(b);});$('aiSampleNext').disabled=false;}
- function finish(token,p){const b=tree[chosen];text('aiContext','The light in the forest was '+b.token+(token==='.'?'':' ')+token);text('aiJoint',`Path probability = ${b.p.toFixed(2)} × ${p.toFixed(2)} = ${(b.p*p).toFixed(2)}. This is a probability in the invented model, not evidence about an actual light.`);}
- tree.forEach((b,i)=>{let x=document.createElement('button');x.className='secondary';x.textContent=b.token+'  ('+b.p.toFixed(2)+')';x.addEventListener('click',()=>choose(i));$('aiChoose').append(x);});
- function sample(items){let u=Math.random(),c=0;for(let i=0;i<items.length;i++){c+=items[i];if(u<c)return i;}return items.length-1;}
- $('aiSampleFirst').addEventListener('click',()=>choose(sample(tree.map(x=>x.p))));$('aiSampleNext').addEventListener('click',()=>{if(chosen!==null){const a=tree[chosen].next;const [t,p]=a[sample(a.map(x=>x[1]))];finish(t,p);}});$('aiReset').addEventListener('click',()=>{chosen=null;text('aiContext','The light in the forest was …');text('aiJoint','Choose a first token, or let the toy model sample one.');$('aiNext').replaceChildren();$('aiSampleNext').disabled=true;});
-}
-function init(){initAnswers();initTabs();initExplorer();initFish();initDiscussion();initAI();document.querySelectorAll('[data-print-page]').forEach(b=>b.addEventListener('click',()=>window.print()));window.addEventListener('beforeprint',preparePrint);window.addEventListener('afterprint',()=>document.querySelectorAll('.print-answer').forEach(e=>e.remove()));}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
-})(typeof globalThis!=='undefined'?globalThis:this);
+function init(){initExplorer();initAnswers();initPrint()}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+})(typeof globalThis!=="undefined"?globalThis:this);
