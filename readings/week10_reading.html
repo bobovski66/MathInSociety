@@ -1,103 +1,80 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Week 10: Complexity, Chaos, and Fractals through Collatz, the logistic map, and Sierpinski triangle."><title>Week 10 Reading — Complexity, Chaos, and Fractals | Math in Society</title><link rel="stylesheet" href="../assets/week10/week10.css"><link rel="stylesheet" href="../assets/week10/complexity-chaos-fractals.css"><script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week10/week10.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Week 10</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html" aria-current="page">Reading</a><a href="../demos/fractal_recursion.html">Explorer</a><a href="../labs/week10_lab.html">Laboratory</a><a href="../applications/week10_application.html">Application</a><a href="../applications/week10_ai.html">AI extension</a><a href="../discussions/week10_discussion.html">Discussion</a></nav><main class="wrap narrative" id="main">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Week 10: three focused investigations into Collatz trajectories, logistic-map forecasts, and Cantor and Sierpinski constructions."><title>Week 10 Reading — Complexity, Chaos, and Fractals | Math in Society</title><link rel="stylesheet" href="../assets/week10/week10.css"><link rel="stylesheet" href="../assets/week10/complexity-chaos-fractals.css"><script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week10/week10.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Week 10</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html" aria-current="page">Reading</a><a href="../demos/fractal_recursion.html">Explorer</a><a href="../labs/week10_lab.html">Laboratory</a><a href="../applications/week10_application.html">Application</a><a href="../applications/week10_ai.html">AI extension</a><a href="../discussions/week10_discussion.html">Discussion</a></nav><main class="wrap narrative" id="main">
 <header class="hero"><div class="eyebrow">Week 10 / Reading</div><h1>Complexity, Chaos, and Fractals</h1>
-<p class="lead">A short mathematical rule can lead to a difficult calculation, a sensitive prediction, or a pattern with detail at every scale. Three examples will show why these are different ideas.</p></header>
+<p class="lead">How much can we predict from a simple rule? Start with calculations that seem easy, notice what becomes surprising, and then give the surprise a mathematical name.</p></header>
 
 <div class="example-list">
-<a href="#collatz"><strong>Collatz</strong><span>Count the steps of a computation—and ask what testing proves.</span></a>
-<a href="#chaos"><strong>The logistic map</strong><span>Watch a deterministic rule settle, repeat, or become sensitive.</span></a>
-<a href="#sierpinski"><strong>The Sierpiński triangle</strong><span>Repeat a construction and measure the pieces, area, and scale.</span></a>
+<a href="#collatz"><strong>Collatz</strong><span>Compare neighboring starts: why do they need such different amounts of work?</span></a>
+<a href="#chaos"><strong>The logistic map</strong><span>Compare two nearly identical measurements over many updates.</span></a>
+<a href="#cantor"><strong>Cantor set and Sierpiński triangle</strong><span>Remove material, then count pieces and measure what is left.</span></a>
 </div>
 
-<section class="card" id="return-to-recursion">
-<div class="section-label">The common starting point</div><h2>One rule, applied again and again</h2>
-<p>By now, recursion is familiar. In Week 5, a temperature or a control setting changed in response to an earlier value. In Week 6, an account balance grew according to a rule. In Week 9, a string of zeros and ones recorded successive choices. In each case, information at one step determined what came next.</p>
-<p>The notation \(x_{n+1}=f(x_n)\) means: begin with a number \(x_0\), apply the function \(f\), and use the output as the next input. The process generates a <strong>trajectory</strong> or <strong>orbit</strong>, the sequence \(x_0,x_1,x_2,\ldots\).</p>
-<div class="example"><h3>A familiar example</h3><p>If \(x_0=5\) and \(x_{n+1}=x_n+3\), the successive values are 5, 8, 11, 14, and so on. The formula produces a new value without our having to invent a new instruction each time. We can also see that after \(n\) updates, \(x_n=5+3n\), so even a large step is easy to calculate.</p></div>
-<p>But not every recursive rule behaves so simply. Sometimes we can perform each update easily while struggling to describe the full sequence. Sometimes a tiny change in the starting value makes a large difference much later. Sometimes the update rule constructs smaller copies of an intricate geometric figure. We'll distinguish those possibilities carefully.</p>
-</section>
 
-<section class="card" id="complexity">
-<div class="section-label">Complexity · How much computation?</div><h2>1. A short instruction can require a great deal of work</h2>
-<p>Suppose you have a list of 16 names and want to find one name. In the worst case, checking one name after another could require 16 checks. If the list is sorted and you repeatedly divide the remaining search in half, four yes-or-no decisions are enough to distinguish 16 possibilities. We saw a related doubling pattern in Week 9's binary trees.</p>
-<div class="table-wrap"><table class="reference-table"><thead><tr><th>Number of possibilities</th><th>Checks in a one-by-one search (worst case)</th><th>Binary choices needed in a balanced search</th></tr></thead><tbody>
-<tr><td>8</td><td>8</td><td>3</td></tr><tr><td>16</td><td>16</td><td>4</td></tr><tr><td>32</td><td>32</td><td>5</td></tr><tr><td>1,024</td><td>1,024</td><td>10</td></tr>
-</tbody></table></div>
-<p>The second method needs fewer decisions because one decision can eliminate many possibilities. But a balanced search requires usable structure, such as sorted data. Without that structure, we cannot simply assume the faster method works.</p>
-<div class="key-definition"><strong>Computational complexity</strong> studies how the resources needed by a computational procedure—such as its number of steps or amount of memory—grow as the size of the input grows. It concerns measurable work, rather than whether a pattern looks complicated.</div>
-<p>The number of bits needed to write an input is one possible way to measure its size. A large number and a long list are different kinds of input, but in either case we should say what counts as one step before comparing algorithms.</p>
-<div class="quick-check"><p><strong>Check your understanding.</strong> A balanced search distinguishes 64 possibilities by asking questions that divide the remaining possibilities in half. How many questions are sufficient?</p><details><summary>See an explanation</summary><p>Six: (2^6=64). This is a statement about a balanced search with suitable information, not a guarantee for an unsorted list.</p></details></div>
+<section class="card" id="return-to-recursion">
+<div class="section-label">Start with an experiment</div><h2>Two neighbors, one rule</h2>
+<p>Start at 8. If the number is even, divide by two. If it is odd, multiply by three and add one. Repeat until you first reach 1.</p>
+<p class="scratch">8 → 4 → 2 → 1</p>
+<p>That took <strong>three updates</strong>. Now start at <strong>9</strong>. Use the exact same rule, and write every value until the first 1. Before doing the work, guess: will 9 take about the same number of updates?</p>
+<div class="quick-check"><p><strong>Try it before opening the result.</strong> How many updates did 9 require? How high did the sequence climb?</p>
+<details><summary>See the completed trajectory</summary><p>9 → 28 → 14 → 7 → 22 → 11 → 34 → 17 → 52 → 26 → 13 → 40 → 20 → 10 → 5 → 16 → 8 → 4 → 2 → 1. It takes <strong>19 updates</strong> and reaches <strong>52</strong>. Compare that with just three updates from 8.</p></details></div>
+<p>One short instruction has produced two very different calculations. This week's theme is the gap between <em>knowing the next step</em> and <em>knowing what repeated steps will do</em>. We will encounter that gap in computation, prediction, and geometry.</p>
 </section>
 
 <section class="card" id="collatz">
-<div class="section-label">Collatz · A computation we can carry out</div><h2>2. The Collatz problem: easy steps, difficult questions</h2>
-<p>Begin with a positive whole number. If it is even, divide it by two. If it is odd, multiply it by three and add one. Use the result as the next number and repeat. This is the <strong>Collatz rule</strong>.</p>
-<div class="formula">\[
-T(n)=\begin{cases} n/2,&n\text{ even},\\3n+1,&n\text{ odd}.\end{cases}
-\]</div>
-<p>Starting at 6, we can write every value without a calculator:</p>
-<p class="scratch">6 → 3 → 10 → 5 → 16 → 8 → 4 → 2 → 1</p>
-<p>Count the arrows, not just the numbers. This route takes <strong>eight updates</strong> before reaching 1. Its largest value is 16, which is called the <strong>peak</strong>. These are different measurements: how long the calculation runs and how high its values climb.</p>
-<div class="math-row"><div><p>Now try 7. Although 7 is only one larger than 6, its route takes sixteen updates and reaches a peak of 52. The difference in the starting numbers does not translate into a simple difference in their stopping times.</p><p>If a starting value <var>n</var> reaches 1, we write <span class="inline-math">τ(<var>n</var>)</span> for the number of updates before its first arrival at 1. For the two routes above, <span class="inline-math">τ(6) = 8</span> and <span class="inline-math">τ(7) = 16</span>.</p></div><figure class="figure"><img src="../assets/week10/collatz-lesson.svg" alt="Graph of the Collatz sequence starting at 7, including the peak of 52 and arrival at 1 after 16 updates"><figcaption>A route generated by applying the same two-part rule sixteen times.</figcaption></figure></div>
-<div class="example"><h3>Count two different things</h3><p>For a start of 10, the route is 10 → 5 → 16 → 8 → 4 → 2 → 1. There are seven displayed numbers but only six updates, and the peak is 16. Students sometimes report the number of listed values as the number of steps; checking the arrows prevents that mistake.</p></div>
-<p>The <strong>Collatz conjecture</strong> says that every positive integer eventually reaches 1. Huge numbers of starting values have been checked by computation, but the claim for <em>every</em> positive integer remains unproved. Checking a million starts, for instance, establishes something about those million starts—not the infinitely many others. <a href="https://arxiv.org/abs/1909.03562">Further mathematical background</a> describes what is known about large classes of Collatz orbits.</p>
-<p>There are two distinct questions here. For a given start, how many steps does our program take before reaching 1? And can we prove that it reaches 1 for every positive integer? The first is an experiment we can perform for particular inputs. The second asks for a general mathematical argument. A simple program does not automatically supply one.</p>
-<p>Collatz is useful for a lesson about complexity because the updates are straightforward to compute, yet the stopping times vary sharply and the universal statement is hard to establish. <strong>This does not prove that Collatz belongs to a particular formal computational-complexity class.</strong> Nor is its uneven behavior by itself evidence of chaos.</p>
-<div class="quick-check"><p><strong>Check your understanding.</strong> Starting at 10, what is (	au(10))? How is that different from the peak?</p><details><summary>See an explanation</summary><p>It takes 6 updates to reach 1, so (	au(10)=6). The peak is 16, the largest value visited. One measures the number of operations; the other measures the size of a value.</p></details></div>
+<div class="section-label">Investigation 1 · Computation</div><h2>How much work will this rule take?</h2>
+<p>This is the <strong>Collatz rule</strong>, defined for positive whole numbers:</p>
+<div class="example"><p>\[T(n)=\begin{cases}n/2,&amp;n\text{ is even},\\3n+1,&amp;n\text{ is odd}.\end{cases}\]</p></div>
+<p>The values form a <strong>trajectory</strong>. The <strong>stopping time</strong>, written \(\tau(n)\), counts the arrows before the first 1, if it is reached. The <strong>peak</strong> is the largest value visited before that first 1. Do not confuse the number of values with the number of updates.</p>
+<div class="table-wrap"><table class="reference-table"><thead><tr><th>Starting number</th><th>Updates to first 1</th><th>Largest value (peak)</th></tr></thead><tbody><tr><td>8</td><td>3</td><td>8</td></tr><tr><td>9</td><td>19</td><td>52</td></tr><tr><td>10</td><td>6</td><td>16</td></tr><tr><td>11</td><td>14</td><td>52</td></tr></tbody></table></div>
+<p>What is the problem? If someone gives you a starting number such as 100, the next step is easy. But the number of updates needed to reach 1 is not obvious just from its size. Nearby inputs do not have to require nearly the same amount of work.</p>
+<div class="key-definition"><strong>Computational complexity</strong> studies resources used by a computation, such as time, number of operations, or memory, and how these depend on input size. Here we can count the operations for particular starts; a few irregular stopping times are not enough to determine a formal complexity class.</div>
+<p>The <strong>Collatz conjecture</strong> says that every positive integer eventually reaches 1. We can test specific starts; proving something about <em>every</em> positive integer is a different problem. Even millions of successful tests would not prove a statement about infinitely many starts.</p>
+<div class="quick-check"><p><strong>Check your understanding.</strong> Does knowing \(\tau(8)=3\) help you calculate \(\tau(9)\) without actually performing the updates?</p><details><summary>See an explanation</summary><p>No simple rule for nearby stopping times follows from those values. You still have to calculate or obtain further mathematical information.</p></details></div>
+</section>
+
+<section class="card" id="complexity">
+<div class="section-label">A comparison from Week 9</div><h2>Sometimes we can predict the work</h2>
+<p>Searching a list offers a useful contrast. Checking 32 unsorted names one at a time may require 32 comparisons in the worst case. If the names are sorted and we can eliminate half of the remaining entries at each step, five yes-or-no choices are enough to distinguish 32 possibilities: \(2^5=32\).</p>
+<p>Here the workload is easy to anticipate because the structure of the search lets us count the steps. The point of comparing search with Collatz is to ask the same concrete question in each case: <em>how many steps will this computation require?</em> Sorted order is essential for the faster search; it cannot simply be assumed for every list.</p>
 </section>
 
 <section class="card" id="chaos">
-<div class="section-label">Chaos · What does the rule let us predict?</div><h2>3. Completely determined does not always mean predictable far ahead</h2>
-<p>Imagine measuring the current population of a species as a fraction \(x\) of some reference level. A simplified model might let a population grow when it is small, then slow its growth as it becomes crowded. One well-known update rule with that structure is the <strong>logistic map</strong>:</p>
-<div class="formula">\[x_{n+1}=r x_n(1-x_n),\qquad 0\leq x_n\leq1.\]</div>
-<p>The parameter \(r\) changes the strength of the update. It is <em>not</em> a simple percentage growth rate. This is a mathematical model of a normalized quantity, not a complete description of any actual wildlife population.</p>
-<div class="example"><h3>Calculate the first two updates</h3>
-<p>Let \(r=2.8\) and \(x_0=0.2\). Substitute the current value into both places on the right:</p>
-<p>\[x_1=2.8(0.2)(1-0.2)=0.448.\]</p>
-<p>Use the new value—not the original 0.2—to find the next step:</p>
-<p>\[x_2=2.8(0.448)(1-0.448)=0.6924288.\]</p>
-<p>Even though the rule stays the same, the output now depends on the value created by the previous update.</p></div>
-<h3>One equation, several possible kinds of behavior</h3>
-<p>Keep the same initial value \(x_0=0.2\), and change \(r\). At \(r=2.8\), the values settle toward a fixed level. At \(r=3.2\), they approach an alternating two-value pattern. At \(r=3.9\), they vary irregularly for long periods.</p>
-<figure class="figure"><img src="../assets/week10/logistic-lesson.svg" alt="Three plots of the logistic map with r values 2.8, 3.2, and 3.9 showing settling, repeating, and irregular trajectories"><figcaption>All three plots apply the same recursive formula. Only the parameter \(r\) changes.</figcaption></figure>
-<div class="table-wrap"><table class="reference-table"><thead><tr><th>Setting</th><th>What the model does</th><th>A useful mathematical word</th></tr></thead><tbody>
-<tr><td>\(r=2.8\)</td><td>Approaches one stable value</td><td>Fixed-point attraction</td></tr>
-<tr><td>\(r=3.2\)</td><td>Approaches two alternating values</td><td>Period-two cycle</td></tr>
-<tr><td>\(r=3.9\)</td><td>Shows a sustained irregular trajectory</td><td>Chaotic regime</td></tr>
-</tbody></table></div>
-<p>A <strong>fixed point</strong> is a value unchanged by one update: \(f(x^*)=x^*\). A <strong>period-two cycle</strong> consists of two different values that alternate under the rule. These are precise patterns, even when the sequence takes time to settle into them.</p>
+<div class="section-label">Investigation 2 · Prediction</div><h2>What if the starting measurement is slightly wrong?</h2>
+<p>Suppose a conservation team measures a population as a fraction between 0 and 1. They experiment with the <strong>logistic map</strong>, a simplified recursive model:</p>
+<div class="example"><p>\[x_{n+1}=r x_n(1-x_n).\]</p></div>
+<p>Use the same value of \(r=3.9\) for two almost identical starting measurements, \(x_0=0.4000\) and \(y_0=0.4001\). Each calculation uses <em>its own latest value</em> for the next update.</p>
+<p>The first updates are close:</p>
+<p class="scratch">\(x_1=3.9(0.4000)(0.6000)=0.936000\)</p>
+<p class="scratch">\(y_1=3.9(0.4001)(0.5999)=0.936078\)</p>
+<p>At this point, would you expect their long-term predictions to stay close? Check the table before deciding.</p>
 </section>
 
 <section class="card" id="sensitivity">
-<div class="section-label">Chaos · Nearby beginnings</div><h2>4. Two starts that differ by one ten-thousandth</h2>
-<p>To examine chaotic behavior, compare two trajectories using exactly the same rule and parameter but slightly different starts. Set \(r=3.9\) and try \(x_0=0.4000\) and \(y_0=0.4001\). At the first step, the two values are still close: approximately 0.936000 and 0.936078.</p>
-<p>Continue each sequence independently. The small initial difference does not have to grow on every single step; at some steps it shrinks. But over enough steps, the two trajectories can separate enough to produce very different forecasts.</p>
-<div class="key-definition"><strong>Sensitive dependence on initial conditions</strong> means that arbitrarily close starting states can eventually become noticeably separated under the dynamics. In mathematical dynamical systems, chaos involves this kind of sustained sensitivity together with additional structural behavior. One rapidly separating pair of calculations alone is not a proof of chaos for an arbitrary rule.</div>
-<p>The logistic map at \(r=3.9\) provides a familiar example of a chaotic regime. It is still <strong>deterministic</strong>: identical initial conditions and the same parameter produce exactly the same mathematical sequence. Long-term forecasting becomes difficult when the initial condition cannot be known to unlimited precision.</p>
-<p>The distinction matters. A graph that looks irregular could be produced by random noise, complex input, or a deterministic chaotic system. Appearance alone cannot tell us which explanation is correct. Likewise, the irregularity of Collatz stopping times does not establish that Collatz is chaotic.</p>
-<div class="quick-check"><p><strong>Check your understanding.</strong> Does the logistic formula use chance to decide which update to make? Why can long-term predictions still disagree?</p><details><summary>See an explanation</summary><p>The update rule contains no random choice. The disagreement comes from distinct starting values being repeatedly transformed; under sensitive dynamics, tiny initial differences can become important later.</p></details></div>
+<div class="section-label">Chaos · Compare the results</div><h2>Exact formulas can still yield uncertain forecasts</h2>
+<div class="table-wrap"><table class="reference-table"><thead><tr><th>Step</th><th>Start 0.4000</th><th>Start 0.4001</th></tr></thead><tbody>
+<tr><td>0</td><td>0.400000</td><td>0.400100</td></tr><tr><td>1</td><td>0.936000</td><td>0.936078</td></tr><tr><td>5</td><td>0.571434</td><td>0.569296</td></tr><tr><td>10</td><td>0.121805</td><td>0.110064</td></tr><tr><td>15</td><td>0.933177</td><td>0.637218</td></tr><tr><td>20</td><td>0.890718</td><td>0.939083</td></tr>
+</tbody></table></div>
+<p>At step 15, the forecasts differ by about <strong>0.296</strong>, although their starting measurements differed by only <strong>0.0001</strong>. At step 20 the difference is smaller again. The gap does <em>not</em> have to increase at every update.</p>
+<div class="quick-check"><p><strong>Try it.</strong> Subtract the two entries at steps 10, 15, and 20. If the model described real fish populations, at what point would you ask for a new measurement rather than trusting an old forecast?</p></div>
+<div class="key-definition"><strong>Sensitive dependence on initial conditions</strong> is the possibility that initially close states become noticeably separated under repeated updates. The logistic map in this regime is a standard example of chaotic dynamics. The rule itself makes no random choices; uncertainty comes from not knowing the starting state exactly. One pair of trajectories alone does not establish chaos for an arbitrary rule.</div>
+<p>For comparison, changing the parameter can change the long-run pattern: at \(r=2.8\), typical trajectories settle toward a fixed value; at \(r=3.2\), they approach two alternating values. The <a href="../demos/fractal_recursion.html">explorer</a> makes this comparison visible. We use the map as a mathematical example, not a calibrated population forecast.</p>
+</section>
+
+<section class="card" id="cantor">
+<div class="section-label">Investigation 3 · Geometry</div><h2>How can removing material make more pieces?</h2>
+<p>Begin with a line segment of length 1. Remove its <em>open middle third</em>, leaving two segments. Remove the middle third of each surviving segment, and repeat. This is the <strong>middle-thirds Cantor construction</strong>.</p>
+<div class="table-wrap"><table class="reference-table"><thead><tr><th>Stage</th><th>Pieces remaining</th><th>Length of each</th><th>Total remaining length</th></tr></thead><tbody>
+<tr><td>0</td><td>1</td><td>1</td><td>1</td></tr><tr><td>1</td><td>2</td><td>1/3</td><td>2/3</td></tr><tr><td>2</td><td>4</td><td>1/9</td><td>4/9</td></tr><tr><td>3</td><td>8</td><td>1/27</td><td>8/27</td></tr><tr><td>4</td><td>16</td><td>1/81</td><td>16/81</td></tr>
+</tbody></table></div>
+<p>Count the pieces: they <strong>double</strong> at every stage. Measure their combined length: it is multiplied by <strong>2/3</strong> at every stage. More pieces can survive even while less total length remains. Each surviving part contains a scaled copy of the entire construction: this is <strong>self-similarity</strong>.</p>
+<div class="quick-check"><p><strong>Try it.</strong> Draw stages 0, 1, and 2 on a line. At stage 5, how many pieces would remain, and what fraction of the original length would remain?</p><details><summary>Check your results</summary><p>There are \(2^5=32\) segments, each of length \(1/243\). The total remaining length is \(32/243\). The ideal Cantor set arises by continuing the construction indefinitely.</p></details></div>
 </section>
 
 <section class="card" id="sierpinski">
-<div class="section-label">Fractals · The same design at smaller scales</div><h2>5. Remove the middle triangle, then repeat</h2>
-<p>Begin with a solid equilateral triangle. Connect the midpoints of its three sides, dividing it into four smaller congruent triangles. Remove the central upside-down triangle. Three smaller corner triangles remain. Now perform the same operation on each of them.</p>
-<p>The <strong>Sierpiński triangle</strong> is the limiting geometric set obtained by repeating this operation indefinitely. Its shape becomes more intricate as we take more stages, but the rule itself never changes.</p>
-<figure class="figure"><img src="../assets/week10/sierpinski-lesson.svg" alt="The first four stages of the Sierpinski triangle: one, three, nine, and twenty-seven remaining small triangles"><figcaption>At each stage, every remaining triangle becomes three half-size triangles.</figcaption></figure>
-<p>Each step gives us three times as many small surviving triangles. If \(N_n\) is the number of remaining triangles at stage \(n\), then</p>
-<div class="formula">\[N_0=1,\qquad N_{n+1}=3N_n,\qquad N_n=3^n.\]</div>
-<p>At stages 0, 1, 2, 3, and 4, the counts are 1, 3, 9, 27, and 81. The length of an individual small triangle's side is halved at each stage. At stage 3, each small side has \(1/8\) of the original length.</p>
-<h3>More pieces, less filled area</h3>
-<p>Four half-size triangles would together fill the original triangle, because each has one quarter of its parent's area. But we remove one of those four. So the <em>total</em> filled area is multiplied by \(3/4\) each time.</p>
-<div class="formula">\[A_0=1,\qquad A_{n+1}=\frac34A_n,\qquad A_n=\left(\frac34\right)^n.\]</div>
-<div class="table-wrap"><table class="reference-table"><thead><tr><th>Stage \(n\)</th><th>Small triangles \(3^n\)</th><th>Each side's fraction</th><th>Filled area fraction \((3/4)^n\)</th></tr></thead><tbody>
-<tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
-<tr><td>1</td><td>3</td><td>1/2</td><td>3/4</td></tr>
-<tr><td>2</td><td>9</td><td>1/4</td><td>9/16</td></tr>
-<tr><td>3</td><td>27</td><td>1/8</td><td>27/64</td></tr>
-<tr><td>4</td><td>81</td><td>1/16</td><td>81/256</td></tr>
-</tbody></table></div>
-<p>The number of surviving pieces grows without bound as the construction continues. Meanwhile, the fraction of filled area tends toward zero. Both facts follow from the same replacement rule. Counting pieces and measuring their total area answer different questions.</p>
-<div class="key-definition"><strong>Self-similarity</strong> means that parts of an object are scaled copies of the whole. A <strong>fractal</strong> is a geometric object characterized by structure at arbitrarily fine scales, often with self-similarity and a dimension that need not be an integer. Finite drawings illustrate its stages; the ideal fractal is the limiting set.</div>
-<div class="quick-check"><p><strong>Check your understanding.</strong> A stage-2 Sierpiński drawing has nine remaining triangles and filled area (9/16). What happens at stage 3?</p><details><summary>See an explanation</summary><p>Each of the nine triangles produces three smaller survivors, giving 27. Each retains three quarters of its area, so the total filled fraction becomes ((9/16)(3/4)=27/64).</p></details></div>
+<div class="section-label">Connection to our class example</div><h2>The Sierpiński triangle asks the same geometric question</h2>
+<p>Start with a filled equilateral triangle, divide it into four half-size triangles, and remove the middle one. Repeat this on each surviving triangle. The construction is related to the Cantor set, but now we measure <em>area</em> instead of length.</p>
+<figure class="figure"><img src="../assets/week10/sierpinski-lesson.svg" alt="The first four stages of the Sierpiński triangle"><figcaption>Each triangle is replaced by three half-size survivors.</figcaption></figure>
+<div class="table-wrap"><table class="reference-table"><thead><tr><th>Stage</th><th>Triangles remaining</th><th>Fraction of filled area</th></tr></thead><tbody><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>1</td><td>3</td><td>3/4</td></tr><tr><td>2</td><td>9</td><td>9/16</td></tr><tr><td>3</td><td>27</td><td>27/64</td></tr></tbody></table></div>
+<p>The count triples, while filled area is multiplied by \(3/4\) at each stage. Both the Cantor set and the Sierpiński triangle are examples of <strong>fractals</strong>, where structure persists at arbitrarily small scales in the ideal infinite construction. We'll discuss the triangle in class; the prequiz and check-in use the simpler one-dimensional Cantor construction.</p>
 </section>
 
 <section class="card" id="dimension">
@@ -105,7 +82,7 @@ T(n)=\begin{cases} n/2,&n\text{ even},\\3n+1,&n\text{ odd}.\end{cases}
 <p>For a line segment, doubling the magnification creates two copies of half the size. For a square, doubling the magnification in both directions creates four half-size copies. The Sierpiński triangle produces <em>three</em> half-size copies. Its scaling is between those familiar cases.</p>
 <div class="table-wrap"><table class="reference-table"><thead><tr><th>Object</th><th>Half-size copies of the whole</th><th>Dimension</th></tr></thead><tbody>
 <tr><td>Line segment</td><td>2</td><td>1</td></tr>
-<tr><td>Sierpiński triangle</td><td>3</td><td>Approximately 1.585</td></tr>
+<tr><td>Cantor set and Sierpiński triangle</td><td>3</td><td>Approximately 1.585</td></tr>
 <tr><td>Filled square</td><td>4</td><td>2</td></tr>
 </tbody></table></div>
 <p>For an exactly self-similar set made from \(N\) non-overlapping copies scaled by \(1/s\), its <strong>similarity dimension</strong> \(D\) satisfies \(N=s^D\). For the Sierpiński triangle, \(3=2^D\), so</p>
@@ -115,13 +92,13 @@ T(n)=\begin{cases} n/2,&n\text{ even},\\3n+1,&n\text{ odd}.\end{cases}
 </section>
 
 <section class="card" id="connections">
-<div class="section-label">Three uses of recursion</div><h2>7. What do the examples tell us—and what don't they tell us?</h2>
+<div class="section-label">Three uses of recursion</div><h2>7. What can we calculate, and what remains uncertain?</h2>
 <div class="table-wrap"><table><thead><tr><th>Example</th><th>What we can calculate</th><th>What requires more reasoning</th></tr></thead><tbody>
 <tr><td>Collatz</td><td>The values, number of steps, and peak for a tested starting integer</td><td>Whether every positive integer eventually reaches 1</td></tr>
 <tr><td>Logistic map</td><td>Updates and differences between two chosen trajectories</td><td>Long-term prediction from uncertain initial conditions; identifying chaos</td></tr>
-<tr><td>Sierpiński triangle</td><td>Counts and area fractions at finite stages</td><td>Describing the infinite-scale limit and its dimension</td></tr>
+<tr><td>Sierpiński triangle</td><td>Counts, lengths, and area fractions at finite stages</td><td>Describing the infinite-scale limit and its dimension</td></tr>
 </tbody></table></div>
-<p>The important questions vary with the example. For Collatz, testing many cases cannot substitute for proof of a universal statement. For the logistic map, the formula may be exact while the starting measurement is uncertain. For the Sierpiński triangle, a finite picture is only one stage of a construction defined through infinitely many repetitions.</p>
+<p>The important questions vary with the example. For Collatz, testing many cases cannot substitute for proof of a universal statement. For the logistic map, the formula may be exact while the starting measurement is uncertain. For the Cantor set and the Sierpiński triangle, any finite picture is only one stage of a construction defined by continuing indefinitely.</p>
 <p>Complexity, chaos, and fractals can occur together in richer mathematics. Yet none of these words follows automatically from the presence of recursion. A simple savings rule is recursive without being chaotic. A complicated-looking picture is not necessarily fractal. An algorithm may have a short description without having a short running time.</p>
 <p>In the <a href="../demos/fractal_recursion.html">Week 10 Explorer</a>, you can investigate all three examples without changing the mathematical questions. The <a href="../labs/week10_lab.html">guided lab</a> asks you to produce a short explanation supported by actual computations, and the <a href="../discussions/week10_discussion.html">discussion</a> asks you to distinguish the three concepts for another reader.</p>
 </section>
