@@ -1,23 +1,82 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Week 10 Discussion — Complexity, Chaos, and Fractals | Math in Society</title><link rel="stylesheet" href="../assets/week10/week10.css"><link rel="stylesheet" href="../assets/week10/complexity-chaos-fractals.css"><script defer src="../assets/week10/week10.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Week 10</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html">Reading</a><a href="../demos/fractal_recursion.html">Explorer</a><a href="../labs/week10_lab.html">Laboratory</a><a href="../applications/week10_application.html">Application</a><a href="../applications/week10_ai.html">AI extension</a><a href="../discussions/week10_discussion.html" aria-current="page">Discussion</a></nav><main class="wrap" id="main"><header class="hero"><div class="eyebrow">Week 10 / Discussion</div><h1>Three calculations. Three misleading conclusions.</h1><p class="lead">We have compared trajectories, forecasts, and geometric pieces. Choose a claim that goes further than its evidence and explain exactly where the reasoning fails.</p></header>
-<section class="card"><h2>Imagine reading these headlines</h2>
-<p>Imagine seeing these three claims after the Week 10 investigations. Each sounds reasonable until you check the actual mathematics.</p>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Week 10 Discussion — When a Headline Promises Too Much | Math in Society</title><link rel="stylesheet" href="../assets/week10/week10.css"><link rel="stylesheet" href="../assets/week10/complexity-chaos-fractals.css"><script defer src="../assets/week10/week10.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Week 10</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html">Reading</a><a href="../demos/fractal_recursion.html">Explorer</a><a href="../labs/week10_lab.html">Laboratory</a><a href="../applications/week10_application.html">Application</a><a href="../applications/week10_ai.html">AI extension</a><a href="../discussions/week10_discussion.html" aria-current="page">Discussion</a></nav><main class="wrap" id="main"><header class="hero">
+<div class="eyebrow">Week 10 / Discussion</div>
+<h1>When a headline promises too much</h1>
+<p class="lead">A convincing headline often begins with a real observation and ends with a much bigger claim. This week, use one of our mathematical investigations to find the difference.</p>
+</header>
+
+<section class="card" id="headlines">
+<h2>Three headlines you might encounter</h2>
+<p>Imagine these appearing in a news feed. They are <strong>fictional headlines</strong>, but they raise questions people really face about safety, forecasting, and measurement. Pick the one you find most interesting.</p>
 <div class="argument-grid">
-<div><div class="section-label">Claim A · Collatz</div><p><strong>“We tested a million Collatz starts. So every positive integer reaches one.”</strong></p><p>Checking individual trajectories, even many of them, is different from proving a statement about every positive integer.</p></div>
-<div><div class="section-label">Claim B · Logistic map</div><p><strong>“The forecast formula is exact, so a tiny measurement error cannot affect long-term predictions.”</strong></p><p>Two almost identical starts can lead to very different long-term outputs under the same deterministic rule.</p></div>
-<div><div class="section-label">Claim C · Cantor set</div><p><strong>“The Cantor construction has more pieces at every stage, so the total remaining length must be increasing.”</strong></p><p>At every stage the number of pieces doubles, but each piece becomes one third as long.</p></div>
+<div><div class="section-label">Headline A · Technology</div>
+<p><strong>“A Million Successful Tests! New Software Declared Impossible to Crash”</strong></p>
+<p>A million tests sounds impressive. What does that evidence actually allow us to conclude?</p></div>
+<div><div class="section-label">Headline B · Weather</div>
+<p><strong>“The Equations Are Exact, So Next Month's Weather Forecast Should Be Too”</strong></p>
+<p>If a computer applies a forecasting rule correctly, why might its long-range prediction still be unreliable?</p></div>
+<div><div class="section-label">Headline C · Geography</div>
+<p><strong>“New Map Reveals the One True Length of Our Coastline”</strong></p>
+<p>Does measuring a winding shoreline more carefully necessarily give the same number?</p></div>
 </div>
-<p>None of these headlines follows from the evidence as stated. Your task is to explain <em>why</em>, using one calculation or observation that another reader could check.</p>
+<p>These stories contain three different kinds of overconfidence. Choose <strong>one headline</strong> and use the matching investigation below to examine it.</p>
 </section>
-<section class="card" id="your-post"><h2>Your initial post</h2>
-<p>Choose <strong>one</strong> headline to investigate in detail. Use the reading, the explorer, and your own calculations. Address all four parts below.</p>
+
+<section class="card" id="investigation-a">
+<div class="section-label">If you choose A · Successful tests and certainty</div>
+<h2>What does a successful test prove?</h2>
+<p>Start with the Collatz rule from the reading: divide an even number by 2; multiply an odd number by 3 and add 1. Compare the trajectories beginning at <strong>8 and 9</strong> (or <strong>10 and 11</strong>). How many updates does each take to first reach 1? Show enough of each trajectory for us to see that you followed the rule.</p>
+<p>Both tested starts reach 1, but their stopping times differ. In fact, the <em>Collatz conjecture</em> claims that every positive integer reaches 1, and no general proof is known.</p>
+<p>Think about the software headline. A million tests without a failure might be valuable evidence. But does it prove that <em>every possible input or situation</em> is safe? What kinds of tests or other evidence would make the claim more convincing? Explain why evidence can be strong without establishing absolute certainty.</p>
+</section>
+
+<section class="card" id="investigation-b">
+<div class="section-label">If you choose B · Forecasts and uncertainty</div>
+<h2>What if we don't know the starting conditions exactly?</h2>
+<p>The <a href="../readings/week10_reading.html#sensitivity">reading's logistic-map table</a> follows two starting values, <strong>0.4000</strong> and <strong>0.4001</strong>, using the same update rule (x_{n+1}=3.9x_n(1-x_n)).</p>
+<p>Find the absolute difference between the two values at <strong>step 15</strong> and again at <strong>step 20</strong>. The differences won't be the same. What does this tell you about how small starting uncertainties can affect predictions after many updates?</p>
+<p>The logistic map is <em>not</em> a weather forecasting model. It gives us a simpler example of <strong>sensitive dependence on initial conditions</strong>, a phenomenon that matters in weather prediction too. Explain why using precise equations doesn't guarantee an exact forecast when the starting atmospheric measurements are imperfect. What can meteorologists do to communicate that uncertainty rather than pretending it doesn't exist?</p>
+</section>
+
+<section class="card" id="investigation-c">
+<div class="section-label">If you choose C · Coastlines and scale</div>
+<h2>How long is a line that keeps getting more detailed?</h2>
+<p>Look at a coastline on a small map. Many inlets and bends disappear. Zoom in, and you can trace more of those details. A measurement can therefore depend on <em>how closely you follow the boundary</em>.</p>
+<p>Here's a deliberately simple mathematical shoreline. Start with a straight segment of length <strong>1 unit</strong>. Replace that segment with a four-part zigzag. Each of the four new parts has length <strong>one third</strong> of the original. If you repeat the rule on every new part, the zigzag becomes more intricate.</p>
+<figure class="figure">
+<svg viewBox="0 0 480 224" role="img" aria-labelledby="coast-figure-title" style="display:block;width:100%;height:auto">
+<title id="coast-figure-title">A straight unit segment and a four-part zigzag, whose edges each have one-third the original length</title>
+<g fill="none" stroke-linejoin="round" stroke-linecap="round">
+<path d="M88 46 H388" stroke="#779677" stroke-width="7"/>
+<path d="M88 184 L188 184 L238 97.4 L288 184 L388 184" stroke="#b88a3c" stroke-width="7"/>
+</g>
+<g font-family="system-ui,sans-serif" fill="#4f6653" font-size="15">
+<text x="12" y="51">Start</text><text x="12" y="189">Step 1</text><text x="238" y="33" text-anchor="middle">1 unit</text>
+<text x="238" y="215" text-anchor="middle">Four pieces, each 1/3 unit long</text>
+</g>
+</svg>
+<figcaption>A simplified jagged boundary. It shows how adding smaller bends can change the measured length.</figcaption>
+</figure>
+<p>Calculate the total length after <strong>one replacement</strong>, then after <strong>two replacements</strong>. Each stage replaces every old part with four new parts, each one third as long. Does the total length increase or decrease?</p>
+<p>Now compare this with the <strong>Cantor set</strong> from the reading. At each Cantor stage, two pieces of one-third the old length survive, so the total length is multiplied by (2/3), rather than (4/3). Why do these two repeated constructions behave differently?</p>
+<p>The zigzag is a mathematical illustration, not a claim that a real coastline has infinite length. Explain what information a news report should include when it gives a coastline length—for example, the map detail or measurement scale. Why might two careful measurements of the same coast disagree?</p>
+</section>
+
+<section class="card" id="your-post">
+<h2>Your initial post</h2>
+<p>Choose <strong>one</strong> headline and answer these three questions in a short, connected explanation. You may use your calculations, the <a href="../readings/week10_reading.html">Week 10 reading</a>, and the <a href="../demos/week10_lecture_atlas.html">lecture demonstrator</a>.</p>
 <ol class="tasks">
-<li><strong>State the mathematical rule.</strong> Explain how its next step is determined. Specify the starting number or starting state you're using so another person can reproduce your work.</li>
-<li><strong>Produce evidence.</strong> If you chose Collatz, compare starts <strong>8 and 9</strong> and report the two stopping times. If you chose the logistic map, compare starts <strong>0.4000</strong> and <strong>0.4001</strong> at <strong>r = 3.9</strong>; calculate their difference at steps <strong>10 and 15</strong> using the reading's table or the explorer. If you chose the Cantor set, calculate the number of surviving pieces and their <em>combined length</em> at <strong>stage 5</strong>. Show enough computation for another student to check it.</li>
-<li><strong>Correct the headline.</strong> Explain which part of the headline is not justified. Use the appropriate mathematical term—computational complexity, sensitive dependence, or self-similarity—and distinguish what your example demonstrates from what it does not establish.</li>
-<li><strong>Make the idea useful.</strong> Describe a real situation where confusing these conclusions could lead someone to make a poor decision. You might consider a large computer search, a forecast based on imperfect measurements, or interpreting the results of a geometric construction. What additional evidence or care would help?</li>
+<li><strong>What did you calculate?</strong> Show the specific numbers or steps from your chosen investigation, so a classmate can check your work.</li>
+<li><strong>What does the headline get wrong?</strong> Explain how your mathematical example challenges its reasoning. Be careful about what the example illustrates and what it actually proves.</li>
+<li><strong>How would you rewrite the headline?</strong> Write a more accurate version that is still interesting to a reader, and explain what evidence or measurement details would make the story more useful.</li>
 </ol>
-<p class="small">You do not need a general proof about Collatz or chaos. You do need to show one specific calculation, say what it supports, and explain what it does not establish. Submit your post on the class discussion board.</p></section>
-<section class="card" id="replies"><h2>Reply to a classmate</h2><p>Choose a post about a <strong>different headline</strong> from your own. Check one of its mathematical details, then explain how their example differs from yours. What did the two examples teach you about interpreting the results of repeated rules? Ask one question that could strengthen their conclusion.</p></section>
+<p class="small">Use your own words. You aren't expected to prove an unsolved conjecture, build a weather model, or calculate the actual length of a coastline. The goal is to support a real-world judgment with mathematics.</p>
+</section>
+
+<section class="card" id="replies">
+<h2>Reply to a classmate</h2>
+<p>Find a classmate who chose a <strong>different headline</strong>. Check one mathematical detail in their post and explain whether you agree with their revised headline. Then ask one useful question: what additional evidence, observation, or choice of measurement would improve their conclusion?</p>
+<p>As you compare posts, think about the difference between these three concerns: <em>how much evidence is enough, how far ahead we can predict, and how the scale of measurement affects an answer.</em></p>
+</section>
 <div class="actions no-print"><button type="button" data-print-page>Print discussion prompt</button></div>
 <div class="next"><a href="../labs/week10_lab.html">← Laboratory</a><a class="button" href="../index.html">Course home →</a></div>
 <footer class="footer"><span>MATH&amp; 107 · Week 10 · Discussion</span><a href="../readings/week10_reading.html">Return to the reading</a></footer></main></body></html>
