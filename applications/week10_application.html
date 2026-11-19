@@ -16,8 +16,11 @@
 <div class="actions no-print"><button type="button" id="appCheck" class="secondary">Check the calculations</button><span id="appCheckStatus" role="status" class="small"></span></div>
 </section>
 <section class="card" id="appCompare"><div class="section-label">2 · Follow the consequences</div><h2>Look beyond the first update</h2>
+<p>After one update, the forecasts are still very close. Now look at results from repeating the <em>same</em> rule. The two initial surveys differ by only one ten-thousandth.</p>
+<div class="table-wrap"><table class="reference-table"><thead><tr><th>Update</th><th>Survey A: start 0.4000</th><th>Survey B: start 0.4001</th></tr></thead><tbody><tr><td>1</td><td>0.936000</td><td>0.936078</td></tr><tr><td>10</td><td>0.121805</td><td>0.110064</td></tr><tr><td>15</td><td>0.933177</td><td>0.637218</td></tr><tr><td>20</td><td>0.890718</td><td>0.939083</td></tr></tbody></table></div>
+<p>At update 15, the forecasts differ by about 0.296, but at update 20 the gap has decreased again. This is why we need to examine a sequence of predictions instead of judging by one update.</p>
 <p>Open the <a href="../demos/fractal_recursion.html" target="_blank" rel="noopener">Week 10 Explorer</a>, choose the logistic map, and enter the same two starting values with \(r=3.9\). Compare the two trajectories over 40 updates.</p>
-<div class="question"><label for="lake4">4. At what update does their absolute difference first exceed 0.1? Report the step shown by the explorer.</label><textarea id="lake4" data-save></textarea></div>
+<div class="question"><label for="lake4">4. Calculate the difference at update 15 from the table. Then use the explorer: at what update does the difference first exceed 0.1?</label><textarea id="lake4" data-save></textarea></div>
 <div class="question"><label for="lake5">5. Does the gap increase at every step? Describe a few observations from the graph that support your answer.</label><textarea id="lake5" data-save></textarea></div>
 <p>Now change the parameter to \(r=2.8\), keeping the two starting values. Compare the resulting behavior. What does that tell us about the role of the rule's parameter?</p>
 <div class="question"><label for="lake6">6. Describe the difference between the \(r=2.8\) and \(r=3.9\) experiments.</label><textarea id="lake6" data-save></textarea></div>
