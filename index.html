@@ -435,6 +435,13 @@ function completionStats(){
   return {taskTotal,taskDoneCount,masteredAssess,total,done,pct:100*done/total,questionTotal,questionDone,questionPct:100*questionDone/questionTotal};
 }
 function showView(id){
+  if(id!=='assessmentView'){
+    const url=new URL(window.location.href);
+    if(url.searchParams.has('assessment')){
+      url.searchParams.delete('assessment');
+      window.history.replaceState(null,'',url.pathname+url.search+url.hash);
+    }
+  }
   document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));
   document.querySelectorAll('.side-nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===id));
   if(id!=='assessmentView'){state.lastView=id;saveState();}
@@ -468,17 +475,17 @@ function renderModules(){
         <div class="resource-row"><div class="resource-kind">Discussion</div><div class="resource-links">${resourceHtml(w.discussion)}</div><div class="completion-label" style="visibility:hidden">Resource</div></div>
         <div class="resource-row"><div class="resource-kind">Weekly Quiz</div>
           <div><strong>${ASSESSMENTS[w.quiz].title}</strong><small style="display:block;color:var(--muted);margin-top:3px">Five questions. Master each question before the quiz is marked complete.</small></div>
-          <div class="quiz-actions"><span class="badge ${qs.complete?'good':qs.correct?'warn':''}">${Math.round(qs.score)}%</span><button class="primary-btn" data-open-assessment="${w.quiz}">${qs.correct?'Continue quiz':'Open quiz'}</button></div>
+          <div class="quiz-actions"><span class="badge ${qs.complete?'good':qs.correct?'warn':''}">${Math.round(qs.score)}%</span><button class="primary-btn" data-open-assessment="${w.quiz}">${qs.correct?'Continue quiz':'Open quiz'}</button><a href="quizzes/week${w.week}.html" target="_blank" rel="noopener">Direct quiz link</a></div>
         </div>
       </div>
     </article>`;
     if(w.week===4){
       const ms=assessmentStats('midterm');
-      html+=`<section class="exam-break"><div><h3>Midterm Examination</h3><p>Weeks 1–4 · ${ms.correct} of ${ms.total} questions mastered</p></div><div class="quiz-actions"><span class="badge">${Math.round(ms.score)}%</span><button class="secondary-btn" data-open-assessment="midterm">Open midterm</button></div></section>`;
+      html+=`<section class="exam-break"><div><h3>Midterm Examination</h3><p>Weeks 1–4 · ${ms.correct} of ${ms.total} questions mastered</p></div><div class="quiz-actions"><span class="badge">${Math.round(ms.score)}%</span><button class="secondary-btn" data-open-assessment="midterm">Open midterm</button><a href="quizzes/midterm.html" target="_blank" rel="noopener">Direct exam link</a></div></section>`;
     }
   });
   const fs=assessmentStats('final');
-  html+=`<section class="exam-break"><div><h3>Final Examination</h3><p>Comprehensive · ${fs.correct} of ${fs.total} questions mastered</p></div><div class="quiz-actions"><span class="badge">${Math.round(fs.score)}%</span><button class="secondary-btn" data-open-assessment="final">Open final</button></div></section>`;
+  html+=`<section class="exam-break"><div><h3>Final Examination</h3><p>Comprehensive · ${fs.correct} of ${fs.total} questions mastered</p></div><div class="quiz-actions"><span class="badge">${Math.round(fs.score)}%</span><button class="secondary-btn" data-open-assessment="final">Open final</button><a href="quizzes/final.html" target="_blank" rel="noopener">Direct exam link</a></div></section>`;
   c.innerHTML=html;
   c.querySelectorAll('[data-task-week]').forEach(cb=>cb.addEventListener('change',()=>{
     state.tasks[taskKey(Number(cb.dataset.taskWeek),cb.dataset.taskKind)]=cb.checked;
@@ -614,6 +621,12 @@ function assessmentMath(s){
 }
 
 function openAssessment(id){
+  if(!Object.prototype.hasOwnProperty.call(ASSESSMENTS,id))return;
+  const url=new URL(window.location.href);
+  if(url.searchParams.get('assessment')!==id){
+    url.searchParams.set('assessment',id);
+    window.history.replaceState(null,'',url.pathname+url.search+url.hash);
+  }
   activeAssessment=id;
   const a=ASSESSMENTS[id], s=ensureAssessment(id);
   document.getElementById('assessmentTitle').textContent=a.title;
@@ -752,7 +765,14 @@ document.getElementById('resetBtn').addEventListener('click',()=>{
     state=structuredClone(defaultState);saveState();location.reload();
   }
 });
-applyTheme();refreshAll();showView(state.lastView||'dashboardView');
+applyTheme();
+refreshAll();
+const requestedAssessment=new URLSearchParams(window.location.search).get('assessment');
+if(requestedAssessment && Object.prototype.hasOwnProperty.call(ASSESSMENTS,requestedAssessment)){
+  openAssessment(requestedAssessment);
+}else{
+  showView(state.lastView||'dashboardView');
+}
 </script>
 </body>
 </html>
