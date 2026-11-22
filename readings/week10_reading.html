@@ -1,17 +1,17 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Week 10 student reading: Collatz computation, logistic-map forecasts, Cantor addresses and Sierpinski geometry."><title>Week 10 Reading — Complexity, Chaos, and Fractals | Math in Society</title><link rel="stylesheet" href="../assets/week10/week10.css"><link rel="stylesheet" href="../assets/week10/complexity-chaos-fractals.css"><script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script defer src="../assets/week10/week10.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header class="topbar"><a href="../index.html">← MATH&amp; 107 · Math in Society</a><span>Centralia College · Week 10</span></header><nav class="unit-nav" aria-label="Week 10 materials"><a href="../readings/week10_reading.html" aria-current="page">Reading</a><a href="../demos/fractal_recursion.html">Explorer</a><a href="../labs/week10_lab.html">Laboratory</a><a href="../applications/week10_application.html">Application</a><a href="../applications/week10_ai.html">AI extension</a><a href="../discussions/week10_discussion.html">Discussion</a></nav><main class="wrap narrative" id="main">
 <header class="hero"><div class="eyebrow">Week 10 / Reading</div><h1>Complexity, Chaos, and Fractals</h1>
-<p class="lead">A short mathematical rule can be easy to follow and still lead somewhere surprising. We will begin with calculations, notice what happens, and then give the results their mathematical names.</p></header>
+<p class="lead">A short mathematical rule can be easy to follow and still lead somewhere surprising when it becomes part of a feedback loop. This week, we examinw the themes of complexity, chaos, and fractality through examples.</p></header>
 
 <div class="example-list">
-<a href="#collatz"><strong>Collatz</strong><span>Compare neighboring starts: why do they need such different amounts of work?</span></a>
-<a href="#chaos"><strong>The logistic map</strong><span>Compare two nearly identical measurements over many updates.</span></a>
-<a href="#cantor"><strong>Cantor set and Sierpiński triangle</strong><span>Remove material, then count pieces and measure what is left.</span></a>
+<a href="#collatz"><strong>Collatz</strong><span>Can we predict behaviour of a simple rule?</span></a>
+<a href="#chaos"><strong>The logistic map</strong><span>How do the outputs depend on the initial input?</span></a>
+<a href="#cantor"><strong>Cantor set and Sierpiński triangle</strong><span>We can re-scale a process infinitely.</span></a>
 </div>
 
 
 <section class="card" id="return-to-recursion">
 
-<div class="section-label">Begin with something you can calculate</div><h2>Two neighboring numbers</h2>
+<div class="section-label">Simple calculations, complex behavior</div><h2>Two neighboring numbers</h2>
 <p>You've already spent this course learning how to work with rules: savings balances change from month to month, decisions lead to more decisions, and a sequence is built from the number before it. A rule tells us how to get the <em>next</em> result. But how much does it tell us about what will happen after many steps? Let's investigate rather than guess.</p>
 <p>Choose a positive whole number. If it is even, divide by 2. If it is odd, multiply by 3 and add 1. Keep applying the rule to each new number. Start at 8:</p>
 <p class="scratch">8 → 4 → 2 → 1</p>
