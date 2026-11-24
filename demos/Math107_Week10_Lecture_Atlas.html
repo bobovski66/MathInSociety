@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 10 Lecture Atlas — When Simple Rules Get Strange</title>
+<meta name="description" content="An interactive Math in Society atlas of computation, chaos, cellular automata, number patterns, and fractals.">
+<style>
+:root{--paper:#f6f4e9;--card:#fffdf5;--ink:#293129;--muted:#667064;--border:#dcded1;--olive:#536744;--gold:#ba8b36;--teal:#357b84;--side:#eaece0;--stage:#101a27;--blue:#7bd0dd;--yellow:#e8bc6d;--coral:#f08076}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:var(--ink)}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--gold);outline-offset:3px}.skip{position:absolute;left:-1000px}.skip:focus{left:12px;top:12px;z-index:1000;background:white;padding:10px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:14px clamp(18px,3vw,44px);border-bottom:1px solid var(--border);background:#fffcf3}.eyebrow{font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--olive);font-size:.72rem}.brand h1{font-family:Georgia,serif;font-size:clamp(1.55rem,2.1vw,2.35rem);font-weight:normal;line-height:1.14;margin:3px 0}.brand .sub{font-size:.84rem;color:var(--muted)}.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.button{border:1px solid #c8cebf;border-radius:9px;background:var(--card);color:var(--ink);padding:9px 13px;font-weight:650}.button:hover{background:#eaeedb}.button.primary{background:var(--olive);border-color:var(--olive);color:#fff}.button.primary:hover{background:#445437}.button:disabled{opacity:.4;cursor:default}.layout{display:grid;grid-template-columns:minmax(265px,315px) minmax(0,1fr);align-items:start;gap:0;min-height:calc(100vh - 101px)}.rail{align-self:stretch;background:var(--side);border-right:1px solid var(--border);padding:20px 15px 28px;max-height:calc(100vh - 100px);overflow-y:auto;position:sticky;top:0}.rail h2{font:700 .76rem system-ui;letter-spacing:.1em;text-transform:uppercase;color:var(--olive);margin:0 0 12px 9px}.topic-list{display:grid;gap:4px}.topic{display:grid;grid-template-columns:28px 1fr;gap:8px;align-items:center;width:100%;text-align:left;border:1px solid transparent;border-radius:10px;background:none;padding:9px 10px;color:var(--ink)}.topic:hover{background:#ffffff9c}.topic.active{background:#fffef8;border-color:#c3cbb3;box-shadow:0 2px 6px #27332c11}.topic .num{color:var(--olive);font-weight:800;font-size:.83rem}.topic strong{display:block;line-height:1.15}.topic small{display:block;margin-top:2px;color:var(--muted);font-size:.73rem}.rule{border-top:1px solid #cdd2c3;margin:17px 3px}.controls h3{font-family:Georgia,serif;margin:0 0 10px;font-size:1.17rem;font-weight:normal}.control{margin:12px 0}.control label{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:.84rem;font-weight:650;margin-bottom:5px}.control output{color:var(--olive);font-variant-numeric:tabular-nums}.control input[type=range]{width:100%;accent-color:var(--olive)}.control input[type=number],.control select{width:100%;border:1px solid #bec8b9;border-radius:7px;background:white;padding:7px}.controls .hint{font-size:.78rem;color:var(--muted);margin:9px 0}.preset-row{display:flex;flex-wrap:wrap;gap:6px}.small-btn{border:1px solid #c3cbb9;background:#fffef8;border-radius:6px;padding:6px 9px;font-size:.78rem;font-weight:700}.small-btn:hover{background:#eff3e4}.checklabel{display:flex;gap:9px;align-items:center;font-size:.85rem;padding:7px 0}.checklabel input{accent-color:var(--olive)}.main{min-width:0;padding:20px clamp(16px,2.6vw,45px) 38px}.main-top{display:flex;justify-content:space-between;gap:20px;align-items:start}.main-top .classification{font-weight:850;color:var(--olive);font-size:.72rem;text-transform:uppercase;letter-spacing:.13em;margin-bottom:5px}.main-top h2{font-family:Georgia,serif;font-weight:normal;font-size:clamp(1.6rem,2.5vw,2.4rem);line-height:1.15;margin:0 0 6px}.main-top p{margin:0;color:#566353;font-size:clamp(.88rem,1.2vw,1.02rem);max-width:72ch}.formula{background:#e9eddf;border:1px solid var(--border);padding:8px 12px;border-radius:9px;color:#354437;font-size:clamp(.9rem,1.2vw,1.08rem);font-family:Georgia,serif;white-space:nowrap;margin-left:auto;flex-shrink:0}.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:15px 0}.metric{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:9px 14px;min-height:70px}.metric label{display:block;text-transform:uppercase;font-size:.65rem;color:var(--muted);font-weight:800;letter-spacing:.08em}.metric strong{display:block;font-size:clamp(1.12rem,1.65vw,1.5rem);font-weight:780;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.visual{background:var(--stage);border-radius:14px;position:relative;overflow:hidden;box-shadow:0 8px 24px #1a24302a}.canvas-shell{height:clamp(390px,54vh,690px);position:relative}canvas{display:block;width:100%;height:100%;touch-action:none;cursor:default}.interact canvas{cursor:grab}.interact.dragging canvas{cursor:grabbing}.canvas-badge{position:absolute;top:13px;left:14px;color:#dae4e9b3;background:#203043dc;border:1px solid #43536599;border-radius:7px;font-size:.72rem;padding:5px 8px;pointer-events:none}.canvas-tip{position:absolute;bottom:12px;left:14px;right:14px;display:flex;gap:9px;justify-content:space-between;align-items:end;color:#d9e1e9bc;font-size:.76rem;pointer-events:none}.visual footer{color:#d7e6ef;background:#1e2c3d;padding:8px 13px;min-height:39px;font-size:.82rem;line-height:1.35}.learning{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:13px}.note{border:1px solid var(--border);background:var(--card);padding:16px 18px;border-radius:10px}.note h3{font-size:.76rem;text-transform:uppercase;letter-spacing:.09em;color:var(--olive);margin:0 0 8px}.note p{font-size:.95rem;margin:0 0 10px;line-height:1.6}.note .reveal{color:#315b47;font-weight:600}.note .muted{color:var(--muted)}.section-end{margin:15px 0 0;color:var(--muted);font-size:.8rem}.keyboard{font-size:.78rem;color:var(--muted)}.footer-row{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}.hidden{display:none!important}.spacer{height:3px}.footnote{color:var(--muted);font-size:.76rem;margin-top:15px}.footnote a{color:var(--olive)}body.presentation .topbar .sub,body.presentation .footer-row .keyboard{display:none}body.presentation .canvas-shell{height:clamp(480px,64vh,880px)}body.presentation .main{padding-top:12px}body.presentation .rail{max-height:calc(100vh - 70px)}
+@media(max-width:1000px){.layout{grid-template-columns:245px minmax(0,1fr)}.main-top{display:block}.formula{display:inline-block;margin-top:8px}.canvas-shell{height:52vh}.learning{grid-template-columns:1fr}}@media(max-width:760px){.layout{display:block}.rail{position:relative;max-height:none;border-right:none;border-bottom:1px solid var(--border);padding:12px}.topic-list{grid-template-columns:repeat(2,minmax(0,1fr))}.controls{padding:0 8px}.main{padding:15px}.metrics{gap:5px}.metric{padding:8px;min-height:64px}.metric label{font-size:.6rem}.metric strong{font-size:1rem}.canvas-shell{height:390px}.formula{white-space:normal}}@media print{.rail,.toolbar,.footer-row,.note button,.canvas-badge,.canvas-tip{display:none}.layout{display:block}.main{padding:6px}.canvas-shell{height:450px}.learning{grid-template-columns:1fr 1fr}}
+ .topic-search{display:grid;gap:4px;font-size:.8rem;margin:0 4px 10px}.topic-search input{width:100%;min-width:0;border:1px solid #bec8b9;border-radius:7px;background:white;padding:7px}.topic-list{max-height:min(33vh,300px);overflow:auto;scroll-behavior:auto;overscroll-behavior:contain}.topic[hidden]{display:none}.formula{white-space:normal;max-width:42%}@media(max-width:1000px){.formula{max-width:100%}}@media(max-width:760px){.topic-list{max-height:156px}}
+</style></head>
+<body><a class="skip" href="#main">Skip to lecture</a>
+<header class="topbar"><div class="brand"><div class="eyebrow">MATH&amp; 107 / WEEK 10 / LECTURE ATLAS</div><h1>When simple rules get strange</h1><div class="sub">Computational work · Predictability · Geometry at every scale</div></div><div class="toolbar"><button class="button" id="previous" title="Previous example (←)">← Previous</button><button class="button primary" id="next" title="Next example (→)">Next example →</button><button class="button" id="fullscreen" title="Enter or exit full-screen projection">Full screen</button></div></header>
+<div class="layout"><aside class="rail"><h2>Choose an example</h2><label class="topic-search">Search examples<input id="topicSearch" type="search" placeholder="Try chaos, primes, or fractal"></label><nav class="topic-list" id="topics" aria-label="Lecture examples"></nav><p id="topicStatus" role="status" hidden></p><div class="rule"></div><div class="controls" id="controls"></div></aside>
+<main class="main" id="main"><div class="main-top"><div><div class="classification" id="category">01 · Computation</div><h2 id="title">Collatz trajectories</h2><p id="intro"></p></div><div class="formula" id="formula"></div></div><div class="metrics" id="metrics"></div>
+<section class="visual" id="visual" aria-label="Interactive mathematical visualization"><div class="canvas-shell" id="canvasShell"><canvas id="stage" aria-label="Mathematical example illustration"></canvas><canvas id="spongeGPU" aria-hidden="true" style="display:none;position:absolute;inset:0;pointer-events:none;z-index:1"></canvas><div class="canvas-badge" id="canvasBadge"></div><div class="canvas-tip"><span id="canvasHint"></span><span id="coordinates"></span></div></div><footer id="visualCaption"></footer></section>
+<div class="learning"><article class="note"><h3>Ask the class</h3><p id="challenge"></p><p class="muted" id="action"></p></article><article class="note"><h3>What have we learned?</h3><p id="interpretation" class="reveal hidden"></p><button class="button" id="reveal">Reveal the mathematical idea</button></article></div>
+<div class="footer-row"><span class="keyboard">← / → change example · Space reveals the idea · Mouse drags rotate 3-D or pan fractals · Wheel zooms fractals</span><button class="button" id="reset">Reset this example</button></div><div class="footnote">Designed for classroom exploration. Colored pictures of chaotic or fractal behavior illustrate a mathematical process; a finite computation alone is not a proof of a general theorem. The Menger sponge is also commonly called the Sierpiński sponge. Further reading on <a href="https://mathworld.wolfram.com/KochSnowflake.html">the Koch snowflake</a> and <a href="https://mathworld.wolfram.com/ElementaryCellularAutomaton.html">elementary cellular automata</a>.</div>
+</main></div>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id),canvas=$('stage'),ctx=canvas.getContext('2d'),mengerGPU=$('spongeGPU'),TAU=Math.PI*2;
+const examples=[
+{key:'collatz',short:'Collatz',sub:'Easy step, unknown duration',cat:'Computation',title:'Collatz: two neighboring integers',intro:'One unambiguous rule. But how many steps will each starting number need before reaching 1?',formula:'Even → n/2; odd → 3n + 1',challenge:'Choose two consecutive positive integers. Which one will take more updates to reach 1? Is the larger starting value necessarily slower?',action:'Try 6 and 7, then 10 and 11. Compare both the stopping time and peak.',lesson:'Computing the next step is easy; predicting how much work a particular trajectory requires is a different question. Checking many starting numbers cannot establish the conjecture for every positive integer.'},
+{key:'logistic',short:'Logistic map',sub:'Exact rule, uncertain forecast',cat:'Dynamics',title:'Logistic map: when predictions separate',intro:'Two numbers initially separated by just 0.0001 can produce very different later values under the same equation.',formula:'xₙ₊₁ = r xₙ (1 − xₙ)',challenge:'If a model uses precisely the same rule each time, can a tiny uncertainty in the starting measurement really matter?',action:'Set r = 2.8, 3.2, and 3.9. At 3.9, compare steps 0, 10, 15, and 20.',lesson:'Deterministic does not mean reliably predictable from imperfect measurements. At some parameters the logistic map exhibits sensitive dependence; the gap between two particular trajectories need not grow every single step.'},
+{key:'sierpinski',short:'Sierpiński triangle',sub:'Three copies, shrinking area',cat:'Fractal geometry',title:'Sierpiński: more triangles, less area',intro:'Remove the middle of each surviving triangle and repeat forever. The resulting pattern resembles itself at smaller scales.',formula:'Nₙ = 3ⁿ; Aₙ = (3/4)ⁿ',challenge:'After each removal, do we have more triangles or fewer? What happens to their combined filled area?',action:'Advance to stage 12, then magnify a surviving corner. What do you notice about the pattern?',lesson:'The number of surviving small triangles triples while their total area is multiplied by 3/4 each time. A finite stage is only an approximation of the ideal infinite fractal.'},
+{key:'cantor',short:'Cantor set',sub:'More intervals, less length',cat:'Fractal geometry',title:'Cantor: removing the middle thirds',intro:'Start with an interval, remove the open middle third, and repeat on every surviving interval.',formula:'Nₙ = 2ⁿ; Lₙ = (2/3)ⁿ',challenge:'Can the number of surviving intervals grow while the sum of their lengths goes toward zero?',action:'Move through high stages, then magnify the leftmost surviving interval to reveal detail hidden below pixel size.',lesson:'Each step doubles the interval count but multiplies total remaining length by 2/3. The limiting Cantor set is uncountable yet has total length zero; the finite pictures show how that possibility arises.'},
+{key:'mandelbrot',short:'Mandelbrot set',sub:'One equation, intricate boundary',cat:'Complex dynamics',title:'Mandelbrot: which parameters stay bounded?',intro:'Try the same iteration with different complex parameters c. Color each parameter by how fast its orbit escapes.',formula:'z₀ = 0; zₙ₊₁ = zₙ² + c',challenge:'What can happen at the boundary between parameter values whose orbits escape and those that remain bounded?',action:'Click to zoom, use the wheel for finer control, or Alt-click to open a Julia set for that parameter.',lesson:'The Mandelbrot set consists of parameters c for which the orbit of 0 remains bounded. Its boundary has detail at arbitrarily small scales; finite escape-time coloring shows an approximation, not a decision procedure for every boundary point.'},
+{key:'julia',short:'Julia sets',sub:'A new picture for each parameter',cat:'Complex dynamics',title:'Julia: change the parameter, change the shape',intro:'Here c stays fixed and the initial point z₀ varies across the picture. Which starts escape to infinity?',formula:'zₙ₊₁ = zₙ² + c',challenge:'How can one very short complex-number equation produce entirely different geometries?',action:'Try the presets, then adjust the real and imaginary parts of c; zoom into the boundary.',lesson:'For a fixed c, the filled Julia set contains initial points whose orbits remain bounded. Its boundary is the Julia set. Changing c can alter its connectedness and geometry; the Mandelbrot set organizes these parameter choices.'},
+{key:'lorenz',short:'Lorenz attractor',sub:'A deterministic strange attractor',cat:'Continuous dynamics',title:'Lorenz: a butterfly-shaped attractor',intro:'Three coupled differential equations generate a continuously evolving three-dimensional trajectory.',formula:'ẋ=σ(y−x), ẏ=x(ρ−z)−y, ż=xy−βz',challenge:'If the differential equations are deterministic, why can long-term forecasts become unreliable?',action:'Rotate the shape with a drag. Compare two close starts and adjust ρ to see different behaviors.',lesson:'In the classic Lorenz parameter regime, nearby initial conditions can eventually follow different turns around the two lobes. The attractor exhibits organized structure together with sensitivity. This is a numerical illustration, not a proof of chaos.'},
+{key:'menger',short:'Menger sponge',sub:'A three-dimensional Cantor construction',cat:'Fractal geometry',title:'Menger (Sierpiński) sponge',intro:'Divide every cube into 27 smaller cubes; keep 20. Repeat the same removal on each survivor.',formula:'Nₙ = 20ⁿ; Vₙ = (20/27)ⁿ',challenge:'How can a three-dimensional object acquire more visible holes while its remaining volume shrinks?',action:'Go beyond stage 3, then rotate the sponge. The number of surviving little cubes grows dramatically.',lesson:'Every generation multiplies the surviving cube count by 20 while multiplying total volume by 20/27. Like the Cantor and Sierpiński constructions, it has self-similar detail at all scales in the ideal limit.'}
+];
+const gallery = [
+['koch','Koch snowflake','Fractal curves','Replace each edge with four edges, each one-third as long.','Perimeter × 4/3','What happens to the perimeter as the bumps get smaller?','Increase the stage and watch the edge count.','The perimeter grows without bound while the enclosed area approaches a finite limit.',0,6,4],
+['dragon','Heighway dragon','Fractal curves','Fold a strip in half repeatedly, then open every crease to a right angle.','Left and right turns','Can you spot two copies of the previous stage?','Compare two consecutive stages.','The next turn sequence keeps the old turns, inserts a left turn, then reverses the old sequence and swaps left with right.',0,15,11],
+['hilbert','Hilbert curve','Fractal curves','Join four smaller copies of a path, rotating the end copies to make the connections.','Sites = 4ⁿ','What happens to the gaps between strands?','Increase the order one step at a time.','Every grid cell gets a visit. In the limit the continuous curve covers the unit square.',1,7,5],
+['levy','Lévy C curve','Fractal curves','Replace a segment with two legs of a right isosceles triangle.','Length factor = √2','Where does the original straight segment go?','Compare stage 1 and stage 12.','Each stage doubles the number of segments and scales each length by 1/√2. The curve becomes crowded near its endpoints.',0,15,12],
+['gosper','Gosper curve','Fractal curves','Replace a move on a triangular grid with seven moves and repeat.','Segment count = 7ⁿ','What larger shape do the smaller paths start to fill?','Compare stages 2 and 4.','The same two replacement rules, used in different orientations, assemble a path that fills a region in the limit.',0,5,4],
+['carpet','Sierpiński carpet','Fractals from removal','Cut out the center ninth of a square, and repeat on each surviving square.','Area factor = 8/9','How can there be less material and more islands of detail?','Watch the remaining area while increasing the stage.','Each copy loses one ninth of its area per round. In the limit the area is zero.',0,5,4],
+['vicsek','Vicsek fractal','Fractals from removal','Keep the center square and the four corner squares of a 3-by-3 grid.','Area factor = 5/9','How does changing which squares survive change the pattern?','Compare stage 3 with the Sierpiński carpet.','The layout and scale of the surviving copies determine the geometry at every stage.',0,6,4],
+['pythagoras','Pythagoras tree','Recursive growth','Build two new squares on the legs of a right triangle perched on each square.','Child side = parent side / √2','Do the branches stay separate?','Increase the depth and look for overlap.','The two child squares have the same summed area as their parent. Once squares overlap, that sum counts some regions twice.',0,11,8],
+['takagi','Takagi function','Fractal curves','Layer triangular waves that get half as tall and twice as frequent.','Σ 2⁻ᵏ dist(2ᵏx, ℤ)','Does the graph get smoother as you add smaller waves?','Compare the first two terms with ten terms.','The waves shrink fast enough for the sum to converge uniformly. The limiting function is continuous everywhere and differentiable nowhere.',1,14,8],
+['fern','Barnsley fern','Random iteration','Pick one of four affine transformations at random and apply it to the current point.','Four affine maps','When does a recognizable fern first appear?','Increase the point budget.','The maps draw separate pieces of the same fern. The most frequently chosen map fills in the main body.',1,30,12],
+['chaosgame','Chaos game','Random iteration','Choose a triangle corner at random and move halfway toward it.','p ← (p + corner)/2','Why is the center empty even though the corner choice is random?','Compare the resulting picture with the Sierpiński triangle.','Each halfway move lands inside one of the three half-sized corner triangles. Repeating the argument at smaller scales explains the holes.',1,30,10],
+['rule30','Rule 30','Cellular automata','Each cell updates using its old value and the values of its two neighbors.','111…000 → 00011110','Do the left and right sides develop the same structure?','Add rows and compare the two sides of the pattern.','The next row is determined by the current row. Regular diagonal bands can coexist with an irregular-looking region.',10,200,110],
+['rule90','Rule 90','Cellular automata','Turn on a cell when exactly one of its two neighbors was on.','left XOR right','Where have you seen this triangle before?','Compare rows near 32, 64, and 128.','The XOR update is addition modulo 2. With a single live cell the rows match Pascal’s triangle modulo 2.',10,200,128],
+['rule110','Rule 110','Cellular automata','Use the same neighborhood as Rule 30 with a different lookup table.','111…000 → 01101110','Which patterns seem to travel across the rows?','Increase the time window and follow the diagonal features.','A change in the lookup table can change which structures persist and how they move.',10,200,140],
+['life','Conway’s Game of Life','Cellular automata','On a square grid, count each cell’s eight neighbors and update everything together.','Birth at 3 · survival at 2 or 3','Which patterns stay put, pulse, or travel?','Advance a few generations and watch the glider.','A blinker repeats after two steps. A glider returns to its original shape after four steps, one diagonal square away.',0,96,12],
+['bifurcation','Logistic bifurcation diagram','Discrete dynamics','Give each value of r its own logistic orbit and plot its late values in a column.','x ← rx(1 − x)','Where do one band, two bands, and four bands appear?','Move the lower r bound to magnify a parameter window.','The bands split as an attracting orbit doubles its period. Periodic windows also appear inside chaotic parameter ranges.',2.5,3.98,2.8,.01,'Lower r bound'],
+['tent','Tent map','Discrete dynamics','Stretch an interval and fold it at its midpoint.','x ← s min(x, 1 − x)','How long do two close starting values stay close?','Move the slope toward 2 and compare the trajectories.','At slope 2 each branch maps onto the whole interval. The logistic map at r = 4 has this same dynamics in the Bernoulli Fisher coordinate rescaled to [0,1].',1,2,1.97,.01,'Slope s'],
+['henon','Hénon attractor','Discrete dynamics','Iterate a quadratic rule in the plane and plot the late points.','(1 − ax² + 0.3y, x)','When do the points collapse to a small cycle?','Compare a = 1.0 and a = 1.4.','Each update contracts area by a factor of 0.3. The quadratic term bends the image, and repeated updates can produce many thin strands.',.8,1.4,1.4,.005,'Parameter a'],
+['baker','Baker’s map','Discrete dynamics','Stretch a square horizontally, cut it in half, and stack the two pieces.','(2x mod 1, (y + ⌊2x⌋)/2)','How many thin strips does a single patch become?','Advance through the first four steps.','The stretch and compression exactly balance. Vertical cuts split the patch, and stacking distributes its pieces through the square.',0,10,4],
+['cat','Arnold’s cat map','Discrete dynamics','Shear a square grid, wrapping coordinates at the edges.','(2x + y, x + y) mod 67','Can you still find the original patch after a few steps?','Compare step 0 with steps 5 and 10.','The matrix has determinant 1 and acts as a permutation on this finite grid. Every pixel has a unique predecessor, so the patch eventually returns.',0,100,5],
+['ulam','Ulam prime spiral','Number patterns','Write the integers in a square spiral and color the prime positions.','One dot per prime','Which directions appear to have streaks?','Expand the spiral and trace a diagonal through the dots.','Values along a fixed diagonal follow a quadratic pattern. Some diagonals contain promising prime candidates and still have gaps.',9,151,91,2,'Grid width'],
+['wolfram','Pascal triangle modulo m','Number patterns','Add pairs of neighbors to build Pascal’s triangle and color the remainders.','Next entry = (left + right) mod m','What changes when the modulus changes from 2 to 3 or 4?','Compare modulus 2 with Rule 90, then change the modulus.','Remainders obey the same addition rule as the original entries. Reducing after each addition gives the same coloring while keeping the numbers small.',2,11,3,1,'Modulus m'],
+['hailstone','Inverse Collatz tree','Number patterns','Start at 1 and work backward, adding positive integer predecessors that reach the root.','Predecessors: 2n and sometimes (n − 1)/3','Why is there always one backward choice and only sometimes two?','Raise the depth and follow a branch back to the center.','Doubling always gives an even predecessor. The other candidate has to be a positive odd integer. The repeat through 1, 2, and 4 is suppressed in this tree.',3,18,13],
+['tower','Towers of Hanoi','Computation','Move a stack of disks using three pegs and never place a larger disk on a smaller one.','Minimum moves = 2ⁿ − 1','Why does adding one disk more than double the work?','Change the disk count and compare the two halves of the timeline.','Moving the largest disk requires getting all smaller disks out of the way and then rebuilding their stack above it.',1,12,7,1,'Disks']
+];
+for (const [key,short,cat,intro,formula,challenge,action,lesson] of gallery) {
+  examples.push({key,short,sub:cat,cat,title:short,intro,formula,challenge,action,lesson});
+}
+
+const defaults={collatz:{n:6,limit:260,log:false},logistic:{r:3.9,x:.4,delta:.0001,steps:45,show:45,play:false},sierpinski:{stage:4,zoom:0},cantor:{stage:5,zoom:0},mandelbrot:{cx:-.55,cy:0,span:3.55,iter:120},julia:{cr:-.8,ci:.156,cx:0,cy:0,span:3.5,iter:110},lorenz:{rho:28,sigma:10,beta:2.666667,turn:0.65,pitch:0.28,compare:true,spin:false},menger:{stage:2,turn:.75,pitch:.45,spin:false}};
+const galleryByKey=new Map(gallery.map(entry=>[entry[0],entry]));
+for(const [key,,,,,,,,,,initial] of gallery)defaults[key]={value:initial};
+let opts=JSON.parse(JSON.stringify(defaults)),mode='collatz',revealed={},W=500,H=400,dpr=1,renderToken=0,drag=null,spinFrame=0,lastSpin=0,complexTimeout=null,redrawPending=false;
+const clamp=(v,min,max)=>Math.max(min,Math.min(max,v)),fmt=(n,d=5)=>Number(n).toLocaleString('en-US',{maximumFractionDigits:d}),num=(n,d=6)=>Number.isFinite(n)?n.toFixed(d):'—';
+function controlsMarkup(k){
+const entry=galleryByKey.get(k);
+if(entry){
+  const [,,,,,,,,min,max,,step=1,label]=entry;
+  const defaultLabel=k.startsWith('rule')?'Rows':k==='life'?'Generation':['fern','chaosgame'].includes(k)?'Points (thousands)':['cat','baker'].includes(k)?'Iterations':k==='takagi'?'Terms':k==='hailstone'?'Depth':'Stage';
+  return `<h3>Explore the rule</h3>${range('value',label||defaultLabel,min,max,step)}`;
+}
+switch(k){
+case 'collatz':return `<h3>Compare two starts</h3>${number('n','First starting integer',6,1,50000,1)}${number('limit','Maximum updates',260,20,600,10)}${check('log','Logarithmic height (log₂ scale)')}<div class="preset-row"><button class="small-btn" data-preset="collatz:6">6 and 7</button><button class="small-btn" data-preset="collatz:10">10 and 11</button><button class="small-btn" data-preset="collatz:26">26 and 27</button></div>`;
+case 'logistic':return `<h3>Compare two forecasts</h3>${range('r','Parameter r',2.8,4,.05)}${range('x','Starting fraction',.05,.9,.01)}${range('delta','Initial difference',.0001,.02,.0001)}${range('steps','Total updates',20,100,1)}${range('show','Reveal through step',0,100,1)}<div class="preset-row"><button class="small-btn" data-preset="logistic:2.8">Settling</button><button class="small-btn" data-preset="logistic:3.2">Repeating</button><button class="small-btn" data-preset="logistic:3.9">Sensitive</button><button class="small-btn" id="animateLogistic">▶ Play updates</button></div>`;
+case 'sierpinski':return `<h3>Build the triangle</h3>${range('stage','Construction stage',0,15,1)}${range('zoom','Magnify top surviving corner (levels)',0,14,1)}<p class="hint">At stage 0 there is one filled triangle. Each step makes three half-sized copies. At high stages, zoom into a surviving corner to resolve details smaller than screen pixels.</p>`;
+case 'cantor':return `<h3>Remove middle thirds</h3>${range('stage','Construction stage',0,18,1)}${range('zoom','Magnify left surviving interval (levels)',0,17,1)}<p class="hint">Strips show the stages within the chosen magnification. Zoom means repeatedly looking into the leftmost surviving third. At high stages most intervals are smaller than a screen pixel.</p>`;
+case 'mandelbrot':return `<h3>Explore parameters c</h3>${range('iter','Maximum iterations',40,280,20)}<div class="preset-row"><button class="small-btn" data-preset="mandelbrot:home">Whole set</button><button class="small-btn" data-preset="mandelbrot:valley">Seahorse valley</button><button class="small-btn" data-preset="mandelbrot:antenna">Antenna</button></div><p class="hint">Click: zoom in toward cursor · Wheel: zoom · Drag: pan · Alt-click: examine that c in the Julia view. Dark means no escape was detected by the iteration limit.</p>`;
+case 'julia':return `<h3>Fix the parameter c</h3>${range('cr','Real part of c',-1.2,.6,.005)}${range('ci','Imaginary part of c',-.8,.8,.005)}${range('iter','Maximum iterations',40,280,20)}<div class="preset-row"><button class="small-btn" data-preset="julia:rabbit">Rabbit</button><button class="small-btn" data-preset="julia:seahorse">Filaments</button><button class="small-btn" data-preset="julia:dust">Dust</button></div><p class="hint">Click or wheel to zoom · Drag to pan · Reset this example to restore a full view.</p>`;
+case 'lorenz':return `<h3>Change the flow</h3>${range('rho','Parameter ρ (rho)',10,45,.5)}${range('sigma','Parameter σ (sigma)',5,20,1)}${check('compare','Show a nearby second start')}${check('spin','Slow automatic rotation')}<div class="preset-row"><button class="small-btn" data-preset="lorenz:28">Classic butterfly</button><button class="small-btn" data-preset="lorenz:14">Lower ρ</button></div><p class="hint">Drag to rotate in 3-D. Both curves are generated by the same deterministic equations.</p>`;
+case 'menger':return `<h3>Remove cube centers</h3>${range('stage','Construction stage',0,5,1)}${check('spin','Slow automatic rotation')}<p class="hint">Stage 3 contains 8,000 little cubes; stage 5 contains 3,200,000. At stage 4–5, a GPU ray-marched surface replaces the individual cube mesh. Drag to rotate.</p>`;
+}}
+function range(id,label,min,max,step){return `<div class="control"><label for="ctl-${id}">${label}<output id="out-${id}"></output></label><input id="ctl-${id}" type="range" data-key="${id}" min="${min}" max="${max}" step="${step}"></div>`}
+function number(id,label,val,min,max,step){return `<div class="control"><label for="ctl-${id}">${label}</label><input id="ctl-${id}" type="number" data-key="${id}" min="${min}" max="${max}" step="${step}"></div>`}
+function check(id,label){return `<label class="checklabel"><input type="checkbox" id="ctl-${id}" data-key="${id}">${label}</label>`}
+function syncControls(){const o=opts[mode];$('controls').querySelectorAll('[data-key]').forEach(el=>{const k=el.dataset.key;if(el.type==='checkbox')el.checked=!!o[k];else el.value=o[k];let out=$('out-'+k);if(out)out.textContent=fmt(o[k],k==='delta'?4:k==='cr'||k==='ci'||(mode==='henon'&&k==='value')?3:2)});if(mode==='logistic')updatePlayButton();}
+function metric(label,value){return `<div class="metric"><label>${label}</label><strong>${value}</strong></div>`}
+function setMetrics(m){$('metrics').innerHTML=m.map(a=>metric(a[0],a[1])).join('')}
+function choose(k){if(!examples.some(e=>e.key===k))return;mode=k;opts.logistic.play=false;renderToken++;const e=examples.find(e=>e.key===k);$('topics').querySelectorAll('button').forEach(b=>{let active=b.dataset.mode===k;b.classList.toggle('active',active);b.setAttribute('aria-current',active?'true':'false');if(active&&!b.hidden){const list=$('topics');if(b.offsetTop<list.scrollTop+list.offsetTop||b.offsetTop+b.offsetHeight>list.scrollTop+list.offsetTop+list.clientHeight)list.scrollTop=b.offsetTop-list.offsetTop}});$('category').textContent=String(examples.indexOf(e)+1).padStart(2,'0')+' · '+e.cat;$('title').textContent=e.title;$('intro').textContent=e.intro;$('formula').textContent=e.formula;$('challenge').textContent=e.challenge;$('action').textContent=e.action;$('interpretation').textContent=e.lesson;$('interpretation').classList.toggle('hidden',!revealed[k]);$('reveal').textContent=revealed[k]?'Hide the explanation':'Reveal the mathematical idea';$('controls').innerHTML=controlsMarkup(k);syncControls();$('canvasBadge').textContent=e.short;$('canvasHint').textContent=mode==='mandelbrot'||mode==='julia'?'Click: zoom · Drag: pan · Wheel: zoom':mode==='lorenz'||mode==='menger'?'Drag to rotate in three dimensions':mode==='logistic'?'Two trajectories, same rule':galleryByKey.has(k)?'':'Every stage uses the same simple rule';$('coordinates').textContent='';$('visual').classList.toggle('interact',['mandelbrot','julia','lorenz','menger'].includes(k));$('previous').disabled=examples.indexOf(e)===0;$('next').disabled=examples.indexOf(e)===examples.length-1;history.replaceState(null,'','#'+k);draw()}
+$('topicSearch').addEventListener('input',()=>{
+  const terms=$('topicSearch').value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+  let visible=0;
+  for(const button of $('topics').children){
+    const e=examples.find(entry=>entry.key===button.dataset.mode);
+    const words=[e.short,e.cat,e.intro,e.lesson].join(' ').toLowerCase();
+    button.hidden=!terms.every(term=>words.includes(term));
+    if(!button.hidden)visible++;
+  }
+  $('topicStatus').hidden=visible>0;
+  $('topicStatus').textContent=visible?'':'No matching examples.';
+});
+function updatePlayButton(){const b=$('animateLogistic');if(b)b.textContent=opts.logistic.play?'Ⅱ Pause':'▶ Play updates'}
+$('topics').innerHTML=examples.map((e,i)=>`<button type="button" class="topic" data-mode="${e.key}"><span class="num">${String(i+1).padStart(2,'0')}</span><span><strong>${e.short}</strong><small>${e.sub}</small></span></button>`).join('');$('topics').addEventListener('click',e=>{const b=e.target.closest('[data-mode]');if(b)choose(b.dataset.mode)});
+$('controls').addEventListener('input',e=>{const el=e.target;if(!el.dataset.key)return;const k=el.dataset.key,o=opts[mode];let v=el.type==='checkbox'?el.checked:Number(el.value);if(!Number.isFinite(v)&&el.type!=='checkbox')return;if(mode==='collatz'&&k==='n')v=Math.floor(clamp(v,1,50000));if(mode==='collatz'&&k==='limit')v=Math.floor(clamp(v,20,600));o[k]=v;if((mode==='sierpinski'||mode==='cantor')){if(k==='stage'){o.zoom=Math.min(o.zoom,v);if(mode==='sierpinski'&&v>=10&&o.zoom===0)o.zoom=v-8;if(mode==='cantor'&&v>=9&&o.zoom===0)o.zoom=v-7;}if(k==='zoom')o.zoom=Math.min(o.zoom,o.stage)}if(mode==='logistic'){o.play=false;if(k==='steps')o.show=Math.min(o.show,o.steps);if(k==='show')o.show=Math.min(o.show,o.steps);updatePlayButton()}syncControls();draw()});
+$('controls').addEventListener('click',e=>{const b=e.target.closest('[data-preset]');if(b){const [group,v]=b.dataset.preset.split(':'),o=opts[group];if(group==='collatz')o.n=+v;else if(group==='logistic'){o.r=+v;o.x=.4;o.delta=.0001;o.show=o.steps;o.play=false}else if(group==='mandelbrot'){if(v==='home')Object.assign(o,{cx:-.55,cy:0,span:3.55});if(v==='valley')Object.assign(o,{cx:-.7435,cy:.1314,span:.035});if(v==='antenna')Object.assign(o,{cx:-1.28,cy:0,span:.12})}else if(group==='julia'){if(v==='rabbit')Object.assign(o,{cr:-.123,ci:.745,cx:0,cy:0,span:3.5});if(v==='seahorse')Object.assign(o,{cr:-.8,ci:.156,cx:0,cy:0,span:3.5});if(v==='dust')Object.assign(o,{cr:.3,ci:.45,cx:0,cy:0,span:3.5})}else if(group==='lorenz')Object.assign(o,{rho:+v,turn:.65,pitch:.28});syncControls();draw()}if(e.target.id==='animateLogistic'){const o=opts.logistic;o.play=!o.play;if(o.play&&o.show>=o.steps)o.show=0;updatePlayButton();lastSpin=performance.now();if(o.play)requestAnimationFrame(animate)}});
+$('previous').onclick=()=>choose(examples[Math.max(0,examples.findIndex(e=>e.key===mode)-1)].key);
+$('next').onclick=()=>choose(examples[Math.min(examples.length-1,examples.findIndex(e=>e.key===mode)+1)].key);
+$('reset').onclick=()=>{opts[mode]=JSON.parse(JSON.stringify(defaults[mode]));syncControls();draw()};
+$('reveal').onclick=()=>{revealed[mode]=!revealed[mode];$('interpretation').classList.toggle('hidden',!revealed[mode]);$('reveal').textContent=revealed[mode]?'Hide the explanation':'Reveal the mathematical idea'};
+$('fullscreen').onclick=()=>{if(!document.fullscreenElement){document.documentElement.requestFullscreen?.().catch(()=>{document.body.classList.toggle('presentation')})}else document.exitFullscreen?.()};document.addEventListener('fullscreenchange',()=>{document.body.classList.toggle('presentation',!!document.fullscreenElement);setTimeout(sizeAndDraw,100)});
+document.addEventListener('keydown',e=>{if(e.target.matches('input,select,textarea,button,a'))return;if(e.key==='ArrowLeft'&&!(mode==='mandelbrot'||mode==='julia')){$('previous').click()}else if(e.key==='ArrowRight'&&!(mode==='mandelbrot'||mode==='julia')){$('next').click()}else if(e.code==='Space'){e.preventDefault();$('reveal').click()}});
+function sizeAndDraw(){const r=$('canvasShell').getBoundingClientRect();W=Math.max(250,r.width);H=Math.max(200,r.height);dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);draw()}
+const observer=new ResizeObserver(()=>{clearTimeout(complexTimeout);complexTimeout=setTimeout(sizeAndDraw,90)});observer.observe($('canvasShell'));
+function bg(){ctx.clearRect(0,0,W,H);ctx.fillStyle='#101a27';ctx.fillRect(0,0,W,H)}
+function textAt(txt,x,y,size=12,col='#b0bfd0',align='left'){ctx.fillStyle=col;ctx.font=`${size}px system-ui`;ctx.textAlign=align;ctx.fillText(txt,x,y);ctx.textAlign='left'}
+function grid(x,y,w,h,rows=4,cols=6){ctx.strokeStyle='#354354';ctx.lineWidth=.7;ctx.beginPath();for(let i=0;i<=rows;i++){let yy=y+i*h/rows;ctx.moveTo(x,yy);ctx.lineTo(x+w,yy)}for(let i=0;i<=cols;i++){let xx=x+i*w/cols;ctx.moveTo(xx,y);ctx.lineTo(xx,y+h)}ctx.stroke()}
+function strokePoints(points,color,width=2){if(points.length<2)return;ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();for(let i=0;i<points.length;i++){let [x,y]=points[i];if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)}ctx.stroke()}
+function footer(t){$('visualCaption').textContent=t}
+function draw(){if(W<=0||H<=0)return;renderToken++;if(mode!=='menger'&&mengerGPU)mengerGPU.style.display='none';bg();switch(mode){case 'collatz':drawCollatz();break;case 'logistic':drawLogistic();break;case 'sierpinski':drawSierpinski();break;case 'cantor':drawCantor();break;case 'mandelbrot':case 'julia':drawComplex();break;case 'lorenz':drawLorenz();break;case 'menger':drawMenger();break;default:drawGallery(galleryByKey.get(mode));}}
+function trajectory(n,limit){let x=BigInt(n),path=[x],peak=x;for(let i=0;i<limit&&x!==1n;i++){x=x%2n===0n?x/2n:3n*x+1n;path.push(x);if(x>peak)peak=x;}return{path,peak,finished:x===1n,steps:path.length-1}}
+function logBig(n){const a=Number(n);return Number.isFinite(a)?Math.log2(a):n.toString().length*Math.LOG2E*Math.log(10)}
+function drawCollatz(){let o=opts.collatz,n=Math.floor(o.n),a=trajectory(n,o.limit),b=trajectory(n+1,o.limit);let values=[a,b];let top=54,left=58,bottom=H-53,right=W-25,ww=right-left,hh=bottom-top;let maxX=Math.max(a.steps,b.steps,5),maxY=Math.max(...values.flatMap(v=>v.path.map(x=>o.log?logBig(x):Number(x))),2);grid(left,top,ww,hh,5,6);textAt(o.log?'height: log₂(value)':'height: value',left,24,12);textAt('update number →',right-4,H-18,12,'#b0bfd0','right');for(let j=0;j<6;j++){let y=top+hh*j/5;textAt(fmt(maxY*(1-j/5),0),left-8,y+4,11,'#8398a9','right')}for(let j=0;j<=6;j++)textAt(fmt(maxX*j/6,0),left+j*ww/6,bottom+19,11,'#8398a9','center');values.forEach((v,i)=>{let pts=v.path.map((q,t)=>[left+ww*t/maxX,bottom-hh*(o.log?logBig(q):Number(q))/maxY]);strokePoints(pts,i?'#e8bc6d':'#79d0e0',i?2.8:3.2);ctx.fillStyle=i?'#e8bc6d':'#79d0e0';pts.forEach((p,j)=>{if(j%Math.max(1,Math.floor(pts.length/80))===0){ctx.beginPath();ctx.arc(p[0],p[1],2.2,0,TAU);ctx.fill()}})});textAt('● '+n+' starts here',left+12,top+17,13,'#79d0e0');textAt('● '+(n+1)+' starts here',left+12,top+36,13,'#e8bc6d');let aCount=a.finished?String(a.steps):'not reached',bCount=b.finished?String(b.steps):'not reached';setMetrics([['Start '+n+' → 1',aCount+' updates'],['Start '+(n+1)+' → 1',bCount+' updates'],['Peak values',a.peak+' / '+b.peak]]);footer('The two starting integers differ by 1. Does their order predict the amount of computation? Count arrows, not listed numbers.');}
+function logistic(x,r,N){const xs=[x];for(let i=0;i<N;i++)xs.push(r*xs.at(-1)*(1-xs.at(-1)));return xs}
+function drawLogistic(){let o=opts.logistic,N=o.steps,through=Math.floor(Math.min(o.show,N)),a=logistic(o.x,o.r,N),b=logistic(clamp(o.x+o.delta,0,1),o.r,N),g=a.map((x,i)=>Math.abs(x-b[i]));let left=53,right=W-24,top=37,topH=(H-103)*.61,lowTop=top+topH+42,lowH=H-lowTop-38,ww=right-left;grid(left,top,ww,topH,4,5);grid(left,lowTop,ww,lowH,2,5);function pl(vals,y,h,ceiling,color){strokePoints(vals.slice(0,through+1).map((v,i)=>[left+ww*i/N,y+h-h*v/ceiling]),color,2.25)}pl(a,top,topH,1,'#79d0e0');pl(b,top,topH,1,'#e8bc6d');pl(g,lowTop,lowH,1,'#f18c88');textAt('Two predicted values',left,22,12);textAt('Absolute difference',left,lowTop-12,12);textAt('1',left-10,top+4,11,'#8398a9','right');textAt('0',left-10,top+topH,11,'#8398a9','right');textAt('0',left-10,lowTop+lowH,11,'#8398a9','right');textAt('step '+through+' / '+N,right,H-14,12,'#a8b9ca','right');let firstCross=g.findIndex((x,i)=>i>0&&x>.1);setMetrics([['Initial gap',num(o.delta,4)],['Gap at step '+through,num(g[through],6)],['First gap > 0.1',firstCross<0?'not yet':firstCross]]);footer('Blue and gold follow the same formula. The lower graph shows how far apart they are; watch it grow and sometimes shrink.');}
+function triangle(cx,cy,side,h,depth){
+  // A triangle less than one screen pixel wide cannot be subdivided usefully.
+  // Capping geometry at raster resolution keeps stage 15 interactive.
+  if(depth===0||side<1.15){ctx.moveTo(cx,cy);ctx.lineTo(cx+side,cy);ctx.lineTo(cx+side/2,cy-h);ctx.closePath();return}
+  triangle(cx,cy,side/2,h/2,depth-1);triangle(cx+side/2,cy,side/2,h/2,depth-1);triangle(cx+side/4,cy-h/2,side/2,h/2,depth-1)
+}
+function drawSierpinski(){
+  const o=opts.sierpinski,n=o.stage,zoom=Math.min(o.zoom,n),visible=n-zoom;
+  let side=Math.min(W*.81,H*1.02);side=Math.min(side,(H-42)*2/Math.sqrt(3));
+  const hh=side*Math.sqrt(3)/2;
+  ctx.fillStyle='#a3ccaf';ctx.beginPath();triangle((W-side)/2,(H+hh)/2,side,hh,visible);ctx.fill();
+  ctx.strokeStyle='#b4d6bb';ctx.lineWidth=1;ctx.stroke();
+  if(zoom>0)textAt('Zoom × '+fmt(2**zoom,0)+' into a corner',W-18,24,12,'#e8bc6d','right');
+  setMetrics([['Whole construction: stage',n],['Small triangles',fmt(3**n,0)],['Filled fraction',`${fmt((3/4)**n*100,5)}%`]]);
+  footer('One whole-stage step triples the pieces and multiplies total area by 3/4. '+(zoom?'Here we magnify a surviving triangle by 2^'+zoom+'; its local construction is the same.':'At high stages, magnify one corner to see subpixel details.'));
+}
+function cantorPieces(n){let list=[[0,1]];for(let i=0;i<n;i++)list=list.flatMap(([a,b])=>[[a,a+(b-a)/3],[b-(b-a)/3,b]]);return list}
+function drawCantor(){
+  const o=opts.cantor,n=o.stage,zoom=Math.min(o.zoom,n),pad=60,availW=Math.max(70,W-pad-25),availH=H-72;
+  // Restrict the viewport to the leftmost surviving interval at global stage 'zoom'.
+  // Its exact descendants form a scaled copy of stages 0 through (n-zoom).
+  const count=n-zoom+1,rowStep=availH/count,bar=Math.max(2,Math.min(25,rowStep*.42));
+  for(let d=0;d<count;d++){
+    const y=32+d*rowStep,stage=zoom+d;
+    textAt(String(stage),24,y+bar*.75,12,'#9db1c0');
+    const parts=cantorPieces(d);ctx.fillStyle=d===count-1?'#e8bc6d':'#8fbeaa';
+    for(const [a,b] of parts){let xx=pad+availW*a,w=(b-a)*availW;
+      if(w>=.4)ctx.fillRect(xx,y,w,bar);else if(w>.001){ // Subpixel intervals: avoid painting an entire pixel for each fragment.
+        ctx.globalAlpha=Math.min(1,w);ctx.fillRect(Math.floor(xx)+.5,y,1,bar);
+      }
+    }
+    ctx.globalAlpha=1;
+  }
+  if(zoom>0)textAt('Zoom × '+fmt(3**zoom,0)+' into one interval',W-18,24,12,'#e8bc6d','right');
+  setMetrics([['Whole construction: stage',n],['Surviving intervals',fmt(2**n,0)],['Total length remaining',fmt((2/3)**n*100,5)+'%']]);
+  footer('Each global stage doubles the number of surviving intervals and multiplies their combined length by 2/3. '+(zoom?'The view is inside one surviving interval, magnified by 3^'+zoom+'.':'Magnify the leftmost interval to reveal finer detail.'));
+}
+function palette(t){let a=6.2831853*(t*.72);return [Math.floor(60+70*(1+Math.cos(a+.35))),Math.floor(55+65*(1+Math.cos(a+2.1))),Math.floor(95+73*(1+Math.cos(a+4.15)))]}
+function complexCoords(px,py,o){let scale=o.span/W;return [o.cx+(px-W/2)*scale,o.cy+(H/2-py)*scale]}
+function drawComplex(){let k=mode,o=opts[k];let tw=Math.min(840,Math.round(W*dpr)),th=Math.max(200,Math.round(tw*H/W)),off=document.createElement('canvas');off.width=tw;off.height=th;let offCtx=off.getContext('2d'),img=offCtx.createImageData(tw,th),data=img.data;const myToken=renderToken;const full=tw*th;const stepPix=o.span/tw;let row=0;const isM=k==='mandelbrot';setMetrics(isM?[['Parameter region',fmt(o.cx,5)+' + '+fmt(o.cy,5)+'i'],['Window width',fmt(o.span,6)],['Iteration cap',o.iter]]:[['Fixed c',fmt(o.cr,3)+' + '+fmt(o.ci,3)+'i'],['Window width',fmt(o.span,6)],['Iteration cap',o.iter]]);footer(isM?'Each colored point is a parameter c. Dark points did not escape within the chosen iterations; zoom to explore the boundary.':'Every pixel supplies z₀; the parameter c is fixed. Color records how quickly that starting value escapes.');
+function block(){if(myToken!==renderToken||mode!==k)return;let end=Math.min(th,row+Math.max(5,Math.floor(14000/tw)));for(let y=row;y<end;y++){let zy0=o.cy+(th/2-y)*stepPix;for(let x=0;x<tw;x++){let xx=o.cx+(x-tw/2)*stepPix,cr=isM?xx:o.cr,ci=isM?zy0:o.ci,zr=isM?0:xx,zi=isM?0:zy0,count=0,zr2=zr*zr,zi2=zi*zi;while(count<o.iter&&zr2+zi2<256){zi=2*zr*zi+ci;zr=zr2-zi2+cr;zr2=zr*zr;zi2=zi*zi;count++}let idx=4*(y*tw+x);if(count>=o.iter){data[idx]=10;data[idx+1]=20;data[idx+2]=31;data[idx+3]=255}else{let mag=Math.sqrt(zr2+zi2),smooth=count+1-Math.log2(Math.max(1,Math.log2(Math.max(mag,1.00001)))),v=Math.max(0,smooth)/o.iter,[r,g,b]=palette(v*5.3);data[idx]=r;data[idx+1]=g;data[idx+2]=b;data[idx+3]=255}}}row=end;offCtx.putImageData(img,0,0);ctx.imageSmoothingEnabled=true;ctx.drawImage(off,0,0,W,H);if(row<th){textAt('Rendering… '+Math.round(100*row/th)+'%',W-18,H-19,12,'#f7e6bf','right');requestAnimationFrame(block)}}requestAnimationFrame(block)}
+function lorenzPath(rho,sigma,beta,start,N=12500){let x=start[0],y=start[1],z=start[2],dt=.01,points=[];function f(x,y,z){return [sigma*(y-x),x*(rho-z)-y,x*y-beta*z]}for(let i=0;i<N;i++){let a=f(x,y,z),b=f(x+.5*dt*a[0],y+.5*dt*a[1],z+.5*dt*a[2]),c=f(x+.5*dt*b[0],y+.5*dt*b[1],z+.5*dt*b[2]),d=f(x+dt*c[0],y+dt*c[1],z+dt*c[2]);x+=dt*(a[0]+2*b[0]+2*c[0]+d[0])/6;y+=dt*(a[1]+2*b[1]+2*c[1]+d[1])/6;z+=dt*(a[2]+2*b[2]+2*c[2]+d[2])/6;if(i%2===0&&Number.isFinite(x+y+z))points.push([x,y,z])}return points}
+let lorenzCache={key:'',a:[],b:[]};
+function rotate(v,turn,pitch){let [x,y,z]=v,ct=Math.cos(turn),st=Math.sin(turn),cp=Math.cos(pitch),sp=Math.sin(pitch),xx=x*ct-y*st,yy=x*st+y*ct;return [xx,yy*cp-z*sp,yy*sp+z*cp]}
+function drawLorenz(){let o=opts.lorenz,key=[o.rho,o.sigma,o.beta,o.compare].join(',');if(key!==lorenzCache.key){lorenzCache={key,a:lorenzPath(o.rho,o.sigma,o.beta,[.1,0,0]),b:o.compare?lorenzPath(o.rho,o.sigma,o.beta,[.10001,0,0]):[]}}let traces=[lorenzCache.a,lorenzCache.b];let all=lorenzCache.a;if(!all.length)return;let lo=[Infinity,Infinity,Infinity],hi=[-Infinity,-Infinity,-Infinity];for(let p of all){p.forEach((v,i)=>{lo[i]=Math.min(lo[i],v);hi[i]=Math.max(hi[i],v)})}let center=lo.map((v,i)=>(v+hi[i])/2),scale=Math.max(...hi.map((v,i)=>v-lo[i])),sc=Math.min(W,H)*.8/scale;function project(p){const [x,y,z]=rotate(p.map((v,i)=>v-center[i]),o.turn,o.pitch);return [W/2+x*sc,H/2-y*sc]}traces.forEach((t,i)=>{if(!t.length)return;ctx.strokeStyle=i?'#e8bc6dbb':'#76cbddbb';ctx.lineWidth=i?1.05:1.25;ctx.beginPath();t.forEach((p,j)=>{const [x,y]=project(p);if(j===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)});ctx.stroke()});textAt('Numerical solutions of the Lorenz equations',22,27,13);setMetrics([['ρ (rho)',fmt(o.rho,2)],['Initial difference',o.compare?'0.00001':'single path'],['Plotted steps',fmt(lorenzCache.a.length*2,0)]]);footer('The paths wind around a structured region without closing into a simple loop. Drag to rotate the 3-D projection.');}
+const faceDirs=[[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]];
+function buildMenger(stage){const q=3**stage,kept=new Set(),index=(x,y,z)=>x+q*(y+q*z);for(let z=0;z<q;z++)for(let y=0;y<q;y++)for(let x=0;x<q;x++){let a=x,b=y,c=z,keep=true;for(let t=0;t<stage;t++){let count=(a%3===1)+(b%3===1)+(c%3===1);if(count>=2){keep=false;break}a=Math.floor(a/3);b=Math.floor(b/3);c=Math.floor(c/3)}if(keep)kept.add(index(x,y,z))}let faces=[],corners=[[[1,0,0],[1,1,0],[1,1,1],[1,0,1]],[[0,0,1],[0,1,1],[0,1,0],[0,0,0]],[[0,1,0],[0,1,1],[1,1,1],[1,1,0]],[[0,0,1],[0,0,0],[1,0,0],[1,0,1]],[[0,0,1],[1,0,1],[1,1,1],[0,1,1]],[[1,0,0],[0,0,0],[0,1,0],[1,1,0]]];for(let id of kept){let z=Math.floor(id/(q*q)),y=Math.floor((id-z*q*q)/q),x=id%q;faceDirs.forEach((v,i)=>{let nx=x+v[0],ny=y+v[1],nz=z+v[2];if(nx>=0&&ny>=0&&nz>=0&&nx<q&&ny<q&&nz<q&&kept.has(index(nx,ny,nz)))return;let verts=corners[i].map(p=>[(x+p[0])/q*2-1,(y+p[1])/q*2-1,(z+p[2])/q*2-1]);faces.push({verts,normal:v,i})})}return faces}
+let mengerGL=null,mengerProgram=null,mengerUniforms=null,mengerInitTried=false;
+function initMengerGPU(){
+  if(mengerInitTried)return !!mengerGL;
+  mengerInitTried=true;
+  const gl=mengerGPU.getContext('webgl2',{alpha:false,antialias:false,depth:false,stencil:false,preserveDrawingBuffer:true});
+  if(!gl)return false;
+  const vs=`#version 300 es
+    precision highp float;
+    const vec2 verts[3]=vec2[3](vec2(-1.0,-1.0),vec2(3.0,-1.0),vec2(-1.0,3.0));
+    void main(){gl_Position=vec4(verts[gl_VertexID],0.,1.);}`;
+  const fs=`#version 300 es
+    precision highp float;
+    out vec4 color;
+    uniform vec2 uSize;
+    uniform int uStage;
+    uniform float uTurn,uPitch;
+    float boxDist(vec3 p,vec3 b){vec3 q=abs(p)-b;return length(max(q,0.))+min(max(q.x,max(q.y,q.z)),0.);}
+    // Cross of three bars removed from a cube. Local cell coordinates are [-1,1]^3.
+    float holeDist(vec3 p){
+      float a=boxDist(p,vec3(1.5,1./3.,1./3.));
+      float b=boxDist(p,vec3(1./3.,1.5,1./3.));
+      float c=boxDist(p,vec3(1./3.,1./3.,1.5));
+      return min(a,min(b,c));
+    }
+    float scene(vec3 p){
+      float d=boxDist(p,vec3(1.));
+      float scale=1.;
+      for(int i=0;i<5;i++){
+        if(i>=uStage)break;
+        vec3 local=fract((p+1.)*.5*scale)*2.-1.;
+        d=max(d,-holeDist(local)/scale);
+        scale*=3.;
+      }
+      return d;
+    }
+    vec3 invRotate(vec3 p){
+      float cp=cos(uPitch),sp=sin(uPitch),ct=cos(uTurn),st=sin(uTurn);
+      vec3 a=vec3(p.x,cp*p.y+sp*p.z,-sp*p.y+cp*p.z);
+      return vec3(ct*a.x+st*a.y,-st*a.x+ct*a.y,a.z);
+    }
+    vec3 normalAt(vec3 p){
+      float e=.0025;
+      vec2 k=vec2(1.,-1.);
+      return normalize(k.xyy*scene(p+k.xyy*e)+k.yyx*scene(p+k.yyx*e)+k.yxy*scene(p+k.yxy*e)+k.xxx*scene(p+k.xxx*e));
+    }
+    void main(){
+      vec2 uv=(gl_FragCoord.xy-.5*uSize)/min(uSize.x,uSize.y)*2.9;
+      vec3 ro=invRotate(vec3(uv,3.4));
+      vec3 rd=normalize(invRotate(vec3(0.,0.,-1.)));
+      float t=0.;bool hit=false;vec3 p;
+      for(int j=0;j<128;j++){
+        p=ro+rd*t;
+        float d=scene(p);
+        if(d<.0018){hit=true;break;}
+        t+=max(.002,d*.78);
+        if(t>7.)break;
+      }
+      if(!hit){color=vec4(.063,.102,.153,1.);return;}
+      vec3 n=normalAt(p);
+      vec3 light=normalize(vec3(.6,.85,1.));
+      float diffuse=max(.0,dot(n,light));
+      float edge=pow(1.-max(0.,dot(n,-rd)),2.);
+      float ambient=.36+.58*diffuse;
+      vec3 base=vec3(.56,.77,.67);
+      vec3 rgb=base*ambient+vec3(.23,.24,.16)*edge*.45;
+      color=vec4(rgb,1.);
+    }`;
+  const compile=(type,src)=>{let shader=gl.createShader(type);gl.shaderSource(shader,src);gl.compileShader(shader);if(!gl.getShaderParameter(shader,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(shader));return shader};
+  try{
+    let prog=gl.createProgram();gl.attachShader(prog,compile(gl.VERTEX_SHADER,vs));gl.attachShader(prog,compile(gl.FRAGMENT_SHADER,fs));gl.linkProgram(prog);
+    if(!gl.getProgramParameter(prog,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(prog));
+    mengerProgram=prog;mengerUniforms={size:gl.getUniformLocation(prog,'uSize'),stage:gl.getUniformLocation(prog,'uStage'),turn:gl.getUniformLocation(prog,'uTurn'),pitch:gl.getUniformLocation(prog,'uPitch')};
+    gl.bindVertexArray(gl.createVertexArray());mengerGL=gl;return true;
+  }catch(err){console.warn('WebGL sponge rendering unavailable:',err);return false;}
+}
+function drawMengerGPU(o){
+  if(!initMengerGPU())return false;
+  let gl=mengerGL;
+  // Cap raster cost on classroom laptops while keeping enough pixels for projection.
+  let ratio=Math.min(devicePixelRatio||1,1.0),w=Math.round(W*ratio*.78),h=Math.round(H*ratio*.78);
+  if(mengerGPU.width!==w||mengerGPU.height!==h){mengerGPU.width=w;mengerGPU.height=h;}
+  mengerGPU.style.display='block';gl.viewport(0,0,w,h);gl.useProgram(mengerProgram);
+  gl.uniform2f(mengerUniforms.size,w,h);gl.uniform1i(mengerUniforms.stage,o.stage);
+  gl.uniform1f(mengerUniforms.turn,o.turn);gl.uniform1f(mengerUniforms.pitch,o.pitch);
+  gl.drawArrays(gl.TRIANGLES,0,3);
+  return true;
+}
+
+// A portable coarse 3-D projection when WebGL2 is unavailable.
+// Uniform samples are drawn from the actual surviving stage-n cubes, not from stage 3.
+const mengerDigits=[];
+for(let z=0;z<3;z++)for(let y=0;y<3;y++)for(let x=0;x<3;x++)if((x===1)+(y===1)+(z===1)<2)mengerDigits.push([x,y,z]);
+function drawMengerCloud(o){
+  const w=Math.max(100,Math.round(W)),h=Math.max(100,Math.round(H));
+  const out=ctx.createImageData(w,h),rgb=out.data,zBuffer=new Float32Array(w*h);
+  zBuffer.fill(-1e10);
+  for(let i=0;i<w*h;i++){rgb[4*i]=16;rgb[4*i+1]=26;rgb[4*i+2]=39;rgb[4*i+3]=255;}
+  const q=3**o.stage,sc=Math.min(w,h)*.35;
+  const ct=Math.cos(o.turn),st=Math.sin(o.turn),cp=Math.cos(o.pitch),sp=Math.sin(o.pitch);
+  let seed=0x69aef184;
+  function rnd(){seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;}
+  let samples=Math.min(360000,Math.max(110000,Math.round(w*h*.86)));
+  for(let j=0;j<samples;j++){
+    let x=0,y=0,z=0;
+    for(let i=0;i<o.stage;i++){
+      const d=mengerDigits[Math.floor(rnd()*20)];
+      x=3*x+d[0];y=3*y+d[1];z=3*z+d[2];
+    }
+    const px=(x+rnd())/q*2-1,py=(y+rnd())/q*2-1,pz=(z+rnd())/q*2-1;
+    const rx=px*ct-py*st,ry=px*st+py*ct;
+    const yy=ry*cp-pz*sp,zz=ry*sp+pz*cp;
+    const sx=Math.floor(w*.5+rx*sc),sy=Math.floor(h*.5-yy*sc);
+    if(sx<0||sy<0||sx>=w||sy>=h)continue;
+    const k=sy*w+sx;
+    if(zz>zBuffer[k]){
+      zBuffer[k]=zz;const val=.5+.5*Math.max(-1,Math.min(1,zz));
+      rgb[4*k]=Math.round(73+74*val);rgb[4*k+1]=Math.round(124+90*val);rgb[4*k+2]=Math.round(111+68*val);rgb[4*k+3]=255;
+    }
+  }
+  ctx.putImageData(out,0,0);
+}
+
+let spongeCache={stage:-1,faces:[]};
+function drawMenger(){let o=opts.menger;if(o.stage>=4){if(drawMengerGPU(o)){setMetrics([['Stage',o.stage],['Surviving cubes',fmt(20**o.stage,0)],['Fraction of volume',fmt((20/27)**o.stage*100,2)+'%']]);footer('At stage ' + o.stage + ' this view ray-marches the fractal surface instead of drawing ' + fmt(20**o.stage,0) + ' individual cubes. Rotate to explore its tunnels.');return;} else {drawMengerCloud(o);setMetrics([['Stage',o.stage],['Surviving cubes',fmt(20**o.stage,0)],['Fraction of volume',fmt((20/27)**o.stage*100,2)+'%']]);footer('Stage '+o.stage+' sampled 3-D projection (WebGL2 unavailable). Points come from the actual '+fmt(20**o.stage,0)+' surviving cubes; rotate to inspect finer structure.');return;}}if(mengerGPU)mengerGPU.style.display='none';if(o.stage!==spongeCache.stage){spongeCache={stage:o.stage,faces:buildMenger(o.stage)}}let sc=Math.min(W,H)*.35,center=[W/2,H/2],fs=[];for(let face of spongeCache.faces){let normal=rotate(face.normal,o.turn,o.pitch);if(normal[2]<.015)continue;let vs=face.verts.map(v=>rotate(v,o.turn,o.pitch)),depth=vs.reduce((s,v)=>s+v[2],0)/4;fs.push({depth,normal,vs,i:face.i})}fs.sort((a,b)=>a.depth-b.depth);let paletteFaces=['#86b7a5','#8fae93','#90cbb9','#628d7e','#add1b4','#5f968c'];for(let f of fs){ctx.beginPath();f.vs.forEach((v,i)=>{let x=center[0]+v[0]*sc,y=center[1]-v[1]*sc;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)});ctx.closePath();ctx.globalAlpha=.65+.3*clamp(f.normal[2],0,1);ctx.fillStyle=paletteFaces[f.i];ctx.fill();if(o.stage<=2){ctx.globalAlpha=.25;ctx.lineWidth=.55;ctx.strokeStyle='#193448';ctx.stroke()}}ctx.globalAlpha=1;setMetrics([['Stage',opts.menger.stage],['Surviving cubes',fmt(20**opts.menger.stage,0)],['Fraction of volume',fmt((20/27)**opts.menger.stage*100,2)+'%']]);footer('Divide into 27, remove the center cube and six face-center cubes, then repeat for every survivor.');}
+function animate(t){if(mode==='logistic'&&opts.logistic.play){if(t-lastSpin>135){opts.logistic.show++;lastSpin=t;if(opts.logistic.show>=opts.logistic.steps)opts.logistic.play=false;syncControls();draw()}if(opts.logistic.play)requestAnimationFrame(animate);else updatePlayButton()}else if((mode==='lorenz'||mode==='menger')&&opts[mode].spin){if(t-spinFrame>45){opts[mode].turn+=.012;spinFrame=t;draw()}requestAnimationFrame(animate)}}
+function spinIfNeeded(){if((mode==='lorenz'||mode==='menger')&&opts[mode].spin){spinFrame=performance.now();requestAnimationFrame(animate)}}
+// Launch rotation only when its checkbox is changed; avoid scheduling parallel animation loops.
+$('controls').addEventListener('change',e=>{if(e.target.dataset.key==='spin'&&e.target.checked)spinIfNeeded()});
+function pointerPos(e){const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
+canvas.addEventListener('pointerdown',e=>{if(!['mandelbrot','julia','lorenz','menger'].includes(mode))return;drag={mode,start:pointerPos(e),prev:pointerPos(e),moved:false};canvas.setPointerCapture(e.pointerId);$('visual').classList.add('dragging')});
+canvas.addEventListener('pointermove',e=>{let p=pointerPos(e);if(mode==='mandelbrot'||mode==='julia'){let o=opts[mode],[x,y]=complexCoords(p.x,p.y,o);$('coordinates').textContent='c / z ≈ '+fmt(x,5)+' '+(y>=0?'+ ':'− ')+fmt(Math.abs(y),5)+'i'}if(!drag)return;let dx=p.x-drag.prev.x,dy=p.y-drag.prev.y;if(Math.abs(p.x-drag.start.x)+Math.abs(p.y-drag.start.y)>5)drag.moved=true;if(mode==='mandelbrot'||mode==='julia'){let o=opts[mode];o.cx-=dx*o.span/W;o.cy+=dy*o.span/W}else{let o=opts[mode];o.turn+=dx*.009;o.pitch=clamp(o.pitch+dy*.008,-1.4,1.4);o.spin=false;syncControls()}drag.prev=p; if(mode==='mandelbrot'||mode==='julia'){if(drag.moved&&Math.abs(dx)+Math.abs(dy)>0) {clearTimeout(complexTimeout);complexTimeout=setTimeout(draw,55)}}else draw()});
+canvas.addEventListener('pointerup',e=>{if(!drag)return;let active=drag;drag=null;$('visual').classList.remove('dragging');if((mode==='mandelbrot'||mode==='julia')&&!active.moved){let p=pointerPos(e),o=opts[mode],[x,y]=complexCoords(p.x,p.y,o);if(mode==='mandelbrot'&&e.altKey){opts.julia={...opts.julia,cr:x,ci:y,cx:0,cy:0,span:3.5};choose('julia')}else{zoomAt(p.x,p.y,.5)}}else draw()});
+canvas.addEventListener('pointercancel',()=>{drag=null;$('visual').classList.remove('dragging')});
+function zoomAt(px,py,factor){let o=opts[mode],[x,y]=complexCoords(px,py,o);o.span=clamp(o.span*factor,.000000001,8);o.cx=x-(px-W/2)*o.span/W;o.cy=y-(H/2-py)*o.span/W;draw()}
+canvas.addEventListener('wheel',e=>{if(mode!=='mandelbrot'&&mode!=='julia')return;e.preventDefault();let p=pointerPos(e);zoomAt(p.x,p.y,e.deltaY>0?1.45:1/1.45)},{passive:false});
+const cyan = '#7bd0dd', gold = '#e8bc6d';
+function squareFrame(){
+  const side=Math.min(W-42,H-100);
+  return [(W-side)/2,(H-side)/2+8,side];
+}
+
+function fitPath(points){
+  let minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity;
+  for(const [x,y] of points){
+    minX=Math.min(minX,x); maxX=Math.max(maxX,x);
+    minY=Math.min(minY,y); maxY=Math.max(maxY,y);
+  }
+  const scale=Math.min((W-44)/(maxX-minX||1),(H-104)/(maxY-minY||1));
+  return points.map(([x,y])=>[W/2+(x-(minX+maxX)/2)*scale,H/2+y*scale-(minY+maxY)/2*scale+8]);
+}
+
+function turtlePath(axiom,rules,angle,n){
+  for(let i=0;i<n;i++) axiom=Array.from(axiom,c=>rules[c]??c).join('');
+  let x=0,y=0,heading=0;
+  const points=[[x,y]];
+  for(const c of axiom){
+    if(c==='+') heading+=angle;
+    if(c==='-') heading-=angle;
+    if(c==='F'||c==='A'||c==='B'){
+      x+=Math.cos(heading); y+=Math.sin(heading);
+      points.push([x,y]);
+    }
+  }
+  return points;
+}
+
+function hilbertPoint(size,index){
+  let x=0,y=0;
+  for(let scale=1;scale<size;scale*=2,index>>=2){
+    const rx=(index>>1)&1,ry=(index^rx)&1;
+    if(!ry){
+      if(rx){x=scale-1-x;y=scale-1-y;}
+      [x,y]=[y,x];
+    }
+    x+=scale*rx;y+=scale*ry;
+  }
+  return [x,y];
+}
+
+function drawCurve(key,n){
+  let points;
+  if(key==='hilbert'){
+    const size=2**n;
+    points=Array.from({length:size**2},(_,i)=>hilbertPoint(size,i));
+  }else if(key==='dragon'){
+    let turns=[];
+    for(let i=0;i<n;i++) turns=[...turns,1,...turns.slice().reverse().map(t=>-t)];
+    let x=1,y=0,h=0;
+    const directions=[[1,0],[0,1],[-1,0],[0,-1]];
+    points=[[0,0],[x,y]];
+    for(const t of turns){
+      h=(h+t+4)%4;
+      x+=directions[h][0];y+=directions[h][1];
+      points.push([x,y]);
+    }
+  }else if(key==='takagi'){
+    points=Array.from({length:Math.max(200,Math.round(W*2))},(_,i)=>i);
+    points=points.map(i=>{
+      const x=i/(points.length-1);
+      let y=0;
+      for(let k=0;k<n;k++) y+=Math.abs(2**k*x-Math.round(2**k*x))/2**k;
+      return [x,-y];
+    });
+  }else{
+    const configs={
+      koch:['F--F--F',{F:'F+F--F+F'},Math.PI/3],
+      levy:['F',{F:'+F--F+'},Math.PI/4],
+      gosper:['A',{A:'A-B--B+A++AA+B-',B:'+A-BB--B-A++A+B'},Math.PI/3]
+    };
+    points=turtlePath(...configs[key],n);
+  }
+  const fitted=fitPath(points);
+  if(key==='hilbert'||key==='dragon'||key==='gosper'){
+    const stride=Math.ceil((fitted.length-1)/12);
+    for(let i=0;i<fitted.length-1;i+=stride)
+      strokePoints(fitted.slice(i,i+stride+1),'hsl('+ (190-i/fitted.length*150) +' 76% 68%)',1.4);
+  }else strokePoints(fitted,cyan,1.65);
+  return [[key==='takagi'?'Terms':'Stage',n],[key==='takagi'?'Plot samples':'Segments',fmt(points.length-(key==='takagi'?0:1))]];
+}
+
+function drawRemoval(key,n){
+  const [left,top,side]=squareFrame();
+  const keep=key==='carpet'?8:5;
+  function tile(x,y,s,depth){
+    if(depth===0){ctx.fillRect(x,y,s+.12,s+.12);return;}
+    for(let j=0;j<3;j++)for(let i=0;i<3;i++){
+      if(key==='carpet'?(i!==1||j!==1):(i+j)%2===0)
+        tile(x+i*s/3,y+j*s/3,s/3,depth-1);
+    }
+  }
+  ctx.fillStyle=cyan;
+  tile(left,top,side,n);
+  return [['Stage',n],['Squares',fmt(keep**n)],['Area remaining',fmt(100*(keep/9)**n,2)+'%']];
+}
+
+function drawTree(n){
+  const polygons=[];
+  function grow(x,y,dx,dy,depth){
+    const a=[x+dy,y-dx], b=[x+dx+dy,y+dy-dx];
+    polygons.push({depth,points:[[x,y],[x+dx,y+dy],b,a,[x,y]]});
+    if(depth===n)return;
+    const mx=(a[0]+b[0]+dy)/2,my=(a[1]+b[1]-dx)/2;
+    grow(...a,mx-a[0],my-a[1],depth+1);
+    grow(mx,my,b[0]-mx,b[1]-my,depth+1);
+  }
+  grow(0,0,1,0,0);
+  const points=fitPath(polygons.flatMap(p=>p.points));
+  polygons.forEach(({depth},i)=>{
+    ctx.fillStyle='hsl('+ (37+depth*10) +' 60% '+ (57+depth*.8) +'%)';
+    ctx.beginPath();
+    points.slice(i*5,i*5+5).forEach(([x,y],j)=>j?ctx.lineTo(x,y):ctx.moveTo(x,y));
+    ctx.fill();
+  });
+  return [['Stage',n],['Squares drawn',fmt(2**(n+1)-1)]];
+}
+
+function drawRandom(key,n){
+  const [left,top,s]=squareFrame();
+  let seed=781,x=0,y=0;
+  const triangle=[[0,0],[1,0],[.5,Math.sqrt(3)/2]];
+  ctx.fillStyle=cyan;
+  for(let i=0;i<n*1000+24;i++){
+    seed=(Math.imul(seed,1664525)+1013904223)>>>0;
+    const r=seed/2**32;
+    if(key==='chaosgame'){
+      const [a,b]=triangle[Math.floor(3*r)];
+      [x,y]=[(x+a)/2,(y+b)/2];
+      if(i>=24)ctx.fillRect(left+x*s,top+s*(.94-y),1.25,1.25);
+    }else{
+      if(r<.01)[x,y]=[0,.16*y];
+      else if(r<.86)[x,y]=[.85*x+.04*y,-.04*x+.85*y+1.6];
+      else if(r<.93)[x,y]=[.2*x-.26*y,.23*x+.22*y+1.6];
+      else [x,y]=[-.15*x+.28*y,.26*x+.24*y+.44];
+      if(i>=24)ctx.fillRect(left+s*(.5+x/11),top+s*(1-y/10.2),1.15,1.15);
+    }
+  }
+  return [['Points plotted',fmt(n*1000)],['Maps',key==='fern'?4:3]];
+}
+
+function drawAutomaton(key,n){
+  const rule=key==='wolfram'?null:Number(key.slice(4));
+  const modulus=rule===null?n:2,rows=rule===null?128:n;
+  const width=2*rows+1,cell=Math.min((W-32)/width,(H-100)/rows);
+  const left=(W-width*cell)/2,top=54;
+  let row=new Uint8Array(width),lit=0;
+  row[rows]=1;
+  for(let y=0;y<rows;y++){
+    const next=new Uint8Array(width);
+    for(let x=1;x<width-1;x++){
+      if(row[x]){
+        ctx.fillStyle=modulus===2?cyan:'hsl('+ (185+(row[x]-1)*125/(modulus-1)) +' 80% 69%)';
+        ctx.fillRect(left+x*cell,top+y*cell,cell+.15,cell+.15);
+        lit++;
+      }
+      next[x]=rule===null?(row[x-1]+row[x+1])%modulus:(rule>>(4*row[x-1]+2*row[x]+row[x+1]))&1;
+    }
+    row=next;
+  }
+  return [[rule===null?'Modulus':'Rule',rule??modulus],['Rows',rows],['Cells colored',fmt(lit)]];
+}
+
+function drawLife(n){
+  const size=46, [left,top,s]=squareFrame(),cell=s/size;
+  let board=new Uint8Array(size*size);
+  const seeds=[[[4,3],[5,4],[3,5],[4,5],[5,5]],[[33,8],[34,8],[35,8]],[[8,30],[9,30],[8,31],[9,31]]];
+  for(const seed of seeds)for(const [x,y] of seed)board[y*size+x]=1;
+  for(let t=0;t<n;t++){
+    const next=new Uint8Array(board.length);
+    for(let y=1;y<size-1;y++)for(let x=1;x<size-1;x++){
+      const i=y*size+x;
+      let count=0;
+      for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++)if(dx||dy)count+=board[i+dy*size+dx];
+      next[i]=Number(count===3||(board[i]&&count===2));
+    }
+    board=next;
+  }
+  grid(left,top,s,s,size,size);
+  ctx.fillStyle=cyan;
+  board.forEach((v,i)=>{if(v)ctx.fillRect(left+(i%size)*cell+1,top+Math.floor(i/size)*cell+1,cell-1,cell-1);});
+  return [['Generation',n],['Live cells',board.reduce((a,b)=>a+b,0)]];
+}
+
+function drawDynamics(key,n){
+  if(key==='cat'||key==='baker'){
+    const [left,top,s]=squareFrame();
+    const size=67;
+    grid(left,top,s,s,4,4);
+    ctx.fillStyle=gold;
+    if(key==='baker'){
+      let patches=[[.17,.55,.16,.47]];
+      for(let k=0;k<n;k++){
+        const next=[];
+        for(const [x0,x1,y0,y1] of patches){
+          if(x0<.5)next.push([2*x0,2*Math.min(x1,.5),y0/2,y1/2]);
+          if(x1>.5)next.push([2*Math.max(x0,.5)-1,2*x1-1,(y0+1)/2,(y1+1)/2]);
+        }
+        patches=next;
+      }
+      for(const [x0,x1,y0,y1] of patches)
+        ctx.fillRect(left+x0*s,top+(1-y1)*s,(x1-x0)*s,(y1-y0)*s);
+      return [['Iterations',n],['Rectangles',patches.length],['Area fraction',fmt(.38*.31,4)]];
+    }
+    for(let i=0;i<26;i++)for(let j=0;j<26;j++){
+      if(i>=6&&j<20&&j>=6)continue;
+      let x=i+9,y=j+9;
+      for(let k=0;k<n;k++)[x,y]=[(2*x+y)%size,(x+y)%size];
+      ctx.fillRect(left+x*s/size,top+(size-y-1)*s/size,s/size,s/size);
+    }
+    return [['Iterations',n],['Grid width',size]];
+  }
+  const left=42,top=54,w=W-left-26,h=H-top-50;
+  grid(left,top,w,h);
+  if(key==='bifurcation'){
+    ctx.fillStyle='rgba(123,208,221,.36)';
+    const columns=Math.ceil(w);
+    for(let i=0;i<columns;i++){
+      const r=n+(4-n)*i/(columns-1);
+      let x=.3621;
+      for(let j=0;j<680;j++){
+        x=r*x*(1-x);
+        if(j>=480)ctx.fillRect(left+i,top+(1-x)*h,1,1);
+      }
+    }
+    textAt('r = '+fmt(n,2),left,top+h+22);
+    textAt('4',left+w,top+h+22,12,cyan,'right');
+    textAt('1',left-15,top+4);
+    textAt('0',left-15,top+h+4);
+    return [['Lower r',n],['Upper r',4],['Samples per column',200]];
+  }
+  if(key==='tent'){
+    let a=.27891,b=.27892;
+    const paths=[[],[]];
+    for(let i=0;i<=40;i++){
+      paths[0].push([left+i*w/40,top+(1-a)*h]);
+      paths[1].push([left+i*w/40,top+(1-b)*h]);
+      if(i<40){a=n*Math.min(a,1-a);b=n*Math.min(b,1-b);}
+    }
+    strokePoints(paths[0],cyan);strokePoints(paths[1],gold,1.5);
+    textAt('Iteration 0',left,top+h+22);
+    textAt('40',left+w,top+h+22,12,cyan,'right');
+    return [['Slope',n],['Initial gap','0.00001'],['Final gap',fmt(Math.abs(a-b),6)]];
+  }
+  let x=0,y=0;
+  ctx.fillStyle='rgba(123,208,221,.55)';
+  for(let i=0;i<16300;i++){
+    [x,y]=[1-n*x*x+.3*y,x];
+    if(i>=300)ctx.fillRect(left+(x+1.5)*w/3,top+(1.5-y)*h/3,1.2,1.2);
+  }
+  return [['Parameter a',n],['Points plotted','16,000'],['Area factor','0.3']];
+}
+
+function drawNumbers(key,n){
+  if(key==='ulam'){
+    const prime=new Uint8Array(n*n+1).fill(1);
+    prime[0]=prime[1]=0;
+    for(let p=2;p*p<=n*n;p++)if(prime[p])for(let i=p*p;i<=n*n;i+=p)prime[i]=0;
+    const [left,top,s]=squareFrame(),cell=s/n,center=(n-1)/2;
+    let x=0,y=0,i=1;
+    ctx.fillStyle=gold;
+    for(let ring=1;i<=n*n;ring++){
+      for(let turn=0;turn<2&&i<=n*n;turn++){
+        const sign=ring%2?1:-1;
+        for(let j=0;j<ring&&i<=n*n;j++,i++){
+          if(prime[i])ctx.fillRect(left+(x+center)*cell,top+(center-y)*cell,Math.max(1,cell*.8),Math.max(1,cell*.8));
+          if(turn===0)x+=sign;else y+=sign;
+        }
+      }
+    }
+    return [['Largest integer',fmt(n*n)],['Primes',fmt(prime.reduce((a,b)=>a+b,0))]];
+  }
+  if(key==='tower'){
+    const count=2**n-1,left=42,w=W-64,top=57,h=H-112;
+    grid(left,top,w,h,n,4);
+    for(let i=1;i<=count;i++){
+      const disk=1+Math.log2(i&-i);
+      ctx.fillStyle=disk===n?gold:cyan;
+      ctx.fillRect(left+(i-.5)*w/count,top+h-disk*h/n,Math.max(1,w/count*.6),Math.min(4,h/n));
+    }
+    textAt('Move 1',left,top+h+24);
+    textAt(fmt(count),left+w,top+h+24,12,gold,'right');
+    return [['Disks',n],['Minimum moves',fmt(count)],['Largest disk moves at',fmt(2**(n-1))]];
+  }
+  const levels=[[{value:1,parent:null}]],seen=new Set([1]);
+  for(let d=1;d<=n;d++){
+    const row=[];
+    for(const parent of levels[d-1]){
+      const v=parent.value;
+      for(const value of [2*v,(v-1)/3]){
+        if(value!==2*v&&(!Number.isInteger(value)||value<=0||value%2===0))continue;
+        if(seen.has(value))continue;
+        seen.add(value);
+        row.push({value,parent});
+      }
+    }
+    levels.push(row);
+  }
+  levels.forEach((row,d)=>row.forEach((p,i)=>{
+    p.xy=[24+(i+.5)*(W-48)/row.length,54+d*(H-100)/n];
+    if(p.parent)strokePoints([p.parent.xy,p.xy],p.value===2*p.parent.value?'#4b768c':gold,.8);
+    ctx.fillStyle=cyan;
+    ctx.fillRect(p.xy[0]-1.4,p.xy[1]-1.4,2.8,2.8);
+    if(d<5)textAt(String(p.value),p.xy[0]+5,p.xy[1]+3,10);
+  }));
+  return [['Depth',n],['Integers shown',fmt(seen.size)],['Outer row',fmt(levels.at(-1).length)]];
+}
+
+function drawGallery(entry){
+  const key=entry[0],n=opts[key].value;
+  let metrics;
+  if(['koch','dragon','hilbert','levy','gosper','takagi'].includes(key))metrics=drawCurve(key,n);
+  else if(key==='carpet'||key==='vicsek')metrics=drawRemoval(key,n);
+  else if(key==='pythagoras')metrics=drawTree(n);
+  else if(key==='fern'||key==='chaosgame')metrics=drawRandom(key,n);
+  else if(key==='life')metrics=drawLife(n);
+  else if(key.startsWith('rule')||key==='wolfram')metrics=drawAutomaton(key,n);
+  else if(['tent','bifurcation','henon','baker','cat'].includes(key))metrics=drawDynamics(key,n);
+  else metrics=drawNumbers(key,n);
+  setMetrics(metrics);
+  const captions={
+    cat:'The same gold pixels move on a 67 × 67 grid. Coordinates wrap at the edges.',
+    baker:'Gold marks the image of one rectangular patch. Each step cuts at the middle, stretches, and stacks.',
+    life:'Glider at upper left, blinker at upper right, and stable block below.',
+    tower:'Each dot is a move. Higher rows represent larger disks. Gold marks the move of the largest disk.',
+    hailstone:'Read outward from 1. Blue edges double a value. Gold edges undo an odd step.',
+    tent:'Blue and gold show two trajectories started 0.00001 apart.',
+    bifurcation:'Each column comes from a single orbit. The first 480 updates are discarded.',
+    fern:'The point budget reveals more of the same reproducible orbit.',
+    chaosgame:'The point budget reveals more of the same reproducible orbit.'
+  };
+  footer(captions[key]||entry[3]);
+}
+
+// The page works offline; no third-party scripts, libraries, images, or fonts are needed.
+sizeAndDraw();let start=(location.hash||'#collatz').slice(1);choose(examples.some(e=>e.key===start)?start:'collatz');
+})();
+</script></body></html>
